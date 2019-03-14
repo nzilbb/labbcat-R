@@ -13,11 +13,11 @@ directy from R.
 The package can be built using:  
 `./build.sh`
 
-## Basic instructions
+## Basic usage instructions
 
 ```
 ## connect to LaBB-CAT
-labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/")
 
 ## Get the 5 seconds starting from 10s as a mono 22kHz file
 wav.file <- labbcat.getSoundFragment(labbcat, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
