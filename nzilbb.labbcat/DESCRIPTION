@@ -18,3 +18,4 @@ License: GPL (>= 3)
 Copyright: New Zealand Institute of Language, Brain and Behaviour,
  University of Canterbury
 URL: https://github.com/nzilbb/labbcat-R, https://labbcat.canterbury.ac.nz
+RoxygenNote: 6.1.1
