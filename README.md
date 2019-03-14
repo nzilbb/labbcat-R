@@ -8,6 +8,23 @@ include a function for extraction sound fragments given a transcript
 name and start/end times, so results CSV files can be processed
 directy from R.
 
+## Building the package
+
+The package can be built using:  
+`./build.sh`
+
+## Basic instructions
+
+`
+## connect to LaBB-CAT
+labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+
+## Get the 5 seconds starting from 10s as a mono 22kHz file
+wav.file <- labbcat.getSoundFragment(labbcat, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
+`
+
+## Future plans
+
 Future releases will include:
  * *getTranscriptAttributes* - for retrieving given attributes of a
  given set of transcripts.
