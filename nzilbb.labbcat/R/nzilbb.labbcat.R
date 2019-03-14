@@ -240,6 +240,32 @@ labbcat.getCorpusIds <- function(labbcat) {
     return(resp.json$model$result)
 }
 
+#' List the predefined media tracks available for transcripts.
+#' 
+#' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
+#' @return A list of media track definitions.
+#' @examples 
+#' ## Connect to LaBB-CAT
+#' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+#' 
+#' ## Get the media tracks configured in LaBB-CAT
+#' tracks <- labbcat.getMediaTracks(labbcat)
+#' 
+#' @keywords media sound
+#' 
+labbcat.getMediaTracks <- function(labbcat) {
+    url <- buildUrl(labbcat, "getMediaTracks")
+    resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    return(resp.json$model$result)
+}
+
 #' Gets a list of participant IDs.
 #'
 #' Returns a list of participant IDs.
@@ -548,6 +574,76 @@ labbcat.getAnchors <- function(labbcat, id, anchorId) {
     parameters <- list(id=id)
     for (id in anchorId) parameters <- append(parameters, list(anchorId=id))
     url <- buildUrl(labbcat, "getAnchors", parameters)
+    resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    return(resp.json$model$result)
+}
+
+#' List the media available for the given graph.
+#'
+#' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
+#' @param id A graph ID (i.e. transcript name)
+#' @return A named list of media files available for the given graph, with members:
+#' \enumerate{
+#'  \item{trackSuffix The track suffix of the media}
+#'  \item{mimeType The MIME type of the file}
+#'  \item{url URL to the content of the file}
+#'  \item{name Name of the file}
+#' }
+#' 
+#' @seealso \link{labbcat.getGraphIds}
+#' @examples 
+#' ## Connect to LaBB-CAT
+#' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+#' 
+#' ## List the media files available for BR2044_OllyOhlson.eaf
+#' media <- labbcat.getAvailableMedia(labbcat, "BR2044_OllyOhlson.eaf")
+#' 
+#' @keywords media audio
+#' 
+labbcat.getAvailableMedia <- function(labbcat, id) {
+    parameters <- list(id=id)
+    url <- buildUrl(labbcat, "getAvailableMedia", parameters)
+    resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    return(resp.json$model$result)
+}
+
+#' Gets a given media track for a given graph.
+#'
+#' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
+#' @param id A graph ID (i.e. transcript name)
+#' @param trackSuffix The track suffix of the media
+#' @param mimeType The MIME type of the media
+#' @return A URL to the given media for the given graph
+#' @seealso \link{labbcat.getGraphIds}
+#' @examples 
+#' ## Connect to LaBB-CAT
+#' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+#' 
+#' ## Get URL for the WAV file for BR2044_OllyOhlson.eaf
+#' media <- labbcat.getMedia(labbcat, "BR2044_OllyOhlson.eaf")
+#' 
+#' ## Get URL for the 'QuakeFace' video file for BR2044_OllyOhlson.eaf
+#' media <- labbcat.getMedia(labbcat, "BR2044_OllyOhlson.eaf", "_face", "video/mp4")
+#' 
+#' @keywords media audio
+#' 
+labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wav") {
+    parameters <- list(id=id, trackSuffix=trackSuffix, mimeType=mimeType)
+    url <- buildUrl(labbcat, "getMedia", parameters)
     resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
