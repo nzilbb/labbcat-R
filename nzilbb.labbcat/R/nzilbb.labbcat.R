@@ -180,20 +180,73 @@ labbcat.getLayerIds <- function(labbcat) {
     return(resp.json$model$result)
 }
 
-#' Gets a layer definition.
+#' Gets a list of layer definitions.
 #' 
-#' Gets a layer definition.
-#'
 #' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
-#' @param id ID of the layer to get the definition for
-#' @return The definition of the given layer
+#' @return A list of layer definitions, with members:
+#' \enumerate{
+#'  \item{id The layer's unique ID}
+#'  \item{parentId The layer's parent layer ID}
+#'  \item{description The description of the layer}
+#'  \item{alignment The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment}
+#'  \item{peers Whether children have peers or not}
+#'  \item{peersOverlap Whether child peers can overlap or not}
+#'  \item{parentIncludes Whether the parent t-includes the child}
+#'  \item{saturated Whether children must temporally fill the entire parent duration (true) or not (false)}
+#'  \item{parentIncludes Whether the parent t-includes the child}
+#'  \item{type The type for labels on this layer}
+#'  \item{validLabels List of valid label values for this layer}
+#' }
 #' 
 #' @seealso \code{\link{labbcat.getLayerIds}}
 #' @examples
 #' ## Connect to LaBB-CAT
 #' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
 #' 
-#' ## Get the configuration of the orthography layer
+#' ## Get definitions of all layers
+#' layers <- labbcat.getLayerIds(labbcat)
+#' 
+#' @keywords layer
+#' 
+labbcat.getLayers <- function(labbcat) {
+    url <- buildUrl(labbcat, "getLayers")
+    resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    return(resp.json$model$result)
+}
+
+#' Gets a layer definition.
+#'
+#' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
+#' @param id ID of the layer to get the definition for
+#' @return The definition of the given layer, with members:
+#' \enumerate{
+#'  \item{id The layer's unique ID}
+#'  \item{parentId The layer's parent layer ID}
+#'  \item{description The description of the layer}
+#'  \item{alignment The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment}
+#'  \item{peers Whether children have peers or not}
+#'  \item{peersOverlap Whether child peers can overlap or not}
+#'  \item{parentIncludes Whether the parent t-includes the child}
+#'  \item{saturated Whether children must temporally fill the entire parent duration (true) or not (false)}
+#'  \item{parentIncludes Whether the parent t-includes the child}
+#'  \item{type The type for labels on this layer}
+#'  \item{validLabels List of valid label values for this layer}
+#' }
+#' 
+#' @seealso \code{\link{labbcat.getLayerIds}}
+#' \code{\link{labbcat.getLayers}}
+#' @examples
+#' ## Connect to LaBB-CAT
+#' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+#' 
+#' ## Get the definition of the orthography layer
 #' orthography.layer <- labbcat.getLayer(labbcat, "orthography")
 #'
 #' @keywords layer
