@@ -5,12 +5,12 @@
 #' \packageDESCRIPTION{nzilbb.labbcat}
 #' \packageIndices{nzilbb.labbcat}
 #' 
-#' LaBB-CAT is a web-based language corpus management system and this
-#' package provides access to data stored in a LaBB-CAT instance.
+#' 'LaBB-CAT' is a web-based language corpus management system and this
+#' package provides access to data stored in a 'LaBB-CAT' instance.
 #' 
-#' As LaBB-CAT instances are usually password-protected, the function
+#' As 'LaBB-CAT' instances are usually password-protected, the function
 #' \code{labbcat.instance} must be used first of all to create an object
-#' that provides access to a specific instance of LaBB-CAT with specific
+#' that provides access to a specific instance of 'LaBB-CAT' with specific
 #' credentials.  This object is then used as the first argument for all
 #' other function calls.
 #' 
@@ -54,14 +54,14 @@ buildUrl <- function(labbcat, call, parameters = NULL) {
 
 ## Export functions:
 
-#' Connects to the given LaBB-CAT instance, and returns and object that
+#' Connects to the given 'LaBB-CAT' instance, and returns and object that
 #' must be used for all other functions.
 #'
-#' If a username and password are not passed, and the LaBB-CAT instance
+#' If a username and password are not passed, and the 'LaBB-CAT' instance
 #' is password-protected (and the function is called in interactive
 #' mode), then the user will be prompted for the username and
 #' password. This is the recommended method for accessing
-#' password-protected LaBB-CAT instances, in order to avoid saving
+#' password-protected 'LaBB-CAT' instances, in order to avoid saving
 #' passwords in script files. The username and password parameters are
 #' provided for cases where the script is not run in interactive mode.
 #' 
@@ -127,7 +127,7 @@ labbcat.instance <- function(url, username = NULL, password = NULL, timeout = 10
 
 #' Gets the store's ID.
 #' 
-#' The store's ID - i.e. the ID of the LaBB-CAT instance.
+#' The store's ID - i.e. the ID of the 'LaBB-CAT' instance.
 #'
 #' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
 #' @return The annotation store's ID
@@ -266,7 +266,7 @@ labbcat.getLayer <- function(labbcat, id) {
 
 #' Gets a list of corpus IDs.
 #' 
-#' Returns a list of corpora in the given LaBB-CAT instance.
+#' Returns a list of corpora in the given 'LaBB-CAT' instance.
 #' 
 #' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
 #' @return A list of corpus IDs
@@ -378,7 +378,7 @@ labbcat.getGraphIds <- function(labbcat) {
 
 #' Gets a list of corpus IDs.
 #'
-#' Returns a list of corpora in the given LaBB-CAT instance.
+#' Returns a list of corpora in the given 'LaBB-CAT' instance.
 #'
 #' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
 #' @param id The ID (name) of the corpus
@@ -708,17 +708,25 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
     return(resp.json$model$result)
 }
 
-#' Gets a sound fragment from LaBB-CAT.
+#' Gets a sound fragment from 'LaBB-CAT'.
 #'
 #' Extracts part of a WAV file.
 #' 
-#' @param labbcat A LaBB-CAT instance object previously created by a call to labbcat.instance
-#' @param id The graph ID (transcript name) of the sound recording
-#' @param start The start time in seconds
-#' @param end The end time in seconds
-#' @param sampleRate Optional sample rate in Hz - if a positive integer, then the
-#'    result is a mono file with the given sample rate 
-#' @return The name of the file, which is saved in the current directory
+#' @param labbcat A LaBB-CAT instance object previously created by a
+#'     call to labbcat.instance 
+#' @param id The graph ID (transcript name) of the sound recording, or
+#'     a list of gaph IDs. 
+#' @param start The start time in seconds, or a list of start times.
+#' @param end The end time in seconds, or a list of end times.
+#' @param sampleRate Optional sample rate in Hz - if a positive
+#'     integer, then the result is a mono file with the given sample rate 
+#' @return The name of the file, which is saved in the current
+#'     directory, or a list of names of files, if multiple
+#'     id's/start's/end's were specified 
+#'
+#' If a list of files is returned, they are in the order that they
+#'     were returned by the server, which *should* be the order that
+#'     they were specified in the id/start/end lists.
 #' 
 #' @examples 
 #' ## Connect to LaBB-CAT
@@ -734,31 +742,61 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 #' 
 labbcat.getSoundFragment <- function(labbcat, id, start, end, sampleRate = NULL) {
     url <- paste(labbcat$baseUrl, "soundfragment", sep="")
-    parameters <- list(id=id, start=start, end=end)
+    parameters <- list()
+    # TODO is there a better way to do this?
+    for (i in id) parameters <- append(parameters, list(id=i))
+    for (s in start) parameters <- append(parameters, list(start=s))
+    for (e in end) parameters <- append(parameters, list(end=e))
     if (!is.null(sampleRate)) parameters <- list(id=id, start=start, end=end, sampleRate=sampleRate)
-    filename <- paste(stringr::str_replace(id, "\\.[^.]+$",""), "__", start, "-", end, ".wav", sep="")
+    if (length(id) == 1) { ## one fragment
+        file.name <- paste(stringr::str_replace(id, "\\.[^.]+$",""), "__", start, "-", end, ".wav", sep="")
+    } else { ## multiple fragments
+        file.name <- "fragments.zip"
+    }
     tryCatch({
-        resp <- httr::POST(url, labbcat$authorization, httr::write_disk(filename, overwrite=TRUE), httr::timeout(labbcat$timeout), body = parameters, encode = "form")
+        resp <- httr::POST(url, labbcat$authorization, httr::write_disk(file.name, overwrite=TRUE),
+                           httr::timeout(length(id) * labbcat$timeout), # longer for more id's
+                           body = parameters, encode = "form")
         if (httr::status_code(resp) != 200) { # 200 = OK
             print(paste("ERROR: ", httr::http_status(resp)$message))
             if (httr::status_code(resp) != 404) { # 404 means the audio wasn't on the server
                 ## some other error occurred so print what we got from the server
-                print(readLines(filename))
+                print(readLines(file.name))
             }
-            file.remove(filename)
+            file.remove(file.name)
             return(NULL)
         }
         content.disposition <- as.character(httr::headers(resp)["content-disposition"])
         content.disposition.parts <- strsplit(content.disposition, "=")
         if (length(content.disposition.parts[[1]]) > 1
-            && filename != content.disposition.parts[[1]][2]) {
+            && file.name != content.disposition.parts[[1]][2]) {
             ## file name is specified, so use it
-            file.rename(filename, content.disposition.parts[[1]][2])
-            filename <- content.disposition.parts[[1]][2]
+            file.rename(file.name, content.disposition.parts[[1]][2])
+            file.name <- content.disposition.parts[[1]][2]
+        }
+
+        ## if it's a zip file, unzip it and return a list of files
+        if (endsWith(file.name,".zip")) {
+            dir <- substr(file.name, 1, nchar(file.name) - 4)
+            if (file.exists(dir)) {
+                ## ensure it's a new directory by adding a number
+                n <- 1
+                new.dir = paste(dir,"(",n,")", sep="")
+                while (file.exists(new.dir)) {
+                    n <- n + 1
+                    new.dir = paste(dir,"(",n,")", sep="")
+                } # next try
+                dir <- new.dir
+            }
+            dir.create(dir)
+            unzip(file.name, exdir=dir)
+            file.names <- zip::zip_list("results.zip")$filename
+            file.remove(file.name)
+            file.name <- paste(dir,file.names, sep=.Platform$file.sep)
         }
     }, error = function(e) {
         print(paste("ERROR:", e))
-        filename <<- NULL
+        file.name <<- NULL
     })
-    return(filename)
+    return(file.name)
 }
