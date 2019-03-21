@@ -1,6 +1,9 @@
 echo delete editor backup files...
 find . -name "*~" -exec rm \{\} \;
 
+echo remove older versions
+rm nzilbb.labbcat_*.tar.gz
+
 echo generate documentation ...
 R -e "devtools::document('nzilbb.labbcat')"
 
