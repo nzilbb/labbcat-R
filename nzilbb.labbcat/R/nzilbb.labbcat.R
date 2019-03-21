@@ -730,7 +730,8 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 #'     were returned by the server, which *should* be the order that
 #'     they were specified in the id/start/end lists.
 #' 
-#' @examples 
+#' @examples
+#' \dontrun{
 #' ## Connect to LaBB-CAT
 #' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
 #' 
@@ -745,11 +746,12 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 #'              id=c("AP2505_Nelson.eaf", "AP2512_MattBlack.eaf", "AP2512_MattBlack.eaf"),
 #'              start=c(10.0, 20.0, 30.0),
 #'              end=c(15.0, 25.0, 35.0))
-#' wav.files <- labbcat.getSoundFragment(labbcat, ids, starts, ends)
+#' wav.files <- labbcat.getSoundFragment(labbcat, results$id, results$start, results$end)
 #' 
 #' ## Get a list of fragments with no prgress bar
 #' wav.file <- labbcat.getSoundFragment(
 #'               labbcat, results$id, results$start, results$end, no.progress=TRUE)
+#' }
 #' @keywords sample sound fragment wav
 #' 
 labbcat.getSoundFragment <- function(labbcat, id, start, end, sampleRate = NULL, no.progress=FALSE) {
