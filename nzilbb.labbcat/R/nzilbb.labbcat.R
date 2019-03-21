@@ -741,20 +741,18 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 #' wav.file <- labbcat.getSoundFragment(labbcat, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
 #' 
 #' ## Get a list of fragments
-#' ids <- c("AP2505_Nelson.eaf", "AP2512_MattBlack.eaf", "AP2512_MattBlack.eaf")
-#' starts <- c(10.0, 20.0, 30.0)
-#' ends <- c(15.0, 25.0, 35.0)
-#' wav.file <- labbcat.getSoundFragment(labbcat, ids, starts, ends)
+#' results <- data.frame(
+#'              id=c("AP2505_Nelson.eaf", "AP2512_MattBlack.eaf", "AP2512_MattBlack.eaf"),
+#'              start=c(10.0, 20.0, 30.0),
+#'              end=c(15.0, 25.0, 35.0))
+#' wav.files <- labbcat.getSoundFragment(labbcat, ids, starts, ends)
 #' 
-#' ## Get a list of fragments
-#' ids <- c("AP2505_Nelson.eaf", "AP2512_MattBlack.eaf", "AP2512_MattBlack.eaf")
-#' starts <- c(10.0, 20.0, 30.0)
-#' ends <- c(15.0, 25.0, 35.0)
-#' wav.file <- labbcat.getSoundFragment(labbcat, ids, starts, ends)
+#' ## Get a list of fragments with no prgress bar
+#' wav.file <- labbcat.getSoundFragment(
+#'               labbcat, results$id, results$start, results$end, no.progress=TRUE)
 #' @keywords sample sound fragment wav
 #' 
 labbcat.getSoundFragment <- function(labbcat, id, start, end, sampleRate = NULL, no.progress=FALSE) {
-
     if (length(id) == 1) { ## one fragment
         dir <- ""
     } else { ## multiple fragments
