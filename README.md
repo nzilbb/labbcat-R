@@ -291,7 +291,7 @@ How the search language might work (i.e. the "segments.label MATCHES 'I'" part),
 
 ### Credentials and Security
 
-Finally, having usernames and passwords potentially saved to script
+Having usernames and passwords potentially saved to script
 files or typed out in front of others is inherently insecure. Some
 mechanism will be invented which makes this unnecessary.  That might
 involve:
