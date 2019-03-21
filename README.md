@@ -74,7 +74,6 @@ paste("There are", length(transcripts), "transcripts. The first one is", transcr
 There are also ways to get a filtered list of transcripts:
 
 ```{r listing-graph-ids}
-
 ## Transcripts in the UC corpus:
 labbcat.getGraphIdsInCorpus(labbcat, "UC")
 
@@ -91,7 +90,6 @@ labbcat.getMatchingGraphIdsPage(labbcat, "id MATCHES '.*YW.*'")
 Given a graph ID (i.e. a transcript name) you can access information about what media it has available:
 
 ```{r media}
-
 ## Default WAV URL:
 labbcat.getMedia(labbcat, "AP2515_ErrolHitt.eaf")
 
@@ -128,7 +126,6 @@ if (httr::status_code(response) != 200) { # 200 means OK
 You can access a selected fragment of a wav file with `labbcat.getSoundFragment`. The function downloads a wav file to the current working directory, and returns the name of the file:
 
 ```{r media-fragment}
-
 wav.file <- labbcat.getSoundFragment(labbcat, "AP2505_Nelson.eaf", 10.0, 15.0)
 
 paste("The third 5 seconds is in this file:", wav.file)
@@ -278,14 +275,26 @@ attributes <- labbcat.getTranscriptAttributes(labbcat, id.list, c("language","du
 Something like: 
 
 ```
-attributes <- labbcat.getTranscriptAttributes(labbcat, participant.list, c("dob","gender"))
+attributes <- labbcat.getGraphAttributes(labbcat, participant.list, c("dob","gender"))
 ```
 
 ### Search
 
-Something like:
+To be able to do 'everything' from within R, there needs to be a way of conducting searches, 
+something like:
 
 ```
 results <- labbcat.search(labbcat, "segments.label MATCHES 'I'", participants=participant.list)
 ```
+
+How the search language might work (i.e. the "segments.label MATCHES 'I'" part), I'm not sure about yet.
+
+### Credentials and Security
+
+Finally, having usernames and passwords potentially saved to script
+files or typed out in front of others is inherently insecure. Some
+mechanism will be invented which makes this unnecessary.  That might
+involve:
+* having usernames/passwords stored in a file separate from the main script
+* using some GUI package that allows hidden entry of passwords
 
