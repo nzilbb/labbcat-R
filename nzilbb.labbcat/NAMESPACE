@@ -1,2 +1,2 @@
 exportPattern("labbcat.+")
-importFrom("utils", "URLencode")
+importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar")
