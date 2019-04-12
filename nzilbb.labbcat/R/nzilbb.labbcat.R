@@ -7,6 +7,8 @@
 #' 
 #' 'LaBB-CAT' is a web-based language corpus management system and this
 #' package provides access to data stored in a 'LaBB-CAT' instance.
+#' You must have at least version 20190412.1154 of 'LaBB-CAT' to use
+#' this package.
 #' 
 #' As 'LaBB-CAT' instances are usually password-protected, the function
 #' \code{labbcat.instance} must be used first of all to create an object
@@ -33,7 +35,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20190312.1838"
+.min.labbcat.version <- "20190412.1154"
 
 ## encode a parameter value for inclusion in the URL
 enc <- function(value) {
@@ -710,8 +712,6 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 
 #' Gets a sound fragment from 'LaBB-CAT'.
 #'
-#' Extracts part of a WAV file.
-#' 
 #' @param labbcat A LaBB-CAT instance object previously created by a
 #'     call to labbcat.instance 
 #' @param id The graph ID (transcript name) of the sound recording, or
@@ -827,4 +827,69 @@ labbcat.getSoundFragment <- function(labbcat, id, start, end, sampleRate = NULL,
     } ## next row
     if (!is.null(pb)) close(pb)
     return(file.names)   
+}
+
+#' Gets labels of annotations on a given layer, identified by given annotation IDs.
+#'
+#' @param labbcat A LaBB-CAT instance object previously created by a
+#'     call to labbcat.instance 
+#' @param id A vector of annotation IDs. 
+#' @param layerId A layer name.
+#' @param count The number of annotations on the given layer to retrieve.
+#' @param no.progress Optionally suppress the progress bar when
+#'     multiple fragments are  specified - TRUE for no progress bar.
+#' @return A data frame of labels.
+#' 
+#' @examples
+#' ## Connect to LaBB-CAT
+#' labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
+#' 
+#' ## Get a list of topics
+#' results <- data.frame(
+#'              id=c("AP513_Steve.eaf", "AP513_Steve.eaf", "AP513_Steve.eaf"),
+#'              MatchId=c("ew_0_7260", "ew_0_7487", "ew_0_7704"))
+#' topics <- labbcat.getLabels(labbcat, results$MatchId, "topic")
+#' 
+#' ## Get a list of fragments with no prgress bar
+#' wav.file <- labbcat.getSoundFragment(
+#'               labbcat, results$id, results$start, results$end, no.progress=TRUE)
+#' @keywords sample sound fragment wav
+#' 
+labbcat.getLabels <- function(labbcat, id, layerId, count=1, no.progress=FALSE) {
+
+    pb <- NULL
+    if (!no.progress && length(id) > 1) {
+        pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
+    }
+
+    ## loop throug each id, getting fragments individually
+    labels = c() ## TODO data frame
+    r <- 1
+    for (annotation.id in id) {
+        ## TODO can't necessarily assume that annotation.id is on the transcript layer
+        expression = paste("my('transcript').id = '", annotation.id, "' AND layer.id = '",layerId,"'", sep="")
+        parameters <- list(expression=expression, pageLength=count, pageNumber=0)
+        url <- buildUrl(labbcat, "getMatchingAnnotations", parameters)
+        label <<- NA
+        tryCatch({
+            resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
+            resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+            if (httr::status_code(resp) != 200) { # 200 = OK
+                print(paste("ERROR: ", httr::http_status(resp)$message))
+            } else {
+                resp.json <- jsonlite::fromJSON(resp.content)
+                if (length(resp.json$model$result) > 0) {
+                    label <<- resp.json$model$result$label
+                }
+            }
+        }, error = function(e) {
+            print(paste("ERROR:", e))
+        })
+        labels <- append(labels, label)
+        
+        if (!is.null(pb)) setTxtProgressBar(pb, r)
+        r <- r+1
+    } ## next row
+    if (!is.null(pb)) close(pb)
+    return(labels)   
 }
