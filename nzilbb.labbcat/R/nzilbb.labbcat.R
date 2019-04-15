@@ -899,7 +899,11 @@ labbcat.getLabels <- function(labbcat, id, layerId, count=1, no.progress=FALSE) 
     if (!is.null(pb)) close(pb)
     cols <- c()
     for (col in 1:count) {
-        col.name <- paste(layerId,".",col,sep="")
+        if (count == 1) {
+            col.name <- layerId
+        } else {
+            col.name <- paste(layerId,".",col,sep="")
+        }
         cols <- append(cols, col.name)
     }
     labels.matrix <- matrix(labels, ncol=count, byrow=TRUE)
