@@ -869,6 +869,8 @@ labbcat.getLabels <- function(labbcat, id, layerId, count=1, no.progress=FALSE) 
     ## loop through each id, getting fragments individually
     r <- 1
     for (annotation.id in id) {
+        ## if the ID is actually a URL or MatchId, pick out the ew_0_n+ part
+        annotation.id <- stringr::str_match(annotation.id, "ew_0_[0-9]+")
         ## TODO can't necessarily assume that annotation.id is on the transcript layer
         expression = paste("my('transcript').id = '", annotation.id, "' AND layer.id = '",layerId,"'", sep="")
         parameters <- list(expression=expression, pageLength=count, pageNumber=0)
