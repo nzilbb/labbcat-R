@@ -862,34 +862,49 @@ labbcat.getLabels <- function(labbcat, id, layerId, count=1, no.progress=FALSE) 
         pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
     }
 
-    ## loop throug each id, getting fragments individually
-    labels = c() ## TODO data frame
+    ## we need a vector of size 'count' to store vectors of labels
+    labels = c()
+    for (col in 1:count) labels <- append(labels, c())
+    
+    ## loop through each id, getting fragments individually
     r <- 1
     for (annotation.id in id) {
         ## TODO can't necessarily assume that annotation.id is on the transcript layer
         expression = paste("my('transcript').id = '", annotation.id, "' AND layer.id = '",layerId,"'", sep="")
         parameters <- list(expression=expression, pageLength=count, pageNumber=0)
         url <- buildUrl(labbcat, "getMatchingAnnotations", parameters)
-        label <<- NA
-        tryCatch({
-            resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
-            resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-            if (httr::status_code(resp) != 200) { # 200 = OK
-                print(paste("ERROR: ", httr::http_status(resp)$message))
-            } else {
-                resp.json <- jsonlite::fromJSON(resp.content)
-                if (length(resp.json$model$result) > 0) {
-                    label <<- resp.json$model$result$label
+        ## create default row
+        row <- c()
+        ## fill it with NA
+        for (col in 1:count) row <- append(row, NA)
+
+        resp <- httr::GET(url, labbcat$authorization, httr::timeout(labbcat$timeout))
+        resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+        if (httr::status_code(resp) != 200) { # 200 = OK
+            print(paste("ERROR: ", httr::http_status(resp)$message))
+        } else {
+            resp.json <- jsonlite::fromJSON(resp.content)
+            if (length(resp.json$model$result) > 0) {
+                ## populate the row
+                for (col in 1:count) {
+                    row[col] <- resp.json$model$result$label[col]
                 }
             }
-        }, error = function(e) {
-            print(paste("ERROR:", e))
-        })
-        labels <- append(labels, label)
+        }
+        labels <- append(labels, row)
         
         if (!is.null(pb)) setTxtProgressBar(pb, r)
         r <- r+1
     } ## next row
     if (!is.null(pb)) close(pb)
-    return(labels)   
+    cols <- c()
+    for (col in 1:count) {
+        col.name <- paste(layerId,".",col,sep="")
+        cols <- append(cols, col.name)
+    }
+    labels.matrix <- matrix(labels, ncol=count, byrow=TRUE)
+    colnames(labels.matrix) <- cols
+    labels.df <- as.data.frame(labels.matrix, col.names=cols)
+
+    return(labels.df)
 }
