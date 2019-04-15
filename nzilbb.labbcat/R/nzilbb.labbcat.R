@@ -107,7 +107,7 @@ labbcat.instance <- function(url, username = NULL, password = NULL, timeout = 10
             print(paste("ERROR: ", httr::http_status(resp)$message))
             return(NULL)
         }
-    } else { ## respons was OK
+    } else { ## response was OK
         ## check the LaBB-CAT version
         resp.content <- httr::content(resp, as="text", encoding="UTF-8")
         resp.json <- jsonlite::fromJSON(resp.content)
