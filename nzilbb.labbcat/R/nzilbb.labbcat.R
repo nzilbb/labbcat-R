@@ -10,12 +10,6 @@
 #' You must have at least version 20190412.1154 of 'LaBB-CAT' to use
 #' this package.
 #' 
-#' As 'LaBB-CAT' instances are usually password-protected, the function
-#' \code{labbcat.instance} must be used first of all to create an object
-#' that provides access to a specific instance of 'LaBB-CAT' with specific
-#' credentials.  This object is then used as the first argument for all
-#' other function calls.
-#' 
 #' @docType package
 #' @keywords package
 #' @name nzilbb.labbcat
@@ -24,8 +18,11 @@
 #' \cite{Robert Fromont and Jennifer Hay, "{ONZE Miner}: the development of a browser-based research tool", 2008}
 #' \cite{Robert Fromont, "Toward a format-neutral annotation store", 2017}
 #' @examples
-#' ## connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## optionally specify the username/password in the script
+#' ## (if this is not done, we will be prompted for the username/password)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get the 5 seconds starting from 10s as a mono 22kHz file
@@ -40,9 +37,6 @@ NULL
 
 ## HTTP request timeout
 .request.timeout <- 10
-
-## Credentials - a collection of LaBB-CAT URLs with corresponding username/password
-.credentials = list()
 
 ## encode a parameter value for inclusion in the URL
 enc <- function(value) {
@@ -156,7 +150,14 @@ http.post <- function(labbcat, path, parameters, file.name) {
 ## Export functions:
 
 #' Sets the username and password that the package should use for connecting
-#' to a given LaBB-CAT server.
+#' to a given LaBB-CAT server in future function calls.
+#'
+#' This step is optional, as all functions will prompt the user for the username
+#' and password if required.
+#'
+#' The recommended approach is to *not* use labbcat.instance, to avoid saving
+#' user credentials in script files that may eventually become visible to other.
+#' Use labbcat.instance *only* in cases where the script execution is unsupervised.
 #'
 #' @param labbcat URL to the LaBB-CAT instance
 #' @param username The LaBB-CAT username, if it is password-protected
@@ -165,6 +166,9 @@ http.post <- function(labbcat, path, parameters, file.name) {
 #' NULL if they username/password are correct but the version of LaBB-CAT
 #' is incompatible with the package, and TRUE otherwise.
 #' @examples
+#' ## define the LaBB-CAT URL
+#' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
 #' ## connect to a password-protected instance of LaBB-CAT with explicit credentials
 #' labbcat.instance(labbcat, "demo", "demo")
 #'
@@ -205,8 +209,11 @@ labbcat.instance <- function(labbcat, username, password) {
 #' @param labbcat URL to the LaBB-CAT instance
 #' @return The annotation store's ID
 #' @examples
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get ID of LaBB-CAT instance
@@ -275,8 +282,11 @@ labbcat.getLayerIds <- function(labbcat) {
 #' 
 #' @seealso \code{\link{labbcat.getLayerIds}}
 #' @examples
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get definitions of all layers
@@ -319,8 +329,11 @@ labbcat.getLayers <- function(labbcat) {
 #' @seealso \code{\link{labbcat.getLayerIds}}
 #' \code{\link{labbcat.getLayers}}
 #' @examples
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get the definition of the orthography layer
@@ -349,8 +362,11 @@ labbcat.getLayer <- function(labbcat, id) {
 #' @return A list of corpus IDs
 #' 
 #' @examples
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## List corpora
@@ -376,8 +392,11 @@ labbcat.getCorpusIds <- function(labbcat) {
 #' @param labbcat URL to the LaBB-CAT instance
 #' @return A list of media track definitions.
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get the media tracks configured in LaBB-CAT
@@ -405,8 +424,11 @@ labbcat.getMediaTracks <- function(labbcat) {
 #' @return A list of participant IDs
 #' 
 #' @examples
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## List all speakers
@@ -435,8 +457,11 @@ labbcat.getParticipantIds <- function(labbcat) {
 #' @return A list of graph IDs
 #' 
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## List all transcripts
@@ -466,8 +491,11 @@ labbcat.getGraphIds <- function(labbcat) {
 #' @return A list of corpus IDs
 #' 
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## List corpora
@@ -499,8 +527,11 @@ labbcat.getGraphIdsInCorpus <- function(labbcat, id) {
 #' 
 #' @seealso \code{\link{labbcat.getParticipantIds}}
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## List transcripts in which UC427_ViktoriaPapp_A_ENG speaks
@@ -545,8 +576,11 @@ labbcat.getGraphIdsWithParticipant <- function(labbcat, id) {
 #' @return A list of graph IDs (i.e. transcript names)
 #' 
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get all transcripts whose names start with "BR"
@@ -600,8 +634,11 @@ labbcat.getMatchingGraphIdsPage <- function(labbcat, expression, pageLength = NU
 #' \code{\link{labbcat.getGraphIdsInCorpus}}
 #' \code{\link{labbcat.getGraphIdsWithParticipant}}
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Count the number of words in UC427_ViktoriaPapp_A_ENG.eaf
@@ -652,8 +689,11 @@ labbcat.countAnnotations <- function(labbcat, id, layerId) {
 #'   \code{\link{labbcat.getGraphIdsWithParticipant}}
 #'   \code{\link{labbcat.countAnnotations}}
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get all the orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf
@@ -698,8 +738,11 @@ labbcat.getAnnotations <- function(labbcat, id, layerId, pageLength = NULL, page
 #' 
 #' @seealso \link{labbcat.getAnnotations}
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get the first 20 orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf
@@ -739,8 +782,11 @@ labbcat.getAnchors <- function(labbcat, id, anchorId) {
 #' 
 #' @seealso \link{labbcat.getGraphIds}
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## List the media files available for BR2044_OllyOhlson.eaf
@@ -771,8 +817,11 @@ labbcat.getAvailableMedia <- function(labbcat, id) {
 #' @return A URL to the given media for the given graph
 #' @seealso \link{labbcat.getGraphIds}
 #' @examples 
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get URL for the WAV file for BR2044_OllyOhlson.eaf
@@ -799,8 +848,7 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 
 #' Gets a sound fragment from 'LaBB-CAT'.
 #'
-#' @param labbcat A LaBB-CAT instance object previously created by a
-#'     call to labbcat.instance 
+#' @param @param labbcat URL to the LaBB-CAT instance
 #' @param id The graph ID (transcript name) of the sound recording, or
 #'     a vector of graph IDs. 
 #' @param start The start time in seconds, or a vector of start times.
@@ -819,8 +867,11 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 #' 
 #' @examples
 #' \dontrun{
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
 #' ## Get the 5 seconds starting from 10s after the beginning of a recording
@@ -829,11 +880,15 @@ labbcat.getMedia <- function(labbcat, id, trackSuffix = "", mimeType = "audio/wa
 #' ## Get the 5 seconds starting from 10s as a mono 22kHz file
 #' wav.file <- labbcat.getSoundFragment(labbcat, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
 #' 
-#' ## Get a list of fragments
+#' ## Load some search results, normally something like:
+#' ##  results <- read.csv("results.csv", header=T)
+#' ## ...but for demonstration purposes:
 #' results <- data.frame(
 #'              id=c("AP2505_Nelson.eaf", "AP2512_MattBlack.eaf", "AP2512_MattBlack.eaf"),
 #'              start=c(10.0, 20.0, 30.0),
 #'              end=c(15.0, 25.0, 35.0))
+#' 
+#' ## Get a list of fragments
 #' wav.files <- labbcat.getSoundFragment(labbcat, results$id, results$start, results$end)
 #' 
 #' ## Get a list of fragments with no prgress bar
@@ -915,8 +970,7 @@ labbcat.getSoundFragment <- function(labbcat, id, start, end, sampleRate = NULL,
 
 #' Gets labels of annotations on a given layer, identified by given annotation IDs.
 #'
-#' @param labbcat A LaBB-CAT instance object previously created by a
-#'     call to labbcat.instance 
+#' @param @param labbcat URL to the LaBB-CAT instance
 #' @param id A vector of annotation IDs. 
 #' @param layerId A layer name.
 #' @param count The number of annotations on the given layer to retrieve.
@@ -925,20 +979,25 @@ labbcat.getSoundFragment <- function(labbcat, id, start, end, sampleRate = NULL,
 #' @return A data frame of labels.
 #' 
 #' @examples
-#' ## Connect to LaBB-CAT
+#' ## define the LaBB-CAT URL
 #' labbcat <- "https://labbcat.canterbury.ac.nz/demo/"
+#' 
+#' ## specify the username/password in the script
+#' ## (only use labbcat.instance for scripts that must execute unsupervised!)
 #' labbcat.instance(labbcat, "demo", "demo")
 #' 
-#' ## Get a list of topics
+#' ## Load some serach results, normally something like:
+#' ##  results <- read.csv("results.csv", header=T)
+#' ## ...but for demonstration purposes:
 #' results <- data.frame(
 #'              id=c("AP513_Steve.eaf", "AP513_Steve.eaf", "AP513_Steve.eaf"),
-#'              MatchId=c("ew_0_7260", "ew_0_7487", "ew_0_7704"))
+#'              MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
+#'                        "g_6;em_12_429;n_9263-n_9265;p_14;#=ew_0_7487;[0]=ew_0_7487",
+#'                        "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7704;[0]=ew_0_7704"))
+#'
+#' ## Get the topic annotations for the matches
 #' topics <- labbcat.getLabels(labbcat, results$MatchId, "topic")
-#' 
-#' ## Get a list of fragments with no prgress bar
-#' wav.file <- labbcat.getSoundFragment(
-#'               labbcat, results$id, results$start, results$end, no.progress=TRUE)
-#' @keywords sample sound fragment wav
+#' @keywords layer annotation label
 #' 
 labbcat.getLabels <- function(labbcat, id, layerId, count=1, no.progress=FALSE) {
 
