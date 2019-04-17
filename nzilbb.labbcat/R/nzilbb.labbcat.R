@@ -38,6 +38,17 @@ NULL
 ## HTTP request timeout
 .request.timeout <- 10
 
+## prompt for password in RStudio, falling back to terminal if we're not in RStudio
+get.hidden.input <- function(prompt) {
+    return(tryCatch({
+        ## try using the RStudio API for hidden input
+        rstudioapi::askForPassword(prompt)
+    }, error = function(e) {
+        ## fall back to 
+        readline(paste("WARNING: Input will be visible -", prompt))
+    }))
+}
+
 ## encode a parameter value for inclusion in the URL
 enc <- function(value) {
     return(stringr::str_replace_all(URLencode(value),"\\+","%2B"))
@@ -88,8 +99,8 @@ store.get <- function(labbcat, call, parameters = NULL) {
         repeat {
             instance.ok <- labbcat.instance(
                 labbcat,
-                readline(paste(instance.name, "Username:", "")),
-                readline(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
             ## NULL means success, but wrong LaBB-CAT version
             if (is.null(instance.ok)) return(NULL)
             ## TRUE means everything OK
@@ -132,8 +143,8 @@ http.post <- function(labbcat, path, parameters, file.name) {
         repeat {
             instance.ok <- labbcat.instance(
                 labbcat,
-                readline(paste(instance.name, "Username:", "")),
-                readline(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
             ## NULL means success, but wrong LaBB-CAT version
             if (is.null(instance.ok)) return(NULL)
             ## TRUE means everything OK
