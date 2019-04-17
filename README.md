@@ -29,28 +29,22 @@ To use it:
 require(nzilbb.labbcat)
 ```
 
-Finally, to communicate with a particular instance of LaBB-CAT, you need to use the `labbcat.instance` function, specifying the URL of the LaBB-CAT instance - e.g. "https://labbcat.canterbury.ac.nz/demo/".  If you want to connect to your own instance and don't know the correct URL, log in to LaBB-CAT with your browser, click the *home* link on the menu, and copy the URL that's in your browser's address box.
+For all functions, the first parameter is the URL to the LaBB-CAT instance you want
+to interact with - e.g. "https://labbcat.canterbury.ac.nz/demo/".
 
-If you're using R in interactive mode, it's best to just specify the URL, like this: `labbcat.instance("https://labbcat.canterbury.ac.nz/demo/")`
-
-If LaBB-CAT is password-protected, you will then be asked to enter the username and password.
-
-If you're not in interactive mode, then you must specify the username and the password as the second and third parameters to the function:
-
-```{r labbcat.instance}
-labbcat <- labbcat.instance("https://labbcat.canterbury.ac.nz/demo/", "demo", "demo")
-```
-
-The function returns a variable that you must use as the first parameter for all the other LaBB-CAT functions.
+If the instance is password-protected, you'll be prompted for the username and password
+the first time you invoke a function for that instance.
 
 ### Basic informational functions
 
 There are some basic functions that provide information about the LaBB-CAT instance you're using.
 
 ```{r basic-info}
-id <- labbcat.getId(labbcat)
-layers <- labbcat.getLayerIds(labbcat)
-corpora <- labbcat.getCorpusIds(labbcat)
+labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
+
+id <- getId(labbcat)
+layers <- getLayerIds(labbcat.url)
+corpora <- getCorpusIds(labbcat.url)
 
 paste("LaBB-CAT instance", id, "has", length(layers), "layers. The corpora are:")
 corpora
@@ -63,8 +57,8 @@ Transcripts are called 'graphs' because each one is represented as an 'Annotatio
 You can get a complete list of participants and transcripts:
 
 ```{r participants-graphs}
-participants <- labbcat.getParticipantIds(labbcat)
-transcripts <- labbcat.getGraphIds(labbcat)
+participants <- getParticipantIds(labbcat.url)
+transcripts <- getGraphIds(labbcat.url)
 
 paste("There are", length(participants), "participants. The first one is", participants[1])
 paste("There are", length(transcripts), "transcripts. The first one is", transcripts[1])
@@ -75,13 +69,13 @@ There are also ways to get a filtered list of transcripts:
 
 ```{r listing-graph-ids}
 ## Transcripts in the UC corpus:
-labbcat.getGraphIdsInCorpus(labbcat, "UC")
+getGraphIdsInCorpus(labbcat.url, "UC")
 
 ## Transcripts featuring the participant QB1602:
-labbcat.getGraphIdsWithParticipant(labbcat, "QB1602")
+getGraphIdsWithParticipant(labbcat.url, "QB1602")
 
 ## Transcripts with 'YW' in their name:
-labbcat.getMatchingGraphIdsPage(labbcat, "id MATCHES '.*YW.*'")
+getMatchingGraphIds(labbcat.url, "id MATCHES '.*YW.*'")
 
 ```
 
@@ -91,9 +85,9 @@ Given a graph ID (i.e. a transcript name) you can access information about what 
 
 ```{r media}
 ## Default WAV URL:
-labbcat.getMedia(labbcat, "AP2515_ErrolHitt.eaf")
+getMedia(labbcat.url, "AP2515_ErrolHitt.eaf")
 
-media <- labbcat.getAvailableMedia(labbcat, "AP2515_ErrolHitt.eaf")
+media <- getAvailableMedia(labbcat.url, "AP2515_ErrolHitt.eaf")
 
 ## All media file names
 media$name
@@ -123,10 +117,10 @@ if (httr::status_code(response) != 200) { # 200 means OK
 
 ### Media fragments
 
-You can access a selected fragment of a wav file with `labbcat.getSoundFragment`. The function downloads a wav file to the current working directory, and returns the name of the file:
+You can access a selected fragment of a wav file with `getSoundFragment`. The function downloads a wav file to the current working directory, and returns the name of the file:
 
 ```{r media-fragment}
-wav.file <- labbcat.getSoundFragment(labbcat, "AP2505_Nelson.eaf", 10.0, 15.0)
+wav.file <- getSoundFragment(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
 
 paste("The third 5 seconds is in this file:", wav.file)
 
@@ -134,7 +128,7 @@ paste("The third 5 seconds is in this file:", wav.file)
 file.remove(wav.file)
 ```
 
-`labbcat.getSoundFragment` also accepts vectors for the `id`, `start`, and `end` parameters:
+`getSoundFragment` also accepts vectors for the `id`, `start`, and `end` parameters:
 
 ```{r media-fragments}
 results <- data.frame(
@@ -142,7 +136,7 @@ results <- data.frame(
   start=c(10.0, 20.0, 30.0),
   end=c(15.0, 25.0, 35.0))
 
-wav.files <- labbcat.getSoundFragment(labbcat, results$id, results$start, results$end, no.progress = TRUE)
+wav.files <- getSoundFragment(labbcat.url, results$id, results$start, results$end, no.progress = TRUE)
 
 wav.files
 
@@ -157,26 +151,30 @@ This means that, if you have a results csv file exported from LaBB-CAT, which id
 results <- read.csv("results.csv", header=T)
 
 ## download all the segment WAV files
-wav.files <- labbcat.getSoundFragment(
+wav.files <- getSoundFragment(
     labbcat, results$Transcript, results$segments.start, results$segments.end)
 ```
+
+### Getting annotations from other layers
+
+If you have search results in a CSV file, and would like to retrieve annotations from some other
+layer, you can use the `getAnnotationLabels` function, providing the *MatchId* column (or the *URL* column) that indentifies the token, and the desuired layer name:
+
+```
+results <- read.csv("results.csv", header=T)
+phonemes <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
+```
+
 
 ## Future Enhancements
 
 ### Getting annotations from other layers
 
-It would be good to be able to get labels from other layers, like you can in LaBB-CAT using the *insert data* page.  Something like:
-
-```
-results <- read.csv("results.csv", header=T)
-frequencies <- labbcat.getAnnotations(labbcat, results$MatchId, "frequency")
-```
-
 Sometimes you might want annotations for the previous or next token, which might work like this:
 
 ```
-previous.token.frequencies <- labbcat.getAnnotations(labbcat, results$MatchId, "frequency", token=-1)
-next.token.frequencies <- labbcat.getAnnotations(labbcat, results$MatchId, "frequency", token=1)
+previous.token.frequencies <- getAnnotationLabels(labbcat.url, results$MatchId, "frequency", token=-1)
+next.token.frequencies <- getAnnotationLabelss(labbcat.url, results$MatchId, "frequency", token=1)
 ```
 
 ### Looking up dictionaries
@@ -187,7 +185,7 @@ It might be useful to be able to process a results CSV file, or in fact any list
 
 ```
 words <- c("the", "quick", "brown", "fox")
-pos <- labbcat.lookup(labbcat, "CELEX-EN", "Syntax")
+pos <- labbcat.lookup(labbcat.url, "CELEX-EN", "Syntax")
 ```
 
 ### Process with Praat
@@ -233,7 +231,7 @@ There are a few options for how to specify these from within R. The easiest woul
 
 ```
 results <- read.csv("results.csv", header=T)
-praat.results <- labbcat.processWithPraat(labbcat, 
+praat.results <- labbcat.processWithPraat(labbcat.url, 
   results$MatchId, results$segments.start, results$segments.end, window.offset=0.5, 
   formant.F1=TRUE, formant.F2=TRUE, 
   pitch.mean=TRUE)
@@ -242,7 +240,7 @@ praat.results <- labbcat.processWithPraat(labbcat,
 Alternatively, or later on, more possible parameters could maybe be added:
 
 ```
-praat.results <- labbcat.processWithPraat(labbcat, 
+praat.results <- labbcat.processWithPraat(labbcat.url, 
   results$MatchId, results$segments.start, results$segments.end, window.offset=0.5, 
   formant.F1=TRUE, formant.F2=TRUE, 
   formant.sample.points=c(0.25, 0.5, 0.75)), 
@@ -257,7 +255,7 @@ script.file <- "coolStuff.praat""
 script <- readChar(script.file, file.info(script.file)$size)
 
 ## Run the Praat script on each token
-praat.results <- labbcat.processWithPraat(labbcat, 
+praat.results <- labbcat.processWithPraat(labbcat.url, 
   results$MatchId, results$segments.start, results$segments.end, window.offset=0.5, 
   praat.script=script)
 ```
@@ -267,7 +265,7 @@ praat.results <- labbcat.processWithPraat(labbcat,
 Something like: 
 
 ```
-attributes <- labbcat.getTranscriptAttributes(labbcat, id.list, c("language","duration"))
+attributes <- getTranscriptAttributes(labbcat.url, id.list, c("language","duration"))
 ```
 
 ### Retrieving participant attributes
@@ -275,7 +273,7 @@ attributes <- labbcat.getTranscriptAttributes(labbcat, id.list, c("language","du
 Something like: 
 
 ```
-attributes <- labbcat.getGraphAttributes(labbcat, participant.list, c("dob","gender"))
+attributes <- getGraphAttributes(labbcat.url, participant.list, c("dob","gender"))
 ```
 
 ### Search
@@ -284,17 +282,8 @@ To be able to do 'everything' from within R, there needs to be a way of conducti
 something like:
 
 ```
-results <- labbcat.search(labbcat, "segments.label MATCHES 'I'", participants=participant.list)
+results <- labbcat.search(labbcat.url, "segments.label MATCHES 'I'", participants=participant.list)
 ```
 
 How the search language might work (i.e. the "segments.label MATCHES 'I'" part), I'm not sure about yet.
-
-### Credentials and Security
-
-Having usernames and passwords potentially saved to script
-files or typed out in front of others is inherently insecure. Some
-mechanism will be invented which makes this unnecessary.  That might
-involve:
-* having usernames/passwords stored in a file separate from the main script
-* using some GUI package that allows hidden entry of passwords
 
