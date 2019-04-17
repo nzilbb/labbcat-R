@@ -164,7 +164,9 @@ http.post <- function(labbcat, path, parameters, file.name) {
 #' to a given LaBB-CAT server in future function calls.
 #'
 #' This step is optional, as all functions will prompt the user for the username
-#' and password if required.
+#' and password if required.  If the script is running in RStudio, then the
+#' RStudio password input dialog is used, hiding the credentials from view.
+#' Otherwise, the console is used, and credentials are visible.
 #'
 #' The recommended approach is to *not* use labbcat.instance, to avoid saving
 #' user credentials in script files that may eventually become visible to other.
