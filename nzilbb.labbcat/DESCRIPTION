@@ -1,15 +1,16 @@
 Package: nzilbb.labbcat
-Version: 0.1-3
-Date: 2019-03-05
+Version: 0.2-1
+Date: 2019-04-24
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
                      email = "robert.fromont@canterbury.ac.nz"))
-Imports: jsonlite, httr, stringr, utils
+Imports: jsonlite, httr, stringr, utils, rstudioapi
 Description: 'LaBB-CAT' is a web-based language corpus management
  system developed by the New Zealand Institute of Language, Brain
  and Behaviour (NZILBB) - see <https://labbcat.canterbury.ac.nz>.
  This package defines functions for accessing corpus data in a 'LaBB-CAT'
- instance.
+ instance. You must have at least version 20190424.1154 of 'LaBB-CAT'
+ to use this package.
  For more information about 'LaBB-CAT', see
  Robert Fromont and Jennifer Hay (2008) <doi:10.3366/E1749503208000142>
  or 

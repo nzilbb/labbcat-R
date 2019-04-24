@@ -7,7 +7,7 @@
 #' 
 #' 'LaBB-CAT' is a web-based language corpus management system and this
 #' package provides access to data stored in a 'LaBB-CAT' instance.
-#' You must have at least version 20190412.1154 of 'LaBB-CAT' to use
+#' You must have at least version 20190424.1154 of 'LaBB-CAT' to use
 #' this package.
 #' 
 #' @docType package
@@ -71,7 +71,7 @@ buildUrl <- function(labbcat.url, call, parameters = NULL) {
     return(url)
 }
 
-## make an HTTP GET request, asking for credentials if required
+## make an HTTP GET request to the store URL, asking for credentials if required
 store.get <- function(labbcat.url, call, parameters = NULL) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
@@ -117,6 +117,52 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
         return(resp)
     }
 }
+## make an HTTP GET request, asking for credentials if required
+http.get <- function(labbcat.url, path, parameters = NULL, content.type = "application/json") {
+    ## ensure labbcat base URL has a trailing slash
+    if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
+
+    ## build request URL
+    url <- paste(labbcat.url, path, sep="")
+    if (!is.null(parameters)) {
+        for (name in names(parameters)) {
+            url <- paste(url, "&", name, "=", parameters[name], sep="")
+        } # next parameter
+    } # there are parameters
+    url <- enc(url)
+    
+    ## attempt the request
+    resp <- httr::GET(url, httr::timeout(.request.timeout), httr::add_headers("Accepts" = content.type))
+    ## check we don't need credentials
+    if (httr::status_code(resp) == 401) {
+        ## ask for username and password
+        instance.name <- httr::headers(resp)['www-authenticate']
+        if (!is.null(instance.name)) {
+            ## something like 'Basic realm="Demo LaBB-CAT"'
+            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
+            instance.name <- stringr::str_replace(instance.name, "\"$", "")
+        } else {
+            instance.name <- "LaBB-CAT"
+        }
+
+        ## loop trying until success, or they cancel out
+        repeat {
+            instance.ok <- labbcatCredentials(
+                labbcat.url,
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
+            ## NULL means success, but wrong LaBB-CAT version
+            if (is.null(instance.ok)) return(NULL)
+            ## TRUE means everything OK
+            if (instance.ok) break
+        } ## next try
+        
+        ## and try again
+        return(http.get(labbcat.url, path, parameters, content.type))
+    } else {
+        return(resp)
+    }
+}
 
 ## make an HTTP POST request, asking for credentials if required
 http.post <- function(labbcat.url, path, parameters, file.name) {
@@ -125,6 +171,7 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
 
     ## build request URL
     url <- paste(labbcat.url, path, sep="")
+    print(url)
     
     ## attempt the request
     resp <- httr::POST(url,
@@ -157,6 +204,51 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
         
         ## and try again
         return(http.post(labbcat.url, path, parameters, file.name))
+    } else {
+        return(resp)
+    }
+}
+
+## make an HTTP POST request, asking for credentials if required
+http.post.multipart <- function(labbcat.url, path, parameters, file.name) {
+    ## ensure labbcat base URL has a trailing slash
+    if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
+
+    ## build request URL
+    url <- paste(labbcat.url, path, sep="")
+    print(url)
+    
+    ## attempt the request
+    resp <- httr::POST(url,
+                       httr::write_disk(file.name, overwrite=TRUE),
+                       httr::timeout(.request.timeout),
+                       body = parameters, encode = "multipart")
+    ## check we don't need credentials
+    if (httr::status_code(resp) == 401) {
+        ## ask for username and password
+        instance.name <- httr::headers(resp)['www-authenticate']
+        if (!is.null(instance.name)) {
+            ## something like 'Basic realm="Demo LaBB-CAT"'
+            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
+            instance.name <- stringr::str_replace(instance.name, "\"$", "")
+        } else {
+            instance.name <- "LaBB-CAT"
+        }
+
+        ## loop trying until success, or they cancel out
+        repeat {
+            instance.ok <- labbcatCredentials(
+                labbcat.url,
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
+            ## NULL means success, but wrong LaBB-CAT version
+            if (is.null(instance.ok)) return(NULL)
+            ## TRUE means everything OK
+            if (instance.ok) break
+        } ## next try
+        
+        ## and try again
+        return(http.post.multipart(labbcat.url, path, parameters, file.name))
     } else {
         return(resp)
     }
@@ -1006,4 +1098,88 @@ getAnnotationLabels <- function(labbcat.url, id, layerId, count=1, no.progress=F
     labels.df <- as.data.frame(labels.matrix, col.names=cols)
 
     return(labels.df)
+}
+
+#' List the dictionaries available.
+#'
+#' @param labbcat.url URL to the LaBB-CAT instance
+#' @return A named list of layer manager IDs, each of which containing a named list of
+#' dictionaries that the layer manager makes available.
+#' 
+#' @seealso \link{getDictionaryEntries}
+#' @examples 
+#' \dontrun{
+#' ## List the dictionaries available
+#' dictionaries <- getDictionaries("https://labbcat.canterbury.ac.nz/demo/")
+#' }
+#' 
+#' @keywords dictionary
+#' 
+getDictionaries <- function(labbcat.url) {
+    resp <- http.get(labbcat.url, "dictionaries")
+    if (is.null(resp)) return()
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    return(resp.json$model)
+}
+
+#' Lookup entries in a dictionary.
+#'
+#' @param labbcat.url URL to the LaBB-CAT instance
+#' @param managerId The layer manager ID of the dictionary, as returned by getDictionaries
+#' @param dictionaryId The ID of the dictionary, as returned by getDictionaries
+#' @param keys A list of entries to look up
+#' @return A data frame with the keys and their dictionary entries.
+#' 
+#' @seealso \link{getDictionaries}
+#' @examples 
+#' \dontrun{
+#' ## define the LaBB-CAT URL
+#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
+#'
+#' keys <- c("the", "quick", "brown", "fox")
+#' 
+#' ## get the pronunciations according to CELEX
+#' entries <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Phonology (wordform)", keys)
+#' }
+#' 
+#' @keywords dictionary
+#' 
+getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
+    ## save keys to a CSV file
+    upload.file = "keys.csv"
+    download.file = "entries.csv"
+    write.table(keys, upload.file, sep=",", row.names=FALSE, col.names=FALSE)
+
+    ## make request
+    parameters <- list(managerId=managerId, dictionaryId=dictionaryId, uploadfile=httr::upload_file(upload.file))    
+    resp <- http.post.multipart(labbcat.url, "dictionary", parameters, download.file)
+
+    ## tidily remove upload file
+    file.remove(upload.file)
+
+    ## check the reponse
+    if (is.null(resp)) return()
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+
+    ## load the returned entries
+    entries <- read.csv(download.file, header=F)
+
+    ## rename the columns so that the one containing the keys is called "key"
+    colnames(entries) <- c("key", head(colnames(entries), length(colnames(entries)) - 1))
+
+    ## tidily remove the downloaded file
+    file.remove(download.file)
+    
+    return(entries)
 }
