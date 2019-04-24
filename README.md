@@ -165,6 +165,22 @@ results <- read.csv("results.csv", header=T)
 phonemes <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
 ```
 
+### Looking up dictionaries
+
+LaBB-CAT maintains a number of [dictionaries](https://labbcat.canterbury.ac.nz/demo/dictionaries) it uses to look things up.  These include access to CELEX, LIWC, and other lexicons that might be set up in the LaBB-CAT instance.
+
+You can list the available dictionaries using:
+
+```
+dictionaries <- getDictionaries(labbcat.url)
+```
+
+With one of the returned layer manager ID and dictionary ID pairs, you can look up dictionary entries for a list of keys:
+
+```
+words <- c("the", "quick", "brown", "fox")
+pos <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Syntax", words)
+```
 
 ## Future Enhancements
 
@@ -175,17 +191,6 @@ Sometimes you might want annotations for the previous or next token, which might
 ```
 previous.token.frequencies <- getAnnotationLabels(labbcat.url, results$MatchId, "frequency", token=-1)
 next.token.frequencies <- getAnnotationLabelss(labbcat.url, results$MatchId, "frequency", token=1)
-```
-
-### Looking up dictionaries
-
-LaBB-CAT maintains a number of [dictionaries](https://labbcat.canterbury.ac.nz/demo/dictionaries) it uses to look things up.  These include access to CELEX, LIWC, and other lexicons that might be set up in the LaBB-CAT instance.
-
-It might be useful to be able to process a results CSV file, or in fact any list of words from any source, by looking up a specific dictionary:
-
-```
-words <- c("the", "quick", "brown", "fox")
-pos <- labbcat.lookup(labbcat.url, "CELEX-EN", "Syntax")
 ```
 
 ### Process with Praat
