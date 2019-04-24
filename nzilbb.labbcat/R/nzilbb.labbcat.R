@@ -1103,7 +1103,7 @@ getAnnotationLabels <- function(labbcat.url, id, layerId, count=1, no.progress=F
 #' List the dictionaries available.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @return A named list of layer manager IDs, each of which containing a named list of
+#' @return A named list of layer manager IDs, each of which containing a list of
 #' dictionaries that the layer manager makes available.
 #' 
 #' @seealso \link{getDictionaryEntries}
