@@ -179,7 +179,7 @@ With one of the returned layer manager ID and dictionary ID pairs, you can look 
 
 ```
 words <- c("the", "quick", "brown", "fox")
-pos <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Syntax", words)
+pronunciation <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Phonology (wordform)", words)
 ```
 
 ## Future Enhancements
