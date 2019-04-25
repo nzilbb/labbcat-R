@@ -15,7 +15,7 @@ export(labbcatCredentials,
        getAnchors,
        getAvailableMedia,
        getMedia,
-       getSoundFragment,
+       getSoundFragments,
        getAnnotationLabels,
        getDictionaries,
        getDictionaryEntries)
