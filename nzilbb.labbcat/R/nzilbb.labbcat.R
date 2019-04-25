@@ -79,9 +79,9 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     ## build request URL
     url <- paste(labbcat.url, "store?call=", call, sep="")
     if (!is.null(parameters)) {
-        for (name in names(parameters)) {
-            url <- paste(url, "&", name, "=", parameters[name], sep="")
-        } # next parameter
+        mapply(function(name, value) {
+            url <<- paste(url, "&", name, "=", value, sep="")
+        }, names(parameters), parameters)
     } # there are parameters
     url <- enc(url)
     
