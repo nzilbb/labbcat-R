@@ -86,8 +86,7 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     url <- enc(url)
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(.request.timeout), httr::verbose())
-    print(httr::content(resp, as="text", encoding="UTF-8"))
+    resp <- httr::GET(url, httr::timeout(.request.timeout))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -172,7 +171,6 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
 
     ## build request URL
     url <- paste(labbcat.url, path, sep="")
-    print(url)
     
     ## attempt the request
     resp <- httr::POST(url,
@@ -217,7 +215,6 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name) {
 
     ## build request URL
     url <- paste(labbcat.url, path, sep="")
-    print(url)
     
     ## attempt the request
     resp <- httr::POST(url,
