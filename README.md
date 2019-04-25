@@ -117,10 +117,10 @@ if (httr::status_code(response) != 200) { # 200 means OK
 
 ### Media fragments
 
-You can access a selected fragment of a wav file with `getSoundFragment`. The function downloads a wav file to the current working directory, and returns the name of the file:
+You can access a selected fragment of a wav file with `getSoundFragments`. The function downloads a wav file to the current working directory, and returns the name of the file:
 
 ```{r media-fragment}
-wav.file <- getSoundFragment(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
+wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
 
 paste("The third 5 seconds is in this file:", wav.file)
 
@@ -128,7 +128,7 @@ paste("The third 5 seconds is in this file:", wav.file)
 file.remove(wav.file)
 ```
 
-`getSoundFragment` also accepts vectors for the `id`, `start`, and `end` parameters:
+`getSoundFragments` also accepts vectors for the `id`, `start`, and `end` parameters:
 
 ```{r media-fragments}
 results <- data.frame(
@@ -136,7 +136,7 @@ results <- data.frame(
   start=c(10.0, 20.0, 30.0),
   end=c(15.0, 25.0, 35.0))
 
-wav.files <- getSoundFragment(labbcat.url, results$id, results$start, results$end, no.progress = TRUE)
+wav.files <- getSoundFragments(labbcat.url, results$id, results$start, results$end, no.progress = TRUE)
 
 wav.files
 
@@ -151,7 +151,7 @@ This means that, if you have a results csv file exported from LaBB-CAT, which id
 results <- read.csv("results.csv", header=T)
 
 ## download all the segment WAV files
-wav.files <- getSoundFragment(
+wav.files <- getSoundFragments(
     labbcat, results$Transcript, results$segments.start, results$segments.end)
 ```
 

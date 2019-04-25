@@ -29,7 +29,7 @@
 #' phonemes <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
 #'
 #' ## Get sound fragments for the matches
-#' wav.files <- getSoundFragment(labbcat.url, results$Transcript, results$Line, results$LineEnd)
+#' wav.files <- getSoundFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd)
 #' }
 #' 
 NULL
@@ -920,7 +920,7 @@ getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") 
     return(resp.json$model$result)
 }
 
-#' Gets a sound fragment from 'LaBB-CAT'.
+#' Gets sound fragments from 'LaBB-CAT'.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id The graph ID (transcript name) of the sound recording, or
@@ -945,24 +945,24 @@ getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") 
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Get the 5 seconds starting from 10s after the beginning of a recording
-#' wav.file <- getSoundFragment(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
+#' wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
 #' 
 #' ## Get the 5 seconds starting from 10s as a mono 22kHz file
-#' wav.file <- getSoundFragment(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
+#' wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
 #' 
 #' ## Load some search results previously exported from LaBB-CAT
 #' results <- read.csv("results.csv", header=T)
 #' 
 #' ## Get a list of fragments
-#' wav.files <- getSoundFragment(labbcat.url, results$Transcript, results$Line, results$LineEnd)
+#' wav.files <- getSoundFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd)
 #' 
 #' ## Get a list of fragments with no prgress bar
-#' wav.file <- getSoundFragment(
+#' wav.file <- getSoundFragments(
 #'               labbcat.url, results$Transcript, results$Line, results$LineEnd, no.progress=TRUE)
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getSoundFragment <- function(labbcat.url, id, start, end, sampleRate = NULL, no.progress=FALSE) {
+getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no.progress=FALSE) {
     if (length(id) == 1) { ## one fragment
         dir <- ""
     } else { ## multiple fragments
