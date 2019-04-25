@@ -10,14 +10,14 @@ directy from R.
 
 ## Building the package
 
-The package can be built using:  
+The package can be built from the source code using using:  
 `./build.sh`
 
 ## Basic usage instructions
 
 ### Getting started
 
-To install the package:
+To install the latest version of the package in CRAN:
 
 ```{r install}
 install.packages("nzilbb.labbcat")
@@ -26,7 +26,7 @@ install.packages("nzilbb.labbcat")
 To use it:
 
 ```{r require}
-require(nzilbb.labbcat)
+library(nzilbb.labbcat)
 ```
 
 For all functions, the first parameter is the URL to the LaBB-CAT instance you want
