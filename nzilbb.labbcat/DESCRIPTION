@@ -1,5 +1,5 @@
 Package: nzilbb.labbcat
-Version: 0.2-3
+Version: 0.3-1
 Date: 2019-10-28
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
