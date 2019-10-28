@@ -49,7 +49,7 @@ getMatchingGraphIds(labbcat.url, "'QB247_Jacqui' IN labels('who')", 1, 0)
 ## Get all transcripts whose names start with "BR" and have "QB247_Jacqui" as a speaker,
 ## in word-count order 
 getMatchingGraphIds(labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('who')",
-                    1, 0, "my('transcript_word count').label")
+                    1, 0, "my('transcript_word count').label ASC")
 
 ## Count the number of words in UC427_ViktoriaPapp_A_ENG.eaf
 countAnnotations(labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "orthography")
@@ -100,6 +100,13 @@ wav.files <- getSoundFragments(
     labbcat.url, results$Transcript, results$Line, results$LineEnd, no.progress=TRUE)
 wav.files
 file.remove(wav.files)
+file.remove("fragments")
+
+## Get a list of fragment textgrids
+textgrid.files <- getFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd,
+                               c("transcript", "phonemes")) 
+textgrid.files
+file.remove(textgrid.files)
 file.remove("fragments")
 
 ## simulate some results
