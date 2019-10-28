@@ -7,7 +7,7 @@
 #' 
 #' 'LaBB-CAT' is a web-based language corpus management system and this
 #' package provides access to data stored in a 'LaBB-CAT' instance.
-#' You must have at least version 20190425.1121 of 'LaBB-CAT' to use
+#' You must have at least version 20191022.1827 of 'LaBB-CAT' to use
 #' this package.
 #' 
 #' @docType package
@@ -37,7 +37,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20190412.1154"
+.min.labbcat.version <- "20191022.1827"
 
 ## HTTP request timeout
 .request.timeout <- 10
@@ -652,7 +652,8 @@ getGraphIdsWithParticipant <- function(labbcat.url, id) {
 #' @param pageLength The maximum number of IDs to return, or null to return all
 #' @param pageNumber The zero-based page number to return, or null to return the first page
 #' @param order An expression that determines the order the graphs are
-#' listed in
+#' listed in - if specified, this must include the keyword 'ASC' for ascending or 'DESC'
+#' for descending order.
 #' @return A list of graph IDs (i.e. transcript names)
 #' 
 #' @examples 
@@ -675,7 +676,7 @@ getGraphIdsWithParticipant <- function(labbcat.url, id) {
 #' ## in word-count order 
 #' transcripts <- getMatchingGraphIds(
 #'         labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('who')", 1, 1,
-#'         "my('transcript_word_count').label")
+#'         "my('transcript_word_count').label ASC")
 #' }
 #' 
 #' @keywords graph transcript expression
