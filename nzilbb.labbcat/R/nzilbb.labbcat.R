@@ -39,8 +39,6 @@ NULL
 ## minimum version of LaBB-CAT required:
 .min.labbcat.version <- "20191022.1827"
 
-## HTTP request timeout
-.request.timeout <- 10
 
 ## prompt for password in RStudio, falling back to terminal if we're not in RStudio
 get.hidden.input <- function(prompt) {
@@ -86,7 +84,7 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     url <- enc(url)
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(.request.timeout))
+    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -132,7 +130,7 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     url <- enc(url)
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(.request.timeout), httr::add_headers("Accepts" = content.type))
+    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)), httr::add_headers("Accepts" = content.type))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -175,7 +173,7 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
     ## attempt the request
     resp <- httr::POST(url, 
                        httr::write_disk(file.name, overwrite=TRUE),
-                       httr::timeout(.request.timeout),
+                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)),
                        body = parameters, encode = "form")
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
@@ -219,7 +217,7 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name) {
     ## attempt the request
     resp <- httr::POST(url,
                        httr::write_disk(file.name, overwrite=TRUE),
-                       httr::timeout(.request.timeout),
+                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)),
                        body = parameters, encode = "multipart")
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
@@ -290,7 +288,7 @@ labbcatCredentials <- function(labbcat.url, username, password) {
     
     version.check.url <- paste(labbcat.url, "store?call=", sep="")
     authorization <- httr::authenticate(username, password)
-    resp <- httr::GET(version.check.url, authorization, httr::timeout(.request.timeout))
+    resp <- httr::GET(version.check.url, authorization, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
 
     if (httr::status_code(resp) != 200) { # 200 = OK
         if (httr::status_code(resp) == 401) {
@@ -303,7 +301,7 @@ labbcatCredentials <- function(labbcat.url, username, password) {
 
     ## do a second request
     ## - this seems to be required for credentials to 'take' in non-interactive mode
-    resp <- httr::GET(version.check.url, authorization, httr::timeout(.request.timeout))
+    resp <- httr::GET(version.check.url, authorization, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
     
     ## check the LaBB-CAT version
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
@@ -314,6 +312,26 @@ labbcatCredentials <- function(labbcat.url, username, password) {
         return(NULL)
     }        
     return(TRUE)    
+}
+
+#' Sets the timeout for request to the LaBB-CAT server in future function calls. The
+#' default timeout is 10 seconds.
+#'
+#' @param seconds The number of seconds before requests return with a timeout error.
+#' @return The request timeout in seconds
+#' @examples
+#' \dontrun{
+#' ## the request timeout
+#' labbcatTimeout(30)
+#' }
+#'
+#' @keywords connect username password timeout
+#' 
+labbcatTimeout <- function(seconds=NULL) {
+    if (!is.null(seconds)) { 
+        options(nzilbb.labbcat.timeout=seconds)
+    }
+    return(getOption("nzilbb.labbcat.timeout", default=10))
 }
 
 #' Gets the store's ID.
@@ -932,6 +950,7 @@ getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") 
 #'     integer, then the result is a mono file with the given sample rate.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
+#' @param path Optional path to directory where tge files should be saved.
 #' @return The name of the file, which is saved in the current
 #'     directory, or a list of names of files, if multiple
 #'     id's/start's/end's were specified 
@@ -946,7 +965,7 @@ getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") 
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Get the 5 seconds starting from 10s after the beginning of a recording
-#' wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
+#' wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0, path="samples")
 #' 
 #' ## Get the 5 seconds starting from 10s as a mono 22kHz file
 #' wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0, 22050)
@@ -963,13 +982,16 @@ getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") 
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no.progress=FALSE) {
-    if (length(id) == 1) { ## one fragment
-        dir <- ""
-    } else { ## multiple fragments
+getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no.progress=FALSE, path="") {
+    
+    dir = path
+    if (length(id) > 1) { ## multiple fragments
         ## save fragments into their own directory
-        dir <- "fragments"
-        if (file.exists(dir)) {
+        if (stringr::str_length(dir) == 0) dir <- "fragments"
+    }
+    if (stringr::str_length(dir) > 0) { ## directory is specified
+        ## if it wasn't explicitly specified...
+        if (file.exists(dir) && stringr::str_length(path) == 0) { 
             ## ensure it's a new directory by adding a number
             n <- 1
             new.dir = paste(dir,"(",n,")", sep="")
@@ -979,9 +1001,11 @@ getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no
             } # next try
             dir <- new.dir
         }
-        dir.create(dir)
-        ## add trailing slash
-        dir <- paste(dir, .Platform$file.sep, sep="")
+        if (!file.exists(dir)) dir.create(dir)
+        ## add trailing slash if there isn't one
+        if (!grepl(paste("\\", .Platform$file.sep, "$", sep=""), dir)) {
+            dir <- paste(dir, .Platform$file.sep, sep="")
+        }
     }
 
     pb <- NULL
@@ -1047,6 +1071,7 @@ getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no
 #'     is supported.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
+#' @param path Optional path to directory where tge files should be saved.
 #' @return The name of the file, which is saved in the current
 #'     directory, or a list of names of files, if multiple
 #'     id's/start's/end's were specified 
@@ -1062,12 +1087,12 @@ getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no
 #' 
 #' ## Get the 5 seconds starting from 10s after the beginning of a recording
 #' textgrid.file <- getFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0,
-#'     c("transcript", "phonemes")) 
+#'     c("transcript", "phonemes"), path="samples") 
 #' 
 #' ## Load some search results previously exported from LaBB-CAT
 #' results <- read.csv("results.csv", header=T)
 #' 
-#' ## Get a list of fragment TextGrids, including the utterances, transcript, andd phonemes layers
+#' ## Get a list of fragment TextGrids, including the utterances, transcript, and phonemes layers
 #' textgrid.files <- getFragments(
 #'     labbcat.url, results$Transcript, results$Line, results$LineEnd,
 #'     c("utterances", "transcript", "phonemes"))
@@ -1078,14 +1103,16 @@ getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/praat-textgrid", no.progress=FALSE) {
+getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/praat-textgrid", no.progress=FALSE, path="") {
 
-    if (length(id) == 1) { ## one fragment
-        dir <- ""
-    } else { ## multiple fragments
+    dir = path
+    if (length(id) > 1) { ## multiple fragments
         ## save fragments into their own directory
-        dir <- "fragments"
-        if (file.exists(dir)) {
+        if (stringr::str_length(dir) == 0) dir <- "fragments"
+    }
+    if (stringr::str_length(dir) > 0) { ## directory is specified
+        ## if it wasn't explicitly specified...
+        if (file.exists(dir) && stringr::str_length(path) == 0) { 
             ## ensure it's a new directory by adding a number
             n <- 1
             new.dir = paste(dir,"(",n,")", sep="")
@@ -1095,9 +1122,11 @@ getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/
             } # next try
             dir <- new.dir
         }
-        dir.create(dir)
-        ## add trailing slash
-        dir <- paste(dir, .Platform$file.sep, sep="")
+        if (!file.exists(dir)) dir.create(dir)
+        ## add trailing slash if there isn't one
+        if (!grepl(paste("\\", .Platform$file.sep, "$", sep=""), dir)) {
+            dir <- paste(dir, .Platform$file.sep, sep="")
+        }
     }
     
     pb <- NULL
@@ -1108,7 +1137,6 @@ getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/
     ## create a list of repeated layerId parameters
     layerParameters <- list()
     mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layerId)
-
 
     ## loop throug each triple, getting fragments individually
     ## (we could actually pass the lot to LaBB-CAT in one go and get a ZIP file back
