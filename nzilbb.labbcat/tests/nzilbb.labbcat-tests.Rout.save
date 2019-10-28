@@ -1529,34 +1529,38 @@ named list()
 [26] "LY965_HarryKitkevics"                   
 [27] "NB144_JohnBrownie"                      
 [28] "NB926_IsobelleDoig"                     
-[29] "QB1200_SeanConnell"                     
-[30] "QB1602"                                 
-[31] "QB247_Jacqui"                           
-[32] "QB464YW_SiobhanStorey"                  
-[33] "QB475YW_AmrinderSingh_A_ENG"            
-[34] "QB702_AnnaSoboleva_A_ENG"               
-[35] "UC013AM_Dom"                            
-[36] "UC207YW"                                
-[37] "UC215YW_DanielaMaoate-Cox"              
-[38] "UC226AD"                                
-[39] "UC427_ViktoriaPapp_A_ENG"               
+[29] "NZE-wordlist-47"                        
+[30] "NZE-wordlist-48"                        
+[31] "NZE-wordlist-49"                        
+[32] "QB1200_SeanConnell"                     
+[33] "QB1602"                                 
+[34] "QB247_Jacqui"                           
+[35] "QB464YW_SiobhanStorey"                  
+[36] "QB475YW_AmrinderSingh_A_ENG"            
+[37] "QB702_AnnaSoboleva_A_ENG"               
+[38] "UC013AM_Dom"                            
+[39] "UC207YW"                                
+[40] "UC215YW_DanielaMaoate-Cox"              
+[41] "UC226AD"                                
+[42] "UC427_ViktoriaPapp_A_ENG"               
 > 
 > ## List all transcripts
 > getGraphIds(labbcat.url)
- [1] "AP2505_Nelson.eaf"               "AP2512_MattBlack.eaf"           
- [3] "AP2515_ErrolHitt.eaf"            "AP2516_JasonEager.eaf"          
- [5] "AP511_MikeThorpe.eaf"            "AP513_Steve.eaf"                
- [7] "AP514_LynneGibbons.eaf"          "BR178LK_MargaretSpencer.eaf"    
- [9] "BR2044_OllyOhlson.eaf"           "BR939_AudreyDragovich.eaf"      
-[11] "BR942_JoWall.eaf"                "BR946_RodgerCurragh.eaf"        
-[13] "EG112_WJO'Halloran.eaf"          "EG882_DeniseMcCulloch.eaf"      
-[15] "LY965_HarryKitkevics.eaf"        "NB144_JohnBrownie.eaf"          
-[17] "NB926_IsobelleDoig.eaf"          "QB1200_SeanConnell.eaf"         
-[19] "QB1602.eaf"                      "QB247_Jacqui.eaf"               
-[21] "QB464YW_SiobhanStorey.eaf"       "QB475YW_AmrinderSingh_A_ENG.eaf"
-[23] "QB702_AnnaSoboleva_A_ENG.eaf"    "UC013AM_Dom.eaf"                
-[25] "UC207YW.eaf"                     "UC215YW_DanielaMaoate-Cox.eaf"  
-[27] "UC226AD.eaf"                     "UC427_ViktoriaPapp_A_ENG.eaf"   
+ [1] "AP2505_Nelson.eaf"                 "AP2512_MattBlack.eaf"             
+ [3] "AP2515_ErrolHitt.eaf"              "AP2516_JasonEager.eaf"            
+ [5] "AP511_MikeThorpe.eaf"              "AP513_Steve.eaf"                  
+ [7] "AP514_LynneGibbons.eaf"            "BR178LK_MargaretSpencer.eaf"      
+ [9] "BR2044_OllyOhlson.eaf"             "BR939_AudreyDragovich.eaf"        
+[11] "BR942_JoWall.eaf"                  "BR946_RodgerCurragh.eaf"          
+[13] "EG112_WJO'Halloran.eaf"            "EG882_DeniseMcCulloch.eaf"        
+[15] "LY965_HarryKitkevics.eaf"          "NB144_JohnBrownie.eaf"            
+[17] "NB926_IsobelleDoig.eaf"            "NZE-wordlist-47-20190917-1203.txt"
+[19] "NZE-wordlist-49-20190917-1509.txt" "QB1200_SeanConnell.eaf"           
+[21] "QB1602.eaf"                        "QB247_Jacqui.eaf"                 
+[23] "QB464YW_SiobhanStorey.eaf"         "QB475YW_AmrinderSingh_A_ENG.eaf"  
+[25] "QB702_AnnaSoboleva_A_ENG.eaf"      "UC013AM_Dom.eaf"                  
+[27] "UC207YW.eaf"                       "UC215YW_DanielaMaoate-Cox.eaf"    
+[29] "UC226AD.eaf"                       "UC427_ViktoriaPapp_A_ENG.eaf"     
 > 
 > ## List transcripts in the QB corpus
 > getGraphIdsInCorpus(labbcat.url, "QB")
@@ -1602,7 +1606,7 @@ named list()
 > ## Get all transcripts whose names start with "BR" and have "QB247_Jacqui" as a speaker,
 > ## in word-count order 
 > getMatchingGraphIds(labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('who')",
-+                     1, 0, "my('transcript_word count').label")
++                     1, 0, "my('transcript_word count').label ASC")
 [1] "QB247_Jacqui.eaf"
 > 
 > ## Count the number of words in UC427_ViktoriaPapp_A_ENG.eaf
@@ -1610,6 +1614,8 @@ named list()
 [1] 585
 > 
 > ## Get all the orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf
+> labbcatTimeout(60)
+[1] 60
 > getAnnotations(labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "orthography")
             id     layerId        label startId   endId   parentId ordinal
 1   ew_2_20638 orthography            i n_27841 n_27212 ew_0_20638       1
@@ -2856,22 +2862,22 @@ named list()
 > 
 > ## List the media files available for BR2044_OllyOhlson.eaf
 > getAvailableMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
-                        name  type extension  mimeType
-1      BR2044_OllyOhlson.mp4 video       mp4 video/mp4
-2 BR2044_OllyOhlson_face.mp4 video       mp4 video/mp4
-3      BR2044_OllyOhlson.wav audio       wav audio/wav
-              javascriptName
-1      BR2044_OllyOhlson.mp4
-2 BR2044_OllyOhlson_face.mp4
-3      BR2044_OllyOhlson.wav
+                        name  type extension                nameUrlSafe
+1      BR2044_OllyOhlson.mp4 video       mp4      BR2044_OllyOhlson.mp4
+2 BR2044_OllyOhlson_face.mp4 video       mp4 BR2044_OllyOhlson_face.mp4
+3      BR2044_OllyOhlson.wav audio       wav      BR2044_OllyOhlson.wav
+  trackSuffix  mimeType
+1             video/mp4
+2       _face video/mp4
+3             audio/wav
                                                                                               url
 1      https://labbcat.canterbury.ac.nz/demo/files/QB/BR2044_OllyOhlson/mp4/BR2044_OllyOhlson.mp4
 2 https://labbcat.canterbury.ac.nz/demo/files/QB/BR2044_OllyOhlson/mp4/BR2044_OllyOhlson_face.mp4
 3      https://labbcat.canterbury.ac.nz/demo/files/QB/BR2044_OllyOhlson/wav/BR2044_OllyOhlson.wav
-       nameWithoutSuffix trackSuffix                nameUrlSafe
-1      BR2044_OllyOhlson                  BR2044_OllyOhlson.mp4
-2 BR2044_OllyOhlson_face       _face BR2044_OllyOhlson_face.mp4
-3      BR2044_OllyOhlson                  BR2044_OllyOhlson.wav
+       nameWithoutSuffix             javascriptName
+1      BR2044_OllyOhlson      BR2044_OllyOhlson.mp4
+2 BR2044_OllyOhlson_face BR2044_OllyOhlson_face.mp4
+3      BR2044_OllyOhlson      BR2044_OllyOhlson.wav
 > 
 > ## Get URL for the WAV file for BR2044_OllyOhlson.eaf
 > getMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
@@ -2902,15 +2908,15 @@ named list()
 +     LineEnd=c(15.0, 25.0, 35.0))
 >  
 > ## Get a list of fragments
-> wav.files <- getSoundFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd)
+> wav.files <- getSoundFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd, path="test")
   |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
 > wav.files
-[1] "fragments/AP2505_Nelson__10.000-15.000.wav"   
-[2] "fragments/AP2512_MattBlack__20.000-25.000.wav"
-[3] "fragments/AP2512_MattBlack__30.000-35.000.wav"
+[1] "test/AP2505_Nelson__10.000-15.000.wav"   
+[2] "test/AP2512_MattBlack__20.000-25.000.wav"
+[3] "test/AP2512_MattBlack__30.000-35.000.wav"
 > file.remove(wav.files)
 [1] TRUE TRUE TRUE
-> file.remove("fragments")
+> file.remove("test")
 [1] TRUE
 > 
 > ## Get a list of fragments with no progress bar
@@ -2923,6 +2929,19 @@ named list()
 > file.remove(wav.files)
 [1] TRUE TRUE TRUE
 > file.remove("fragments")
+[1] TRUE
+> 
+> ## Get a list of fragment textgrids
+> textgrid.files <- getFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd,
++                                c("transcript", "phonemes"), path="test") 
+  |                                                                              |                                                                      |   0%  |                                                                              |=======================                                               |  33%  |                                                                              |===============================================                       |  67%  |                                                                              |======================================================================| 100%
+> textgrid.files
+[1] "test/AP2505_Nelson__10.000-15.000.TextGrid"   
+[2] "test/AP2512_MattBlack__20.000-25.000.TextGrid"
+[3] "test/AP2512_MattBlack__30.000-35.000.TextGrid"
+> file.remove(textgrid.files)
+[1] TRUE TRUE TRUE
+> file.remove("test")
 [1] TRUE
 > 
 > ## simulate some results
@@ -2945,6 +2964,9 @@ $`CELEX-EN`
 [1] "Phonology (wordform)"         "Morphology (wordform)"       
 [3] "Syntax (wordform)"            "Cobuild Frequency (wordform)"
 [5] "Cobuild Frequency (lemma)"   
+
+$Frequency
+[1] "word frequency"  "lemma frequency" "keyness"        
 
 $LIWC
 [1] "LIWC2007.cat: wordregexp → category" "LIWC2007.cat: category → wordregexp"
