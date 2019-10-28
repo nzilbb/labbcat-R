@@ -42,7 +42,7 @@ There are some basic functions that provide information about the LaBB-CAT insta
 ```{r basic-info}
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 
-id <- getId(labbcat)
+id <- getId(labbcat.url)
 layers <- getLayerIds(labbcat.url)
 corpora <- getCorpusIds(labbcat.url)
 
