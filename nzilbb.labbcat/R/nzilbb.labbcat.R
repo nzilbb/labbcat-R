@@ -1067,7 +1067,7 @@ getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
 #' @param layerId A vector of layer IDs.
-#' @param contentType Optional content-type - currently only "text/praat-textgrid"
+#' @param mimeType Optional content-type - currently only "text/praat-textgrid"
 #'     is supported.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
