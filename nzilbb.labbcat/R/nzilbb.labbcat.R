@@ -53,19 +53,22 @@ get.hidden.input <- function(prompt) {
 
 ## encode a parameter value for inclusion in the URL
 enc <- function(value) {
-    return(stringr::str_replace_all(URLencode(value),"\\+","%2B"))
+    return(
+        stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(
+          URLencode(value),"\\+","%2B"),":","%3A"),"\\[","%5B"),"\\]","%5D"),"#","%23"))
 }
 
 ## build a store call URL 
 buildUrl <- function(labbcat.url, call, parameters = NULL) {
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
-    url <- paste(labbcat.url, "store?call=", call, sep="")
+    url <- paste("store?call=", call, sep="")
     if (!is.null(parameters)) {
         for (name in names(parameters)) {
             url <- paste(url, "&", name, "=", parameters[name], sep="")
         } # next parameter
     } # there are parameters
     url <- enc(url)
+    url <- paste(labbcat.url, url, sep="")
     return(url)
 }
 
@@ -75,13 +78,14 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
     ## build request URL
-    url <- paste(labbcat.url, "store?call=", call, sep="")
+    url <- paste("store?call=", call, sep="")
     if (!is.null(parameters)) {
         mapply(function(name, value) {
             url <<- paste(url, "&", name, "=", value, sep="")
         }, names(parameters), parameters)
     } # there are parameters
     url <- enc(url)
+    url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
     resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
@@ -115,19 +119,68 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
         return(resp)
     }
 }
+## make an HTTP GET request to the thread URL, asking for credentials if required
+thread.get <- function(labbcat.url, threadId) {
+    ## ensure labbcat base URL has a trailing slash
+    if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
+
+    ## build request URL
+    url <- paste(labbcat.url, "thread?threadId=", threadId, sep="")
+    
+    ## attempt the request
+    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+    ## check we don't need credentials
+    if (httr::status_code(resp) == 401 && interactive()) {
+        ## ask for username and password
+        instance.name <- httr::headers(resp)['www-authenticate']
+        if (!is.null(instance.name)) {
+            ## something like 'Basic realm="Demo LaBB-CAT"'
+            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
+            instance.name <- stringr::str_replace(instance.name, "\"$", "")
+        } else {
+            instance.name <- "LaBB-CAT"
+        }
+
+        ## loop trying until success, or they cancel out
+        repeat {
+            instance.ok <- labbcatCredentials(
+                labbcat.url,
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
+            ## NULL means success, but wrong LaBB-CAT version
+            if (is.null(instance.ok)) return(NULL)
+            ## TRUE means everything OK
+            if (instance.ok) break
+        } ## next try
+        
+        ## and try again
+        return(thread.get(labbcat.url, threadId))
+    } else {
+        resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+        if (httr::status_code(resp) != 200) { # 200 = OK
+            print(paste("ERROR: ", httr::http_status(resp)$message))
+            return()
+        } else {
+            resp.json <- jsonlite::fromJSON(resp.content)
+            for (error in resp.json$errors) print(error)
+            return(resp.json$model)
+        }
+    }
+}
 ## make an HTTP GET request, asking for credentials if required
 http.get <- function(labbcat.url, path, parameters = NULL, content.type = "application/json") {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
     ## build request URL
-    url <- paste(labbcat.url, path, sep="")
+    url <- paste(path, "?", sep="")
     if (!is.null(parameters)) {
         for (name in names(parameters)) {
             url <- paste(url, "&", name, "=", parameters[name], sep="")
         } # next parameter
     } # there are parameters
     url <- enc(url)
+    url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
     resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)), httr::add_headers("Accepts" = content.type))
@@ -1013,7 +1066,7 @@ getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no
         pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
     }
 
-    ## loop throug each triple, getting fragments individually
+    ## loop through each triple, getting fragments individually
     ## (we could actually pass the lot to LaBB-CAT in one go and get a ZIP file back
     ##  but then we can't be sure the results contain a row for every fragment specified
     ##  and we can't display a progress bar)
@@ -1353,4 +1406,88 @@ getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
     file.remove(download.file)
     
     return(entries)
+}
+
+#' Search for tokens.
+#'
+#' @param labbcat.url URL to the LaBB-CAT instance
+#' @param pattern An object representing the pattern to search for.
+#' @return A data frame identifying matches.
+#' 
+#' @examples 
+#' \dontrun{
+#' ## define the LaBB-CAT URL
+#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
+#'
+#' pattern <- list(columns = list(
+#'     list(layers = list(
+#'         orthography = list(pattern = "the"))),
+#'     list(layers = list(
+#'         phonemes = list(pattern = "[cCEFHiIPqQuUV0123456789~#\\{\\$@].*"),
+#'         frequency = list(max = "2")))))
+#' 
+#' ## get the tokens matching the pattern
+#' result <- getMatches(labbcat.url, pattern)
+#' }
+#' 
+#' @keywords dictionary
+#' 
+getMatches <- function(labbcat.url, pattern, no.progress=FALSE) {
+    searchJson <- jsonlite::toJSON(pattern, auto_unbox = TRUE)
+    resp <- http.get(labbcat.url, "search", list(command="search", searchJson=searchJson))
+    if (is.null(resp)) return()
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    for (error in resp.json$errors) print(error)
+
+    threadId <- resp.json$model$threadId
+
+    pb <- NULL
+    if (!no.progress) {
+        pb <- txtProgressBar(min = 0, max = 100, style = 3)        
+    }
+
+    thread <- thread.get(labbcat.url, threadId)
+    if (is.null(thread)) {
+        return()
+    }
+    while (thread$running) {
+        if (!is.null(pb) && !is.null(thread$percentComplete)) {
+            setTxtProgressBar(pb, thread$percentComplete)
+        }
+        Sys.sleep(1)
+        thread <- thread.get(labbcat.url, threadId)
+        if (is.null(thread)) {
+            return()
+        }
+    } # poll until finished
+    if (!is.null(pb)) {
+        if (!is.null(thread$percentComplete)) {
+            setTxtProgressBar(pb, thread$percentComplete)
+        }
+        if (!is.null(thread$status)) {
+            print(thread$status)
+        }
+    }
+    
+    # get the results
+    # (ignore thread$resultUrl - we want the results stream, which starts returning immediately
+    # and saves memory on the server)
+    resp <- http.get(labbcat.url, "resultsStream", list(threadId=threadId))
+    if (is.null(resp)) return()
+    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+    if (httr::status_code(resp) != 200) { # 200 = OK
+        print(paste("ERROR: ", httr::http_status(resp)$message))
+        print(resp.content)
+        return()
+    }
+    resp.json <- jsonlite::fromJSON(resp.content)
+    for (error in resp.json$errors) print(error)
+    return(resp.json$model)
+
 }

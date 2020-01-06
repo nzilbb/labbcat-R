@@ -20,6 +20,7 @@ export(labbcatCredentials,
        getFragments,
        getAnnotationLabels,
        getDictionaries,
-       getDictionaryEntries)
+       getDictionaryEntries,
+       getMatches)
 importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar", "head", "read.csv", "write.table")
 importFrom("rstudioapi", "askForPassword")
