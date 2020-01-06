@@ -168,7 +168,7 @@ thread.get <- function(labbcat.url, threadId) {
     }
 }
 ## make an HTTP GET request, asking for credentials if required
-http.get <- function(labbcat.url, path, parameters = NULL, content.type = "application/json") {
+http.get <- function(labbcat.url, path, parameters = NULL, content.type = "application/json", file.name = NULL) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
@@ -176,14 +176,27 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     url <- paste(path, "?", sep="")
     if (!is.null(parameters)) {
         for (name in names(parameters)) {
-            url <- paste(url, "&", name, "=", parameters[name], sep="")
+            for (parameter in parameters[name]) {
+                for (value in parameter) {
+                    url <- paste(url, "&", name, "=", value, sep="")
+                } # next value
+            } # next elements
         } # next parameter
     } # there are parameters
     url <- enc(url)
     url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)), httr::add_headers("Accepts" = content.type))
+    if (is.null(file.name)) {
+        resp <- httr::GET(url,
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)),
+                          httr::add_headers("Accepts" = content.type))
+    } else {
+        resp <- httr::GET(url,
+                          httr::write_disk(file.name, overwrite=TRUE),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)),
+                          httr::add_headers("Accepts" = content.type))
+    }
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -209,7 +222,7 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
         } ## next try
         
         ## and try again
-        return(http.get(labbcat.url, path, parameters, content.type))
+        return(http.get(labbcat.url, path, parameters, content.type, file.name))
     } else {
         return(resp)
     }
@@ -1427,7 +1440,9 @@ getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
 #'         frequency = list(max = "2")))))
 #' 
 #' ## get the tokens matching the pattern
-#' result <- getMatches(labbcat.url, pattern)
+#' results <- getMatches(labbcat.url, pattern)
+#'
+#' ## results$MatchId can be used to access results
 #' }
 #' 
 #' @keywords dictionary
@@ -1474,20 +1489,32 @@ getMatches <- function(labbcat.url, pattern, no.progress=FALSE) {
             print(thread$status)
         }
     }
-    
+
+    download.file <- paste(thread$threadName, ".csv", sep="");
+
+    csv_option <- c("collection_name", "result_number", "transcript_name",
+                    "line_time", "line_end_time", "match")
     # get the results
     # (ignore thread$resultUrl - we want the results stream, which starts returning immediately
     # and saves memory on the server)
-    resp <- http.get(labbcat.url, "resultsStream", list(threadId=threadId))
+    resp <- http.get(labbcat.url,
+                     "resultsStream",
+                     list(threadId=threadId, todo="csv", csvFieldDelimiter=",", csv_option=csv_option),
+                     content.type="text/csv",
+                     file.name = download.file)
     if (is.null(resp)) return()
-    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
         print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(resp.content)
+        print(httr::content(resp, as="text", encoding="UTF-8"))
         return()
     }
-    resp.json <- jsonlite::fromJSON(resp.content)
-    for (error in resp.json$errors) print(error)
-    return(resp.json$model)
+
+    ## load the returned entries
+    results <- read.csv(download.file, header=T)
+
+    ## tidily remove the downloaded file
+    file.remove(download.file)
+    
+    return(results)
 
 }
