@@ -165,6 +165,46 @@ results <- read.csv("results.csv", header=T)
 phonemes <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
 ```
 
+### Search
+
+Searching for matching tokens can be achieved using the `getMatches` function.
+
+A basic search can be achieved with a simple, single-layer pattern like:
+
+```
+# all words starting with "ps..."
+results <- getMatches(labbcat.url, list(orthography = "ps.*"))
+```
+
+More complex patterns, across multiple tokens an multiple layers, is possible by specifying
+a more complex structure:
+
+```
+# the word 'the' followed immediately or with one intervening word by
+# a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel
+results <- getMatches(labbcat.url, list(columns = list(
+     list(layers = list(
+            orthography = list(pattern = "the")),
+          adj = 2),
+     list(layers = list(
+            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\{\\$@].*"),
+            frequency = list(max = "2"))))))
+```
+
+The data frame that's returned contains columns that can be used as parameters for other functions:
+
+```
+# get all instances of the KIT vowel
+results <- getMatches(labbcat.url, list(segments = "I"))
+
+# get phonemic transcription for the whole word
+phonemes  <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
+
+# download all the segment WAV files
+wav.files <- getSoundFragments(
+    labbcat.url, results$Transcript, results$Target.segments.start, results$Target.segments.end)
+```
+
 ### Looking up dictionaries
 
 LaBB-CAT maintains a number of [dictionaries](https://labbcat.canterbury.ac.nz/demo/dictionaries) it uses to look things up.  These include access to CELEX, LIWC, and other lexicons that might be set up in the LaBB-CAT instance.
@@ -280,15 +320,4 @@ Something like:
 ```
 attributes <- getGraphAttributes(labbcat.url, participant.list, c("dob","gender"))
 ```
-
-### Search
-
-To be able to do 'everything' from within R, there needs to be a way of conducting searches, 
-something like:
-
-```
-results <- labbcat.search(labbcat.url, "segments.label MATCHES 'I'", participants=participant.list)
-```
-
-How the search language might work (i.e. the "segments.label MATCHES 'I'" part), I'm not sure about yet.
 
