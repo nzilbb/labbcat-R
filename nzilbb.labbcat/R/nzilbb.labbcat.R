@@ -914,19 +914,29 @@ getAnnotations <- function(labbcat.url, id, layerId, pageLength = NULL, pageNumb
 #' @keywords anchor
 #' 
 getAnchors <- function(labbcat.url, id, anchorId) {
-    parameters <- list(id=id)
-    for (id in anchorId) parameters <- append(parameters, list(anchorId=id))
-    resp <- store.get(labbcat.url, "getAnchors", parameters)
-    if (is.null(resp)) return()
-    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-    if (httr::status_code(resp) != 200) { # 200 = OK
-        print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(resp.content)
-        return()
+    chunkMax <- 300
+    anchorIdChunks <- split(anchorId, ceiling(seq_along(anchorId)/chunkMax))
+    result <- NULL
+    for (anchorId in anchorIdChunks) {
+        parameters <- list(id=id)
+        for (id in anchorId) parameters <- append(parameters, list(anchorId=id))
+        resp <- store.get(labbcat.url, "getAnchors", parameters)
+        if (is.null(resp)) return()
+        resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+        if (httr::status_code(resp) != 200) { # 200 = OK
+            print(paste("ERROR: ", httr::http_status(resp)$message))
+            print(resp.content)
+            return()
+        }
+        resp.json <- jsonlite::fromJSON(resp.content)
+        for (error in resp.json$errors) print(error)
+        if (is.null(result)) {
+            result <- resp.json$model$result
+        } else {
+            result <- rbind(result, resp.json$model$result)
+        }
     }
-    resp.json <- jsonlite::fromJSON(resp.content)
-    for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    return(result)
 }
 
 #' List the media available for the given graph.
@@ -1409,8 +1419,11 @@ getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
         return()
     }
 
+    ## ensure we use the correct number of columns
+    ncol <- max(count.fields(download.file, sep=",", quote="\""))
+    
     ## load the returned entries
-    entries <- read.csv(download.file, header=F)
+    entries <- read.csv(download.file, header=F, col.names = paste0("V", seq_len(ncol)))
 
     ## rename the columns so that the one containing the keys is called "key"
     colnames(entries) <- c("key", head(colnames(entries), length(colnames(entries)) - 1))
@@ -1443,6 +1456,12 @@ getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
 #'  \item{min An inclusive minimum numeric value for the label}
 #'  \item{max An exclusive maximum numeric value for the label}
 #'  \item{not TRUE to negate the match}
+#'  \item{anchorStart TRUE to anchor to the start of the annotation on this layer
+#'     (i.e. the matching word token will be the first at/after the start of the matching
+#'     annotation on this layer)}
+#'  \item{anchorEnd TRUE to anchor to the end of the annotation on this layer
+#'     (i.e. the matching word token will be the last before/at the end of the matching
+#'     annotation on this layer)}
 #'  \item{target TRUE to make this layer the target of the search; the results will
 #'     contain one row for each match on the target layer}
 #' }
