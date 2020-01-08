@@ -6,11 +6,11 @@
 #' @param id A graph ID (i.e. transcript name)
 #' @param anchorId A vector of anchor IDs (or a string representing one anchor ID)
 #' @return  A named list of anchors, with members:
-#' \enumerate{
-#'  \item{id The annotation's unique ID},
-#'  \item{offset The offset from the beginning (in seconds if it's a
+#' \itemize{
+#'  \item{\emph{id} The annotation's unique ID},
+#'  \item{\emph{offset} The offset from the beginning (in seconds if it's a
 #'  transcript of a recording, or in characters if it's a text document)}
-#'  \item{confidence A rating from 0-100 of the confidence of the offset,
+#'  \item{\emph{confidence} A rating from 0-100 of the confidence of the offset,
 #'   e.g. 10: default value, 50: force-aligned, 100: manually aligned}
 #' }
 #' 

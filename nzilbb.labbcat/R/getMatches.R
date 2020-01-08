@@ -17,7 +17,7 @@
 #'
 #' Each element in the ``layers'' named list is named after the layer it matches, and the
 #'     value is a named list with the following possible elements:
-#' \enumerate{
+#' \itemize{
 #'  \item{\emph{pattern}  A regular expression to match against the label}
 #'  \item{\emph{min}  An inclusive minimum numeric value for the label}
 #'  \item{\emph{max}  An exclusive maximum numeric value for the label}
@@ -33,34 +33,35 @@
 #' }
 #'
 #' Examples of valid pattern objects include:
-#'
+#' \preformatted{
 #' ## words starting with 'ps...'
 #' pattern <- list(columns = list(
 #'     list(layers = list(
-#'            orthography = list(pattern = ''ps.*'')))))
+#'            orthography = list(pattern = "ps.*")))))
 #' 
 #' ## the word 'the' followed immediately or with one intervening word by
 #' ## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel
 #' pattern <- list(columns = list(
 #'     list(layers = list(
-#'            orthography = list(pattern = ''the'')),
+#'            orthography = list(pattern = "the")),
 #'          adj = 2),
 #'     list(layers = list(
-#'            phonemes = list(not = TRUE, pattern = ''[cCEFHiIPqQuUV0123456789~#\\$@].*''),
-#'            frequency = list(max = ''2'')))))
-#'
+#'            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
+#'            frequency = list(max = "2")))))
+#' }
 #' For ease of use, the function will also accept the following abbreviated forms:
 #'
+#' \preformatted{
 #' ## a single list representing a 'one column' search, 
 #' ## and string values, representing regular expression pattern matching
-#' pattern <- list(orthography = ''ps.*'')
+#' pattern <- list(orthography = "ps.*")
 #'
 #' ## a list containing the columns (adj defaults to 1, so matching tokens are contiguous)...
 #' pattern <- list(
-#'     list(orthography = ''the''),
-#'     list(phonemes = list(not = TRUE, pattern = ''[cCEFHiIPqQuUV0123456789~#\\$@].*''),
-#'          frequency = list(max = ''2'')))
-#' 
+#'     list(orthography = "the"),
+#'     list(phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
+#'          frequency = list(max = "2")))
+#' }
 #' @param participantId An optional list of participant IDs to search the utterances of. If
 #'     not supplied, all utterances in the corpus will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
@@ -70,7 +71,7 @@
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
 #' @return A data frame identifying matches, containing the following columns:
-#' \enumerate{
+#' \itemize{
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
 #'  \item{\emph{Number} Row number}
 #'  \item{\emph{Transcript} Name of the transcript in which the match was found}

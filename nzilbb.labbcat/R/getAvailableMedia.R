@@ -3,11 +3,11 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A graph ID (i.e. transcript name)
 #' @return A named list of media files available for the given graph, with members:
-#' \enumerate{
-#'  \item{trackSuffix The track suffix of the media}
-#'  \item{mimeType The MIME type of the file}
-#'  \item{url URL to the content of the file}
-#'  \item{name Name of the file}
+#' \itemize{
+#'  \item{\emph{trackSuffix} The track suffix of the media}
+#'  \item{\emph{mimeType} The MIME type of the file}
+#'  \item{\emph{url} URL to the content of the file}
+#'  \item{\emph{name} Name of the file}
 #' }
 #' 
 #' @seealso \link{getGraphIds}

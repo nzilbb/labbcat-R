@@ -9,15 +9,15 @@
 #' @param pageLength The maximum number of annotations to return, or null to return all
 #' @param pageNumber The zero-based page number to return, or null to return the first page
 #' @return A named list of annotations, with members:
-#' \enumerate{
-#'  \item{id The annotation's unique ID}
-#'  \item{layerId The name of the layer it comes from}
-#'  \item{label The value of the annotation}
-#'  \item{startId The ID of the start anchor},
-#'  \item{endId The ID of the end anchor},
-#'  \item{parentId The ID of the parent annotation},
-#'  \item{ordinal The ordinal of the annotation among its peers},
-#'  \item{confidence A rating from 0-100 of the confidence of the label
+#' \itemize{
+#'  \item{\emph{id} The annotation's unique ID}
+#'  \item{\emph{layerId} The name of the layer it comes from}
+#'  \item{\emph{label} The value of the annotation}
+#'  \item{\emph{startId} The ID of the start anchor},
+#'  \item{\emph{endId} The ID of the end anchor},
+#'  \item{\emph{parentId} The ID of the parent annotation},
+#'  \item{\emph{ordinal} The ordinal of the annotation among its peers},
+#'  \item{\emph{confidence} A rating from 0-100 of the confidence of the label
 #'  e.g. 10: default value, 50: automatically generated, 100: manually annotated}
 #' }
 #' 
