@@ -61,7 +61,7 @@
 #'     list(phonemes = list(not = TRUE, pattern = ''[cCEFHiIPqQuUV0123456789~#\\$@].*''),
 #'          frequency = list(max = ''2'')))
 #' 
-#' @param participant An optional list of participant IDs to search the utterances of. If
+#' @param participantId An optional list of participant IDs to search the utterances of. If
 #'     not supplied, all utterances in the corpus will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
@@ -203,7 +203,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
     # and saves memory on the server)
     download.file <- paste(thread$threadName, ".csv", sep="");
     # columns:
-    csv_option <- c("collection_name", "result_number", "transcript_name",
+    csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
                     "line_time", "line_end_time", "match", "result_text")
     # layers - "transcript", and "segments" if mentioned in the pattern
     csv_layer_option <- c("0")
