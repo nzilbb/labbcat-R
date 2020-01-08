@@ -190,17 +190,17 @@ test_that("getMatches includes segment info when segments layer searched", {
                           no.progress=T)
     
     ## check dataframe columns
-    expect_true(length(matches$MatchId) >= 6000)
-    expect_true(length(matches$Transcript)>= 6000)
-    expect_true(length(matches$Line)>= 6000)
-    expect_true(length(matches$LineEnd)>= 6000)
-    expect_true(length(matches$Text)>= 6000)
-    expect_true(length(matches$Target.transcript)>= 6000)
-    expect_true(length(matches$Target.transcript.start)>= 6000)
-    expect_true(length(matches$Target.transcript.end)>= 6000)
-    expect_true(length(matches$Target.segments)>= 6000)
-    expect_true(length(matches$Target.segments.start)>= 6000)
-    expect_true(length(matches$Target.segments.end)>= 6000)
+    expect_true(length(matches$MatchId) >= 140)
+    expect_true(length(matches$Transcript)>= 140)
+    expect_true(length(matches$Line)>= 140)
+    expect_true(length(matches$LineEnd)>= 140)
+    expect_true(length(matches$Text)>= 140)
+    expect_true(length(matches$Target.transcript)>= 140)
+    expect_true(length(matches$Target.transcript.start)>= 140)
+    expect_true(length(matches$Target.transcript.end)>= 140)
+    expect_true(length(matches$Target.segments)>= 140)
+    expect_true(length(matches$Target.segments.start)>= 140)
+    expect_true(length(matches$Target.segments.end)>= 140)
 
     ## check dataframe column types
     expect_false(is.numeric(matches$MatchId))
@@ -219,7 +219,7 @@ test_that("filter parameters of getMatches work", {
     ## get matches
     matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F, no.progress=T)
     matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T, no.progress=T)
-    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participantId="UC427_ViktoriaPapp_A_ENG.eaf", no.progress=T)
+    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participantId="UC427_ViktoriaPapp_A_ENG", no.progress=T)
     
     ## check the number of results
     expect_true(length(matchesAll$MatchId) > length(matchesMainParticipant$MatchId))
