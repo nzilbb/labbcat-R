@@ -20,3 +20,5 @@ Copyright: New Zealand Institute of Language, Brain and Behaviour,
  University of Canterbury
 URL: https://github.com/nzilbb/labbcat-R, https://labbcat.canterbury.ac.nz
 RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)
