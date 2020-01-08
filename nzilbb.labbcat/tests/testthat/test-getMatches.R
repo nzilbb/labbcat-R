@@ -57,7 +57,6 @@ test_that("getMatches works with 2x1 orthographic search using full structure", 
     matches <- getMatches(labbcat.url, pattern, no.progress=T)
     
     expect_equal(length(matches$MatchId), 1)
-    expect_equal(as.vector(matches$Text)[[1]], "Knox Church .")
 })
 
 test_that("getMatches works with 1x1 orthographic search using simple structure", {
@@ -156,14 +155,14 @@ test_that("getMatches works with complex, multi-match searches", {
     matches <- getMatches(labbcat.url, pattern, no.progress=T)
     
     ## check dataframe columns
-    expect_true(length(matches$MatchId) >= 1500)
-    expect_true(length(matches$Transcript)>= 1500)
-    expect_true(length(matches$Line)>= 1500)
-    expect_true(length(matches$LineEnd)>= 1500)
-    expect_true(length(matches$Text)>= 1500)
-    expect_true(length(matches$Target.transcript)>= 1500)
-    expect_true(length(matches$Target.transcript.start)>= 1500)
-    expect_true(length(matches$Target.transcript.end)>= 1500)
+    expect_true(length(matches$MatchId) >= 1400)
+    expect_true(length(matches$Transcript)>= 1400)
+    expect_true(length(matches$Line)>= 1400)
+    expect_true(length(matches$LineEnd)>= 1400)
+    expect_true(length(matches$Text)>= 1400)
+    expect_true(length(matches$Target.transcript)>= 1400)
+    expect_true(length(matches$Target.transcript.start)>= 1400)
+    expect_true(length(matches$Target.transcript.end)>= 1400)
 
     ## check dataframe column types
     expect_false(is.numeric(matches$MatchId))
