@@ -221,6 +221,9 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
         print(httr::content(resp, as="text", encoding="UTF-8"))
         return()
     }
+    
+    ## free the search thread so it's not using server resources
+    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
 
     ## load the returned entries
     results <- read.csv(download.file, header=T)
