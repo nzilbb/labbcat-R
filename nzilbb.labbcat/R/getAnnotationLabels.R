@@ -24,6 +24,13 @@
 #' 
 getAnnotationLabels <- function(labbcat.url, id, layerId, count=1, no.progress=FALSE) {
 
+    ## validate layer Ids
+    for (l in layerId) {
+        layer <- getLayer(labbcat.url, l)
+        ## getLayer prints an error if the layerId isn't valid
+        if (is.null(layer)) return()
+    } # next layer
+    
     pb <- NULL
     if (!no.progress && length(id) > 1) {
         pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
