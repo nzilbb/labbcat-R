@@ -36,18 +36,27 @@ getAnnotationLabels <- function(labbcat.url, id, layerId, count=1, no.progress=F
         pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
     }
 
-    ## we need a vector of size 'count' x the number of IDs in 'layerId' to store vectors of labels
-    layerCount = length(layerId)
-    labels = c()
-    for (col in 1:count*layerCount) labels <- append(labels, c())
-    
+    ## set column names
+    cols <- c()
+    for (l in layerId) {
+        for (col in 1:count) {
+            if (count == 1) {
+                col.name <- l
+            } else {
+                col.name <- paste(l,".",col,sep="")
+            }
+            cols <- append(cols, col.name)
+        } # next colum
+    } # next layer
+
+    ## create a matrix of NA, which we update in-situ
+    numLayers <- length(layerId)
+    labels.matrix <- matrix(nrow=length(id), ncol=numLayers*count, byrow=TRUE)
+    colnames(labels.matrix) <- cols
+
     ## loop through each id, getting fragments individually
     r <- 1
     for (annotation.id in id) {
-        ## create default row
-        row <- c()
-        ## fill it with NA
-        for (col in 1:count*layerCount) row <- append(row, NA)
 
         ## if the ID is actually a URL or MatchId, pick out the ew_0_n+ part
         annotation.id <- stringr::str_match(annotation.id, "ew_0_[0-9]+")
@@ -70,34 +79,19 @@ getAnnotationLabels <- function(labbcat.url, id, layerId, count=1, no.progress=F
                 if (length(resp.json$model$result) > 0) {
                     ## populate the row
                     for (col in 1:count) {
-                        row[colOffset+col] <- resp.json$model$result$label[col]
+                        labels.matrix[r, colOffset+col] <- resp.json$model$result$label[col]
                     }
                 }
             }
             colOffset <- colOffset + count
         } ## next layerId
-        labels <- append(labels, row)
         
         if (!is.null(pb)) setTxtProgressBar(pb, r)
         r <- r+1
     } ## next row
     if (!is.null(pb)) close(pb)
 
-    ## set column names
-    cols <- c()
-    for (l in layerId) {
-        for (col in 1:count) {
-            if (count == 1) {
-                col.name <- l
-            } else {
-                col.name <- paste(l,".",col,sep="")
-            }
-            cols <- append(cols, col.name)
-        } # next colum
-    } # next layer
-    labels.matrix <- matrix(labels, ncol=count*layerCount, byrow=TRUE)
-    colnames(labels.matrix) <- cols
     labels.df <- as.data.frame(labels.matrix, col.names=cols)
-
+    
     return(labels.df)
 }
