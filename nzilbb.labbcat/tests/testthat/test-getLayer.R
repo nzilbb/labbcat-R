@@ -1,7 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getLayer works for orthography", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     layers <- getLayer(labbcat.url, "orthography")
     
     expect_equal(layers$id, "orthography")

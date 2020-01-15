@@ -1,7 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getAnnotationLabels works", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
