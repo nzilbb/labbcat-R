@@ -13,9 +13,10 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param username The LaBB-CAT username, if it is password-protected
 #' @param password The LaBB-CAT password, if it is password-protected
-#' @return FALSE if the username/password are incorrect,
-#' NULL if they username/password are correct but the version of LaBB-CAT
-#' is incompatible with the package, and TRUE otherwise.
+#' @return NULL if the username/password are correct, and a string describing the problem
+#'     if a problem occurred, e.g. "Credentials rejected" if the username/password are
+#'     incorrect, or a start starting "Version mismatch" if the server's version of
+#'     LaBB-CAT is lower than the minimum required.
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -38,10 +39,9 @@ labbcatCredentials <- function(labbcat.url, username, password) {
 
     if (httr::status_code(resp) != 200) { # 200 = OK
         if (httr::status_code(resp) == 401) {
-            return(FALSE)
+            return("Credentials rejected")
         } else {
-            print(paste("ERROR: ", httr::http_status(resp)$message))
-            return(FALSE)
+            return(httr::http_status(resp)$message)
         }
     } ## not 200 OK
 
@@ -54,8 +54,7 @@ labbcatCredentials <- function(labbcat.url, username, password) {
     resp.json <- jsonlite::fromJSON(resp.content)
     version <- resp.json$model$version
     if (is.null(version) || version < .min.labbcat.version) {
-        print(paste("ERROR:", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
-        return(NULL)
+        return(paste("Version mismatch: ", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
     }        
-    return(TRUE)    
+    return(NULL)
 }
