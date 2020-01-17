@@ -6,7 +6,7 @@
 #'     a vector of graph IDs. 
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
-#' @param layerId A vector of layer IDs.
+#' @param layerIds A vector of layer IDs.
 #' @param mimeType Optional content-type - currently only "text/praat-textgrid"
 #'     is supported.
 #' @param no.progress Optionally suppress the progress bar when
@@ -43,7 +43,7 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/praat-textgrid", no.progress=FALSE, path="") {
+getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text/praat-textgrid", no.progress=FALSE, path="") {
 
     dir = path
     if (length(id) > 1) { ## multiple fragments

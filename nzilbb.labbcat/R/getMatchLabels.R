@@ -1,8 +1,9 @@
 #' Gets labels of annotations on a given layer, identified by given match IDs.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id A vector of annotation IDs, e.g. the MatchId column of a results set.
-#' @param layerId One or more layer names.
+#' @param matchIds A vector of annotation IDs, e.g. the MatchId column, or the URL column,
+#'     of a results set. 
+#' @param layerIds A vector of layer IDs.
 #' @param targetOffset The distance from the original target of the match, e.g.
 #' \itemize{
 #'  \item{\emph{0} -- find annotations of the match target itself},

@@ -5,7 +5,7 @@
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A graph ID (i.e. transcript name)
-#' @param layerId A layer name
+#' @param layerId A layer ID
 #' @param pageLength The maximum number of annotations to return, or null to return all
 #' @param pageNumber The zero-based page number to return, or null to return the first page
 #' @return A named list of annotations, with members:
