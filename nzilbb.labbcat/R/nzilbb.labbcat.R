@@ -39,6 +39,8 @@ NULL
 ## minimum version of LaBB-CAT required:
 .min.labbcat.version <- "20191022.1827"
 
+### Internal functions:
+
 ## prompt for password in RStudio, falling back to terminal if we're not in RStudio
 get.hidden.input <- function(prompt) {
     return(tryCatch({
