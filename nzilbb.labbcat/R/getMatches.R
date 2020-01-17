@@ -205,7 +205,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
     download.file <- paste(thread$threadName, ".csv", sep="");
     # columns:
     csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
-                    "line_time", "line_end_time", "match", "result_text")
+                    "line_time", "line_end_time", "match", "result_text", "word_url")
     # layers - "transcript", and "segments" if mentioned in the pattern
     csv_layer_option <- c("0")
     if (segments.layer) csv_layer_option <- c("0","1")
