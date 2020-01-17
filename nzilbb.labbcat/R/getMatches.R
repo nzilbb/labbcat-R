@@ -195,7 +195,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
             setTxtProgressBar(pb, thread$percentComplete)
         }
         if (!is.null(thread$status)) {
-            print(thread$status)
+            cat(paste("\n", thread$status, "\n", sep=""))
         }
     }
     
