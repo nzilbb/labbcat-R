@@ -1,7 +1,7 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 labbcatCredentials(labbcat.url, "demo", "demo")
 
-test_that("getAnnotationLabels works", {
+test_that("getMatchLabels works", {
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -9,7 +9,7 @@ test_that("getAnnotationLabels works", {
                   "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7704;[0]=ew_0_7704"))
     
     ## get labels
-    labels <- getAnnotationLabels(labbcat.url, results$MatchId, "topic", no.progress = T)
+    labels <- getMatchLabels(labbcat.url, results$MatchId, "topic", no.progress = T)
 
     expect_equal(length(labels$topic), 3)
     topic <- as.vector(labels$topic)
@@ -19,7 +19,7 @@ test_that("getAnnotationLabels works", {
 
 })
 
-test_that("getAnnotationLabels works with multiple layers", {
+test_that("getMatchLabels works with multiple layers", {
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -29,7 +29,7 @@ test_that("getAnnotationLabels works with multiple layers", {
     layers = c("topic", "phonemes")
     
     ## get labels
-    labels <- getAnnotationLabels(labbcat.url, results$MatchId, layers, no.progress = T)
+    labels <- getMatchLabels(labbcat.url, results$MatchId, layers, no.progress = T)
     expect_equal(length(labels), length(layers))
 
     expect_equal(length(labels$topic), 3)
@@ -46,7 +46,7 @@ test_that("getAnnotationLabels works with multiple layers", {
 
 })
 
-test_that("getAnnotationLabels works with count > 1", {
+test_that("getMatchLabels works with count > 1", {
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -54,7 +54,7 @@ test_that("getAnnotationLabels works with count > 1", {
                   "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7280;[0]=ew_0_7280"))
 
     ## get labels
-    labels <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes", 2, no.progress = T)
+    labels <- getMatchLabels(labbcat.url, results$MatchId, "phonemes", 2, no.progress = T)
     expect_equal(length(labels), 2)
 
     expect_equal(length(labels$phonemes.1), 3)
