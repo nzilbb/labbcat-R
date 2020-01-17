@@ -22,11 +22,11 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
-#' ## Load some search results previously exported from LaBB-CAT
-#' results <- read.csv("results.csv", header=T)
+#' ## Perform a search
+#' results <- getMatches(labbcat.url, list(segments="I"))
 #' 
 #' ## Get the phonemic transcriptions for the matches
-#' phonemes <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
+#' phonemes <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")
 #'
 #' ## Get sound fragments for the matches
 #' wav.files <- getSoundFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd)
@@ -37,7 +37,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20191022.1827"
+.min.labbcat.version <- "20200117.1247"
 
 ### Internal functions:
 
