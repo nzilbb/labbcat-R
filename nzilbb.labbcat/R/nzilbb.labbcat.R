@@ -89,7 +89,7 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=30)))
+    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -129,7 +129,7 @@ thread.get <- function(labbcat.url, threadId) {
     url <- paste(labbcat.url, "thread?threadId=", threadId, sep="")
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=30)))
+    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -190,12 +190,12 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     ## attempt the request
     if (is.null(file.name)) {
         resp <- httr::GET(url,
-                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=30)),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                           httr::add_headers("Accepts" = content.type))
     } else {
         resp <- httr::GET(url,
                           httr::write_disk(file.name, overwrite=TRUE),
-                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=30)),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                           httr::add_headers("Accepts" = content.type))
     }
     ## check we don't need credentials
@@ -240,7 +240,7 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
     ## attempt the request
     resp <- httr::POST(url, 
                        httr::write_disk(file.name, overwrite=TRUE),
-                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=30)),
+                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                        body = parameters, encode = "form")
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
@@ -284,7 +284,7 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name) {
     ## attempt the request
     resp <- httr::POST(url,
                        httr::write_disk(file.name, overwrite=TRUE),
-                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=30)),
+                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                        body = parameters, encode = "multipart")
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {

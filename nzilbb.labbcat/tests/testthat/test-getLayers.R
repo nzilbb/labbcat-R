@@ -1,7 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getLayers works", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     layers <- getLayers(labbcat.url)
     
     expect_true(length(layers$id) >= 41)

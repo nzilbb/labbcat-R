@@ -1,7 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getDictionaryEntries works", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     entries <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Phonology (wordform)",
                                     c("the", "quick", "brown", "fox"))
 

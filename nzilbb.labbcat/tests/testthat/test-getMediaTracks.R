@@ -1,7 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getMediaTracks works", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     tracks <- getMediaTracks(labbcat.url)
     expect_equal(length(tracks$description), 2)
     expect_true("Quake Face" %in% tracks$description)

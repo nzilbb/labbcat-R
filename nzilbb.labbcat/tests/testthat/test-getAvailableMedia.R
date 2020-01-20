@@ -1,7 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getAvailableMedia works", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     media <- getAvailableMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
     expect_equal(length(media$name), 3)
     expect_equal(length(media$type), 3)

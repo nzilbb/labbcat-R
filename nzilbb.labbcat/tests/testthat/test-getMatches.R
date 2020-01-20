@@ -1,8 +1,8 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getMatches works with 1x1 orthographic search using full structure", {
     skip_on_cran() # only simple searches on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
     
     ## create pattern
     pattern <- list(
@@ -45,6 +45,7 @@ test_that("getMatches works with 1x1 orthographic search using full structure", 
 
 test_that("getMatches works with 2x1 orthographic search using full structure", {
     skip_on_cran() # only simple searches on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -62,6 +63,7 @@ test_that("getMatches works with 2x1 orthographic search using full structure", 
 })
 
 test_that("getMatches works with 1x1 orthographic search using simple structure", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
     pattern <- list(orthography = "knox")
@@ -74,6 +76,7 @@ test_that("getMatches works with 1x1 orthographic search using simple structure"
 })
 
 test_that("getMatches works with 2x1 orthographic search using simple structure", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
     pattern <- list(list(orthography = "knox"), list(orthography = "church"))
@@ -87,6 +90,7 @@ test_that("getMatches works with 2x1 orthographic search using simple structure"
 
 test_that("getMatches works with 2x3 non-orthographic search using full structure", {
     skip_on_cran() # only simple searches on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -125,6 +129,7 @@ test_that("getMatches works with 2x3 non-orthographic search using full structur
 })
 
 test_that("getMatches works with 2x3 non-orthographic search using simple structure", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -140,6 +145,7 @@ test_that("getMatches works with 2x3 non-orthographic search using simple struct
 
 test_that("getMatches works with complex, multi-match searches", {
     skip_on_cran() # only simple searches on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     labbcatTimeout(60)
 
@@ -179,7 +185,8 @@ test_that("getMatches works with complex, multi-match searches", {
 
 test_that("getMatches includes segment info when segments layer searched", {
     skip_on_cran() # only simple searches on CRAN
-    
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     ## create pattern
     pattern <- list(
         columns = list(
@@ -216,7 +223,8 @@ test_that("getMatches includes segment info when segments layer searched", {
 
 test_that("filter parameters of getMatches work", {
     skip_on_cran() # only simple searches on CRAN
-    
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     ## get matches
     matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F, no.progress=T)
     matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T, no.progress=T)
@@ -229,7 +237,8 @@ test_that("filter parameters of getMatches work", {
 
 test_that("words.context parameter of getMatches works", {
     skip_on_cran() # only simple searches on CRAN
-    
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
     ## create pattern
     pattern <- list(
         columns = list(
