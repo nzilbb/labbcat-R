@@ -158,11 +158,11 @@ wav.files <- getSoundFragments(
 ### Getting annotations from other layers
 
 If you have search results in a CSV file, and would like to retrieve annotations from some other
-layer, you can use the `getAnnotationLabels` function, providing the *MatchId* column (or the *URL* column) that indentifies the token, and the desuired layer name:
+layer, you can use the `getMatchLabels` function, providing the *MatchId* column (or the *URL* column) that indentifies the token, and the desuired layer name:
 
 ```
 results <- read.csv("results.csv", header=T)
-phonemes <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
+phonemes <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")
 ```
 
 ### Search
@@ -198,7 +198,7 @@ The data frame that's returned contains columns that can be used as parameters f
 results <- getMatches(labbcat.url, list(segments = "I"))
 
 # get phonemic transcription for the whole word
-phonemes  <- getAnnotationLabels(labbcat.url, results$MatchId, "phonemes")
+phonemes  <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")
 
 # download all the segment WAV files
 wav.files <- getSoundFragments(
@@ -223,15 +223,6 @@ pronunciation <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Phonology (wordf
 ```
 
 ## Future Enhancements
-
-### Getting annotations from other layers
-
-Sometimes you might want annotations for the previous or next token, which might work like this:
-
-```
-previous.token.frequencies <- getAnnotationLabels(labbcat.url, results$MatchId, "frequency", token=-1)
-next.token.frequencies <- getAnnotationLabelss(labbcat.url, results$MatchId, "frequency", token=1)
-```
 
 ### Process with Praat
 
