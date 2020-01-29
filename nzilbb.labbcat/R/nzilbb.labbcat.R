@@ -37,7 +37,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20200117.1247"
+.min.labbcat.version <- "20200129.1901"
 
 ### Internal functions:
 
@@ -79,7 +79,7 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
     ## build request URL
-    url <- paste("store?call=", call, sep="")
+    url <- paste("api/store/", call, "?", sep="")
     if (!is.null(parameters)) {
         mapply(function(name, value) {
             url <<- paste(url, "&", name, "=", value, sep="")

@@ -35,7 +35,7 @@ getAnchors <- function(labbcat.url, id, anchorId) {
     result <- NULL
     for (anchorId in anchorIdChunks) {
         parameters <- list(id=id)
-        for (id in anchorId) parameters <- append(parameters, list(anchorId=id))
+        for (id in anchorId) parameters <- append(parameters, list(anchorIds=id))
         resp <- store.get(labbcat.url, "getAnchors", parameters)
         if (is.null(resp)) return()
         resp.content <- httr::content(resp, as="text", encoding="UTF-8")
@@ -47,9 +47,9 @@ getAnchors <- function(labbcat.url, id, anchorId) {
         resp.json <- jsonlite::fromJSON(resp.content)
         for (error in resp.json$errors) print(error)
         if (is.null(result)) {
-            result <- resp.json$model$result
+            result <- resp.json$model
         } else {
-            result <- rbind(result, resp.json$model$result)
+            result <- rbind(result, resp.json$model)
         }
     }
     return(result)

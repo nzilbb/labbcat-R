@@ -52,7 +52,7 @@ getMatchingGraphIds <- function(labbcat.url, expression, pageLength = NULL, page
     if (!is.null(pageLength)) parameters <- append(parameters, list(pageLength=pageLength))
     if (!is.null(pageNumber)) parameters <- append(parameters, list(pageNumber=pageNumber))
     if (!is.null(order)) parameters <- append(parameters, list(order=order))
-    resp <- store.get(labbcat.url, "getMatchingGraphIdsPage", parameters)
+    resp <- store.get(labbcat.url, "getMatchingGraphIds", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
@@ -62,5 +62,5 @@ getMatchingGraphIds <- function(labbcat.url, expression, pageLength = NULL, page
     }
     resp.json <- jsonlite::fromJSON(resp.content)
     for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    return(resp.json$model)
 }

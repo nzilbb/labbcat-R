@@ -23,5 +23,5 @@ getParticipantIds <- function(labbcat.url) {
     }
     resp.json <- jsonlite::fromJSON(resp.content)
     for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    return(resp.json$model)
 }
