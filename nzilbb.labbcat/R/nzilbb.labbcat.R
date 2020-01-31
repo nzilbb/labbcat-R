@@ -79,7 +79,7 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
     ## build request URL
-    url <- paste("api/store/", call, "?", sep="")
+    url <- paste("store/", call, "?", sep="")
     if (!is.null(parameters)) {
         mapply(function(name, value) {
             url <<- paste(url, "&", name, "=", value, sep="")
