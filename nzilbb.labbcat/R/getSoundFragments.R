@@ -1,10 +1,10 @@
 #' Gets sound fragments from 'LaBB-CAT'.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id The graph ID (transcript name) of the sound recording, or
+#' @param graphIds The graph ID (transcript name) of the sound recording, or
 #'     a vector of graph IDs. 
-#' @param start The start time in seconds, or a vector of start times.
-#' @param end The end time in seconds, or a vector of end times.
+#' @param startOffsets The start time in seconds, or a vector of start times.
+#' @param endOffsets The end time in seconds, or a vector of end times.
 #' @param sampleRate Optional sample rate in Hz - if a positive
 #'     integer, then the result is a mono file with the given sample rate.
 #' @param no.progress Optionally suppress the progress bar when
@@ -41,7 +41,7 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getSoundFragments <- function(labbcat.url, id, start, end, sampleRate = NULL, no.progress=FALSE, path="") {
+getSoundFragments <- function(labbcat.url, graphIds, startOffsets, endOffsets, sampleRate = NULL, no.progress=FALSE, path="") {
     
     dir = path
     if (length(id) > 1) { ## multiple fragments
