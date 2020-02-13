@@ -268,3 +268,19 @@ test_that("words.context parameter of getMatches works", {
     expect_true(nchar(as.vector(fiveWords$After.Match)[[1]])
                 < nchar(as.vector(wholeLine$After.Match)[[1]]))
 })
+
+test_that("getMatches pagination works", {
+    skip_on_cran() # only simple searches on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    ## create pattern
+    pattern <- list(
+        columns = list(
+            list(layers = list(
+                     segments = list(pattern = "I")))))
+    
+    ## get matches - the total (as above) is >= 140, but we ask for the first 5
+    matches <- getMatches(labbcat.url, pattern, maxMatches=5, no.progress=T)
+    
+    expect_equal(length(matches$MatchId), 5)
+})

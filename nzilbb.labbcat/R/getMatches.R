@@ -62,12 +62,13 @@
 #'     list(phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
 #'          frequency = list(max = "2")))
 #' }
-#' @param participantId An optional list of participant IDs to search the utterances of. If
+#' @param participantIds An optional list of participant IDs to search the utterances of. If
 #'     not supplied, all utterances in the corpus will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
 #' @param words.context Number of words context to include in the `Before.Match' and
 #'     `After.Match' columns in the results.
+#' @param maxMatches The maximum number of matches to return, or null to return all.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
 #' @return A data frame identifying matches, containing the following columns:
@@ -116,7 +117,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participant=TRUE, words.context=0, no.progress=FALSE) {
+getMatches <- function(labbcat.url, pattern, participantIds=NULL, main.participant=TRUE, words.context=0, maxMatches=NULL, no.progress=FALSE) { ## TODO transcriptTypes=NULL
     
     ## first normalize the pattern...
 
@@ -143,7 +144,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
         for (l in names(pattern$columns[[c]]$layers)) { # for each layer in the column
             # if the layer value isn't a list
             if (!is.list(pattern$columns[[c]]$layers[[l]])) {
-                # wrap a list(patter=...) around it
+                # wrap a list(pattern=...) around it
                 pattern$columns[[c]]$layers[[l]] <- list(pattern = pattern$columns[[c]]$layers[[l]])
             } # value isn't a list
             if (l == "segments") segments.layer <- TRUE
@@ -155,7 +156,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
     parameters <- list(command="search", searchJson=searchJson,
                        words_context=words.context)
     if (main.participant) parameters$only_main_speaker <- TRUE
-    if (!is.null(participantId)) parameters$participant_id <- as.list(participantId)
+    if (!is.null(participantIds)) parameters$participant_id <- as.list(participantIds)
     resp <- http.get(labbcat.url, "search", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
@@ -212,7 +213,8 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
     resp <- http.get(labbcat.url,
                      "resultsStream",
                      list(threadId=threadId, todo="csv", csvFieldDelimiter=",",
-                          csv_option=csv_option, csv_layer_option=csv_layer_option),
+                          csv_option=csv_option, csv_layer_option=csv_layer_option,
+                          pageLength=maxMatches),
                      content.type="text/csv",
                      file.name = download.file)
     if (is.null(resp)) return()
