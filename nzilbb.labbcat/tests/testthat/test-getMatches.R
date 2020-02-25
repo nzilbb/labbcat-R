@@ -194,7 +194,7 @@ test_that("getMatches includes segment info when segments layer searched", {
                      segments = list(pattern = "I")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, participantId="UC427_ViktoriaPapp_A_ENG",
+    matches <- getMatches(labbcat.url, pattern, participant.ids="UC427_ViktoriaPapp_A_ENG",
                           no.progress=T)
     
     ## check dataframe columns
@@ -227,11 +227,13 @@ test_that("filter parameters of getMatches work", {
 
     ## get matches
     matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F, no.progress=T)
+    matchesOnePerTranscript <- getMatches(labbcat.url, list(orthography="the"), matches.per.transcript=2, no.progress=T)
     matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T, no.progress=T)
-    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participantId="UC427_ViktoriaPapp_A_ENG", no.progress=T)
+    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participant.ids="UC427_ViktoriaPapp_A_ENG", no.progress=T)
     
     ## check the number of results
     expect_true(length(matchesAll$MatchId) > length(matchesMainParticipant$MatchId))
+    expect_true(length(matchesAll$MatchId) > length(matchesOneParticipant$MatchId))
     expect_true(length(matchesMainParticipant$MatchId) > length(matchesOneParticipant$MatchId))
 })
 
