@@ -1,8 +1,8 @@
 #' Gets sound fragments from 'LaBB-CAT'.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param graphIds The graph ID (transcript name) of the sound recording, or
-#'     a vector of graph IDs. 
+#' @param graphIds The transcript ID (transcript name) of the sound recording, or
+#'     a vector of transcript IDs. 
 #' @param startOffsets The start time in seconds, or a vector of start times.
 #' @param endOffsets The end time in seconds, or a vector of end times.
 #' @param sampleRate Optional sample rate in Hz - if a positive

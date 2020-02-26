@@ -1,10 +1,9 @@
-#' Gets the annotations on the given layer of the given graph.
+#' Gets the annotations on the given layer of the given transcript.
 #'
-#' Returns the annotations on the given layer of the given graph
-#' (transcript).
+#' Returns the annotations on the given layer of the given transcript.
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id A graph ID (i.e. transcript name)
+#' @param id A transcript ID (i.e. transcript name)
 #' @param layerId A layer ID
 #' @param pageLength The maximum number of annotations to return, or null to return all
 #' @param pageNumber The zero-based page number to return, or null to return the first page
@@ -22,9 +21,9 @@
 #' }
 #' 
 #' @seealso 
-#'   \code{\link{getGraphIds}}
-#'   \code{\link{getGraphIdsInCorpus}}
-#'   \code{\link{getGraphIdsWithParticipant}}
+#'   \code{\link{getTranscriptIds}}
+#'   \code{\link{getTranscriptIdsInCorpus}}
+#'   \code{\link{getTranscriptIdsWithParticipant}}
 #'   \code{\link{countAnnotations}}
 #' @examples 
 #' \dontrun{
@@ -38,7 +37,7 @@
 #' orthography <- getAnnotations(labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "orthography", 20, 0)
 #' }
 #'
-#' @keywords graph transcript
+#' @keywords transcript
 #' 
 getAnnotations <- function(labbcat.url, id, layerId, pageLength = NULL, pageNumber = NULL) {
     parameters <- list(id=id, layerId=layerId)

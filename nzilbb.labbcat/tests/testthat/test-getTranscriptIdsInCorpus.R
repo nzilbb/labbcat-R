@@ -1,10 +1,10 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 
-test_that("getGraphIds works", {
+test_that("getTranscriptIdsInCorpus works", {
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
-    ids <- getGraphIds(labbcat.url)
-    expect_true(length(ids) >= 28)
+    ids <- getTranscriptIdsInCorpus(labbcat.url, "QB")
+    expect_equal(length(ids), 22)
     expect_true("QB247_Jacqui.eaf" %in% ids)
-    expect_true("UC427_ViktoriaPapp_A_ENG.eaf" %in% ids)
+    expect_false("UC427_ViktoriaPapp_A_ENG.eaf" %in% ids)
 })

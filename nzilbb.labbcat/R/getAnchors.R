@@ -1,9 +1,9 @@
-#' Gets the given anchors in the given graph.
+#' Gets the given anchors in the given transcript.
 #'
-#' Lists the given anchors in the given graph (transcript).
+#' Lists the given anchors in the given transcript.
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id A graph ID (i.e. transcript name)
+#' @param id A transcript ID (i.e. transcript name)
 #' @param anchorId A vector of anchor IDs (or a string representing one anchor ID)
 #' @return  A named list of anchors, with members:
 #' \itemize{

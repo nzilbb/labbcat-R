@@ -1,4 +1,4 @@
-#' Gets a list of IDs of graphs that include the given participant.
+#' Deprecated synonym for getTranscriptIdsWithParticipant.
 #'
 #' Returns a list of IDs of graphs (i.e. transcript names) that include
 #' the given participant.
@@ -7,7 +7,7 @@
 #' @param id A participant ID
 #' @return A list of graph IDs
 #' 
-#' @seealso \code{\link{getParticipantIds}}
+#' @seealso \code{\link{getTranscriptIdsWithParticipant}}
 #' @examples 
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -20,15 +20,6 @@
 #' @keywords graph transcript
 #' 
 getGraphIdsWithParticipant <- function(labbcat.url, id) {
-    resp <- store.get(labbcat.url, "getGraphIdsWithParticipant", list(id=id))
-    if (is.null(resp)) return()
-    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-    if (httr::status_code(resp) != 200) { # 200 = OK
-        print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(resp.content)
-        return()
-    }
-    resp.json <- jsonlite::fromJSON(resp.content)
-    for (error in resp.json$errors) print(error)
-    return(resp.json$model)
+    .Deprecated("getTranscriptIdsWithParticipant")
+    return(getTranscriptIdsWithParticipant(labbcat.url, id))
 }

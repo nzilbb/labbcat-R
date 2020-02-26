@@ -1,9 +1,9 @@
-#' Gets fragments of annotation graphs (transcripts) from 'LaBB-CAT', 
+#' Gets fragments of annotation transcript from 'LaBB-CAT', 
 #' converted to a given format (by default, Praat TextGrid)
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id The graph ID (transcript name) of the sound recording, or
-#'     a vector of graph IDs. 
+#' @param id The transcript ID (transcript name) of the sound recording, or
+#'     a vector of transcript IDs. 
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
 #' @param layerIds A vector of layer IDs.
