@@ -1,17 +1,13 @@
 # nzilbb.labbcat package for R
 
 The package provides functionality for querying and extracting data
-from LaBB-CAT corpora, directly from R.
+from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
 
-It currently provides access to quite basic data, but does
-include a function for extraction sound fragments given a transcript
-name and start/end times, so results CSV files can be processed
-directy from R.
+LaBB-CAT is a web-based linguistic annotation store that stores audio or video
+recordings, text transcripts, and other annotations.
 
-## Building the package
-
-The package can be built from the source code using using:  
-`./build.sh`
+This package currently provides access to basic corpus structure data, pattern-based
+search, annotation, audio, and TextGrid extraction.
 
 ## Basic usage instructions
 
@@ -312,3 +308,26 @@ Something like:
 attributes <- getGraphAttributes(labbcat.url, participant.list, c("dob","gender"))
 ```
 
+# Developers
+
+## Building the package
+
+The package can be built from the source code using using:  
+```
+./build.sh
+```
+
+## Running automated tests
+
+Unit tests use the 'testthat' package, which requires a one-time installation:
+
+```
+R -e "install.packages('testthat')"
+```
+
+After 'testthat' is installed, you can use the following commands to run unit tests: 
+
+```
+cd nzilbb.labbcat
+R -e "devtools::test()"
+```
