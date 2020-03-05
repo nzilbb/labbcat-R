@@ -104,14 +104,17 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
 
         ## loop trying until success, or they cancel out
         repeat {
-            instance.ok <- labbcatCredentials(
+            error <- labbcatCredentials(
                 labbcat.url,
                 get.hidden.input(paste(instance.name, "Username:", "")),
                 get.hidden.input(paste(instance.name, "Password:", "")))
-            ## NULL means success, but wrong LaBB-CAT version
-            if (is.null(instance.ok)) return(NULL)
-            ## TRUE means everything OK
-            if (instance.ok) break
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
         } ## next try
         
         ## and try again
@@ -144,14 +147,17 @@ thread.get <- function(labbcat.url, threadId) {
 
         ## loop trying until success, or they cancel out
         repeat {
-            instance.ok <- labbcatCredentials(
+            error <- labbcatCredentials(
                 labbcat.url,
                 get.hidden.input(paste(instance.name, "Username:", "")),
                 get.hidden.input(paste(instance.name, "Password:", "")))
-            ## NULL means success, but wrong LaBB-CAT version
-            if (is.null(instance.ok)) return(NULL)
-            ## TRUE means everything OK
-            if (instance.ok) break
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
         } ## next try
         
         ## and try again
@@ -212,14 +218,17 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
 
         ## loop trying until success, or they cancel out
         repeat {
-            instance.ok <- labbcatCredentials(
+            error <- labbcatCredentials(
                 labbcat.url,
                 get.hidden.input(paste(instance.name, "Username:", "")),
                 get.hidden.input(paste(instance.name, "Password:", "")))
-            ## NULL means success, but wrong LaBB-CAT version
-            if (is.null(instance.ok)) return(NULL)
-            ## TRUE means everything OK
-            if (instance.ok) break
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
         } ## next try
         
         ## and try again
@@ -256,14 +265,17 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
 
         ## loop trying until success, or they cancel out
         repeat {
-            instance.ok <- labbcatCredentials(
+            error <- labbcatCredentials(
                 labbcat.url,
                 get.hidden.input(paste(instance.name, "Username:", "")),
                 get.hidden.input(paste(instance.name, "Password:", "")))
-            ## NULL means success, but wrong LaBB-CAT version
-            if (is.null(instance.ok)) return(NULL)
-            ## TRUE means everything OK
-            if (instance.ok) break
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
         } ## next try
         
         ## and try again
@@ -300,14 +312,17 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name) {
 
         ## loop trying until success, or they cancel out
         repeat {
-            instance.ok <- labbcatCredentials(
+            error <- labbcatCredentials(
                 labbcat.url,
                 get.hidden.input(paste(instance.name, "Username:", "")),
                 get.hidden.input(paste(instance.name, "Password:", "")))
-            ## NULL means success, but wrong LaBB-CAT version
-            if (is.null(instance.ok)) return(NULL)
-            ## TRUE means everything OK
-            if (instance.ok) break
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
         } ## next try
         
         ## and try again
