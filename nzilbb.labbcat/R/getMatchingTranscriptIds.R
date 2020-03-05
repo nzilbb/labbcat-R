@@ -36,12 +36,12 @@
 #' 
 #' ## Get the second transcript that has "QB247_Jacqui" as a speaker
 #' transcripts <- getMatchingTranscriptIds(
-#'         labbcat.url, "'QB247_Jacqui' IN labels('who')", 1, 1)
+#'         labbcat.url, "'QB247_Jacqui' IN labels('participant')", 1, 1)
 #' 
 #' ## Get all transcripts whose names start with "BR" and have "QB247_Jacqui" as a speaker,
 #' ## in word-count order 
 #' transcripts <- getMatchingTranscriptIds(
-#'         labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('who')", 1, 1,
+#'         labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('participant')", 1, 1,
 #'         "my('transcript_word_count').label ASC")
 #' }
 #' 
