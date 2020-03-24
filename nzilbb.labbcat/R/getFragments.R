@@ -11,7 +11,7 @@
 #'     is supported.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
-#' @param path Optional path to directory where tge files should be saved.
+#' @param path Optional path to directory where the files should be saved.
 #' @return The name of the file, which is saved in the current
 #'     directory, or a list of names of files, if multiple
 #'     id's/start's/end's were specified 
