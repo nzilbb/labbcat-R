@@ -1,7 +1,7 @@
 #' Gets sound fragments from 'LaBB-CAT'.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param graphIds The transcript ID (transcript name) of the sound recording, or
+#' @param ids The transcript ID (transcript name) of the sound recording, or
 #'     a vector of transcript IDs. 
 #' @param startOffsets The start time in seconds, or a vector of start times.
 #' @param endOffsets The end time in seconds, or a vector of end times.
@@ -41,10 +41,10 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getSoundFragments <- function(labbcat.url, graphIds, startOffsets, endOffsets, sampleRate = NULL, no.progress=FALSE, path="") {
+getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sampleRate = NULL, no.progress=FALSE, path="") {
     
     dir = path
-    if (length(id) > 1) { ## multiple fragments
+    if (length(ids) > 1) { ## multiple fragments
         ## save fragments into their own directory
         if (stringr::str_length(dir) == 0) dir <- "fragments"
     }
@@ -68,8 +68,8 @@ getSoundFragments <- function(labbcat.url, graphIds, startOffsets, endOffsets, s
     }
 
     pb <- NULL
-    if (!no.progress && length(id) > 1) {
-        pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
+    if (!no.progress && length(ids) > 1) {
+        pb <- txtProgressBar(min = 0, max = length(ids), style = 3)        
     }
 
     ## loop through each triple, getting fragments individually
@@ -78,7 +78,7 @@ getSoundFragments <- function(labbcat.url, graphIds, startOffsets, endOffsets, s
     ##  and we can't display a progress bar)
     file.names = c()
     r <- 1
-    for (graph.id in id) {
+    for (graph.id in ids) {
         parameters <- list(id=graph.id, start=start[r], end=end[r])
         if (!is.null(sampleRate)) parameters <- list(id=graph.id, start=start[r], end=end[r], sampleRate=sampleRate)
         file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", start[r], "-", end[r], ".wav", sep="")
