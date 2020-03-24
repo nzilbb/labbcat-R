@@ -22,9 +22,9 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
-#' ## Load some search results previously exported from LaBB-CAT
-#' results <- read.csv("results.csv", header=T)
-#'
+#' ## Perform a search
+#' results <- getMatches(labbcat.url, list(orthography="quake"))
+#' 
 #' ## Get the topic annotations for the matches
 #' topics <- getAnnotationLabels(labbcat.url, results$MatchId, "topic")
 #' }
