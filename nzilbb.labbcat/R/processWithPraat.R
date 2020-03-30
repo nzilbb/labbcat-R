@@ -26,6 +26,7 @@
 #'     multiple fragments are  specified - TRUE for no progress bar.
 #' @return A data frame of acoustic measures, one row for each matchId.
 #' 
+#' @seealso \link{praaScriptFormants}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL

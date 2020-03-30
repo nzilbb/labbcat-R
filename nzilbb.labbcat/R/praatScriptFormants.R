@@ -43,7 +43,7 @@
 #' }
 #' @keywords praat
 #' 
-praat.script.formants <- function(formants = c(1,2), sample.points = c(0.5), time.step = 0.0, max.number.formants = 5, max.formant = 5500, max.formant.male = 5000, gender.attribute = 'participant_gender', value.for.male = "M", window.length = 0.025, preemphasis.from = 50) {
+praatScriptFormants <- function(formants = c(1,2), sample.points = c(0.5), time.step = 0.0, max.number.formants = 5, max.formant = 5500, max.formant.male = 5000, gender.attribute = 'participant_gender', value.for.male = "M", window.length = 0.025, preemphasis.from = 50) {
     script = paste("maxformant =", max.formant) 
     if (!is.null(max.formant.male) && !is.null(gender.attribute)
         && max.formant != max.formant.male) {
