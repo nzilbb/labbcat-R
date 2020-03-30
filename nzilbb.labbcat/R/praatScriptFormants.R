@@ -13,9 +13,9 @@
 #'     c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).  
 #' @param time.step Time step in seconds, or 0.0 for 'auto'.
 #' @param max.number.formants Maximum number of formants.
-#' @param max.formant Maximum formand value (Hz) for all speakers, or for female speakers,
+#' @param max.formant Maximum formant value (Hz) for all speakers, or for female speakers,
 #'     if max.formant.male is also specified.
-#' @param max.formant.male Maximum formand value (Hz) for male speakers, or NULL to use
+#' @param max.formant.male Maximum formant value (Hz) for male speakers, or NULL to use
 #'     the same value as max.formant.
 #' @param gender.attribute Name of the LaBB-CAT participant attribute that contains the
 #'     participant's gender - normally this is "participant_gender".
