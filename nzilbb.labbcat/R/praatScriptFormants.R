@@ -38,7 +38,7 @@
 #' wav.file <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segments.start, results$Target.segments.end,
-#'               praat.script.formants(formants=c(1,2,3), sample.points=c(0.25,0.5,0.75)),
+#'               praatScriptFormants(formants=c(1,2,3), sample.points=c(0.25,0.5,0.75)),
 #'               no.progress=TRUE)
 #' }
 #' @keywords praat
