@@ -26,6 +26,9 @@
 #'     \link{processWithPraat} 
 #' 
 #' @seealso \link{processWithPraat}
+#' @seealso \link{praatScriptCentreOfGravity}
+#' @seealso \link{praatScriptIntensity}
+#' @seealso \link{praatScriptPitch}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -44,36 +47,38 @@
 #' @keywords praat
 #' 
 praatScriptFormants <- function(formants = c(1,2), sample.points = c(0.5), time.step = 0.0, max.number.formants = 5, max.formant = 5500, max.formant.male = 5000, gender.attribute = 'participant_gender', value.for.male = "M", window.length = 0.025, preemphasis.from = 50) {
-    script = paste("maxformant =", max.formant) 
+    script <- paste("\nmaxformant =", max.formant) 
     if (!is.null(max.formant.male) && !is.null(gender.attribute)
         && max.formant != max.formant.male) {
         ## differentiate between males and others
-        script = paste(
+        script <- paste(
             script,
             "\nif ", gender.attribute, "$ = \"", value.for.male, "\"",
             "\n  maxformant = ", max.formant.male,
             "\nendif",
             sep="")
     }
-    script = paste(
+    script <- paste( # ensure the sound sample is selected
+        script, "\nselect Sound 'sampleName$'", sep="")
+    script <- paste(
         script, "\nTo Formant (burg): ", time.step, ", ", max.number.formants, ", ",
         "maxformant, ", window.length, ", ", preemphasis.from, sep="")
     for (point in sample.points) {
         varname = paste("time_", stringr::str_replace(point, "\\.","_"), sep="")
         ## first output absolute point offset
-        script = paste(script, "\npointoffset =",
+        script <- paste(script, "\npointoffset =",
                        " targetAbsoluteStart + ", point, " * targetDuration", sep="")
-        script = paste(script, "\n", varname, " = pointoffset", sep="")
-        script = paste(script, "\nprint '", varname, "' 'newline$'", sep="")
+        script <- paste(script, "\n", varname, " = pointoffset", sep="")
+        script <- paste(script, "\nprint '", varname, "' 'newline$'", sep="")
         ## now use the relative point offset
-        script = paste(script, "\npointoffset =",
+        script <- paste(script, "\npointoffset =",
                        " targetStart + ", point, " * targetDuration", sep="")
         for (f in formants) {
             varname = paste("f", f, "_time_", stringr::str_replace(point, "\\.","_"), sep="")
-            script = paste(script, "\n", varname,
+            script <- paste(script, "\n", varname,
                            " = Get value at time: ", f, ", pointoffset, \"hertz\", \"Linear\"",
                            sep="")
-            script = paste(script, "\nprint '", varname, ":0' 'newline$'", sep="")
+            script <- paste(script, "\nprint '", varname, ":0' 'newline$'", sep="")
         } ## next formant
     } ## next sample point
     return(script)
