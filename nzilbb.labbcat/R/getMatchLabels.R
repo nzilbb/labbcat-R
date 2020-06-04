@@ -50,6 +50,7 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
         layerIds=layerIds,
         targetOffset=targetOffset, annotationsPerLayer=annotationsPerLayer,
         csvFieldDelimiter=",", targetColumn=0, copyColumns=FALSE,
+        "content-type"="text/csv",
         plus="Token.plus.", minus="Token.minus.",
         uploadfile=httr::upload_file(upload.file))
     resp <- http.post.multipart(labbcat.url, "api/getMatchAnnotations", parameters, download.file)
