@@ -147,7 +147,7 @@ test_that("getMatches works with complex, multi-match searches", {
     skip_on_cran() # only simple searches on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
-    labbcatTimeout(60)
+    labbcatTimeout(120)
 
     ## create pattern
     pattern <- list(
@@ -282,7 +282,7 @@ test_that("getMatches pagination works", {
                      segments = list(pattern = "I")))))
     
     ## get matches - the total (as above) is >= 140, but we ask for the first 5
-    matches <- getMatches(labbcat.url, pattern, maxMatches=5, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern, max.matches=5, no.progress=T)
     
     expect_equal(length(matches$MatchId), 5)
 })

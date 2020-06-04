@@ -1,7 +1,7 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
-labbcatCredentials(labbcat.url, "demo", "demo")
 
 test_that("getMatchLabels works", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -54,7 +54,7 @@ test_that("getMatchLabels works with count > 1", {
                   "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7280;[0]=ew_0_7280"))
 
     ## get labels
-    labels <- getMatchLabels(labbcat.url, results$MatchId, "phonemes", 2)
+    labels <- getMatchLabels(labbcat.url, results$MatchId, "phonemes", annotationsPerLayer=2)
     expect_equal(length(labels), 2)
 
     expect_equal(length(labels$phonemes.1), 3)
@@ -65,7 +65,7 @@ test_that("getMatchLabels works with count > 1", {
 
     expect_equal(length(labels$phonemes.2), 3)
     phonemes <- as.vector(labels$phonemes.2)
-    expect_true(is.na(phonemes[[1]]))
+    expect_equal(phonemes[[1]], "")
     expect_equal(phonemes[[2]], "wz")
     expect_equal(phonemes[[3]], "D@m")
 
