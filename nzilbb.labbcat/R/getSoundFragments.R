@@ -79,9 +79,9 @@ getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sample
     file.names = c()
     r <- 1
     for (graph.id in ids) {
-        parameters <- list(id=graph.id, start=start[r], end=end[r])
-        if (!is.null(sampleRate)) parameters <- list(id=graph.id, start=start[r], end=end[r], sampleRate=sampleRate)
-        file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", start[r], "-", end[r], ".wav", sep="")
+        parameters <- list(id=graph.id, start=startOffsets[r], end=endOffsets[r])
+        if (!is.null(sampleRate)) parameters <- list(id=graph.id, start=startOffsets[r], end=endOffsets[r], sampleRate=sampleRate)
+        file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", startOffsets[r], "-", endOffsets[r], ".wav", sep="")
 
         tryCatch({
             resp <- http.post(labbcat.url, "soundfragment", parameters, file.name)
