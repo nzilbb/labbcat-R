@@ -145,7 +145,7 @@ test_that("getMatches works with complex, multi-match searches", {
     skip_on_cran() # only simple searches on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
-    labbcatTimeout(60)
+    labbcatTimeout(120)
 
     ## create pattern
     pattern <- list(
