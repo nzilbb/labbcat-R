@@ -76,7 +76,7 @@ getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text
 
     ## create a list of repeated layerId parameters
     layerParameters <- list()
-    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layerId)
+    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layerIds)
 
     ## loop throug each triple, getting fragments individually
     ## (we could actually pass the lot to LaBB-CAT in one go and get a ZIP file back
