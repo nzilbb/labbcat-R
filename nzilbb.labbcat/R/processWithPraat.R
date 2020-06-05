@@ -122,7 +122,7 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
                              no.progress=FALSE) {
 
     ## make the script a single string
-    praat.script <- paste(script, collapse="\n")
+    praat.script <- paste(praat.script, collapse="\n")
 
     ## split matchIds into transcript ID and participant ID
     transcriptIds <- stringr::str_replace(matchIds, ".*(g_[0-9]+);.*","\\1")
@@ -199,6 +199,9 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
                       httr::write_disk(download.file, overwrite=TRUE),
                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
 
+    ## R complains if the last line isn't blank...
+    write("\n",file=download.file,append=TRUE)
+    
     ## load data into frame
     results <- read.csv(download.file, header=T)
 

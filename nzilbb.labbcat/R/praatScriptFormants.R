@@ -81,5 +81,7 @@ praatScriptFormants <- function(formants = c(1,2), sample.points = c(0.5), time.
             script <- paste(script, "\nprint '", varname, ":0' 'newline$'", sep="")
         } ## next formant
     } ## next sample point
+    ## remove formant object
+    script <- paste(script, "\nRemove\n", sep="")
     return(script)
 }
