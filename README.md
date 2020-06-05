@@ -328,6 +328,11 @@ R -e "install.packages('testthat')"
 After 'testthat' is installed, you can use the following commands to run unit tests: 
 
 ```
-cd nzilbb.labbcat
-R -e "devtools::test()"
+R -e "devtools::test('nzilbb.labbcat')"
+```
+
+Specific tests can be run like this:
+
+```
+R -e "devtools::test('nzilbb.labbcat', filter='getId')"
 ```
