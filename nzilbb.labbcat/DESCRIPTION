@@ -9,7 +9,7 @@ Description: 'LaBB-CAT' is a web-based language corpus management
  system developed by the New Zealand Institute of Language, Brain
  and Behaviour (NZILBB) - see <https://labbcat.canterbury.ac.nz>.
  This package defines functions for accessing corpus data in a 'LaBB-CAT'
- instance. You must have at least version 20200603.1837 of 'LaBB-CAT'
+ instance. You must have at least version 20200608.1507 of 'LaBB-CAT'
  to use this package.
  For more information about 'LaBB-CAT', see
  Robert Fromont and Jennifer Hay (2008) <doi:10.3366/E1749503208000142>
