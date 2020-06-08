@@ -28,6 +28,7 @@ export(labbcatCredentials,
        getMatches,
        processWithPraat,
        praatScriptFormants, praatScriptCentreOfGravity, praatScriptIntensity, praatScriptPitch,
-       getTranscriptAttributes)
+       getTranscriptAttributes,
+       getParticipantAttributes)
 importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar", "head", "read.csv", "write.table", "count.fields")
 importFrom("rstudioapi", "askForPassword")
