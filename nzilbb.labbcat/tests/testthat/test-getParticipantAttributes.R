@@ -11,7 +11,7 @@ test_that("getParticipantAttributes works", {
         c("participant_gender", "participant_age_category"))
 
     ## check dataframe columns
-    expect_equal(length(attributes$name), length(participantIds))
+    expect_equal(length(attributes$participant), length(participantIds))
     expect_equal(length(attributes$participant_gender), length(participantIds))
     expect_equal(length(attributes$participant_age_category), length(participantIds))
 
