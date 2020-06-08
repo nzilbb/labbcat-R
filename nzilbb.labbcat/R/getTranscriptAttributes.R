@@ -13,7 +13,7 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
-#' ## Get language and duration for transcripts starting with 'BR'
+#' ## Get language, duration, and corpus for transcripts starting with 'BR'
 #' attributes <- getTranscriptAttributes(labbcat.url,
 #'             getMatchingTranscriptIds(labbcat.url, "id MATCHES 'BR.+'"),
 #'             c('transcript_language', 'transcript_duration', 'corpus'))
