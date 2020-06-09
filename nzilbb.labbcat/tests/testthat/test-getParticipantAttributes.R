@@ -1,7 +1,7 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 
 test_that("getParticipantAttributes works", {
-    skip_on_cran() # only simple searches on CRAN
+
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     participantIds <- getParticipantIds(labbcat.url)
