@@ -6,17 +6,17 @@
 #' @param get.mean Extract the mean pitch for the sample.
 #' @param get.minimum Extract the minimum pitch for the sample.
 #' @param get.maximum Extract the maximum pitch for the sample.
-#' @param time.step
+#' @param time.step Step setting for praat command
 #' @param pitch.floor Minimum pitch (Hz) for all speakers, or for female speakers,
 #'     if pitch.floor.male is also specified.
-#' @param max.number.of.candidates
-#' @param very.accurate
-#' @param silence.threshold
+#' @param max.number.of.candidates Maximum number of candidates setting for praat command
+#' @param very.accurate Accuracy setting for praat command
+#' @param silence.threshold Silence threshold setting for praat command
 #' @param voicing.threshold Voicing threshold (Hz) for all speakers, or for female speakers,
 #'     if voicing.threshold.male is also specified.
-#' @param octave.cost
-#' @param octave.jump.cost
-#' @param voiced.unvoiced.cost
+#' @param octave.cost Octave cost setting for praat command
+#' @param octave.jump.cost Octave jump cost setting for praat command
+#' @param voiced.unvoiced.cost Voiced/unvoiced cost setting for praat command
 #' @param pitch.ceiling Maximum pitch (Hz) for all speakers, or for female speakers,
 #'     if pitch.floor.male is also specified.
 #' @param pitch.floor.male Minimum pitch (Hz) for male speakers.
