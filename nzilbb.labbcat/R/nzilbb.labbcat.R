@@ -38,6 +38,7 @@ NULL
 
 ## minimum version of LaBB-CAT required:
 .min.labbcat.version <- "20200608.1507"
+.user.agent <- paste("labbcat-R", packageVersion("nzilbb.labbcat"), sep="/")
 
 ### Internal functions:
 
@@ -89,7 +90,9 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
+    resp <- httr::GET(url,
+                      httr::add_headers("User-Agent" = .user.agent),
+                      httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -132,7 +135,9 @@ thread.get <- function(labbcat.url, threadId) {
     url <- paste(labbcat.url, "thread?threadId=", threadId, sep="")
     
     ## attempt the request
-    resp <- httr::GET(url, httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
+    resp <- httr::GET(url,
+                      httr::add_headers("User-Agent" = .user.agent),
+                      httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -197,12 +202,14 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     if (is.null(file.name)) {
         resp <- httr::GET(url,
                           httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
-                          httr::add_headers("Accepts" = content.type))
+                          httr::add_headers("Accepts" = content.type),
+                          httr::add_headers("User-Agent" = .user.agent))
     } else {
         resp <- httr::GET(url,
                           httr::write_disk(file.name, overwrite=TRUE),
                           httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
-                          httr::add_headers("Accepts" = content.type))
+                          httr::add_headers("Accepts" = content.type),
+                          httr::add_headers("User-Agent" = .user.agent))
     }
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
@@ -249,6 +256,7 @@ http.post <- function(labbcat.url, path, parameters, file.name) {
     ## attempt the request
     resp <- httr::POST(url, 
                        httr::write_disk(file.name, overwrite=TRUE),
+                       httr::add_headers("User-Agent" = .user.agent),
                        httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                        body = parameters, encode = "form")
     ## check we don't need credentials
@@ -296,6 +304,7 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name) {
     ## attempt the request
     resp <- httr::POST(url,
                        httr::write_disk(file.name, overwrite=TRUE),
+                       httr::add_headers("User-Agent" = .user.agent),
                        httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                        body = parameters, encode = "multipart")
     ## check we don't need credentials
