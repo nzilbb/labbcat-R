@@ -48,7 +48,8 @@ corpora
 
 ### Accessing specific transcript and participant IDs
 
-Transcripts are called 'graphs' because each one is represented as an 'Annotation Graph' (see Bird & Liberman 2001)
+Transcripts are called 'graphs' because each one is represented as an 'Annotation Graph'
+(see Bird & Liberman 2001) 
 
 You can get a complete list of participants and transcripts:
 
@@ -77,7 +78,8 @@ getMatchingGraphIds(labbcat.url, "id MATCHES '.*YW.*'")
 
 ### Accessing Media
 
-Given a graph ID (i.e. a transcript name) you can access information about what media it has available:
+Given a graph ID (i.e. a transcript name) you can access information about what media it
+has available: 
 
 ```{r media}
 ## Default WAV URL:
@@ -113,7 +115,8 @@ if (httr::status_code(response) != 200) { # 200 means OK
 
 ### Media fragments
 
-You can access a selected fragment of a wav file with `getSoundFragments`. The function downloads a wav file to the current working directory, and returns the name of the file:
+You can access a selected fragment of a wav file with `getSoundFragments`. The function
+downloads a wav file to the current working directory, and returns the name of the file: 
 
 ```{r media-fragment}
 wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
@@ -140,7 +143,9 @@ wav.files
 file.remove(wav.files)
 ```
 
-This means that, if you have a results csv file exported from LaBB-CAT, which identifies segment tokens, you can iterate through the rows, downloading the corresponding wav files, something like:
+This means that, if you have a results csv file exported from LaBB-CAT, which identifies
+segment tokens, you can iterate through the rows, downloading the corresponding wav files,
+something like: 
 
 ```
 ## load the results from the CSV file
@@ -154,7 +159,8 @@ wav.files <- getSoundFragments(
 ### Getting annotations from other layers
 
 If you have search results in a CSV file, and would like to retrieve annotations from some other
-layer, you can use the `getMatchLabels` function, providing the *MatchId* column (or the *URL* column) that indentifies the token, and the desuired layer name:
+layer, you can use the `getMatchLabels` function, providing the *MatchId* column (or the
+*URL* column) that indentifies the token, and the desuired layer name: 
 
 ```
 results <- read.csv("results.csv", header=T)
@@ -187,7 +193,8 @@ results <- getMatches(labbcat.url, list(columns = list(
             frequency = list(max = "2"))))))
 ```
 
-The data frame that's returned contains columns that can be used as parameters for other functions:
+The data frame that's returned contains columns that can be used as parameters for other
+functions: 
 
 ```
 # get all instances of the KIT vowel
@@ -203,7 +210,11 @@ wav.files <- getSoundFragments(
 
 ### Looking up dictionaries
 
-LaBB-CAT maintains a number of [dictionaries](https://labbcat.canterbury.ac.nz/demo/dictionaries) it uses to look things up.  These include access to CELEX, LIWC, and other lexicons that might be set up in the LaBB-CAT instance.
+LaBB-CAT maintains a number of
+[dictionaries](https://labbcat.canterbury.ac.nz/demo/dictionaries)
+it uses to look things
+up.  These include access to CELEX, LIWC, and other lexicons that might be set up in the
+LaBB-CAT instance. 
 
 You can list the available dictionaries using:
 
@@ -211,7 +222,8 @@ You can list the available dictionaries using:
 dictionaries <- getDictionaries(labbcat.url)
 ```
 
-With one of the returned layer manager ID and dictionary ID pairs, you can look up dictionary entries for a list of keys:
+With one of the returned layer manager ID and dictionary ID pairs, you can look up
+dictionary entries for a list of keys: 
 
 ```
 words <- c("the", "quick", "brown", "fox")
@@ -222,9 +234,11 @@ pronunciation <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Phonology (wordf
 
 ### Process with Praat
 
-Another process that involves uploading a results CSV file is the *process with praat* option.  It would be good to be able to do this directly from R.
+Another process that involves uploading a results CSV file is the *process with praat*
+option.  It would be good to be able to do this directly from R. 
 
-One tricky thing is that the *process with praat* page in LaBB-CAT has a bunch of options that would need to be specifiable somehow in the R function, including:
+One tricky thing is that the *process with praat* page in LaBB-CAT has a bunch of options
+that would need to be specifiable somehow in the R function, including: 
 * the start and end time columns
 * the window offset (surrounding context to extract)
 * which measurements to make, including their options:
@@ -244,7 +258,8 @@ One tricky thing is that the *process with praat* page in LaBB-CAT has a bunch o
   * centre of gravity
     * p=2, p=1 and/or p=⅔
 
-There's also a newish option on the page for specifying a custom script, which could look something like this:
+There's also a newish option on the page for specifying a custom script, which could look
+something like this: 
 ```
 # get centre of gravity and spread from spectrum
 spectrum = To Spectrum... yes
@@ -259,7 +274,8 @@ select spectrum
 Remove
 ```
 
-There are a few options for how to specify these from within R. The easiest would be to decide that only a limited set of options is initially available, something like this:
+There are a few options for how to specify these from within R. The easiest would be to
+decide that only a limited set of options is initially available, something like this: 
 
 ```
 results <- read.csv("results.csv", header=T)
@@ -279,7 +295,8 @@ praat.results <- labbcat.processWithPraat(labbcat.url,
   formant.max.female=5000, formant.max.male=5500)
 ```
 
-I'm not sure whether it makes sense to include the possibility of a custom Praat script, but if so, it could be another possible parameter:
+I'm not sure whether it makes sense to include the possibility of a custom Praat script,
+but if so, it could be another possible parameter: 
 
 ```
 ## Read the Praat script from a file
