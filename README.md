@@ -3,6 +3,23 @@
 The package provides functionality for querying and extracting data
 from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
 
+``` R
+library(nzilbb.labbcat)
+labbcat.url <- "http://localhost:8080/labbcat/"
+
+# search for tokens of the KIT vowel
+m <- getMatches(labbcat.url, list(segments="I"))
+
+# extract F1, 2, and 3 from the mid-point of each vowel
+f123 <- processWithPraat(
+    labbcat.url,
+    m$MatchId, 
+    m$Target.segments.start, 
+    m$Target.segments.end,
+    praatScriptFormants(c(1,2,3)), 
+    window.offset=0.5)
+```
+
 LaBB-CAT is a web-based linguistic annotation store that stores audio or video
 recordings, text transcripts, and other annotations.
 
@@ -15,13 +32,13 @@ search, annotation, audio, and TextGrid extraction.
 
 To install the latest version of the package in CRAN:
 
-```{r install}
+``` R
 install.packages("nzilbb.labbcat")
 ```
 
 To use it:
 
-```{r require}
+``` R
 library(nzilbb.labbcat)
 ```
 
@@ -35,7 +52,7 @@ the first time you invoke a function for that instance.
 
 There are some basic functions that provide information about the LaBB-CAT instance you're using.
 
-```{r basic-info}
+``` R
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 
 id <- getId(labbcat.url)
@@ -53,18 +70,17 @@ Transcripts are called 'graphs' because each one is represented as an 'Annotatio
 
 You can get a complete list of participants and transcripts:
 
-```{r participants-graphs}
+``` R
 participants <- getParticipantIds(labbcat.url)
 transcripts <- getGraphIds(labbcat.url)
 
 paste("There are", length(participants), "participants. The first one is", participants[1])
 paste("There are", length(transcripts), "transcripts. The first one is", transcripts[1])
-
 ```
 
 There are also ways to get a filtered list of transcripts:
 
-```{r listing-graph-ids}
+``` R
 ## Transcripts in the UC corpus:
 getGraphIdsInCorpus(labbcat.url, "UC")
 
@@ -73,7 +89,6 @@ getGraphIdsWithParticipant(labbcat.url, "QB1602")
 
 ## Transcripts with 'YW' in their name:
 getMatchingGraphIds(labbcat.url, "id MATCHES '.*YW.*'")
-
 ```
 
 ### Accessing Media
@@ -81,7 +96,7 @@ getMatchingGraphIds(labbcat.url, "id MATCHES '.*YW.*'")
 Given a graph ID (i.e. a transcript name) you can access information about what media it
 has available: 
 
-```{r media}
+``` R
 ## Default WAV URL:
 getMedia(labbcat.url, "AP2515_ErrolHitt.eaf")
 
@@ -96,7 +111,7 @@ media$url
 
 Once you've got a URL, you can save its contents using the *httr* package, something like this:
 
-```
+``` R
 install.packages("httr")
 
 wav.file <- media$name[1]
@@ -118,7 +133,7 @@ if (httr::status_code(response) != 200) { # 200 means OK
 You can access a selected fragment of a wav file with `getSoundFragments`. The function
 downloads a wav file to the current working directory, and returns the name of the file: 
 
-```{r media-fragment}
+``` R
 wav.file <- getSoundFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0)
 
 paste("The third 5 seconds is in this file:", wav.file)
@@ -129,7 +144,7 @@ file.remove(wav.file)
 
 `getSoundFragments` also accepts vectors for the `id`, `start`, and `end` parameters:
 
-```{r media-fragments}
+``` R
 results <- data.frame(
   id=c("AP2505_Nelson.eaf", "AP2512_MattBlack.eaf", "AP2512_MattBlack.eaf"),
   start=c(10.0, 20.0, 30.0),
@@ -147,7 +162,7 @@ This means that, if you have a results csv file exported from LaBB-CAT, which id
 segment tokens, you can iterate through the rows, downloading the corresponding wav files,
 something like: 
 
-```
+``` R
 ## load the results from the CSV file
 results <- read.csv("results.csv", header=T)
 
@@ -162,7 +177,7 @@ If you have search results in a CSV file, and would like to retrieve annotations
 layer, you can use the `getMatchLabels` function, providing the *MatchId* column (or the
 *URL* column) that indentifies the token, and the desuired layer name: 
 
-```
+``` R
 results <- read.csv("results.csv", header=T)
 phonemes <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")
 ```
@@ -173,7 +188,7 @@ Searching for matching tokens can be achieved using the `getMatches` function.
 
 A basic search can be achieved with a simple, single-layer pattern like:
 
-```
+``` R
 # all words starting with "ps..."
 results <- getMatches(labbcat.url, list(orthography = "ps.*"))
 ```
@@ -181,7 +196,7 @@ results <- getMatches(labbcat.url, list(orthography = "ps.*"))
 More complex patterns, across multiple tokens an multiple layers, is possible by specifying
 a more complex structure:
 
-```
+``` R
 # the word 'the' followed immediately or with one intervening word by
 # a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel
 results <- getMatches(labbcat.url, list(columns = list(
@@ -196,7 +211,7 @@ results <- getMatches(labbcat.url, list(columns = list(
 The data frame that's returned contains columns that can be used as parameters for other
 functions: 
 
-```
+``` R
 # get all instances of the KIT vowel
 results <- getMatches(labbcat.url, list(segments = "I"))
 
@@ -218,111 +233,70 @@ LaBB-CAT instance.
 
 You can list the available dictionaries using:
 
-```
+``` R
 dictionaries <- getDictionaries(labbcat.url)
 ```
 
 With one of the returned layer manager ID and dictionary ID pairs, you can look up
 dictionary entries for a list of keys: 
 
-```
+``` R
 words <- c("the", "quick", "brown", "fox")
 pronunciation <- getDictionaryEntries(labbcat.url, "CELEX-EN", "Phonology (wordform)", words)
 ```
 
-## Future Enhancements
-
 ### Process with Praat
 
-Another process that involves uploading a results CSV file is the *process with praat*
-option.  It would be good to be able to do this directly from R. 
+This function instructs the LaBB-CAT server to invoke Praat for a set of sound
+intervals, in order to extract acoustic measures.
 
-One tricky thing is that the *process with praat* page in LaBB-CAT has a bunch of options
-that would need to be specifiable somehow in the R function, including: 
-* the start and end time columns
-* the window offset (surrounding context to extract)
-* which measurements to make, including their options:
-  * formats
-    * F1, F2, and/or F3
-    * how many sample points and where they should be in the interval
-    * max formants for 'female' and 'male' participants
-    * the exact Praat command to use
-  * pitch
-    * min, mean, and/or max
-    * pitch floor for 'female' and 'male' participants
-    * pitch ceiling for 'female' and 'male' participants
-    * voicing threshold for 'female' and 'male' participants
-    * the exact praat command to use
-  * intensity maximum
-    * the exact praat command to use
-  * centre of gravity
-    * p=2, p=1 and/or p=⅔
+The exact measurements to return depend on the `praat.script` that is invoked. This is a
+Praat script fragment that will run once for each sound interval specified.
 
-There's also a newish option on the page for specifying a custom script, which could look
-something like this: 
-```
-# get centre of gravity and spread from spectrum
-spectrum = To Spectrum... yes
-# filter it
-Filter (pass Hann band)... 1000 22000 100
-# get centre of gravity
-cog = Get centre of gravity... 2
-# extract the result back out into a CSV column called 'cog'
-print 'cog:0' 'newline$'
-# tidy up objects
-select spectrum
-Remove
+There are functions to allow the generation of a number of pre-defined praat scripts
+for common tasks such as formant, pitch, intensity, and centre of gravity:
+
+``` R
+# Perform a search
+results <- getMatches(labbcat.url, list(segments="I"))
+
+# get F1 and F2 for the mid point of the vowel
+formants <- processWithPraat(
+       labbcat.url,
+       results$MatchId, results$Target.segments.start, results$Target.segments.end,
+       praatScriptFormants(),
+       no.progress=TRUE)
 ```
 
-There are a few options for how to specify these from within R. The easiest would be to
-decide that only a limited set of options is initially available, something like this: 
+You can provide your own script, either by building a string with your code, or loading
+one from a file.
 
-```
-results <- read.csv("results.csv", header=T)
-praat.results <- labbcat.processWithPraat(labbcat.url, 
-  results$MatchId, results$segments.start, results$segments.end, window.offset=0.5, 
-  formant.F1=TRUE, formant.F2=TRUE, 
-  pitch.mean=TRUE)
-```
-
-Alternatively, or later on, more possible parameters could maybe be added:
-
-```
-praat.results <- labbcat.processWithPraat(labbcat.url, 
-  results$MatchId, results$segments.start, results$segments.end, window.offset=0.5, 
-  formant.F1=TRUE, formant.F2=TRUE, 
-  formant.sample.points=c(0.25, 0.5, 0.75)), 
-  formant.max.female=5000, formant.max.male=5500)
+``` R
+# execute a custom script loaded form a file
+acoustic.measurements <- processWithPraat(
+       labbcat.url,
+       results$MatchId, results$Target.segments.start, results$Target.segments.end,
+       readLines("acousticMeasurements.praat"))
 ```
 
-I'm not sure whether it makes sense to include the possibility of a custom Praat script,
-but if so, it could be another possible parameter: 
+### Retrieving transcript and participant attributes
 
-```
-## Read the Praat script from a file
-script.file <- "coolStuff.praat""
-script <- readChar(script.file, file.info(script.file)$size)
+Transcript attributes can be retrieved like this: 
 
-## Run the Praat script on each token
-praat.results <- labbcat.processWithPraat(labbcat.url, 
-  results$MatchId, results$segments.start, results$segments.end, window.offset=0.5, 
-  praat.script=script)
+``` R
+# Get language, duration, and corpus for transcripts starting with 'BR'
+attributes <- getTranscriptAttributes(labbcat.url,
+            getMatchingTranscriptIds(labbcat.url, "id MATCHES 'BR.+'"),
+            c('transcript_language', 'transcript_duration', 'corpus'))
 ```
 
-### Retrieving transcript attributes
+Similarly, participant attributes can also be accessed:
 
-Something like: 
-
-```
-attributes <- getTranscriptAttributes(labbcat.url, id.list, c("language","duration"))
-```
-
-### Retrieving participant attributes
-
-Something like: 
-
-```
-attributes <- getGraphAttributes(labbcat.url, participant.list, c("dob","gender"))
+``` R
+# Get gender and age for all participants
+attributes <- getParticipantAttributes(labbcat.url,
+            getParticipantIds(labbcat.url),
+            c('participant_gender', 'participant_age'))
 ```
 
 # Developers
