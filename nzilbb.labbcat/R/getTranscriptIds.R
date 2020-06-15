@@ -1,20 +1,20 @@
-#' Gets a list of layer IDs.
+#' Gets a list of transcript IDs.
 #'
-#' Layer IDs are annotation 'types'.
-#' 
+#' Returns a list of transcript IDs (i.e. transcript names).
+#'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @return A list of layer IDs
+#' @return A list of transcript IDs
 #' 
-#' @examples
+#' @examples 
 #' \dontrun{
-#' ## Get names of all layers
-#' layer.ids <- getLayerIds("https://labbcat.canterbury.ac.nz/demo/")
+#' ## List all transcripts
+#' transcripts <- getTranscriptIds("https://labbcat.canterbury.ac.nz/demo/")
 #' }
 #' 
-#' @keywords layer
+#' @keywords transcript
 #' 
-getLayerIds <- function(labbcat.url) {
-    resp <- store.get(labbcat.url, "getLayerIds")
+getTranscriptIds <- function(labbcat.url) {
+    resp <- store.get(labbcat.url, "getTranscriptIds")
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK

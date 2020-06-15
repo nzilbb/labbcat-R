@@ -1,17 +1,17 @@
-#' Gets fragments of annotation graphs (transcripts) from 'LaBB-CAT', 
+#' Gets fragments of annotation transcript from 'LaBB-CAT', 
 #' converted to a given format (by default, Praat TextGrid)
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id The graph ID (transcript name) of the sound recording, or
-#'     a vector of graph IDs. 
+#' @param id The transcript ID (transcript name) of the sound recording, or
+#'     a vector of transcript IDs. 
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
-#' @param layerId A vector of layer IDs.
+#' @param layerIds A vector of layer IDs.
 #' @param mimeType Optional content-type - currently only "text/praat-textgrid"
 #'     is supported.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
-#' @param path Optional path to directory where tge files should be saved.
+#' @param path Optional path to directory where the files should be saved.
 #' @return The name of the file, which is saved in the current
 #'     directory, or a list of names of files, if multiple
 #'     id's/start's/end's were specified 
@@ -43,7 +43,7 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/praat-textgrid", no.progress=FALSE, path="") {
+getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text/praat-textgrid", no.progress=FALSE, path="") {
 
     dir = path
     if (length(id) > 1) { ## multiple fragments
@@ -76,7 +76,7 @@ getFragments <- function(labbcat.url, id, start, end, layerId, mimeType = "text/
 
     ## create a list of repeated layerId parameters
     layerParameters <- list()
-    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layerId)
+    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layerIds)
 
     ## loop throug each triple, getting fragments individually
     ## (we could actually pass the lot to LaBB-CAT in one go and get a ZIP file back

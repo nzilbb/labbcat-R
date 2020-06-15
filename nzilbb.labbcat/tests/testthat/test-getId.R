@@ -1,4 +1,4 @@
-labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
+labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 
 test_that("getId works", {    
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")

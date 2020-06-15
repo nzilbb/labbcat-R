@@ -35,7 +35,10 @@ labbcatCredentials <- function(labbcat.url, username, password) {
     
     version.check.url <- paste(labbcat.url, "store?call=", sep="")
     authorization <- httr::authenticate(username, password)
-    resp <- httr::GET(version.check.url, authorization, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+    resp <- httr::GET(version.check.url,
+                      authorization,
+                      httr::add_headers("User-Agent" = .user.agent),
+                      httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
 
     if (httr::status_code(resp) != 200) { # 200 = OK
         if (httr::status_code(resp) == 401) {
@@ -47,7 +50,10 @@ labbcatCredentials <- function(labbcat.url, username, password) {
 
     ## do a second request
     ## - this seems to be required for credentials to 'take' in non-interactive mode
-    resp <- httr::GET(version.check.url, authorization, httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+    resp <- httr::GET(version.check.url,
+                      authorization,
+                      httr::add_headers("User-Agent" = .user.agent),
+                      httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
     
     ## check the LaBB-CAT version
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")

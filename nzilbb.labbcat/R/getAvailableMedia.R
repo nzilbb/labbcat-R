@@ -1,8 +1,8 @@
-#' List the media available for the given graph.
+#' List the media available for the given transcript.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id A graph ID (i.e. transcript name)
-#' @return A named list of media files available for the given graph, with members:
+#' @param id A transcript ID (i.e. transcript name)
+#' @return A named list of media files available for the given transcript, with members:
 #' \itemize{
 #'  \item{\emph{trackSuffix} The track suffix of the media}
 #'  \item{\emph{mimeType} The MIME type of the file}
@@ -10,7 +10,7 @@
 #'  \item{\emph{name} Name of the file}
 #' }
 #' 
-#' @seealso \link{getGraphIds}
+#' @seealso \link{getTranscriptIds}
 #' @examples 
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -34,5 +34,5 @@ getAvailableMedia <- function(labbcat.url, id) {
     }
     resp.json <- jsonlite::fromJSON(resp.content)
     for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    return(resp.json$model)
 }

@@ -1,17 +1,21 @@
-#' List the predefined media tracks available for transcripts.
-#' 
+#' Gets a list of transcript in a corpus.
+#'
+#' Returns a list of transcript IDs in the given corpus.
+#'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @return A list of media track definitions.
+#' @param id The ID (name) of the corpus
+#' @return A list of transcript IDs
+#' 
 #' @examples 
 #' \dontrun{
-#' ## Get the media tracks configured in LaBB-CAT
-#' tracks <- getMediaTracks("https://labbcat.canterbury.ac.nz/demo/")
+#' ## List transcripts in the QB corpus
+#' transcripts <- getTranscriptIdsInCorpus("https://labbcat.canterbury.ac.nz/demo/", "QB")
 #' }
 #' 
-#' @keywords media sound
+#' @keywords corpora corpus
 #' 
-getMediaTracks <- function(labbcat.url) {
-    resp <- store.get(labbcat.url, "getMediaTracks")
+getTranscriptIdsInCorpus <- function(labbcat.url, id) {
+    resp <- store.get(labbcat.url, "getTranscriptIdsInCorpus", list(id=id))
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK

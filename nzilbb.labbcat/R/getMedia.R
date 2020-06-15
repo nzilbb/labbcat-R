@@ -1,11 +1,11 @@
-#' Gets a given media track for a given graph.
+#' Gets a given media track for a given transcript.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id A graph ID (i.e. transcript name)
+#' @param id A transcript ID (i.e. transcript name)
 #' @param trackSuffix The track suffix of the media
 #' @param mimeType The MIME type of the media
-#' @return A URL to the given media for the given graph
-#' @seealso \link{getGraphIds}
+#' @return A URL to the given media for the given transcript
+#' @seealso \link{getTranscriptIds}
 #' @examples 
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -32,5 +32,5 @@ getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") 
     }
     resp.json <- jsonlite::fromJSON(resp.content)
     for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    return(resp.json$model)
 }

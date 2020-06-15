@@ -62,12 +62,19 @@
 #'     list(phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
 #'          frequency = list(max = "2")))
 #' }
-#' @param participantId An optional list of participant IDs to search the utterances of. If
+#' @param participant.ids An optional list of participant IDs to search the utterances of. If
 #'     not supplied, all utterances in the corpus will be searched.
+#' @param transcript.types An optional list of transcript types to limit the results
+#'     to. If null, all transcript types will be searched. 
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
+#' @param aligned true to include only words that are aligned (i.e. have anchor
+#'     confidence &ge; 50, false to search include un-aligned words as well. 
+#' @param matches.per.transcript Optional maximum number of matches per transcript to
+#'     return. NULL means all matches.
 #' @param words.context Number of words context to include in the `Before.Match' and
 #'     `After.Match' columns in the results.
+#' @param max.matches The maximum number of matches to return, or null to return all.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
 #' @return A data frame identifying matches, containing the following columns:
@@ -116,7 +123,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participant=TRUE, words.context=0, no.progress=FALSE) {
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, no.progress=FALSE) { ## TODO transcriptTypes=NULL
     
     ## first normalize the pattern...
 
@@ -143,7 +150,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
         for (l in names(pattern$columns[[c]]$layers)) { # for each layer in the column
             # if the layer value isn't a list
             if (!is.list(pattern$columns[[c]]$layers[[l]])) {
-                # wrap a list(patter=...) around it
+                # wrap a list(pattern=...) around it
                 pattern$columns[[c]]$layers[[l]] <- list(pattern = pattern$columns[[c]]$layers[[l]])
             } # value isn't a list
             if (l == "segments") segments.layer <- TRUE
@@ -154,8 +161,22 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
     searchJson <- jsonlite::toJSON(pattern, auto_unbox = TRUE)
     parameters <- list(command="search", searchJson=searchJson,
                        words_context=words.context)
-    if (main.participant) parameters$only_main_speaker <- TRUE
-    if (!is.null(participantId)) parameters$participant_id <- as.list(participantId)
+    if (main.participant) {
+        parameters$only_main_speaker <- TRUE
+    }
+    if (aligned) {
+        parameters$only_aligned <- TRUE
+    }
+    if (!is.null(matches.per.transcript)) {
+        parameters$matches_per_transcript <- as.list(matches.per.transcript)
+    }
+    if (!is.null(participant.ids)) {
+        parameters$participant_id <- as.list(participant.ids)
+    }
+    if (!is.null(transcript.types)) {
+        parameters$transcript_type <- as.list(transcript.types)
+    }
+    
     resp <- http.get(labbcat.url, "search", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
@@ -195,7 +216,7 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
             setTxtProgressBar(pb, thread$percentComplete)
         }
         if (!is.null(thread$status)) {
-            print(thread$status)
+            cat(paste("\n", thread$status, "\n", sep=""))
         }
     }
     
@@ -205,14 +226,15 @@ getMatches <- function(labbcat.url, pattern, participantId=NULL, main.participan
     download.file <- paste(thread$threadName, ".csv", sep="");
     # columns:
     csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
-                    "line_time", "line_end_time", "match", "result_text")
+                    "line_time", "line_end_time", "match", "result_text", "word_url")
     # layers - "transcript", and "segments" if mentioned in the pattern
     csv_layer_option <- c("0")
     if (segments.layer) csv_layer_option <- c("0","1")
     resp <- http.get(labbcat.url,
                      "resultsStream",
                      list(threadId=threadId, todo="csv", csvFieldDelimiter=",",
-                          csv_option=csv_option, csv_layer_option=csv_layer_option),
+                          csv_option=csv_option, csv_layer_option=csv_layer_option,
+                          pageLength=max.matches),
                      content.type="text/csv",
                      file.name = download.file)
     if (is.null(resp)) return()

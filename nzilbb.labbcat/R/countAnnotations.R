@@ -1,17 +1,17 @@
-#' Gets the number of annotations on the given layer of the given graph.
+#' Gets the number of annotations on the given layer of the given transcript.
 #'
 #' Returns the number of annotations on the given layer of the given
-#' graph (transcript).
+#' transcript.
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param id A graph ID (i.e. transcript name)
-#' @param layerId A layer name
+#' @param id A transcript ID (i.e. transcript name)
+#' @param layerId A layer ID
 #' @return The number of annotations on that layer
 #' 
 #' @seealso
-#' \code{\link{getGraphIds}}
-#' \code{\link{getGraphIdsInCorpus}}
-#' \code{\link{getGraphIdsWithParticipant}}
+#' \code{\link{getTranscriptIds}}
+#' \code{\link{getTranscriptIdsInCorpus}}
+#' \code{\link{getTranscriptIdsWithParticipant}}
 #' @examples 
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -21,7 +21,7 @@
 #' token.count <- countAnnotations(labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "orthography")
 #' }
 #' 
-#' @keywords graph transcript
+#' @keywords transcript
 #' 
 countAnnotations <- function(labbcat.url, id, layerId) {
     parameters <- list(id=id, layerId=layerId)
@@ -35,5 +35,5 @@ countAnnotations <- function(labbcat.url, id, layerId) {
     }
     resp.json <- jsonlite::fromJSON(resp.content)
     for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    return(resp.json$model)
 }

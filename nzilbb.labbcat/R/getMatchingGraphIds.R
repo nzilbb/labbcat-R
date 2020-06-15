@@ -1,4 +1,4 @@
-#' Gets a list of IDs of graphs that match a particular pattern.
+#' Deprecated synonym for getMatchingTranscriptIds.
 #'
 #' Gets a list of IDs of graphs (i.e. transcript names) that match a
 #' particular pattern.
@@ -36,31 +36,18 @@
 #' 
 #' ## Get the second transcript that has "QB247_Jacqui" as a speaker
 #' transcripts <- getMatchingGraphIds(
-#'         labbcat.url, "'QB247_Jacqui' IN labels('who')", 1, 1)
+#'         labbcat.url, "'QB247_Jacqui' IN labels('participant')", 1, 1)
 #' 
 #' ## Get all transcripts whose names start with "BR" and have "QB247_Jacqui" as a speaker,
 #' ## in word-count order 
 #' transcripts <- getMatchingGraphIds(
-#'         labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('who')", 1, 1,
+#'         labbcat.url, "my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('participant')", 1, 1,
 #'         "my('transcript_word_count').label ASC")
 #' }
 #' 
 #' @keywords graph transcript expression
 #' 
 getMatchingGraphIds <- function(labbcat.url, expression, pageLength = NULL, pageNumber = NULL, order = NULL) {
-    parameters <- list(expression=expression)
-    if (!is.null(pageLength)) parameters <- append(parameters, list(pageLength=pageLength))
-    if (!is.null(pageNumber)) parameters <- append(parameters, list(pageNumber=pageNumber))
-    if (!is.null(order)) parameters <- append(parameters, list(order=order))
-    resp <- store.get(labbcat.url, "getMatchingGraphIdsPage", parameters)
-    if (is.null(resp)) return()
-    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-    if (httr::status_code(resp) != 200) { # 200 = OK
-        print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(resp.content)
-        return()
-    }
-    resp.json <- jsonlite::fromJSON(resp.content)
-    for (error in resp.json$errors) print(error)
-    return(resp.json$model$result)
+    .Deprecated("getMatchingTranscriptIds")
+    return(getMatchingTranscriptIds(labbcat.url, expression, pageLength, pageNumber, order))
 }

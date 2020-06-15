@@ -19,6 +19,7 @@ test_that("getMatches works with 1x1 orthographic search using full structure", 
     expect_equal(length(matches$Line), 1)
     expect_equal(length(matches$LineEnd), 1)
     expect_equal(length(matches$Text), 1)
+    expect_equal(length(matches$URL), 1)
     expect_equal(length(matches$Target.transcript), 1)
     expect_equal(length(matches$Target.transcript.start), 1)
     expect_equal(length(matches$Target.transcript.end), 1)
@@ -34,6 +35,7 @@ test_that("getMatches works with 1x1 orthographic search using full structure", 
     expect_true(is.numeric(matches$Line))
     expect_true(is.numeric(matches$LineEnd))
     expect_false(is.numeric(matches$Text))
+    expect_false(is.numeric(matches$URL))
     expect_false(is.numeric(matches$Target.transcript))
     expect_true(is.numeric(matches$Target.transcript.start))
     expect_true(is.numeric(matches$Target.transcript.end))
@@ -192,7 +194,7 @@ test_that("getMatches includes segment info when segments layer searched", {
                      segments = list(pattern = "I")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, participantId="UC427_ViktoriaPapp_A_ENG",
+    matches <- getMatches(labbcat.url, pattern, participant.ids="UC427_ViktoriaPapp_A_ENG",
                           no.progress=T)
     
     ## check dataframe columns
@@ -225,11 +227,13 @@ test_that("filter parameters of getMatches work", {
 
     ## get matches
     matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F, no.progress=T)
+    matchesOnePerTranscript <- getMatches(labbcat.url, list(orthography="the"), matches.per.transcript=2, no.progress=T)
     matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T, no.progress=T)
-    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participantId="UC427_ViktoriaPapp_A_ENG", no.progress=T)
+    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participant.ids="UC427_ViktoriaPapp_A_ENG", no.progress=T)
     
     ## check the number of results
     expect_true(length(matchesAll$MatchId) > length(matchesMainParticipant$MatchId))
+    expect_true(length(matchesAll$MatchId) > length(matchesOneParticipant$MatchId))
     expect_true(length(matchesMainParticipant$MatchId) > length(matchesOneParticipant$MatchId))
 })
 
@@ -265,4 +269,20 @@ test_that("words.context parameter of getMatches works", {
                 < nchar(as.vector(wholeLine$Before.Match)[[1]]))
     expect_true(nchar(as.vector(fiveWords$After.Match)[[1]])
                 < nchar(as.vector(wholeLine$After.Match)[[1]]))
+})
+
+test_that("getMatches pagination works", {
+    skip_on_cran() # only simple searches on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    ## create pattern
+    pattern <- list(
+        columns = list(
+            list(layers = list(
+                     segments = list(pattern = "I")))))
+    
+    ## get matches - the total (as above) is >= 140, but we ask for the first 5
+    matches <- getMatches(labbcat.url, pattern, max.matches=5, no.progress=T)
+    
+    expect_equal(length(matches$MatchId), 5)
 })
