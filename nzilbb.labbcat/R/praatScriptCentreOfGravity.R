@@ -23,8 +23,8 @@
 #' ## Perform a search
 #' results <- getMatches(labbcat.url, list(segments="I"))
 #' 
-#' ## Get a list of fragments with no progress bar
-#' wav.file <- processWithPraat(
+#' ## Get centres of gravity for all matches
+#' cog <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segments.start, results$Target.segments.end,
 #'               praatScriptCentreOfGravity(powers=c(1.0,2.0)),

@@ -34,15 +34,16 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
-#' ## Perform a search
+#' ## Get all tokens of the KIT vowel
 #' results <- getMatches(labbcat.url, list(segments="I"))
 #' 
-#' ## Get a list of fragments with no progress bar
-#' wav.file <- processWithPraat(
+#' ## Get the first 3 formants at three points during the vowel
+#' formants <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segments.start, results$Target.segments.end,
-#'               praatScriptFormants(formants=c(1,2,3), sample.points=c(0.25,0.5,0.75)),
-#'               no.progress=TRUE)
+#'               window.offset=0.5,
+#'               praatScriptFormants(formants=c(1,2,3),
+#'               sample.points=c(0.25,0.5,0.75)))
 #' }
 #' @keywords praat
 #' 
