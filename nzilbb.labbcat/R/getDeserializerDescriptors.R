@@ -22,7 +22,7 @@
 #' plainTextSupported <- "text/plain" %in% formats$mimeType
 #' }
 #' 
-#' @keywords corpora
+#' @keywords format
 #' 
 getDeserializerDescriptors <- function(labbcat.url) {
     resp <- store.get(labbcat.url, "getDeserializerDescriptors")
