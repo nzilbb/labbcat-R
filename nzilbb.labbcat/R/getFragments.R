@@ -7,8 +7,9 @@
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
 #' @param layerIds A vector of layer IDs.
-#' @param mimeType Optional content-type - currently only "text/praat-textgrid"
-#'     is supported.
+#' @param mimeType Optional content-type - "text/praat-textgrid" is the default, but your
+#'     LaBB-CAT installation may support other formats, which can be discovered using
+#'     \link{getSerializerDescriptors}.
 #' @param no.progress Optionally suppress the progress bar when
 #'     multiple fragments are  specified - TRUE for no progress bar.
 #' @param path Optional path to directory where the files should be saved.
@@ -20,6 +21,7 @@
 #'     were returned by the server, which *should* be the order that
 #'     they were specified in the id/start/end lists.
 #' 
+#' @seealso \link{getSerializerDescriptors}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL
