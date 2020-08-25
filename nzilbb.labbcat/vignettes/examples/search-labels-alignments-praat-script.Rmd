@@ -1,0 +1,172 @@
+---
+title: "Search, Annotation, and Praat Script Example"
+author: "Robert Fromont"
+date: "25 August 2020"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{Search, Annotation, and Praat Script Example}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+
+[LaBB-CAT](https://labbcat.canterbury.ac.nz) is a browser-based linguistic annotation store that stores audio or video recordings, 
+text transcripts, and other annotations. The *nzilbb.labbcat* R package provides access to linguistic data stored in LaBB-CAT 
+servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.
+
+This vignette shows how to:
+
+1. identify a set of phone tokens in specific contexts, 
+2. extract annotation labels and alignments for the tokens and their surrounding annotions,
+3. execute a custom Praat script to extract acoustic measurements.
+
+## Computing Centre of Gravity for /s/ in different contexts
+
+In particular, we are interested in the pronunciation of the phoneme /s/ in specific contexts, to see whether the pronunciation is 
+sometimes more like [ʃ] than [s]. We might expect the /s/ in "seat" to be like [s], where the /s/ in "street" might be pronounced 
+more like [ʃ].
+
+In order to do this, we're going to identify /s/ tokens in the following contexts:
+
+* /s/ before /p/, /t/, or /k/, followed by a vowel, and
+* /s/ before /p/, /t/, or /k/, followed by /ɹ/, and
+* /s/ before /tj/, and for comparison,
+
+For comparison purposes, we also want /s/ and /ʃ/ tokens that we take to have the 'canonical' pronunciation. For this we will find:
+
+* word-inital /s/ or /ʃ/, followed by the FLEECE, THOUGHT, or START vowel
+
+Each of these contexts will be identified by a different regular expression, assuming that the phonemes are encoded using the
+CELEX 'DISC' encoding, which uses exactly one ASCII character per phoneme:
+
+```{r patterns}
+sptkV <- ".*s[ptk][cCEFHiIPqQuUV0123456789~#{$@].*"
+sptkr <- ".*s[ptk]r.*"
+stj   <- ".*stj.*"
+sSV   <- "[sS][i$#].*"
+```
+
+To measure the pronunciation of the /s/ tokens, we will use the spectral Centre of Gravity (CoG) of the fricative, which we will
+determine using a custom Praat script which will be executed by LaBB-CAT for each token.
+
+For analysis after extracting the data, we may also want some other information, e.g.
+
+* speaker demographics like age and gender
+* which phone immediately follows the token
+* the phonemic transcription of the syllable
+* the duration of the phones and syllables
+
+In order to extract the data we need, we need to:
+
+1. identify tokens that match each of the target contexts
+2. get various types of annotations on the tokens
+3. get alignments (start/end times)
+4. provide the Praat script to LaBB-CAT, and extract the resulting acoustic measures.
+
+First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is specified:
+
+```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+require(nzilbb.labbcat)
+labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
+```
+
+```{r credentials, eval=TRUE, echo=FALSE, render=FALSE}
+credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
+```
+
+Conduct a search for each of the contexts we're interested in; we search for the context in the syllable layer, and specify 
+which segment we're targeting for analysis, i.e. /s/.
+
+```{r searches, warning=FALSE}
+sptkV.matches <- getMatches(labbcat.url, list(syllables = sptkV, segments = "s"), no.progress = T)
+sptkr.matches <- getMatches(labbcat.url, list(syllables = sptkr, segments = "s"), no.progress = T)
+stj.matches <- getMatches(labbcat.url, list(syllables = stj, segments = "s"), no.progress = T)
+
+print(c(paste("There are", nrow(sptkr.matches), "tokens of ...s[ptk]r..."),
+        paste("There are", nrow(sptkV.matches), "tokens of ...s[ptk]V..."),
+        paste("There are", nrow(stj.matches), "tokens of ...stj...")))
+```
+
+In order to compare pronunciations with the 'standard' pronunciation of  /s/ or /ʃ/, we also identify some 'reference' phones;
+i.e./s/ or /ʃ/ at the beginning of a word, followed by  the FLEECE, THOUGHT, or START vowel (the 'phonemes' layer contains the phonemic transcription of the whole word, so using that layer allows us to anchor the pattern to the start of the word).
+
+```{r comparison}
+sSV.matches <- getMatches(labbcat.url, list(phonemes = sSV, segments = "[sS]"), no.progress = T)
+
+print(paste("There are", nrow(sSV.matches), "reference tokens of [sS]V..."))
+```
+
+We'll combine all the data frames into one for convenience; we can use `matches$SearchName` to distinguish them if necessary:
+
+```{r whole-dataset}
+matches <- rbind(sptkV.matches, sptkr.matches, stj.matches, sSV.matches)
+
+print(paste("Total tokens:", nrow(matches)))
+```
+
+This gives us a data frame with different tokens, with their start/end times
+
+```{r exampe-data}
+print(head(matches)[, c(
+  "Text", "Target.segments", "Target.segments.start", "Target.segments.end")])
+```
+
+For all the tokens, we also want the word's phonemic transcription, and the speaker's gender and age:
+
+```{r demographics}
+participant.demographics <- getMatchLabels(
+  labbcat.url, matches$MatchId, c("phonemes", "participant_gender", "participant_age_category"))
+
+matches <- cbind(matches, participant.demographics)
+print(head(matches)[, c(
+  "Text", "phonemes", "participant_age_category", "participant_gender")])
+```
+
+We also want start/end times and phonemic transcription labels for the syllable of the /s/ or /ʃ/ token:
+
+```{r syllables}
+syllable <- getMatchAlignments(labbcat.url, matches$MatchId, c("syllables"))
+
+matches <- cbind(matches, syllable)
+print(head(matches)[, c(
+  "Text", "Target.segments", "syllables", "syllables.start", "syllables.end")])
+```
+
+And the start/end times for the segment that *follows* the token:
+
+```{r following-segment}
+following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segments"), targetOffset = 1)
+
+matches <- cbind(matches, following.segment)
+print(head(matches)[, c(
+  "Token.plus.1.segments", "Token.plus.1.segments.start", "Token.plus.1.segments.end")])
+```
+
+Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script
+called [CoGFinder.praat](CoGFinder.praat). The script provides a measure of Center of Gravity at three points during the fricative 
+(among other things).
+
+We give it the `MatchId`, and start/end of the token, and ensure that Praat extracts 0.5s acoustic context before/after 
+the token.
+
+```{r cog-from-praat}
+script <- readLines("CoGFinder.praat")
+cog <- processWithPraat(
+  labbcat.url,
+  matches$MatchId, matches$Target.segments.start, matches$Target.segments.end,
+  script, window.offset=0.5, 
+  no.progress = T)
+
+matches <- cbind(matches, cog)
+print(head(matches)[, c("Text", "cog1", "cog2", "cog3")])
+```
+
+The dataset now includes sufficient information to study the pronunciation of /s/ and how it relates to context and speaker:
+
+* tokens of /s/ and /ʃ/ in various contexts, including start/end time,
+* demographic information about the speaker,
+* the phonemic transcription of the word,
+* the syllable in which the token appears, including start/end time,
+* the following phone, including start/end time, and
+* Centre of Gravity at various points throughout the token
+
