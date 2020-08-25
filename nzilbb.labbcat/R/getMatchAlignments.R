@@ -26,9 +26,9 @@
 #'     transcriptions, for tokens that have more than one.
 #' @param anchor.confidence.min The minimum confidence for alignments, e.g.
 #' \itemize{
-#'  \item{\emph{0} -- return all alignments, regardless of confidence;
-#'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;
-#'  \item{\emph{100} -- return only manually-set alignments.
+#'  \item{\emph{0} -- return all alignments, regardless of confidence;}
+#'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;}
+#'  \item{\emph{100} -- return only manually-set alignments.}
 #' }
 #' @return A data frame with label, start time, and end time, for each layer.
 #' 
