@@ -354,6 +354,5 @@ The documentation is automatically built in the *build.sh* script.
 However, if you want to manually build it:
 
 ```
-R -e "pkgdown::build_site(pkg='nzilbb.labbcat')"
-cp -R nzilbb.labbcat/docs .
+./build-docs.sh
 ```
