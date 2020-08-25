@@ -23,8 +23,9 @@ f123 <- processWithPraat(
 LaBB-CAT is a web-based linguistic annotation store that stores audio or video
 recordings, text transcripts, and other annotations.
 
-This package currently provides access to basic corpus structure data, pattern-based
-search, annotation, audio, and TextGrid extraction.
+This package provides access to basic corpus structure data, pattern-based
+search, annotation, audio, TextGrid (and other format) extraction, and server-side
+acoustic measurement with Praat.
 
 ## Basic usage instructions
 
@@ -175,11 +176,18 @@ wav.files <- getSoundFragments(
 
 If you have search results in a CSV file, and would like to retrieve annotations from some other
 layer, you can use the `getMatchLabels` function, providing the *MatchId* column (or the
-*URL* column) that indentifies the token, and the desuired layer name: 
+*URL* column) that indentifies the token, and the desired layer name: 
 
 ``` R
 results <- read.csv("results.csv", header=T)
-phonemes <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")
+phonemes <- getMatchLabels(labbcat.url, results$MatchId, c("participant_age", "phonemes"))
+```
+
+If you want alignment information - i.e. start and end time -- you can use `getMatchAlignments`:
+
+``` R
+results <- read.csv("results.csv", header=T)
+phonemes <- getMatchAlignments(labbcat.url, results$MatchId, "syllables")
 ```
 
 ### Search

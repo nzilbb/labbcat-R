@@ -1,4 +1,13 @@
-#' Gets labels of annotations on a given layer, identified by given match IDs.
+#' Gets temporal alignments of matches on a given layer.
+#' 
+#' Gets labels and start/end offsets of annotations on a given layer, identified by given
+#' match IDs.
+#'
+#' You can specify a threshold for confidence in the alignment, which is a value from 0
+#' (not aligned) to 100 (manually aligned). The default is 50 (automatically aligned), so
+#' only alignments that have been at least automatically aligned are specified. For cases
+#' where there's a token but its alignment confidence falls below the threshold, a label
+#' is returned, but the start/end times are NA.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param matchIds A vector of annotation IDs, e.g. the MatchId column, or the URL column,
@@ -15,26 +24,34 @@
 #'     may, for example, be annotated with `all possible phonemic transcriptions', in which
 #'     case using a value of greater than 1 for this parameter provides other phonemic
 #'     transcriptions, for tokens that have more than one.
-#' @return A data frame of labels.
+#' @param anchor.confidence.min The minimum confidence for alignments, e.g.
+#' \itemize{
+#'  \item{\emph{0} -- return all alignments, regardless of confidence;
+#'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;
+#'  \item{\emph{100} -- return only manually-set alignments.
+#' }
+#' @return A data frame with label, start time, and end time, for each layer.
 #' 
 #' @seealso
 #' \code{\link{getMatches}}
-#' \code{\link{getMatchAlignments}}
+#' \code{\link{getMatchLabels}}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Perform a search
-#' results <- getMatches(labbcat.url, list(orthography="quake"))
+#' results <- getMatches(labbcat.url, list(segments="I"))
 #' 
-#' ## Get the topic annotations for the matches
-#' topics <- getMatchLabels(labbcat.url, results$MatchId, "topic")
+#' ## Get the segment following the token, with alignment if it's been manually aligned
+#' following.segment <- getMatchAlignments(labbcat.url, results$MatchId, "segments",
+#'     targetOffset=1, anchor.confidence.min=100)
 #' }
 #' 
 #' @keywords layer annotation label
 #' 
-getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, annotationsPerLayer=1) {    
+getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
+                               annotationsPerLayer=1, anchor.confidence.min=50) {    
     ## validate layer Ids
     for (layerId in layerIds) {
         layer <- getLayer(labbcat.url, layerId)
@@ -55,6 +72,7 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
         csvFieldDelimiter=",", targetColumn=0, copyColumns=FALSE,
         "content-type"="text/csv",
         plus="Token.plus.", minus="Token.minus.",
+        offsetThreshold=anchor.confidence.min,
         uploadfile=httr::upload_file(upload.file))
     resp <- http.post.multipart(labbcat.url, "api/getMatchAnnotations", parameters, download.file)
 
