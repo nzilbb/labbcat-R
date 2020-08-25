@@ -12,6 +12,6 @@ test_that("getLayer works for orthography", {
     expect_equal(layers$alignment, 0)
     expect_false(layers$peers)
     expect_false(layers$peersOverlap)
-    expect_false(layers$saturated) # TODO should be true, needs fixing on backend
-    expect_false(layers$parentIncludes) # TODO should be true, needs fixing on backend
+    expect_true(layers$saturated)
+    expect_true(layers$parentIncludes)
 })

@@ -4,6 +4,5 @@ test_that("getSystemAttribute works for title", {
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     title <- getSystemAttribute(labbcat.url, "title")
-    
-    expect_false(nchar(title) > 0)
+    expect_true(nchar(title) > 0)
 })
