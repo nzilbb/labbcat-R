@@ -1,6 +1,6 @@
 # nzilbb.labbcat package for R
 
-The package provides functionality for querying and extracting data
+This R package provides functionality for querying and extracting data
 from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
 
 ``` R
@@ -26,6 +26,8 @@ recordings, text transcripts, and other annotations.
 This package provides access to basic corpus structure data, pattern-based
 search, annotation, audio, TextGrid (and other format) extraction, and server-side
 acoustic measurement with Praat.
+
+Online documentation is available at https://nzilbb.github.io/labbcat-R
 
 ## Basic usage instructions
 
