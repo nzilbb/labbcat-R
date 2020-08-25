@@ -1,10 +1,8 @@
-# Changes
+# nzilbb.labbcat 0.6-1
 
-## v0.6-1
+Minimum LaBB-CAT version *20200812.1253*
 
-Minimum LaBB-CAT version: *20200812.1253*
-
-New functions:
+## New functions:
 
 - *getMatchAlignments* : Gets temporal alignments of matches on a given layer.
 - *getSerializerDescriptors* : Returns a list of serializers, which are modules that export
@@ -14,11 +12,11 @@ New functions:
 - *getUserInfo* : Gets information about the current user.
 - *getSystemAttribute* : Gets the value of the given system attribute.
 
-## v0.5-1
+# nzilbb.labbcat 0.5-1
 
-Minimum LaBB-CAT version: *20200608.1507*
+Minimum LaBB-CAT version *20200608.1507*
 
-New functions:
+## New functions:
 
 - *getParticipantAttributes* : Gets participant attribute values for given participant IDs.
 - *getTranscriptAttributes* : Gets transcript attribute values for given transcript IDs.
@@ -29,27 +27,31 @@ New functions:
 - *praatScriptIntensity*
 - *praatScriptPitch*
 
-getAnnotationLabels now supports
+## Enhancements
 
-- retrieval of multiple layers
-- labels for next/previous token
+- getAnnotationLabels now supports
+  + retrieval of multiple layers
+  + labels for next/previous token
 
-## v0.4-1
+# nzilbb.labbcat 0.4-1
 
-Minimum LaBB-CAT version: *20200108.1025*
+Minimum LaBB-CAT version *20200108.1025*
+
+## Enhancements
 
 - Added *getMatches* function for searching LaBB-CAT
 - Improved handling of large lists passed to getAnchors
 - Increased default timeout period
 
-## v0.3-1
+# nzilbb.labbcat 0.3-1
 
-Minimum LaBB-CAT version is *20191022.1827*
+Minimum LaBB-CAT version *20191022.1827*
 
-New functions:
+## New functions:
 
 - *getFragments* : for exporting fragments as Praat TextGrids.
 - *labbcatTimeout* : for specifying the request timeout (for those with slow internet)
 
-Also:
+## Enhancements
+
 - *path* parameter for the *getSoundFragments* function

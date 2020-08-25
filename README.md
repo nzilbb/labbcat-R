@@ -309,7 +309,16 @@ attributes <- getParticipantAttributes(labbcat.url,
 
 # Developers
 
-## Building the package
+## Prerequesites
+
+For building the documentation with pkgdown:
+
+```
+apt install pandoc
+R -e "install.packages("pkgdown")"
+```
+
+## Building the package and documentation
 
 The package can be built from the source code using using:  
 ```
@@ -328,10 +337,21 @@ After 'testthat' is installed, you can use the following commands to run unit te
 
 ```
 R -e "devtools::test('nzilbb.labbcat')"
-```
+```x
 
 Specific tests can be run like this:
 
 ```
 R -e "devtools::test('nzilbb.labbcat', filter='getId')"
+```
+
+## Building documentation
+
+The documentation is automatically built in the *build.sh* script.
+
+However, if you want to manually build it:
+
+```
+R -e "pkgdown::build_site(pkg='nzilbb.labbcat')"
+cp -R nzilbb.labbcat/docs .
 ```

@@ -13,4 +13,10 @@ R CMD build nzilbb.labbcat
 echo check nzilbb.labbcat ...
 R CMD check --as-cran nzilbb.labbcat_*.tar.gz
 
+echo build documentation site ...
+
+cp NEWS.md README.md nzilbb.labbcat/
+R -e "pkgdown::build_site(pkg='nzilbb.labbcat')"
+cp -r nzilbb.labbcat/docs .
+
 echo finished.
