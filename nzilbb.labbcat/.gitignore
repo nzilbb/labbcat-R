@@ -1,1 +1,7 @@
+# transient docs location
 docs
+man
+
+# files copied here for pkgdown
+README.md
+NEWS.md

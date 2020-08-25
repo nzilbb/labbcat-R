@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets a layer definition. — getLayer • nzilbb.labbcat</title>
+<title>Articles • nzilbb.labbcat</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,7 @@
 
 
 
-<meta property="og:title" content="Gets a layer definition. — getLayer" />
-<meta property="og:description" content="Gets a layer definition." />
+<meta property="og:title" content="Articles" />
 
 
 
@@ -59,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-article-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -123,61 +122,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets a layer definition.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/R/getLayer.R'><code>R/getLayer.R</code></a></small>
-    <div class="hidden name"><code>getLayer.Rd</code></div>
+      <h1>Articles</h1>
     </div>
 
-    <div class="ref-description">
-    <p>Gets a layer definition.</p>
+    <div class="section ">
+      <h3>All vignettes</h3>
+      <p class="section-desc"></p>
+
+      <dl>
+        <dt><a href="examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></dt>
+        <dd></dt>
+      </dl>
     </div>
-
-    <pre class="usage"><span class='fu'>getLayer</span>(<span class='no'>labbcat.url</span>, <span class='no'>id</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>labbcat.url</th>
-      <td><p>URL to the LaBB-CAT instance</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>ID of the layer to get the definition for</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>The definition of the given layer, with members:</p><ul>
-<li><p><em>id</em> The layer's unique ID</p></li>
-<li><p><em>parentId</em> The layer's parent layer ID</p></li>
-<li><p><em>description</em> The description of the layer</p></li>
-<li><p><em>alignment</em> The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment</p></li>
-<li><p><em>peers</em> Whether children have peers or not</p></li>
-<li><p><em>peersOverlap</em> Whether child peers can overlap or not</p></li>
-<li><p><em>parentIncludes</em> Whether the parent t-includes the child</p></li>
-<li><p><em>saturated</em> Whether children must temporally fill the entire parent duration (true) or not (false)</p></li>
-<li><p><em>parentIncludes</em> Whether the parent t-includes the child</p></li>
-<li><p><em>type</em> The type for labels on this layer</p></li>
-<li><p><em>validLabels</em> List of valid label values for this layer</p></li>
-</ul>
-
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='getLayerIds.html'>getLayerIds</a></code>
-<code><a href='getLayers.html'>getLayers</a></code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'>## Get the definition of the orthography layer</span>
-<span class='no'>orthography.layer</span> <span class='kw'>&lt;-</span> <span class='fu'>getLayer</span>(<span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>, <span class='st'>"orthography"</span>)
-}</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <nav id="toc" data-toggle="toc" class="sticky-top">
-      <h2 data-toc-skip>Contents</h2>
-    </nav>
   </div>
 </div>
 

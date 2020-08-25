@@ -55,6 +55,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="news/index.html">Changelog</a>
 </li>
@@ -323,8 +335,7 @@ R -e "install.packages("pkgdown")"</code></pre>
 <a href="#building-documentation" class="anchor"></a>Building documentation</h2>
 <p>The documentation is automatically built in the <em>build.sh</em> script.</p>
 <p>However, if you want to manually build it:</p>
-<pre><code>R -e "pkgdown::build_site(pkg='nzilbb.labbcat')"
-cp -R nzilbb.labbcat/docs .</code></pre>
+<pre><code>./build-docs.sh</code></pre>
 </div>
 </div>
 
