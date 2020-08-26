@@ -143,7 +143,7 @@ print(head(matches)[, c(
 ```
 
 Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script
-called [CoGFinder.praat](CoGFinder.praat). The script provides a measure of Center of Gravity at three points during the fricative 
+called [CoGFinder.praat](https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/CoGFinder.praat). The script provides a measure of Center of Gravity at three points during the fricative 
 (among other things).
 
 We give it the `MatchId`, and start/end of the token, and ensure that Praat extracts 0.5s acoustic context before/after 

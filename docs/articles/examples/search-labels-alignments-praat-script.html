@@ -213,7 +213,7 @@
 ## 4                     k                       74.44                     74.53
 ## 5                     t                      136.66                    136.73
 ## 6                     t                      144.29                    144.38</code></pre>
-<p>Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script called <a href="CoGFinder.praat">CoGFinder.praat</a>. The script provides a measure of Center of Gravity at three points during the fricative (among other things).</p>
+<p>Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script called <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/CoGFinder.praat">CoGFinder.praat</a>. The script provides a measure of Center of Gravity at three points during the fricative (among other things).</p>
 <p>We give it the <code>MatchId</code>, and start/end of the token, and ensure that Praat extracts 0.5s acoustic context before/after the token.</p>
 <div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">script</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"CoGFinder.praat"</span>)
 <span class="no">cog</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/processWithPraat.html">processWithPraat</a></span>(
