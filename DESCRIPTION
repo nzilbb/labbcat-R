@@ -15,7 +15,7 @@ Description: 'LaBB-CAT' is a web-based language corpus management
  Robert Fromont and Jennifer Hay (2008) <doi:10.3366/E1749503208000142>
  or 
  Robert Fromont (2017) <doi:10.1016/j.csl.2017.01.004>.
-License: GPL (>= 3)
+License: GPL (>= 3) + file LICENCE
 Copyright: New Zealand Institute of Language, Brain and Behaviour,
  University of Canterbury
 URL: https://github.com/nzilbb/labbcat-R, https://labbcat.canterbury.ac.nz
