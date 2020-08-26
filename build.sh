@@ -7,9 +7,10 @@ rm nzilbb.labbcat_*.tar.gz
 echo generate documentation ...
 R -e "devtools::document()"
 R -e "pkgdown::build_site()"
+cat docs/nzilbb.css >> docs/pkgdown.css
 
 echo build nzilbb.labbcat ...
-R CMD build
+R CMD build .
 
 echo check nzilbb.labbcat ...
 R CMD check --as-cran nzilbb.labbcat_*.tar.gz

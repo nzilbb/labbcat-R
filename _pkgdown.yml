@@ -1,0 +1,14 @@
+home:
+  title: nzilbb.labbcat for R
+  description: R package provides for querying and extracting data from LaBB-CAT
+
+template:
+  opengraph:
+    twitter:
+      creator: "@labbcat"
+      card: summary
+
+authors:
+  Robert Fromont:
+    href: https://www.canterbury.ac.nz/nzilbb/
+

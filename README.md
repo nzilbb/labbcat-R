@@ -347,12 +347,3 @@ Specific tests can be run like this:
 R -e "devtools::test('nzilbb.labbcat', filter='getId')"
 ```
 
-## Building documentation
-
-The documentation is automatically built in the *build.sh* script.
-
-However, if you want to manually build it:
-
-```
-./build-docs.sh
-```
