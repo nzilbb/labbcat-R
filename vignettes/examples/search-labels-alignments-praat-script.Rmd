@@ -2,11 +2,11 @@
 title: "Search, Annotation, and Praat Script Example"
 author: "Robert Fromont"
 date: "25 August 2020"
-output: rmarkdown::html_document
+output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Search, Annotation, and Praat Script Example}
-  %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 
