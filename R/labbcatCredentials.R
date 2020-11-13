@@ -35,32 +35,37 @@ labbcatCredentials <- function(labbcat.url, username, password) {
     
     version.check.url <- paste(labbcat.url, "store?call=", sep="")
     authorization <- httr::authenticate(username, password)
-    resp <- httr::GET(version.check.url,
-                      authorization,
-                      httr::add_headers("User-Agent" = .user.agent),
-                      httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
-
-    if (httr::status_code(resp) != 200) { # 200 = OK
-        if (httr::status_code(resp) == 401) {
-            return("Credentials rejected")
-        } else {
-            return(httr::http_status(resp)$message)
+    tryCatch(expr={
+        resp <- httr::GET(version.check.url,
+                          authorization,
+                          httr::add_headers("User-Agent" = .user.agent),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+        
+        if (httr::status_code(resp) != 200) { # 200 = OK
+            if (httr::status_code(resp) == 401) {
+                return("Credentials rejected")
+            } else {
+                return(httr::http_status(resp)$message)
+            }
+        } ## not 200 OK
+        
+        ## do a second request
+        ## - this seems to be required for credentials to 'take' in non-interactive mode
+        resp <- httr::GET(version.check.url,
+                          authorization,
+                          httr::add_headers("User-Agent" = .user.agent),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+        
+        ## check the LaBB-CAT version
+        resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+        resp.json <- jsonlite::fromJSON(resp.content)
+        version <- resp.json$model$version
+        if (is.null(version) || version < .min.labbcat.version) {
+            return(paste("Version mismatch: ", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
         }
-    } ## not 200 OK
-
-    ## do a second request
-    ## - this seems to be required for credentials to 'take' in non-interactive mode
-    resp <- httr::GET(version.check.url,
-                      authorization,
-                      httr::add_headers("User-Agent" = .user.agent),
-                      httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
-    
-    ## check the LaBB-CAT version
-    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-    resp.json <- jsonlite::fromJSON(resp.content)
-    version <- resp.json$model$version
-    if (is.null(version) || version < .min.labbcat.version) {
-        return(paste("Version mismatch: ", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
-    }        
-    return(NULL)
+        return(NULL)
+    },
+    error=function(e){
+        return(e$message)
+    })
 }
