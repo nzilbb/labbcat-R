@@ -129,6 +129,7 @@ test_that("getMatches works with 2x3 non-orthographic search using full structur
 })
 
 test_that("getMatches works with 2x3 non-orthographic search using simple structure", {
+    skip_on_cran() # only simple searches on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
