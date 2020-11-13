@@ -23,6 +23,7 @@ test_that("getMatchAlignments works", {
 })
 
 test_that("getMatchAlignments works with multiple layers", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -55,6 +56,7 @@ test_that("getMatchAlignments works with multiple layers", {
 })
 
 test_that("getMatchAlignments works with count > 1", {
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
