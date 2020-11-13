@@ -93,7 +93,7 @@ getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text
         file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", start[r], "-", end[r], ".TextGrid", sep="")
         
         tryCatch({
-            resp <- http.post(labbcat.url, "api/serialize/fragment", parameters, file.name)
+            resp <- http.post(labbcat.url, "convertfragment", parameters, file.name)
             if (httr::status_code(resp) != 200) { # 200 = OK
                 print(paste("ERROR: ", httr::http_status(resp)$message))
                 if (httr::status_code(resp) != 404) { # 404 means the audio wasn't on the server
