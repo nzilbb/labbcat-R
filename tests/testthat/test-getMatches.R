@@ -1,7 +1,7 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 
 test_that("getMatches works with 1x1 orthographic search using full structure", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
     
     ## create pattern
@@ -63,6 +63,7 @@ test_that("getMatches works with 2x1 orthographic search using full structure", 
 })
 
 test_that("getMatches works with 1x1 orthographic search using simple structure", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
@@ -76,6 +77,7 @@ test_that("getMatches works with 1x1 orthographic search using simple structure"
 })
 
 test_that("getMatches works with 2x1 orthographic search using simple structure", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
@@ -89,7 +91,7 @@ test_that("getMatches works with 2x1 orthographic search using simple structure"
 })
 
 test_that("getMatches works with 2x3 non-orthographic search using full structure", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
@@ -129,7 +131,7 @@ test_that("getMatches works with 2x3 non-orthographic search using full structur
 })
 
 test_that("getMatches works with 2x3 non-orthographic search using simple structure", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
@@ -145,7 +147,7 @@ test_that("getMatches works with 2x3 non-orthographic search using simple struct
 })
 
 test_that("getMatches works with complex, multi-match searches", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     labbcatTimeout(120)
@@ -185,7 +187,7 @@ test_that("getMatches works with complex, multi-match searches", {
 })
 
 test_that("getMatches includes segment info when segments layer searched", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
@@ -223,7 +225,7 @@ test_that("getMatches includes segment info when segments layer searched", {
 })
 
 test_that("filter parameters of getMatches work", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## get matches
@@ -239,7 +241,7 @@ test_that("filter parameters of getMatches work", {
 })
 
 test_that("words.context parameter of getMatches works", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
@@ -273,7 +275,7 @@ test_that("words.context parameter of getMatches works", {
 })
 
 test_that("getMatches pagination works", {
-    skip_on_cran() # only simple searches on CRAN
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## create pattern
