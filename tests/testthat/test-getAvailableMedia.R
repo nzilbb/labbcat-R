@@ -1,6 +1,7 @@
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
 
 test_that("getAvailableMedia works", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     media <- getAvailableMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
