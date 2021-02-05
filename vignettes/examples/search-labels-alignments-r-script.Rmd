@@ -41,18 +41,18 @@ Now we search our LaBB-CAT corpus for aligned words that start "dis" or "mis".
 ```{r searches, warning=FALSE}
 matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress = T)
 
-print(head(matches)[, c("Transcript", "Target.transcript", "Target.transcript.start")]) ## TODO transcript->word
+print(head(matches)[, c("Transcript", "Target.transcript", "Target.transcript.start")])
 ```
 
 In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segments* annotations of each token, the last of which will be the /s/ segment we're interested in.
 
 ```{r segments}
 segments <- getMatchAlignments(
-  labbcat.url, matches$MatchId, c("segments"), annotationsPerLayer=3) ## TODO segments->segment
+  labbcat.url, matches$MatchId, c("segments"), annotationsPerLayer=3)
 
 matches <- cbind(matches, segments)
 print(head(matches)[, c(
-  "Text", "segments.3", "segments.3.start", "segments.3.end")]) ## TODO segments->segment
+  "Text", "segments.3", "segments.3.start", "segments.3.end")])
 ```
 
 We want to check whether the 'sibilance' of /s/ varies depending on whether it's in a morphological prefix or not, so we need the morphological parses of each of the word tokens. We also extract some demographic information about the speakers.
@@ -75,14 +75,14 @@ subdir <- "s-tokens"
 ## get segment sound files from LaBB-CAT
 wav.files <- getSoundFragments(
   labbcat.url, matches$Transcript, matches$segments.3.start, matches$segments.3.end, 22050, 
-  path=subdir, no.progress = T) ## segments->segment
+  path=subdir, no.progress = T)
 
 print(head(wav.files))
 ```
 
 Now that we have tokens of /s/, we want to use R to perform acoustic analysis of the sound of each token, and save the resulting acoustic measurements in the data frame with the results.
 
-Koenig *et al.* (2013) propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called `process.wav` which takes a .wav file for a given token and returns the Koenig *et al.* (2013) measures.
+[Koenig *et al.* (2013)](https://doi.org/10.1044/1092-4388(2012/12-0038)) propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called `process.wav` which takes a .wav file for a given token and returns the Koenig *et al.* (2013) measures.
 
 This function is defined in [hayhawkins-multitaper.R](https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R), which must be loaded.
 
