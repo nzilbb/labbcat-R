@@ -125,6 +125,7 @@ print(head(matches)[, c("Number", "Text", "segment.3.start", "freqM", "freqH", "
 ```
 
 The dataset now includes acoustic measurements allowing study the acoustic properties of /s/, in relation to morphology and speaker demographics:
+
 * tokens of /s/ in dis/mis prefixed words,
 * demographic information about the speaker,
 * the morphological parse of the word,
