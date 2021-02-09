@@ -339,7 +339,7 @@ After 'testthat' is installed, you can use the following commands to run unit te
 
 ```
 R -e "devtools::test('nzilbb.labbcat')"
-```x
+```
 
 Specific tests can be run like this:
 
