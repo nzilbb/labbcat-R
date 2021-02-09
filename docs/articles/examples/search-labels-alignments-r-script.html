@@ -91,7 +91,7 @@
       <h1 data-toc-skip>Search, Annotation, and R Script Example</h1>
                         <h4 class="author">Robert Fromont</h4>
             
-            <h4 class="date">4 February 2021</h4>
+            <h4 class="date">9 February 2021</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/search-labels-alignments-r-script.Rmd"><code>vignettes/examples/search-labels-alignments-r-script.Rmd</code></a></small>
       <div class="hidden name"><code>search-labels-alignments-r-script.Rmd</code></div>
@@ -101,24 +101,25 @@
     
     
 <p><a href="https://labbcat.canterbury.ac.nz">LaBB-CAT</a> is a browser-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations. The <em>nzilbb.labbcat</em> R package provides access to linguistic data stored in LaBB-CAT servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.</p>
-<p>This vignette shows how to:</p>
+<p>This worked example illustrates how to:</p>
 <ol style="list-style-type: decimal">
-<li>identify a set of phone tokens in specific contexts,</li>
-<li>extract annotation labels for the tokens and their speakers,</li>
+<li>identify a set of phone tokens in a specific context,</li>
+<li>extract annotation labels for the word tokens and their speakers,</li>
 <li>download audio files for all tokens,</li>
 <li>execute a custom R script to extract acoustic measurements from the audio files.</li>
 </ol>
-<div id="the-effects-of-morphology-and-demographics-on-sibilance-of-s" class="section level2">
+<div id="example-the-effects-of-morphology-and-demographics-on-the-acoustic-properties-of-s" class="section level2">
 <h2 class="hasAnchor">
-<a href="#the-effects-of-morphology-and-demographics-on-sibilance-of-s" class="anchor"></a>The effects of morphology and demographics on ‘sibilance’ of /s/</h2>
-<p>In particular, we are interested in whether the /s/ in a <em>mis</em> in a prefixed word like <em>mistimes</em> is pronounced differently from the <em>mis</em> in an unprefixed word like <em>mistakes</em>, and whether the age or gender of the speaker makes any difference.</p>
+<a href="#example-the-effects-of-morphology-and-demographics-on-the-acoustic-properties-of-s" class="anchor"></a>Example: the effects of morphology and demographics on the acoustic properties of /s/</h2>
+<p>In particular, we might be interested in whether the /s/ in a <em>mis</em> in a prefixed word like <em>mistimes</em> is pronounced differently from the <em>mis</em> in an unprefixed word like <em>mistakes</em>, and whether demographics of the speaker make any difference.</p>
 <p>First the <em>nzilbb.labbcat</em> package must be loaded, and the LaBB-CAT corpus is specified:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">nzilbb.labbcat</span>)</pre></body></html></div>
 <pre><code>## Loading required package: nzilbb.labbcat</code></pre>
 <div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">labbcat.url</span> <span class="kw">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></pre></body></html></div>
-<p>Now we search our LaBB-CAT corpus for aligned words that start “dis” or “mis”.</p>
+<p>Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts “dis” or “mis”.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">orthography</span> <span class="kw">=</span> <span class="st">"[dm]is.+"</span>), <span class="kw">aligned</span><span class="kw">=</span><span class="no">T</span>, <span class="kw">no.progress</span> <span class="kw">=</span> <span class="no">T</span>)
 
+<span class="co"># show the first few matches</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span>)])</pre></body></html></div>
 <pre><code>##              Transcript Target.word Target.word.start
 ## 1     AP2505_Nelson.eaf    distance           305.480
@@ -131,7 +132,10 @@
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">segments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(
   <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">annotationsPerLayer</span><span class="kw">=</span><span class="fl">3</span>)
 
+<span class="co"># combine the segment data with the matches</span>
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">segments</span>)
+
+<span class="co"># show the first few alignments</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
   <span class="st">"Text"</span>, <span class="st">"segment.3"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"segment.3.end"</span>)])</pre></body></html></div>
 <pre><code>##       Text segment.3 segment.3.start segment.3.end
@@ -141,11 +145,14 @@
 ## 4     miss         s         259.880       260.030
 ## 5   miss .         s         262.490       262.990
 ## 6     miss         s         266.899       267.039</code></pre>
-<p>We want to check whether the ‘sibilance’ of /s/ varies depending on whether it’s in a morphological prefix or not, so we need the morphological parses of each of the word tokens. We also extract some demographic information about the speakers.</p>
+<p>We want to check whether the acoustic properties of /s/ vary depending on whether it’s in a morphological prefix or not, so we need the morphological parses of each word token. We also extract some demographic information about the speakers.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">morphology.demographics</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchLabels.html">getMatchLabels</a></span>(
   <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>))
 
+<span class="co"># combine the annotation data with the matches</span>
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">morphology.demographics</span>)
+
+<span class="co"># show the first few annotations</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
   <span class="st">"Text"</span>, <span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>)])</pre></body></html></div>
 <pre><code>##       Text   morphology participant_age_category participant_gender
@@ -156,14 +163,15 @@
 ## 5   miss .         Miss                    26-35                  M
 ## 6     miss         Miss                    26-35                  M</code></pre>
 <p>We want to perform acoustic analysis, so we need the wav sample for each match, which can be extracted from LaBB-CAT as as a mono 22kHz files using <code>getSoundFragments</code>.</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co">## define subdirectory to save the files in</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="co"># define subdirectory to save the files in</span>
 <span class="no">subdir</span> <span class="kw">&lt;-</span> <span class="st">"s-tokens"</span>
 
-<span class="co">## get segment sound files from LaBB-CAT</span>
+<span class="co"># get segment sound files from LaBB-CAT</span>
 <span class="no">wav.files</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getSoundFragments.html">getSoundFragments</a></span>(
   <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">Transcript</span>, <span class="no">matches</span>$<span class="no">segment.3.start</span>, <span class="no">matches</span>$<span class="no">segment.3.end</span>, <span class="fl">22050</span>,
   <span class="kw">path</span><span class="kw">=</span><span class="no">subdir</span>, <span class="kw">no.progress</span> <span class="kw">=</span> <span class="no">T</span>)
 
+<span class="co"># show the first few file names</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">wav.files</span>))</pre></body></html></div>
 <pre><code>## [1] "s-tokens/AP2505_Nelson__305.640-305.690.wav"    
 ## [2] "s-tokens/AP2505_Nelson__345.420-345.480.wav"    
@@ -172,19 +180,20 @@
 ## [5] "s-tokens/AP2516_JasonEager__262.490-262.990.wav"
 ## [6] "s-tokens/AP2516_JasonEager__266.899-267.039.wav"</code></pre>
 <p>Now that we have tokens of /s/, we want to use R to perform acoustic analysis of the sound of each token, and save the resulting acoustic measurements in the data frame with the results.</p>
-<p><a href="https://doi.org/10.1044/1092-4388(2012/12-0038)">Koenig <em>et al.</em> (2013)</a> propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called <code>process.wav</code> which takes a .wav file for a given token and returns the Koenig <em>et al.</em> (2013) measures.</p>
-<p>This function is defined in <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R">hayhawkins-multitaper.R</a>, which must be loaded.</p>
+<p>By way of example, <a href="https://doi.org/10.1044/1092-4388(2012/12-0038)">Koenig <em>et al.</em> (2013)</a> propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called <code>process.wav</code> which takes a .wav file for a given token and returns the Koenig <em>et al.</em> (2013) measures.</p>
+<p>This function is defined in <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R">hayhawkins-multitaper.R</a>, which must be loaded:</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">'hayhawkins-multitaper.R'</span>)</pre></body></html></div>
 <p>The <code>process.wav</code> function processes a single sound file, so we <code>apply</code> it to all our /s/ tokens, and add the resulting acoustic measures to our <em>matches</em> data frame.</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">s.measures.lists</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">wav.files</span>, <span class="no">process.wav</span>)
 
+<span class="co"># combine the acoustic measures with the matches</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">data.table</span>) <span class="co">## we need this package in order to use rbindlist below</span></pre></body></html></div>
 <pre><code>## Loading required package: data.table</code></pre>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span>(<span class="no">s.measures.lists</span>)))</pre></body></html></div>
 <p>Now that the sound files we downloaded have been processed, we don’t need them any more, so we tidily delete them to save disk space.</p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">removed</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span>(<span class="no">wav.files</span>)
 <span class="no">removed</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/files.html">file.remove</a></span>(<span class="no">subdir</span>)</pre></body></html></div>
-<p>The <code>process.wav</code> function produces 12 acoustic measures, three of which are printed below by way of example:</p>
+<p>Our <code>process.wav</code> function produces 12 acoustic measures, three of which are printed below by way of example:</p>
 <ul>
 <li>
 <em>freqM</em> - peak frequency in the ‘medium’ range (3kHz to 7kHz)</li>
@@ -201,7 +210,7 @@
 ## 4      4     miss         259.880 4673.641 7310.054 6399.511
 ## 5      5   miss .         262.490 5712.228 7549.728 7242.374
 ## 6      6     miss         266.899 6990.489 7030.435 6858.675</code></pre>
-<p>The dataset now includes acoustic measurements allowing study the ‘sibiliance’ of /s/, in relation to morphology and speaker demographics.</p>
+<p>The dataset now includes acoustic measurements allowing study the acoustic properties of /s/, in relation to morphology and speaker demographics: * tokens of /s/ in dis/mis prefixed words, * demographic information about the speaker, * the morphological parse of the word, * various acoustic measures computed from the audio using an R script</p>
 </div>
   </div>
 
