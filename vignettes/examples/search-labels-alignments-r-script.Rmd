@@ -27,19 +27,19 @@ In particular, we might be interested in whether the /s/ in a *mis* in a prefixe
 
 First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is specified:
 
-```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 ```
 
-```{r credentials, eval=TRUE, echo=FALSE, render=FALSE}
+```{r credentials, eval=TRUE, echo=FALSE}
 credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
 ```
 
 Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts "dis" or "mis".
 
 ```{r searches, warning=FALSE}
-matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress = T)
+matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress=T)
 
 # show the first few matches
 print(head(matches)[, c("Transcript", "Target.word", "Target.word.start")])
@@ -75,7 +75,7 @@ print(head(matches)[, c(
 
 We want to perform acoustic analysis, so we need the wav sample for each match, which can be extracted from LaBB-CAT as as a mono 22kHz files using `getSoundFragments`.
 
-```{r process.row, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r process.row, eval=TRUE, echo=TRUE, warning=FALSE}
 # define subdirectory to save the files in
 subdir <- "s-tokens"
 
@@ -94,25 +94,24 @@ By way of example, [Koenig *et al.* (2013)](https://doi.org/10.1044/1092-4388(20
 
 This function is defined in [hayhawkins-multitaper.R](https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R), which must be loaded:
 
-```{r hayhawkins-multitaper, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r hayhawkins-multitaper, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE}
 source('hayhawkins-multitaper.R')
 ```
 
 The `process.wav` function processes a single sound file, so we `apply` it to all our /s/ tokens, and add the resulting acoustic measures to our *matches* data frame.
 
-```{r apply-wav.files, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r apply-wav.files, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 s.measures.lists <- lapply(wav.files, process.wav)
 
 # combine the acoustic measures with the matches
-require(data.table) ## we need this package in order to use rbindlist below
+require(data.table) # (we need this package in order to use rbindlist below)
 matches <- cbind(matches, as.data.frame(rbindlist(s.measures.lists)))
 ```
 
 Now that the sound files we downloaded have been processed, we don't need them any more, so we tidily delete them to save disk space.
 
-```{r tidy-up, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
-removed <- file.remove(wav.files)
-removed <- file.remove(subdir)
+```{r tidy-up, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE}
+unlink(subdir, recursive = TRUE)
 ```
 
 Our `process.wav` function produces 12 acoustic measures, three of which are printed below by way of example:
@@ -121,7 +120,7 @@ Our `process.wav` function produces 12 acoustic measures, three of which are pri
 - *freqH* - peak frequency in the 'high' range (7kHz to the Nyquist frequency)
 - *CoG* - the centre of gravity of the whole spectrum
 
-```{r example-measures, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r example-measures, eval=TRUE, echo=TRUE, warning=FALSE}
 print(head(matches)[, c("Number", "Text", "segment.3.start", "freqM", "freqH", "CoG")])
 ```
 

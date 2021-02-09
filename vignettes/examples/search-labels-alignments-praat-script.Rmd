@@ -14,7 +14,7 @@ vignette: >
 text transcripts, and other annotations. The *nzilbb.labbcat* R package provides access to linguistic data stored in LaBB-CAT 
 servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.
 
-This vignette shows how to:
+This worked example shows how to:
 
 1. identify a set of phone tokens in specific contexts, 
 2. extract annotation labels and alignments for the tokens and their surrounding annotions,
@@ -65,12 +65,12 @@ In order to extract the data we need, we need to:
 
 First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is specified:
 
-```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 ```
 
-```{r credentials, eval=TRUE, echo=FALSE, render=FALSE}
+```{r credentials, eval=TRUE, echo=FALSE}
 credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
 ```
 
