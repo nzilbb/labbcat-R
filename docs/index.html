@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nzilbb.labbcat for R • nzilbb.labbcat</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,6 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="nzilbb.labbcat for R">
 <meta property="og:description" content="R package provides for querying and extracting data from LaBB-CAT">
+<meta property="og:image" content="/logo.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@labbcat">
 <meta name="twitter:site" content="@labbcat">
@@ -88,9 +95,10 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="nzilbblabbcat-package-for-r" class="section level1">
+<div id="nzilbblabbcat-package-for-r-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#nzilbblabbcat-package-for-r" class="anchor"></a>nzilbb.labbcat package for R</h1></div>
+<a href="#nzilbblabbcat-package-for-r-" class="anchor"></a>nzilbb.labbcat package for R <img src="logo.png" align="right">
+</h1></div>
 <p>This R package provides functionality for querying and extracting data from <a href="https://labbcat.canterbury.ac.nz/">LaBB-CAT</a> servers, directly from R.</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">nzilbb.labbcat</span>)
 <span class="no">labbcat.url</span> <span class="kw">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span>
@@ -175,9 +183,9 @@
 <span class="no">wav.file</span> <span class="kw">&lt;-</span> <span class="no">media</span>$<span class="no">name</span>[<span class="fl">1</span>]
 <span class="no">wav.url</span> <span class="kw">&lt;-</span> <span class="no">media</span>$<span class="no">url</span>[<span class="fl">1</span>]
 
-<span class="no">response</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(<span class="no">wav.url</span>, <span class="no">labbcat</span>$<span class="no">authorization</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html">write_disk</a></span>(<span class="no">wav.file</span>, <span class="kw">overwrite</span><span class="kw">=</span><span class="fl">TRUE</span>), <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/progress.html">progress</a></span>())
-<span class="kw">if</span> (<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html">status_code</a></span>(<span class="no">response</span>) <span class="kw">!=</span> <span class="fl">200</span>) { <span class="co"># 200 means OK</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Downloading"</span>, <span class="no">wav.file</span>, <span class="st">"failed:"</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/http_status.html">http_status</a></span>(<span class="no">response</span>)$<span class="no">message</span>))
+<span class="no">response</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/GET.html">GET</a></span>(<span class="no">wav.url</span>, <span class="no">labbcat</span>$<span class="no">authorization</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/write_disk.html">write_disk</a></span>(<span class="no">wav.file</span>, <span class="kw">overwrite</span><span class="kw">=</span><span class="fl">TRUE</span>), <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/progress.html">progress</a></span>())
+<span class="kw">if</span> (<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/status_code.html">status_code</a></span>(<span class="no">response</span>) <span class="kw">!=</span> <span class="fl">200</span>) { <span class="co"># 200 means OK</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Downloading"</span>, <span class="no">wav.file</span>, <span class="st">"failed:"</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/http_status.html">http_status</a></span>(<span class="no">response</span>)$<span class="no">message</span>))
 } <span class="kw">else</span> {
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Downloading"</span>, <span class="no">wav.file</span>, <span class="st">"worked!"</span>))
 
@@ -351,7 +359,7 @@ R -e "install.packages("pkgdown")"</code></pre>
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://www.canterbury.ac.nz/nzilbb/">Robert Fromont</a> <br><small class="roles"> Author, maintainer </small>  </li>
+<a href="https://www.canterbury.ac.nz/nzilbb/">Robert Fromont</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5271-5487" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
