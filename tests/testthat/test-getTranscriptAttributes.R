@@ -11,7 +11,7 @@ test_that("getTranscriptAttributes works", {
         c("transcript_language", "transcript_duration", "corpus"))
 
     ## check dataframe columns
-    expect_equal(length(attributes$graph), length(transcriptIds))
+    expect_equal(length(attributes$transcript), length(transcriptIds))
     expect_equal(length(attributes$transcript_language), length(transcriptIds))
     expect_equal(length(attributes$transcript_duration), length(transcriptIds))
     expect_equal(length(attributes$corpus), length(transcriptIds))

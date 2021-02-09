@@ -23,7 +23,7 @@
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Perform a search
-#' results <- getMatches(labbcat.url, list(segments="I"))
+#' results <- getMatches(labbcat.url, list(segment="I"))
 #' 
 #' ## Get the phonemic transcriptions for the matches
 #' phonemes <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")

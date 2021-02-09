@@ -5,13 +5,10 @@ test_that("getAvailableMedia works", {
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     media <- getAvailableMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
-    expect_equal(length(media$name), 3)
-    expect_equal(length(media$type), 3)
-    expect_equal(length(media$extension), 3)
-    expect_equal(length(media$mimeType), 3)
-    expect_equal(length(media$url), 3)
-    expect_equal(length(media$nameWithoutSuffix), 3)
-    expect_equal(length(media$trackSuffix), 3)
+    expect_equal(length(media$name), 9)
+    expect_equal(length(media$mimeType), 9)
+    expect_equal(length(media$url), 9)
+    expect_equal(length(media$trackSuffix), 9)
 
     expect_true("BR2044_OllyOhlson.mp4" %in% media$name)
     expect_true("BR2044_OllyOhlson_face.mp4" %in% media$name)

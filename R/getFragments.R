@@ -37,7 +37,7 @@
 #' ## Get a list of fragment TextGrids, including the utterances, transcript, and phonemes layers
 #' textgrid.files <- getFragments(
 #'     labbcat.url, results$Transcript, results$Line, results$LineEnd,
-#'     c("utterances", "transcript", "phonemes"))
+#'     c("utterance", "word", "phonemes"))
 #' 
 #' ## Get a list of fragment TextGrids with no progress bar
 #' textgrid.files <- getFragments(

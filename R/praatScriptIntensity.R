@@ -19,12 +19,12 @@
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Perform a search
-#' results <- getMatches(labbcat.url, list(segments="s"))
+#' results <- getMatches(labbcat.url, list(segment="s"))
 #' 
 #' ## Get intensity for all matches
 #' intensity <- processWithPraat(
 #'               labbcat.url,
-#'               results$MatchId, results$Target.segments.start, results$Target.segments.end,
+#'               results$MatchId, results$Target.segment.start, results$Target.segment.end,
 #'               praatScriptIntensity(),
 #'               no.progress=TRUE)
 #' }
