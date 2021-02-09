@@ -12,3 +12,51 @@ authors:
   Robert Fromont:
     href: https://www.canterbury.ac.nz/nzilbb/
 
+reference:
+- title: "Communication with LaBB-CAT"
+  desc: "URLs/credentials etc. for connecting to your LaBB-CAT server"
+- contents: 
+  - starts_with("labbcat")
+  - getId
+  - getUserInfo
+- title: "Searching and extracting data"
+  desc: "Searching for patterns, and extracting information about the resulting matches"
+- contents:
+  - getMatches
+  - getMatchLabels
+  - getMatchAlignments
+  - getSoundFragments
+  - getFragments
+- title: "Processing with Praat"
+  desc: "Server-side processing of tokens with Praat"
+- contents: 
+  - processWithPraat
+  - starts_with("praat")
+- title: "Transcript information"
+  desc: "Identifying transcript IDs, annotations, media, and meta data"
+- contents: 
+  - starts_with("getTranscript")
+  - getMatchingTranscriptIds
+  - getAvailableMedia
+  - getMedia
+  - countAnnotations
+  - getAnchors
+  - getAnnotations
+  - starts_with("getGraph")
+  - getMatchingGraphIds
+- title: "Corpus information"
+  desc: "Information about how your LaBB-CAT server is organised and configured"
+- contents: 
+  - getCorpusIds
+  - getDictionaries
+  - getDictionaryEntries
+  - getLayerIds
+  - getLayer
+  - getLayers
+  - getMediaTracks
+  - getParticipantAttributes
+  - getParticipantIds
+  - getDeserializerDescriptors
+  - getSerializerDescriptors
+  - getSystemAttribute
+  - nzilbb.labbcat

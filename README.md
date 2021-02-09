@@ -1,4 +1,4 @@
-# nzilbb.labbcat package for R
+# nzilbb.labbcat package for R <img src="logo.png" align="right" />
 
 This R package provides functionality for querying and extracting data
 from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
