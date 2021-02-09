@@ -119,28 +119,28 @@
 <p>Now we search our LaBB-CAT corpus for aligned words that start “dis” or “mis”.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">orthography</span> <span class="kw">=</span> <span class="st">"[dm]is.+"</span>), <span class="kw">aligned</span><span class="kw">=</span><span class="no">T</span>, <span class="kw">no.progress</span> <span class="kw">=</span> <span class="no">T</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.transcript"</span>, <span class="st">"Target.transcript.start"</span>)])</pre></body></html></div>
-<pre><code>##              Transcript Target.transcript Target.transcript.start
-## 1     AP2505_Nelson.eaf          distance                 305.480
-## 2     AP2505_Nelson.eaf          distance                 345.300
-## 3 AP2516_JasonEager.eaf              miss                 257.580
-## 4 AP2516_JasonEager.eaf              miss                 259.740
-## 5 AP2516_JasonEager.eaf            miss .                 262.180
-## 6 AP2516_JasonEager.eaf              miss                 266.759</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span>)])</pre></body></html></div>
+<pre><code>##              Transcript Target.word Target.word.start
+## 1     AP2505_Nelson.eaf    distance           305.480
+## 2     AP2505_Nelson.eaf    distance           345.300
+## 3 AP2516_JasonEager.eaf        miss           257.580
+## 4 AP2516_JasonEager.eaf        miss           259.740
+## 5 AP2516_JasonEager.eaf      miss .           262.180
+## 6 AP2516_JasonEager.eaf        miss           266.759</code></pre>
 <p>In order to be able to analyse the /s/ segments, we need it’s start and end time, so we can extract a matching sound sample. We identify the first three <em>segments</em> annotations of each token, the last of which will be the /s/ segment we’re interested in.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">segments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(
-  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segments"</span>), <span class="kw">annotationsPerLayer</span><span class="kw">=</span><span class="fl">3</span>)
+  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">annotationsPerLayer</span><span class="kw">=</span><span class="fl">3</span>)
 
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">segments</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
-  <span class="st">"Text"</span>, <span class="st">"segments.3"</span>, <span class="st">"segments.3.start"</span>, <span class="st">"segments.3.end"</span>)])</pre></body></html></div>
-<pre><code>##       Text segments.3 segments.3.start segments.3.end
-## 1 distance          s          305.640        305.690
-## 2 distance          s          345.420        345.480
-## 3     miss          s          257.750        257.930
-## 4     miss          s          259.880        260.030
-## 5   miss .          s          262.490        262.990
-## 6     miss          s          266.899        267.039</code></pre>
+  <span class="st">"Text"</span>, <span class="st">"segment.3"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"segment.3.end"</span>)])</pre></body></html></div>
+<pre><code>##       Text segment.3 segment.3.start segment.3.end
+## 1 distance         s         305.640       305.690
+## 2 distance         s         345.420       345.480
+## 3     miss         s         257.750       257.930
+## 4     miss         s         259.880       260.030
+## 5   miss .         s         262.490       262.990
+## 6     miss         s         266.899       267.039</code></pre>
 <p>We want to check whether the ‘sibilance’ of /s/ varies depending on whether it’s in a morphological prefix or not, so we need the morphological parses of each of the word tokens. We also extract some demographic information about the speakers.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">morphology.demographics</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchLabels.html">getMatchLabels</a></span>(
   <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>))
@@ -161,7 +161,7 @@
 
 <span class="co">## get segment sound files from LaBB-CAT</span>
 <span class="no">wav.files</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getSoundFragments.html">getSoundFragments</a></span>(
-  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">Transcript</span>, <span class="no">matches</span>$<span class="no">segments.3.start</span>, <span class="no">matches</span>$<span class="no">segments.3.end</span>, <span class="fl">22050</span>,
+  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">Transcript</span>, <span class="no">matches</span>$<span class="no">segment.3.start</span>, <span class="no">matches</span>$<span class="no">segment.3.end</span>, <span class="fl">22050</span>,
   <span class="kw">path</span><span class="kw">=</span><span class="no">subdir</span>, <span class="kw">no.progress</span> <span class="kw">=</span> <span class="no">T</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">wav.files</span>))</pre></body></html></div>
@@ -193,14 +193,14 @@
 <li>
 <em>CoG</em> - the centre of gravity of the whole spectrum</li>
 </ul>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Number"</span>, <span class="st">"Text"</span>, <span class="st">"segments.3.start"</span>, <span class="st">"freqM"</span>, <span class="st">"freqH"</span>, <span class="st">"CoG"</span>)])</pre></body></html></div>
-<pre><code>##   Number     Text segments.3.start    freqM    freqH      CoG
-## 1      1 distance          305.640 4401.996 7003.176 6128.388
-## 2      2 distance          345.420 3754.891 7030.435 5779.537
-## 3      3     miss          257.750 6311.413 7030.435 6149.090
-## 4      4     miss          259.880 4673.641 7310.054 6399.511
-## 5      5   miss .          262.490 5712.228 7549.728 7242.374
-## 6      6     miss          266.899 6990.489 7030.435 6858.675</code></pre>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Number"</span>, <span class="st">"Text"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"freqM"</span>, <span class="st">"freqH"</span>, <span class="st">"CoG"</span>)])</pre></body></html></div>
+<pre><code>##   Number     Text segment.3.start    freqM    freqH      CoG
+## 1      1 distance         305.640 4401.996 7003.176 6128.388
+## 2      2 distance         345.420 3754.891 7030.435 5779.537
+## 3      3     miss         257.750 6311.413 7030.435 6149.090
+## 4      4     miss         259.880 4673.641 7310.054 6399.511
+## 5      5   miss .         262.490 5712.228 7549.728 7242.374
+## 6      6     miss         266.899 6990.489 7030.435 6858.675</code></pre>
 <p>The dataset now includes acoustic measurements allowing study the ‘sibiliance’ of /s/, in relation to morphology and speaker demographics.</p>
 </div>
   </div>

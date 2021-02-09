@@ -222,7 +222,7 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
 <span class='co'>## Get a list of fragment TextGrids, including the utterances, transcript, and phonemes layers</span>
 <span class='no'>textgrid.files</span> <span class='kw'>&lt;-</span> <span class='fu'>getFragments</span>(
     <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>,
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"utterances"</span>, <span class='st'>"transcript"</span>, <span class='st'>"phonemes"</span>))
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"utterance"</span>, <span class='st'>"word"</span>, <span class='st'>"phonemes"</span>))
 
 <span class='co'>## Get a list of fragment TextGrids with no progress bar</span>
 <span class='no'>textgrid.files</span> <span class='kw'>&lt;-</span> <span class='fu'>getFragments</span>(

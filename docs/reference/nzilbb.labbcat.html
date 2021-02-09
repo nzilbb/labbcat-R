@@ -179,7 +179,7 @@ this package.</p>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
 <span class='co'>## Perform a search</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segments</span><span class='kw'>=</span><span class='st'>"I"</span>))
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segment</span><span class='kw'>=</span><span class='st'>"I"</span>))
 
 <span class='co'>## Get the phonemic transcriptions for the matches</span>
 <span class='no'>phonemes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatchLabels.html'>getMatchLabels</a></span>(<span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='st'>"phonemes"</span>)

@@ -176,12 +176,12 @@ parameter of <a href='processWithPraat.html'>processWithPraat</a>, in order to e
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
 <span class='co'>## Perform a search</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segments</span><span class='kw'>=</span><span class='st'>"s"</span>))
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segment</span><span class='kw'>=</span><span class='st'>"s"</span>))
 
 <span class='co'>## Get intensity for all matches</span>
 <span class='no'>intensity</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='processWithPraat.html'>processWithPraat</a></span>(
               <span class='no'>labbcat.url</span>,
-              <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segments.start</span>, <span class='no'>results</span>$<span class='no'>Target.segments.end</span>,
+              <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
               <span class='fu'>praatScriptIntensity</span>(),
               <span class='kw'>no.progress</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 }</div></pre>

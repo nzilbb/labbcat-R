@@ -96,14 +96,14 @@
 <span class="no">labbcat.url</span> <span class="kw">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span>
 
 <span class="co"># search for tokens of the KIT vowel</span>
-<span class="no">m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">segments</span><span class="kw">=</span><span class="st">"I"</span>))
+<span class="no">m</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">segment</span><span class="kw">=</span><span class="st">"I"</span>))
 
 <span class="co"># extract F1, 2, and 3 from the mid-point of each vowel</span>
 <span class="no">f123</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span>(
     <span class="no">labbcat.url</span>,
     <span class="no">m</span>$<span class="no">MatchId</span>,
-    <span class="no">m</span>$<span class="no">Target.segments.start</span>,
-    <span class="no">m</span>$<span class="no">Target.segments.end</span>,
+    <span class="no">m</span>$<span class="no">Target.segment.start</span>,
+    <span class="no">m</span>$<span class="no">Target.segment.end</span>,
     <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>)),
     <span class="kw">window.offset</span><span class="kw">=</span><span class="fl">0.5</span>)</pre></div>
 <p>LaBB-CAT is a web-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations.</p>
@@ -213,7 +213,7 @@
 
 <span class="co">## download all the segment WAV files</span>
 <span class="no">wav.files</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span>(
-    <span class="no">labbcat</span>, <span class="no">results</span>$<span class="no">Transcript</span>, <span class="no">results</span>$<span class="no">segments.start</span>, <span class="no">results</span>$<span class="no">segments.end</span>)</pre></div>
+    <span class="no">labbcat</span>, <span class="no">results</span>$<span class="no">Transcript</span>, <span class="no">results</span>$<span class="no">segment.start</span>, <span class="no">results</span>$<span class="no">segment.end</span>)</pre></div>
 </div>
 <div id="getting-annotations-from-other-layers" class="section level3">
 <h3 class="hasAnchor">
@@ -244,14 +244,14 @@
             <span class="kw">frequency</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">max</span> <span class="kw">=</span> <span class="st">"2"</span>))))))</pre></div>
 <p>The data frame that’s returned contains columns that can be used as parameters for other functions:</p>
 <div class="sourceCode" id="cb16"><pre class="r"><span class="co"># get all instances of the KIT vowel</span>
-<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">segments</span> <span class="kw">=</span> <span class="st">"I"</span>))
+<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">segment</span> <span class="kw">=</span> <span class="st">"I"</span>))
 
 <span class="co"># get phonemic transcription for the whole word</span>
 <span class="no">phonemes</span>  <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatchLabels.html">getMatchLabels</a></span>(<span class="no">labbcat.url</span>, <span class="no">results</span>$<span class="no">MatchId</span>, <span class="st">"phonemes"</span>)
 
 <span class="co"># download all the segment WAV files</span>
 <span class="no">wav.files</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span>(
-    <span class="no">labbcat.url</span>, <span class="no">results</span>$<span class="no">Transcript</span>, <span class="no">results</span>$<span class="no">Target.segments.start</span>, <span class="no">results</span>$<span class="no">Target.segments.end</span>)</pre></div>
+    <span class="no">labbcat.url</span>, <span class="no">results</span>$<span class="no">Transcript</span>, <span class="no">results</span>$<span class="no">Target.segment.start</span>, <span class="no">results</span>$<span class="no">Target.segment.end</span>)</pre></div>
 </div>
 <div id="looking-up-dictionaries" class="section level3">
 <h3 class="hasAnchor">
@@ -270,19 +270,19 @@
 <p>The exact measurements to return depend on the <code>praat.script</code> that is invoked. This is a Praat script fragment that will run once for each sound interval specified.</p>
 <p>There are functions to allow the generation of a number of pre-defined praat scripts for common tasks such as formant, pitch, intensity, and centre of gravity:</p>
 <div class="sourceCode" id="cb19"><pre class="r"><span class="co"># Perform a search</span>
-<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">segments</span><span class="kw">=</span><span class="st">"I"</span>))
+<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">segment</span><span class="kw">=</span><span class="st">"I"</span>))
 
 <span class="co"># get F1 and F2 for the mid point of the vowel</span>
 <span class="no">formants</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span>(
        <span class="no">labbcat.url</span>,
-       <span class="no">results</span>$<span class="no">MatchId</span>, <span class="no">results</span>$<span class="no">Target.segments.start</span>, <span class="no">results</span>$<span class="no">Target.segments.end</span>,
+       <span class="no">results</span>$<span class="no">MatchId</span>, <span class="no">results</span>$<span class="no">Target.segment.start</span>, <span class="no">results</span>$<span class="no">Target.segment.end</span>,
        <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span>(),
        <span class="kw">no.progress</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></div>
 <p>You can provide your own script, either by building a string with your code, or loading one from a file.</p>
 <div class="sourceCode" id="cb20"><pre class="r"><span class="co"># execute a custom script loaded form a file</span>
 <span class="no">acoustic.measurements</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span>(
        <span class="no">labbcat.url</span>,
-       <span class="no">results</span>$<span class="no">MatchId</span>, <span class="no">results</span>$<span class="no">Target.segments.start</span>, <span class="no">results</span>$<span class="no">Target.segments.end</span>,
+       <span class="no">results</span>$<span class="no">MatchId</span>, <span class="no">results</span>$<span class="no">Target.segment.start</span>, <span class="no">results</span>$<span class="no">Target.segment.end</span>,
        <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"acousticMeasurements.praat"</span>))</pre></div>
 </div>
 <div id="retrieving-transcript-and-participant-attributes" class="section level3">
@@ -323,9 +323,9 @@ R -e "install.packages("pkgdown")"</code></pre>
 <p>Unit tests use the ‘testthat’ package, which requires a one-time installation:</p>
 <pre><code>R -e "install.packages('testthat')"</code></pre>
 <p>After ‘testthat’ is installed, you can use the following commands to run unit tests:</p>
-<p><code>R -e "devtools::test('nzilbb.labbcat')"</code>x</p>
+<pre><code>R -e "devtools::test()"</code></pre>
 <p>Specific tests can be run like this:</p>
-<pre><code>R -e "devtools::test('nzilbb.labbcat', filter='getId')"</code></pre>
+<pre><code>R -e "devtools::test(filter='getId')"</code></pre>
 </div>
 </div>
 

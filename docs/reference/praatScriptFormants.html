@@ -224,12 +224,12 @@ participant's gender - normally this is "participant_gender".</p></td>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
 <span class='co'>## Get all tokens of the KIT vowel</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segments</span><span class='kw'>=</span><span class='st'>"I"</span>))
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segment</span><span class='kw'>=</span><span class='st'>"I"</span>))
 
 <span class='co'>## Get the first 3 formants at three points during the vowel</span>
 <span class='no'>formants</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='processWithPraat.html'>processWithPraat</a></span>(
               <span class='no'>labbcat.url</span>,
-              <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segments.start</span>, <span class='no'>results</span>$<span class='no'>Target.segments.end</span>,
+              <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
               <span class='kw'>window.offset</span><span class='kw'>=</span><span class='fl'>0.5</span>,
               <span class='fu'>praatScriptFormants</span>(<span class='kw'>formants</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
               <span class='kw'>sample.points</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>,<span class='fl'>0.5</span>,<span class='fl'>0.75</span>)))

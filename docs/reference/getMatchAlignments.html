@@ -212,10 +212,10 @@ is returned, but the start/end times are NA.</p>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
 <span class='co'>## Perform a search</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segments</span><span class='kw'>=</span><span class='st'>"I"</span>))
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segment</span><span class='kw'>=</span><span class='st'>"I"</span>))
 
 <span class='co'>## Get the segment following the token, with alignment if it's been manually aligned</span>
-<span class='no'>following.segment</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchAlignments</span>(<span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='st'>"segments"</span>,
+<span class='no'>following.segment</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchAlignments</span>(<span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='st'>"segment"</span>,
     <span class='kw'>targetOffset</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>anchor.confidence.min</span><span class='kw'>=</span><span class='fl'>100</span>)
 }</div></pre>
   </div>

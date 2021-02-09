@@ -266,12 +266,12 @@ form:</p>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
 <span class='co'>## Perform a search</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segments</span><span class='kw'>=</span><span class='st'>"I"</span>))
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segment</span><span class='kw'>=</span><span class='st'>"I"</span>))
 
 <span class='co'>## get F1 and F2 for the mid point of the vowel</span>
 <span class='no'>formants</span> <span class='kw'>&lt;-</span> <span class='fu'>processWithPraat</span>(
        <span class='no'>labbcat.url</span>,
-       <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segments.start</span>, <span class='no'>results</span>$<span class='no'>Target.segments.end</span>,
+       <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
        <span class='fu'><a href='praatScriptFormants.html'>praatScriptFormants</a></span>(),
        <span class='kw'>no.progress</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
 
@@ -279,7 +279,7 @@ form:</p>
 <span class='co'>## pitch, the max intensity, and the CoG using powers 1 and 2 </span>
 <span class='no'>acoustic.measurements</span> <span class='kw'>&lt;-</span> <span class='fu'>processWithPraat</span>(
        <span class='no'>labbcat.url</span>,
-       <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segments.start</span>, <span class='no'>results</span>$<span class='no'>Target.segments.end</span>,
+       <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
        <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(
            <span class='fu'><a href='praatScriptFormants.html'>praatScriptFormants</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>,<span class='fl'>0.5</span>,<span class='fl'>0.75</span>)),
            <span class='fu'><a href='praatScriptPitch.html'>praatScriptPitch</a></span>(<span class='kw'>get.mean</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>get.minimum</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>get.maximum</span><span class='kw'>=</span><span class='fl'>TRUE</span>),
@@ -290,7 +290,7 @@ form:</p>
 <span class='co'>## execute a custom script loaded form a file</span>
 <span class='no'>acoustic.measurements</span> <span class='kw'>&lt;-</span> <span class='fu'>processWithPraat</span>(
        <span class='no'>labbcat.url</span>,
-       <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segments.start</span>, <span class='no'>results</span>$<span class='no'>Target.segments.end</span>,
+       <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>result</span>$<span class='no'>Target.segment.end</span>,
        <span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='st'>"acousticMeasurements.praat"</span>))
 }</div></pre>
   </div>
