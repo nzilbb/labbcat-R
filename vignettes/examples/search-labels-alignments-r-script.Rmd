@@ -9,7 +9,6 @@ vignette: >
   %\usepackage[UTF-8]{inputenc}
 ---
 
-
 [LaBB-CAT](https://labbcat.canterbury.ac.nz) is a browser-based linguistic annotation store that stores audio or video recordings, 
 text transcripts, and other annotations. The *nzilbb.labbcat* R package provides access to linguistic data stored in LaBB-CAT 
 servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.
@@ -130,3 +129,5 @@ The dataset now includes acoustic measurements allowing study the acoustic prope
 * demographic information about the speaker,
 * the morphological parse of the word,
 * various acoustic measures computed from the audio using an R script
+
+[![Creative Commons Attribution-ShareAlike 2.0 Generic License](https://i.creativecommons.org/l/by-sa/2.0/88x31.png)](http://creativecommons.org/licenses/by-sa/2.0/)

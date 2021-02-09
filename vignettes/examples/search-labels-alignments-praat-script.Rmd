@@ -170,3 +170,5 @@ The dataset now includes sufficient information to study the pronunciation of /s
 * the following phone, including start/end time, and
 * Centre of Gravity at various points throughout the token
 
+[![Creative Commons Attribution-ShareAlike 2.0 Generic License](https://i.creativecommons.org/l/by-sa/2.0/88x31.png)](http://creativecommons.org/licenses/by-sa/2.0/)
+
