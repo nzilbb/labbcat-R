@@ -41,18 +41,18 @@ Now we search our LaBB-CAT corpus for aligned words that start "dis" or "mis".
 ```{r searches, warning=FALSE}
 matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress = T)
 
-print(head(matches)[, c("Transcript", "Target.transcript", "Target.transcript.start")])
+print(head(matches)[, c("Transcript", "Target.word", "Target.word.start")])
 ```
 
 In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segments* annotations of each token, the last of which will be the /s/ segment we're interested in.
 
 ```{r segments}
 segments <- getMatchAlignments(
-  labbcat.url, matches$MatchId, c("segments"), annotationsPerLayer=3)
+  labbcat.url, matches$MatchId, c("segment"), annotationsPerLayer=3)
 
 matches <- cbind(matches, segments)
 print(head(matches)[, c(
-  "Text", "segments.3", "segments.3.start", "segments.3.end")])
+  "Text", "segment.3", "segment.3.start", "segment.3.end")])
 ```
 
 We want to check whether the 'sibilance' of /s/ varies depending on whether it's in a morphological prefix or not, so we need the morphological parses of each of the word tokens. We also extract some demographic information about the speakers.
@@ -74,7 +74,7 @@ subdir <- "s-tokens"
 
 ## get segment sound files from LaBB-CAT
 wav.files <- getSoundFragments(
-  labbcat.url, matches$Transcript, matches$segments.3.start, matches$segments.3.end, 22050, 
+  labbcat.url, matches$Transcript, matches$segment.3.start, matches$segment.3.end, 22050, 
   path=subdir, no.progress = T)
 
 print(head(wav.files))
@@ -113,7 +113,7 @@ The `process.wav` function produces 12 acoustic measures, three of which are pri
 - *CoG* - the centre of gravity of the whole spectrum
 
 ```{r example-measures, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
-print(head(matches)[, c("Number", "Text", "segments.3.start", "freqM", "freqH", "CoG")])
+print(head(matches)[, c("Number", "Text", "segment.3.start", "freqM", "freqH", "CoG")])
 ```
 
 The dataset now includes acoustic measurements allowing study the 'sibiliance' of /s/, in relation to morphology and speaker demographics.
