@@ -82,9 +82,9 @@ sptkV.matches <- getMatches(labbcat.url, list(syllables = sptkV, segment = "s"),
 sptkr.matches <- getMatches(labbcat.url, list(syllables = sptkr, segment = "s"), no.progress = T)
 stj.matches <- getMatches(labbcat.url, list(syllables = stj, segment = "s"), no.progress = T)
 
-print(c(paste("There are", nrow(sptkr.matches), "tokens of ...s[ptk]r..."),
-        paste("There are", nrow(sptkV.matches), "tokens of ...s[ptk]V..."),
-        paste("There are", nrow(stj.matches), "tokens of ...stj...")))
+c(paste("There are", nrow(sptkr.matches), "tokens of ...s[ptk]r..."),
+  paste("There are", nrow(sptkV.matches), "tokens of ...s[ptk]V..."),
+  paste("There are", nrow(stj.matches), "tokens of ...stj..."))
 ```
 
 In order to compare pronunciations with the 'standard' pronunciation of  /s/ or /ʃ/, we also identify some 'reference' phones;
@@ -93,7 +93,7 @@ i.e./s/ or /ʃ/ at the beginning of a word, followed by  the FLEECE, THOUGHT, or
 ```{r comparison}
 sSV.matches <- getMatches(labbcat.url, list(phonemes = sSV, segment = "[sS]"), no.progress = T)
 
-print(paste("There are", nrow(sSV.matches), "reference tokens of [sS]V..."))
+paste("There are", nrow(sSV.matches), "reference tokens of [sS]V...")
 ```
 
 We'll combine all the data frames into one for convenience; we can use `matches$SearchName` to distinguish them if necessary:
@@ -101,14 +101,14 @@ We'll combine all the data frames into one for convenience; we can use `matches$
 ```{r whole-dataset}
 matches <- rbind(sptkV.matches, sptkr.matches, stj.matches, sSV.matches)
 
-print(paste("Total tokens:", nrow(matches)))
+paste("Total tokens:", nrow(matches))
 ```
 
 This gives us a data frame with different tokens, with their start/end times
 
 ```{r exampe-data}
-print(head(matches)[, c(
-  "Text", "Target.segment", "Target.segment.start", "Target.segment.end")])
+head(matches)[, c(
+  "Text", "Target.segment", "Target.segment.start", "Target.segment.end")]
 ```
 
 For all the tokens, we also want the word's phonemic transcription, and the speaker's gender and age:
@@ -118,8 +118,8 @@ participant.demographics <- getMatchLabels(
   labbcat.url, matches$MatchId, c("phonemes", "participant_gender", "participant_age_category"))
 
 matches <- cbind(matches, participant.demographics)
-print(head(matches)[, c(
-  "Text", "phonemes", "participant_age_category", "participant_gender")])
+head(matches)[, c(
+  "Text", "phonemes", "participant_age_category", "participant_gender")]
 ```
 
 We also want start/end times and phonemic transcription labels for the syllable of the /s/ or /ʃ/ token:
@@ -128,8 +128,8 @@ We also want start/end times and phonemic transcription labels for the syllable 
 syllable <- getMatchAlignments(labbcat.url, matches$MatchId, c("syllables"))
 
 matches <- cbind(matches, syllable)
-print(head(matches)[, c(
-  "Text", "Target.segment", "syllables", "syllables.start", "syllables.end")])
+head(matches)[, c(
+  "Text", "Target.segment", "syllables", "syllables.start", "syllables.end")]
 ```
 
 And the start/end times for the segment that *follows* the token:
@@ -138,8 +138,8 @@ And the start/end times for the segment that *follows* the token:
 following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segment"), targetOffset = 1)
 
 matches <- cbind(matches, following.segment)
-print(head(matches)[, c(
-  "Token.plus.1.segment", "Token.plus.1.segment.start", "Token.plus.1.segment.end")])
+head(matches)[, c(
+  "Token.plus.1.segment", "Token.plus.1.segment.start", "Token.plus.1.segment.end")]
 ```
 
 Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script
@@ -158,7 +158,7 @@ cog <- processWithPraat(
   no.progress = T)
 
 matches <- cbind(matches, cog)
-print(head(matches)[, c("Text", "cog1", "cog2", "cog3")])
+head(matches)[, c("Text", "cog1", "cog2", "cog3")]
 ```
 
 The dataset now includes sufficient information to study the pronunciation of /s/ and how it relates to context and speaker:
@@ -169,6 +169,4 @@ The dataset now includes sufficient information to study the pronunciation of /s
 * the syllable in which the token appears, including start/end time,
 * the following phone, including start/end time, and
 * Centre of Gravity at various points throughout the token
-
-[![Creative Commons Attribution-ShareAlike 2.0 Generic License](https://i.creativecommons.org/l/by-sa/2.0/88x31.png)](http://creativecommons.org/licenses/by-sa/2.0/)
 

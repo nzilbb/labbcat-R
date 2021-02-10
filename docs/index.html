@@ -183,9 +183,9 @@
 <span class="no">wav.file</span> <span class="kw">&lt;-</span> <span class="no">media</span>$<span class="no">name</span>[<span class="fl">1</span>]
 <span class="no">wav.url</span> <span class="kw">&lt;-</span> <span class="no">media</span>$<span class="no">url</span>[<span class="fl">1</span>]
 
-<span class="no">response</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/GET.html">GET</a></span>(<span class="no">wav.url</span>, <span class="no">labbcat</span>$<span class="no">authorization</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/write_disk.html">write_disk</a></span>(<span class="no">wav.file</span>, <span class="kw">overwrite</span><span class="kw">=</span><span class="fl">TRUE</span>), <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/progress.html">progress</a></span>())
-<span class="kw">if</span> (<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/status_code.html">status_code</a></span>(<span class="no">response</span>) <span class="kw">!=</span> <span class="fl">200</span>) { <span class="co"># 200 means OK</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Downloading"</span>, <span class="no">wav.file</span>, <span class="st">"failed:"</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/httr/man/http_status.html">http_status</a></span>(<span class="no">response</span>)$<span class="no">message</span>))
+<span class="no">response</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(<span class="no">wav.url</span>, <span class="no">labbcat</span>$<span class="no">authorization</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html">write_disk</a></span>(<span class="no">wav.file</span>, <span class="kw">overwrite</span><span class="kw">=</span><span class="fl">TRUE</span>), <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/progress.html">progress</a></span>())
+<span class="kw">if</span> (<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html">status_code</a></span>(<span class="no">response</span>) <span class="kw">!=</span> <span class="fl">200</span>) { <span class="co"># 200 means OK</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Downloading"</span>, <span class="no">wav.file</span>, <span class="st">"failed:"</span>, <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/http_status.html">http_status</a></span>(<span class="no">response</span>)$<span class="no">message</span>))
 } <span class="kw">else</span> {
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Downloading"</span>, <span class="no">wav.file</span>, <span class="st">"worked!"</span>))
 
@@ -367,13 +367,14 @@ R -e "install.packages("pkgdown")"</code></pre>
 </div>
 
 
-      <footer><div class="copyright">
-  <p>Developed by <a href="https://www.canterbury.ac.nz/nzilbb/">Robert Fromont</a>.</p>
-</div>
-
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
-</div>
+      <footer><style type="text/css">
+  footer img {
+      vertical-align: middle;
+      height: 40px;
+      display: inline-block;
+  }
+</style>
+<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/"><img alt="CC-BY-SA Creative Commons Licence " src="/labbcat-R/cc-by-sa.svg" title="This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License" style="vertical-align:middle;height:40px;display:inline-block;"></a><a rel="author" href="https://www.canterbury.ac.nz/nzilbb/"><img src="/labbcat-R/nzilbb.svg" alt="Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour" title="© December 8 2020 NZILBB"></a></small>
 
       </footer>
 </div>

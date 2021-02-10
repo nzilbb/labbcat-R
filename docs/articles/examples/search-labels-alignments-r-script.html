@@ -126,7 +126,7 @@
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">orthography</span> <span class="kw">=</span> <span class="st">"[dm]is.+"</span>), <span class="kw">aligned</span><span class="kw">=</span><span class="no">T</span>, <span class="kw">no.progress</span><span class="kw">=</span><span class="no">T</span>)
 
 <span class="co"># show the first few matches</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span>)])</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span>)]</pre></body></html></div>
 <pre><code>##              Transcript Target.word Target.word.start
 ## 1     AP2505_Nelson.eaf    distance           305.480
 ## 2     AP2505_Nelson.eaf    distance           345.300
@@ -142,8 +142,8 @@
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">segments</span>)
 
 <span class="co"># show the first few alignments</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
-  <span class="st">"Text"</span>, <span class="st">"segment.3"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"segment.3.end"</span>)])</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
+  <span class="st">"Text"</span>, <span class="st">"segment.3"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"segment.3.end"</span>)]</pre></body></html></div>
 <pre><code>##       Text segment.3 segment.3.start segment.3.end
 ## 1 distance         s         305.640       305.690
 ## 2 distance         s         345.420       345.480
@@ -159,8 +159,8 @@
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">morphology.demographics</span>)
 
 <span class="co"># show the first few annotations</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
-  <span class="st">"Text"</span>, <span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>)])</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
+  <span class="st">"Text"</span>, <span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>)]</pre></body></html></div>
 <pre><code>##       Text   morphology participant_age_category participant_gender
 ## 1 distance distant+ance                    36-45                  M
 ## 2 distance distant+ance                    36-45                  M
@@ -178,7 +178,7 @@
   <span class="kw">path</span><span class="kw">=</span><span class="no">subdir</span>, <span class="kw">no.progress</span> <span class="kw">=</span> <span class="no">T</span>)
 
 <span class="co"># show the first few file names</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">wav.files</span>))</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">wav.files</span>)</pre></body></html></div>
 <pre><code>## [1] "s-tokens/AP2505_Nelson__305.640-305.690.wav"    
 ## [2] "s-tokens/AP2505_Nelson__345.420-345.480.wav"    
 ## [3] "s-tokens/AP2516_JasonEager__257.750-257.930.wav"
@@ -193,8 +193,7 @@
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">s.measures.lists</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">wav.files</span>, <span class="no">process.wav</span>)
 
 <span class="co"># combine the acoustic measures with the matches</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">data.table</span>) <span class="co"># (we need this package in order to use rbindlist below)</span>
-<span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span>(<span class="no">s.measures.lists</span>)))</pre></body></html></div>
+<span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="fu">rbindlist</span>(<span class="no">s.measures.lists</span>)))</pre></body></html></div>
 <p>Now that the sound files we downloaded have been processed, we don’t need them any more, so we tidily delete them to save disk space.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span>(<span class="no">subdir</span>, <span class="kw">recursive</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p>Our <code>process.wav</code> function produces 12 acoustic measures, three of which are printed below by way of example:</p>
@@ -206,7 +205,7 @@
 <li>
 <em>CoG</em> - the centre of gravity of the whole spectrum</li>
 </ul>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Number"</span>, <span class="st">"Text"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"freqM"</span>, <span class="st">"freqH"</span>, <span class="st">"CoG"</span>)])</pre></body></html></div>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Number"</span>, <span class="st">"Text"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"freqM"</span>, <span class="st">"freqH"</span>, <span class="st">"CoG"</span>)]</pre></body></html></div>
 <pre><code>##   Number     Text segment.3.start    freqM    freqH      CoG
 ## 1      1 distance         305.640 4401.996 7003.176 6128.388
 ## 2      2 distance         345.420 3754.891 7030.435 5779.537
@@ -221,7 +220,6 @@
 <li>the morphological parse of the word,</li>
 <li>various acoustic measures computed from the audio using an R script</li>
 </ul>
-<p><a href="http://creativecommons.org/licenses/by-sa/2.0/"><img src="https://i.creativecommons.org/l/by-sa/2.0/88x31.png" alt="Creative Commons Attribution-ShareAlike 2.0 Generic License"></a></p>
 </div>
   </div>
 
@@ -235,13 +233,14 @@
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by <a href="https://www.canterbury.ac.nz/nzilbb/">Robert Fromont</a>.</p>
-</div>
-
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
-</div>
+      <footer><style type="text/css">
+  footer img {
+      vertical-align: middle;
+      height: 40px;
+      display: inline-block;
+  }
+</style>
+<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/"><img alt="CC-BY-SA Creative Commons Licence " src="../../../../../../labbcat-R/cc-by-sa.svg" title="This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License" style="vertical-align:middle;height:40px;display:inline-block;"></a><a rel="author" href="https://www.canterbury.ac.nz/nzilbb/"><img src="../../../../../../labbcat-R/nzilbb.svg" alt="Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour" title="© December 8 2020 NZILBB"></a></small>
 
       </footer>
 </div>

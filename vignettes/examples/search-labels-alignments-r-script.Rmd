@@ -41,7 +41,7 @@ Now we search our LaBB-CAT corpus for force-aligned words with orthography that 
 matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress=T)
 
 # show the first few matches
-print(head(matches)[, c("Transcript", "Target.word", "Target.word.start")])
+head(matches)[, c("Transcript", "Target.word", "Target.word.start")]
 ```
 
 In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segments* annotations of each token, the last of which will be the /s/ segment we're interested in.
@@ -54,8 +54,8 @@ segments <- getMatchAlignments(
 matches <- cbind(matches, segments)
 
 # show the first few alignments
-print(head(matches)[, c(
-  "Text", "segment.3", "segment.3.start", "segment.3.end")])
+head(matches)[, c(
+  "Text", "segment.3", "segment.3.start", "segment.3.end")]
 ```
 
 We want to check whether the acoustic properties of /s/ vary depending on whether it's in a morphological prefix or not, so we need the morphological parses of each word token. We also extract some demographic information about the speakers.
@@ -68,8 +68,8 @@ morphology.demographics <- getMatchLabels(
 matches <- cbind(matches, morphology.demographics)
 
 # show the first few annotations
-print(head(matches)[, c(
-  "Text", "morphology", "participant_age_category", "participant_gender")])
+head(matches)[, c(
+  "Text", "morphology", "participant_age_category", "participant_gender")]
 ```
 
 We want to perform acoustic analysis, so we need the wav sample for each match, which can be extracted from LaBB-CAT as as a mono 22kHz files using `getSoundFragments`.
@@ -84,7 +84,7 @@ wav.files <- getSoundFragments(
   path=subdir, no.progress = T)
 
 # show the first few file names
-print(head(wav.files))
+head(wav.files)
 ```
 
 Now that we have tokens of /s/, we want to use R to perform acoustic analysis of the sound of each token, and save the resulting acoustic measurements in the data frame with the results.
@@ -99,11 +99,13 @@ source('hayhawkins-multitaper.R')
 
 The `process.wav` function processes a single sound file, so we `apply` it to all our /s/ tokens, and add the resulting acoustic measures to our *matches* data frame.
 
+```{r data.table, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+require(data.table) # (we need this package in order to use rbindlist below)
+```
 ```{r apply-wav.files, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 s.measures.lists <- lapply(wav.files, process.wav)
 
 # combine the acoustic measures with the matches
-require(data.table) # (we need this package in order to use rbindlist below)
 matches <- cbind(matches, as.data.frame(rbindlist(s.measures.lists)))
 ```
 
@@ -120,7 +122,7 @@ Our `process.wav` function produces 12 acoustic measures, three of which are pri
 - *CoG* - the centre of gravity of the whole spectrum
 
 ```{r example-measures, eval=TRUE, echo=TRUE, warning=FALSE}
-print(head(matches)[, c("Number", "Text", "segment.3.start", "freqM", "freqH", "CoG")])
+head(matches)[, c("Number", "Text", "segment.3.start", "freqM", "freqH", "CoG")]
 ```
 
 The dataset now includes acoustic measurements allowing study the acoustic properties of /s/, in relation to morphology and speaker demographics:
@@ -129,5 +131,3 @@ The dataset now includes acoustic measurements allowing study the acoustic prope
 * demographic information about the speaker,
 * the morphological parse of the word,
 * various acoustic measures computed from the audio using an R script
-
-[![Creative Commons Attribution-ShareAlike 2.0 Generic License](https://i.creativecommons.org/l/by-sa/2.0/88x31.png)](http://creativecommons.org/licenses/by-sa/2.0/)
