@@ -7,7 +7,8 @@ template:
     twitter:
       creator: "@labbcat"
       card: summary
-
+  path: "docs"
+  
 authors:
   Robert Fromont:
     href: https://www.canterbury.ac.nz/nzilbb/
