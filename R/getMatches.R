@@ -75,6 +75,8 @@
 #' @param words.context Number of words context to include in the `Before.Match' and
 #'     `After.Match' columns in the results.
 #' @param max.matches The maximum number of matches to return, or null to return all.
+#' @param overlap.threshold The percentage overlap with other utterances before
+#'     simultaneous speech is excluded., or null to include overlapping speech.
 #' @return A data frame identifying matches, containing the following columns:
 #' \itemize{
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
@@ -113,15 +115,15 @@
 #'            phonemes = list(not=TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
 #'            frequency = list(max = "2")))))
 #' 
-#' ## get the tokens matching the pattern
-#' results <- getMatches(labbcat.url, pattern)
+#' ## get the tokens matching the pattern, excluding overlapping speech
+#' results <- getMatches(labbcat.url, pattern, overlap.threshold = 5)
 #'
 #' ## results$MatchId can be used to access results
 #' }
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL) { ## TODO overlap.threshold
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL) {
     
     ## first normalize the pattern...
 
@@ -173,6 +175,9 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     }
     if (!is.null(transcript.types)) {
         parameters$transcript_type <- as.list(transcript.types)
+    }
+    if (!is.null(overlap.threshold)) {
+        parameters$overlap_threshold <- overlap.threshold
     }
     
     resp <- http.get(labbcat.url, "search", parameters)

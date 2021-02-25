@@ -288,3 +288,15 @@ test_that("getMatches pagination works", {
     
     expect_equal(length(matches$MatchId), 5)
 })
+
+test_that("overlap.threshold parameter of getMatches works", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    ## search for "mmm", which frequently appears in overlapping speech
+    allUtterances <- getMatches(labbcat.url, list(orthography="mmm"))
+    noOverlap <- getMatches(labbcat.url, list(orthography="mmm"), overlap.threshold=5)
+
+    ## allUtterances should be bigger than noOverlap
+    expect_true(nrow(allUtterances) > nrow(noOverlap))
+})
