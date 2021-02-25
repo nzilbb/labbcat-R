@@ -9,6 +9,13 @@
 <title>Gets fragments of annotation transcript from 'LaBB-CAT', 
 converted to a given format (by default, Praat TextGrid) — getFragments • nzilbb.labbcat</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -44,6 +51,7 @@ converted to a given format (by default, Praat TextGrid) — getFragments • nz
 converted to a given format (by default, Praat TextGrid) — getFragments" />
 <meta property="og:description" content="Gets fragments of annotation transcript from 'LaBB-CAT', 
 converted to a given format (by default, Praat TextGrid)" />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@labbcat" />
 <meta name="twitter:site" content="@labbcat" />
@@ -102,6 +110,9 @@ converted to a given format (by default, Praat TextGrid)" />
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a>
+    </li>
+    <li>
+      <a href="../articles/examples/search-labels-alignments-r-script.html">Search, Annotation, and R Script Example</a>
     </li>
   </ul>
 </li>
@@ -219,7 +230,7 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
 <span class='co'>## Get a list of fragment TextGrids, including the utterances, transcript, and phonemes layers</span>
 <span class='no'>textgrid.files</span> <span class='kw'>&lt;-</span> <span class='fu'>getFragments</span>(
     <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>,
-    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"utterances"</span>, <span class='st'>"transcript"</span>, <span class='st'>"phonemes"</span>))
+    <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"utterance"</span>, <span class='st'>"word"</span>, <span class='st'>"phonemes"</span>))
 
 <span class='co'>## Get a list of fragment TextGrids with no progress bar</span>
 <span class='no'>textgrid.files</span> <span class='kw'>&lt;-</span> <span class='fu'>getFragments</span>(
@@ -235,13 +246,14 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
 
 
       <footer>
-      <div class="copyright">
-  <p>Developed by <a href='https://www.canterbury.ac.nz/nzilbb/'>Robert Fromont</a>.</p>
-</div>
-
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
-</div>
+      <style type="text/css">
+  footer img {
+      vertical-align: middle;
+      height: 40px;
+      display: inline-block;
+  }
+</style>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

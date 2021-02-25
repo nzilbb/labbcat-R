@@ -41,10 +41,10 @@
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Perform a search
-#' results <- getMatches(labbcat.url, list(segments="I"))
+#' results <- getMatches(labbcat.url, list(segment="I"))
 #' 
 #' ## Get the segment following the token, with alignment if it's been manually aligned
-#' following.segment <- getMatchAlignments(labbcat.url, results$MatchId, "segments",
+#' following.segment <- getMatchAlignments(labbcat.url, results$MatchId, "segment",
 #'     targetOffset=1, anchor.confidence.min=100)
 #' }
 #' 

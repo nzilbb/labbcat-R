@@ -3,7 +3,8 @@ Version: 0.7-1
 Date: 2021-02-04
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
-                     email = "robert.fromont@canterbury.ac.nz"))
+                     email = "robert.fromont@canterbury.ac.nz",
+                     comment = c(ORCID = "0000-0001-5271-5487")))
 Imports: jsonlite, httr, stringr, utils, rstudioapi
 Description: 'LaBB-CAT' is a web-based language corpus management
  system developed by the New Zealand Institute of Language, Brain

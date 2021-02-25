@@ -1,7 +1,7 @@
 ---
 title: "Search, Annotation, and R Script Example"
 author: "Robert Fromont"
-date: "4 February 2021"
+date: "9 February 2021"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEngine{knitr::knitr}
@@ -9,111 +9,125 @@ vignette: >
   %\usepackage[UTF-8]{inputenc}
 ---
 
-
 [LaBB-CAT](https://labbcat.canterbury.ac.nz) is a browser-based linguistic annotation store that stores audio or video recordings, 
 text transcripts, and other annotations. The *nzilbb.labbcat* R package provides access to linguistic data stored in LaBB-CAT 
 servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.
 
-This vignette shows how to:
+This worked example illustrates how to:
 
-1. identify a set of phone tokens in specific contexts, 
-2. extract annotation labels for the tokens and their speakers,
+1. identify a set of phone tokens in a specific context, 
+2. extract annotation labels for the word tokens and their speakers,
 2. download audio files for all tokens,
 3. execute a custom R script to extract acoustic measurements from the audio files.
 
-## The effects of morphology and demographics on 'sibilance' of /s/ 
+## Example: the effects of morphology and demographics on the acoustic properties of /s/ 
 
-In particular, we are interested in whether the /s/ in a *mis* in a prefixed word like *mistimes* is pronounced differently from the *mis* in an unprefixed word like *mistakes*, and whether the age or gender of the speaker makes any difference.
+In particular, we might be interested in whether the /s/ in a *mis* in a prefixed word like *mistimes* is pronounced differently from the *mis* in an unprefixed word like *mistakes*, and whether demographics of the speaker make any difference.
 
 First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is specified:
 
-```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 ```
 
-```{r credentials, eval=TRUE, echo=FALSE, render=FALSE}
+```{r credentials, eval=TRUE, echo=FALSE}
 credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
 ```
 
-Now we search our LaBB-CAT corpus for aligned words that start "dis" or "mis".
+Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts "dis" or "mis".
 
 ```{r searches, warning=FALSE}
-matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress = T)
+matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress=T)
 
-print(head(matches)[, c("Transcript", "Target.transcript", "Target.transcript.start")]) ## TODO transcript->word
+# show the first few matches
+head(matches)[, c("Transcript", "Target.word", "Target.word.start")]
 ```
 
 In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segments* annotations of each token, the last of which will be the /s/ segment we're interested in.
 
 ```{r segments}
 segments <- getMatchAlignments(
-  labbcat.url, matches$MatchId, c("segments"), annotationsPerLayer=3) ## TODO segments->segment
+  labbcat.url, matches$MatchId, c("segment"), annotationsPerLayer=3)
 
+# combine the segment data with the matches
 matches <- cbind(matches, segments)
-print(head(matches)[, c(
-  "Text", "segments.3", "segments.3.start", "segments.3.end")]) ## TODO segments->segment
+
+# show the first few alignments
+head(matches)[, c(
+  "Text", "segment.3", "segment.3.start", "segment.3.end")]
 ```
 
-We want to check whether the 'sibilance' of /s/ varies depending on whether it's in a morphological prefix or not, so we need the morphological parses of each of the word tokens. We also extract some demographic information about the speakers.
+We want to check whether the acoustic properties of /s/ vary depending on whether it's in a morphological prefix or not, so we need the morphological parses of each word token. We also extract some demographic information about the speakers.
 
 ```{r morphology-and-demographics}
 morphology.demographics <- getMatchLabels(
   labbcat.url, matches$MatchId, c("morphology", "participant_age_category", "participant_gender"))
 
+# combine the annotation data with the matches
 matches <- cbind(matches, morphology.demographics)
-print(head(matches)[, c(
-  "Text", "morphology", "participant_age_category", "participant_gender")])
+
+# show the first few annotations
+head(matches)[, c(
+  "Text", "morphology", "participant_age_category", "participant_gender")]
 ```
 
 We want to perform acoustic analysis, so we need the wav sample for each match, which can be extracted from LaBB-CAT as as a mono 22kHz files using `getSoundFragments`.
 
-```{r process.row, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
-## define subdirectory to save the files in
+```{r process.row, eval=TRUE, echo=TRUE, warning=FALSE}
+# define subdirectory to save the files in
 subdir <- "s-tokens"
 
-## get segment sound files from LaBB-CAT
+# get segment sound files from LaBB-CAT
 wav.files <- getSoundFragments(
-  labbcat.url, matches$Transcript, matches$segments.3.start, matches$segments.3.end, 22050, 
-  path=subdir, no.progress = T) ## segments->segment
+  labbcat.url, matches$Transcript, matches$segment.3.start, matches$segment.3.end, 22050, 
+  path=subdir, no.progress = T)
 
-print(head(wav.files))
+# show the first few file names
+head(wav.files)
 ```
 
 Now that we have tokens of /s/, we want to use R to perform acoustic analysis of the sound of each token, and save the resulting acoustic measurements in the data frame with the results.
 
-Koenig *et al.* (2013) propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called `process.wav` which takes a .wav file for a given token and returns the Koenig *et al.* (2013) measures.
+By way of example, [Koenig *et al.* (2013)](https://doi.org/10.1044/1092-4388(2012/12-0038)) propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called `process.wav` which takes a .wav file for a given token and returns the Koenig *et al.* (2013) measures.
 
-This function is defined in [hayhawkins-multitaper.R](https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R), which must be loaded.
+This function is defined in [hayhawkins-multitaper.R](https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R), which must be loaded:
 
-```{r hayhawkins-multitaper, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r hayhawkins-multitaper, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE}
 source('hayhawkins-multitaper.R')
 ```
 
 The `process.wav` function processes a single sound file, so we `apply` it to all our /s/ tokens, and add the resulting acoustic measures to our *matches* data frame.
 
-```{r apply-wav.files, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r data.table, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+require(data.table) # (we need this package in order to use rbindlist below)
+```
+```{r apply-wav.files, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 s.measures.lists <- lapply(wav.files, process.wav)
 
-require(data.table) ## we need this package in order to use rbindlist below
+# combine the acoustic measures with the matches
 matches <- cbind(matches, as.data.frame(rbindlist(s.measures.lists)))
 ```
 
 Now that the sound files we downloaded have been processed, we don't need them any more, so we tidily delete them to save disk space.
 
-```{r tidy-up, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
-removed <- file.remove(wav.files)
-removed <- file.remove(subdir)
+```{r tidy-up, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE}
+unlink(subdir, recursive = TRUE)
 ```
 
-The `process.wav` function produces 12 acoustic measures, three of which are printed below by way of example:
+Our `process.wav` function produces 12 acoustic measures, three of which are printed below by way of example:
 
 - *freqM* - peak frequency in the 'medium' range (3kHz to 7kHz)
 - *freqH* - peak frequency in the 'high' range (7kHz to the Nyquist frequency)
 - *CoG* - the centre of gravity of the whole spectrum
 
-```{r example-measures, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
-print(head(matches)[, c("Number", "Text", "segments.3.start", "freqM", "freqH", "CoG")])
+```{r example-measures, eval=TRUE, echo=TRUE, warning=FALSE}
+head(matches)[, c("Number", "Text", "segment.3.start", "freqM", "freqH", "CoG")]
 ```
 
-The dataset now includes acoustic measurements allowing study the 'sibiliance' of /s/, in relation to morphology and speaker demographics.
+The dataset now includes acoustic measurements allowing study the acoustic properties of /s/, in relation to morphology and speaker demographics:
+
+* tokens of /s/ in dis/mis prefixed words,
+* demographic information about the speaker,
+* the morphological parse of the word,
+* various acoustic measures computed from the audio using an R script

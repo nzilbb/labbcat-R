@@ -87,12 +87,12 @@
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
 #' ## Perform a search
-#' results <- getMatches(labbcat.url, list(segments="I"))
+#' results <- getMatches(labbcat.url, list(segment="I"))
 #' 
 #' ## get F1 and F2 for the mid point of the vowel
 #' formants <- processWithPraat(
 #'        labbcat.url,
-#'        results$MatchId, results$Target.segments.start, results$Target.segments.end,
+#'        results$MatchId, results$Target.segment.start, results$Target.segment.end,
 #'        praatScriptFormants(),
 #'        no.progress=TRUE)
 #' 
@@ -100,7 +100,7 @@
 #' ## pitch, the max intensity, and the CoG using powers 1 and 2 
 #' acoustic.measurements <- processWithPraat(
 #'        labbcat.url,
-#'        results$MatchId, results$Target.segments.start, results$Target.segments.end,
+#'        results$MatchId, results$Target.segment.start, results$Target.segment.end,
 #'        paste(
 #'            praatScriptFormants(c(1,2,3), c(0.25,0.5,0.75)),
 #'            praatScriptPitch(get.mean=TRUE, get.minimum=TRUE, get.maximum=TRUE),
@@ -111,7 +111,7 @@
 #' ## execute a custom script loaded form a file
 #' acoustic.measurements <- processWithPraat(
 #'        labbcat.url,
-#'        results$MatchId, results$Target.segments.start, results$Target.segments.end,
+#'        results$MatchId, results$Target.segment.start, result$Target.segment.end,
 #'        readLines("acousticMeasurements.praat"))
 #' }
 #' @keywords praat

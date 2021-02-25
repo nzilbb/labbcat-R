@@ -4,7 +4,7 @@
 #' @param transcriptIds A vector of transcript IDs
 #' @param layerIds A vector of layer IDs corresponding to transcript attributes. In
 #'     general, these are layers whose ID is prefixed 'transcript_', however formally it's
-#'     any layer where layer$parentId == 'graph' && layer$alignment == 0, which includes
+#'     any layer where layer$parentId == 'transcript' && layer$alignment == 0, which includes
 #'     'corpus' as well as transcript attribute layers.
 #' @return A data frame of attribute value labels.
 #' 
@@ -29,7 +29,7 @@ getTranscriptAttributes <- function(labbcat.url, transcriptIds, layerIds) {
         ## getLayer prints an error if the layerId isn't valid
         if (is.null(layer)) return()
         ## check it's an attribute
-        if (layer$parentId != 'graph' || layer$alignment != 0) {
+        if (layer$parentId != 'transcript' || layer$alignment != 0) {
             print(paste("ERROR:", layerId, ' is not a transcript attribute'))
             return()
         }
@@ -38,8 +38,8 @@ getTranscriptAttributes <- function(labbcat.url, transcriptIds, layerIds) {
     ## save labels to a CSV file
     download.file = tempfile(pattern="transcript-attributes.", fileext=".csv")
 
-    ## add 'graph' layer so that results can be matched with transcript IDs
-    layerIds <- c('graph', layerIds)
+    ## add 'transcript' layer so that results can be matched with transcript IDs
+    layerIds <- c('transcript', layerIds)
 
     ## flatten lists into single newine-delimited strings
     ## (because httr can't handle multiple parameters with the same name)

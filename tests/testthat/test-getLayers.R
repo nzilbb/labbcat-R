@@ -36,9 +36,9 @@ test_that("getLayers works", {
     expect_false(is.numeric(layers$parentIncludes))
     expect_false(is.numeric(layers$saturated))
     
-    expect_true("transcript" %in% layers$id)
+    expect_true("word" %in% layers$id)
     expect_true("orthography" %in% layers$id)
-    expect_true("utterances" %in% layers$id)
-    expect_true("turns" %in% layers$id)
-    expect_true("who" %in% layers$id)
+    expect_true("utterance" %in% layers$id)
+    expect_true("turn" %in% layers$id)
+    expect_true("participant" %in% layers$id)
 })

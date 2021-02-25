@@ -14,7 +14,7 @@ vignette: >
 text transcripts, and other annotations. The *nzilbb.labbcat* R package provides access to linguistic data stored in LaBB-CAT 
 servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.
 
-This vignette shows how to:
+This worked example shows how to:
 
 1. identify a set of phone tokens in specific contexts, 
 2. extract annotation labels and alignments for the tokens and their surrounding annotions,
@@ -65,12 +65,12 @@ In order to extract the data we need, we need to:
 
 First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is specified:
 
-```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, render=FALSE, warning=FALSE}
+```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 ```
 
-```{r credentials, eval=TRUE, echo=FALSE, render=FALSE}
+```{r credentials, eval=TRUE, echo=FALSE}
 credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
 ```
 
@@ -78,22 +78,22 @@ Conduct a search for each of the contexts we're interested in; we search for the
 which segment we're targeting for analysis, i.e. /s/.
 
 ```{r searches, warning=FALSE}
-sptkV.matches <- getMatches(labbcat.url, list(syllables = sptkV, segments = "s"), no.progress = T)
-sptkr.matches <- getMatches(labbcat.url, list(syllables = sptkr, segments = "s"), no.progress = T)
-stj.matches <- getMatches(labbcat.url, list(syllables = stj, segments = "s"), no.progress = T)
+sptkV.matches <- getMatches(labbcat.url, list(syllables = sptkV, segment = "s"), no.progress = T)
+sptkr.matches <- getMatches(labbcat.url, list(syllables = sptkr, segment = "s"), no.progress = T)
+stj.matches <- getMatches(labbcat.url, list(syllables = stj, segment = "s"), no.progress = T)
 
-print(c(paste("There are", nrow(sptkr.matches), "tokens of ...s[ptk]r..."),
-        paste("There are", nrow(sptkV.matches), "tokens of ...s[ptk]V..."),
-        paste("There are", nrow(stj.matches), "tokens of ...stj...")))
+c(paste("There are", nrow(sptkr.matches), "tokens of ...s[ptk]r..."),
+  paste("There are", nrow(sptkV.matches), "tokens of ...s[ptk]V..."),
+  paste("There are", nrow(stj.matches), "tokens of ...stj..."))
 ```
 
 In order to compare pronunciations with the 'standard' pronunciation of  /s/ or /ʃ/, we also identify some 'reference' phones;
 i.e./s/ or /ʃ/ at the beginning of a word, followed by  the FLEECE, THOUGHT, or START vowel (the 'phonemes' layer contains the phonemic transcription of the whole word, so using that layer allows us to anchor the pattern to the start of the word).
 
 ```{r comparison}
-sSV.matches <- getMatches(labbcat.url, list(phonemes = sSV, segments = "[sS]"), no.progress = T)
+sSV.matches <- getMatches(labbcat.url, list(phonemes = sSV, segment = "[sS]"), no.progress = T)
 
-print(paste("There are", nrow(sSV.matches), "reference tokens of [sS]V..."))
+paste("There are", nrow(sSV.matches), "reference tokens of [sS]V...")
 ```
 
 We'll combine all the data frames into one for convenience; we can use `matches$SearchName` to distinguish them if necessary:
@@ -101,14 +101,14 @@ We'll combine all the data frames into one for convenience; we can use `matches$
 ```{r whole-dataset}
 matches <- rbind(sptkV.matches, sptkr.matches, stj.matches, sSV.matches)
 
-print(paste("Total tokens:", nrow(matches)))
+paste("Total tokens:", nrow(matches))
 ```
 
 This gives us a data frame with different tokens, with their start/end times
 
 ```{r exampe-data}
-print(head(matches)[, c(
-  "Text", "Target.segments", "Target.segments.start", "Target.segments.end")])
+head(matches)[, c(
+  "Text", "Target.segment", "Target.segment.start", "Target.segment.end")]
 ```
 
 For all the tokens, we also want the word's phonemic transcription, and the speaker's gender and age:
@@ -118,8 +118,8 @@ participant.demographics <- getMatchLabels(
   labbcat.url, matches$MatchId, c("phonemes", "participant_gender", "participant_age_category"))
 
 matches <- cbind(matches, participant.demographics)
-print(head(matches)[, c(
-  "Text", "phonemes", "participant_age_category", "participant_gender")])
+head(matches)[, c(
+  "Text", "phonemes", "participant_age_category", "participant_gender")]
 ```
 
 We also want start/end times and phonemic transcription labels for the syllable of the /s/ or /ʃ/ token:
@@ -128,18 +128,18 @@ We also want start/end times and phonemic transcription labels for the syllable 
 syllable <- getMatchAlignments(labbcat.url, matches$MatchId, c("syllables"))
 
 matches <- cbind(matches, syllable)
-print(head(matches)[, c(
-  "Text", "Target.segments", "syllables", "syllables.start", "syllables.end")])
+head(matches)[, c(
+  "Text", "Target.segment", "syllables", "syllables.start", "syllables.end")]
 ```
 
 And the start/end times for the segment that *follows* the token:
 
 ```{r following-segment}
-following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segments"), targetOffset = 1)
+following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segment"), targetOffset = 1)
 
 matches <- cbind(matches, following.segment)
-print(head(matches)[, c(
-  "Token.plus.1.segments", "Token.plus.1.segments.start", "Token.plus.1.segments.end")])
+head(matches)[, c(
+  "Token.plus.1.segment", "Token.plus.1.segment.start", "Token.plus.1.segment.end")]
 ```
 
 Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script
@@ -153,12 +153,12 @@ the token.
 script <- readLines("CoGFinder.praat")
 cog <- processWithPraat(
   labbcat.url,
-  matches$MatchId, matches$Target.segments.start, matches$Target.segments.end,
+  matches$MatchId, matches$Target.segment.start, matches$Target.segment.end,
   script, window.offset=0.5, 
   no.progress = T)
 
 matches <- cbind(matches, cog)
-print(head(matches)[, c("Text", "cog1", "cog2", "cog3")])
+head(matches)[, c("Text", "cog1", "cog2", "cog3")]
 ```
 
 The dataset now includes sufficient information to study the pronunciation of /s/ and how it relates to context and speaker:

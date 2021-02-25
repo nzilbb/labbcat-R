@@ -8,7 +8,7 @@ test_that("getLayer works for orthography", {
     
     expect_equal(layers$id, "orthography")
     expect_equal(layers$description, "Standard Orthography")
-    expect_equal(layers$parentId, "transcript")
+    expect_equal(layers$parentId, "word")
     expect_equal(layers$type, "string")
     expect_equal(layers$alignment, 0)
     expect_false(layers$peers)

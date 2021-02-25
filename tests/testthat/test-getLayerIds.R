@@ -6,9 +6,9 @@ test_that("getLayerIds works", {
 
     layerIds <- getLayerIds(labbcat.url)
     expect_true(length(layerIds) >= 41)
-    expect_true("transcript" %in% layerIds)
+    expect_true("word" %in% layerIds)
     expect_true("orthography" %in% layerIds)
-    expect_true("utterances" %in% layerIds)
-    expect_true("turns" %in% layerIds)
-    expect_true("who" %in% layerIds)
+    expect_true("utterance" %in% layerIds)
+    expect_true("turn" %in% layerIds)
+    expect_true("participant" %in% layerIds)
 })

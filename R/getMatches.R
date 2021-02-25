@@ -88,14 +88,14 @@
 #'  \item{\emph{Before.Match} Transcript text immediately before the match}
 #'  \item{\emph{Text} Transcript text of the match}
 #'  \item{\emph{Before.Match} Transcript text immediately after the match}
-#'  \item{\emph{Target.transcript} Text of the target word token}
-#'  \item{\emph{Target.transcript.start} Start offset of the target word token}
-#'  \item{\emph{Target.transcript.end} End offset of the target word token}
-#'  \item{\emph{Target.segments} Label of the target segment (only present if the segment
+#'  \item{\emph{Target.word} Text of the target word token}
+#'  \item{\emph{Target.word.start} Start offset of the target word token}
+#'  \item{\emph{Target.word.end} End offset of the target word token}
+#'  \item{\emph{Target.segment} Label of the target segment (only present if the segment
 #'     layer is included in the pattern)}
-#'  \item{\emph{Target.segments.start} Start offset of the target segment (only present if the
+#'  \item{\emph{Target.segment.start} Start offset of the target segment (only present if the
 #'     segment layer is included in the pattern)}
-#'  \item{\emph{Target.segments.end} End offset of the target segment (only present if the
+#'  \item{\emph{Target.segment.end} End offset of the target segment (only present if the
 #'     segment layer is included in the pattern)}
 #' }
 #' 
@@ -123,7 +123,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, no.progress=FALSE) { ## TODO transcriptTypes=NULL
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, no.progress=FALSE) { ## TODO overlap.threshold
     
     ## first normalize the pattern...
 
@@ -145,7 +145,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     } # next column
 
     ## convert layer=string to layer=list(pattern=string)
-    segments.layer <- FALSE # (and check for searching the "segments" layer)
+    segment.layer <- FALSE # (and check for searching the "segment" layer)
     for (c in 1:length(pattern$columns)) { # for each column
         for (l in names(pattern$columns[[c]]$layers)) { # for each layer in the column
             # if the layer value isn't a list
@@ -153,7 +153,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
                 # wrap a list(pattern=...) around it
                 pattern$columns[[c]]$layers[[l]] <- list(pattern = pattern$columns[[c]]$layers[[l]])
             } # value isn't a list
-            if (l == "segments") segments.layer <- TRUE
+            if (l == "segment") segment.layer <- TRUE
         } # next layer
     } # next column
 
@@ -227,9 +227,9 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     # columns:
     csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
                     "line_time", "line_end_time", "match", "result_text", "word_url")
-    # layers - "transcript", and "segments" if mentioned in the pattern
+    # layers - "word", and "segment" if mentioned in the pattern
     csv_layer_option <- c("0")
-    if (segments.layer) csv_layer_option <- c("0","1")
+    if (segment.layer) csv_layer_option <- c("0","1")
     resp <- http.get(labbcat.url,
                      "resultsStream",
                      list(threadId=threadId, todo="csv", csvFieldDelimiter=",",

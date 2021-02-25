@@ -1,4 +1,4 @@
-# nzilbb.labbcat package for R
+# nzilbb.labbcat package for R <img src="logo.png" align="right" />
 
 This R package provides functionality for querying and extracting data
 from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
@@ -8,14 +8,14 @@ library(nzilbb.labbcat)
 labbcat.url <- "http://localhost:8080/labbcat/"
 
 # search for tokens of the KIT vowel
-m <- getMatches(labbcat.url, list(segments="I"))
+m <- getMatches(labbcat.url, list(segment="I"))
 
 # extract F1, 2, and 3 from the mid-point of each vowel
 f123 <- processWithPraat(
     labbcat.url,
     m$MatchId, 
-    m$Target.segments.start, 
-    m$Target.segments.end,
+    m$Target.segment.start, 
+    m$Target.segment.end,
     praatScriptFormants(c(1,2,3)), 
     window.offset=0.5)
 ```
@@ -171,7 +171,7 @@ results <- read.csv("results.csv", header=T)
 
 ## download all the segment WAV files
 wav.files <- getSoundFragments(
-    labbcat, results$Transcript, results$segments.start, results$segments.end)
+    labbcat, results$Transcript, results$segment.start, results$segment.end)
 ```
 
 ### Getting annotations from other layers
@@ -223,14 +223,14 @@ functions:
 
 ``` R
 # get all instances of the KIT vowel
-results <- getMatches(labbcat.url, list(segments = "I"))
+results <- getMatches(labbcat.url, list(segment = "I"))
 
 # get phonemic transcription for the whole word
 phonemes  <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")
 
 # download all the segment WAV files
 wav.files <- getSoundFragments(
-    labbcat.url, results$Transcript, results$Target.segments.start, results$Target.segments.end)
+    labbcat.url, results$Transcript, results$Target.segment.start, results$Target.segment.end)
 ```
 
 ### Looking up dictionaries
@@ -268,12 +268,12 @@ for common tasks such as formant, pitch, intensity, and centre of gravity:
 
 ``` R
 # Perform a search
-results <- getMatches(labbcat.url, list(segments="I"))
+results <- getMatches(labbcat.url, list(segment="I"))
 
 # get F1 and F2 for the mid point of the vowel
 formants <- processWithPraat(
        labbcat.url,
-       results$MatchId, results$Target.segments.start, results$Target.segments.end,
+       results$MatchId, results$Target.segment.start, results$Target.segment.end,
        praatScriptFormants(),
        no.progress=TRUE)
 ```
@@ -285,7 +285,7 @@ one from a file.
 # execute a custom script loaded form a file
 acoustic.measurements <- processWithPraat(
        labbcat.url,
-       results$MatchId, results$Target.segments.start, results$Target.segments.end,
+       results$MatchId, results$Target.segment.start, results$Target.segment.end,
        readLines("acousticMeasurements.praat"))
 ```
 
@@ -338,12 +338,12 @@ R -e "install.packages('testthat')"
 After 'testthat' is installed, you can use the following commands to run unit tests: 
 
 ```
-R -e "devtools::test('nzilbb.labbcat')"
-```x
+R -e "devtools::test()"
+```
 
 Specific tests can be run like this:
 
 ```
-R -e "devtools::test('nzilbb.labbcat', filter='getId')"
+R -e "devtools::test(filter='getId')"
 ```
 
