@@ -123,7 +123,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, no.progress=FALSE) { ## TODO transcriptTypes=NULL
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, no.progress=FALSE) { ## TODO overlap.threshold
     
     ## first normalize the pattern...
 
