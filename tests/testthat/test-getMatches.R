@@ -11,7 +11,7 @@ test_that("getMatches works with 1x1 orthographic search using full structure", 
                      orthography = list(pattern = "knox")))))
 
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
 
     ## check dataframe columns
     expect_equal(length(matches$MatchId), 1)
@@ -57,7 +57,7 @@ test_that("getMatches works with 2x1 orthographic search using full structure", 
                      orthography = list(not = TRUE, pattern = "xxx")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
     
     expect_equal(length(matches$MatchId), 1)
 })
@@ -70,7 +70,7 @@ test_that("getMatches works with 1x1 orthographic search using simple structure"
     pattern <- list(orthography = "knox")
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
 
     expect_equal(length(matches$MatchId), 1)
     expect_equal(as.vector(matches$Text)[[1]], "Knox")
@@ -84,7 +84,7 @@ test_that("getMatches works with 2x1 orthographic search using simple structure"
     pattern <- list(list(orthography = "knox"), list(orthography = "church"))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
 
     expect_equal(length(matches$MatchId), 1)
     expect_equal(as.vector(matches$Text)[[1]], "Knox Church .")
@@ -105,7 +105,7 @@ test_that("getMatches works with 2x3 non-orthographic search using full structur
                      orthography = list(pattern = "h.*")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
     
     ## check dataframe columns
     expect_equal(length(matches$MatchId), 1)
@@ -141,7 +141,7 @@ test_that("getMatches works with 2x3 non-orthographic search using simple struct
         list(orthography = "ch.*"))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
 
     expect_equal(as.vector(matches$Text)[[1]], "Knox Church .")
 })
@@ -163,7 +163,7 @@ test_that("getMatches works with complex, multi-match searches", {
                      frequency = list(max = "2")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern)
     
     ## check dataframe columns
     expect_true(length(matches$MatchId) >= 1400)
@@ -197,8 +197,7 @@ test_that("getMatches includes segment info when segment layer searched", {
                      segment = list(pattern = "I")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, participant.ids="UC427_ViktoriaPapp_A_ENG",
-                          no.progress=T)
+    matches <- getMatches(labbcat.url, pattern, participant.ids="UC427_ViktoriaPapp_A_ENG")
     
     ## check dataframe columns
     expect_true(length(matches$MatchId) >= 140)
@@ -229,10 +228,10 @@ test_that("filter parameters of getMatches work", {
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
     ## get matches
-    matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F, no.progress=T)
-    matchesOnePerTranscript <- getMatches(labbcat.url, list(orthography="the"), matches.per.transcript=2, no.progress=T)
-    matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T, no.progress=T)
-    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participant.ids="UC427_ViktoriaPapp_A_ENG", no.progress=T)
+    matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F)
+    matchesOnePerTranscript <- getMatches(labbcat.url, list(orthography="the"), matches.per.transcript=2)
+    matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T)
+    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participant.ids="UC427_ViktoriaPapp_A_ENG")
     
     ## check the number of results
     expect_true(length(matchesAll$MatchId) > length(matchesMainParticipant$MatchId))
@@ -251,10 +250,10 @@ test_that("words.context parameter of getMatches works", {
                      orthography = list(pattern = "knox")))))
 
     ## search for "knox", which has only one hit
-    noContext <- getMatches(labbcat.url, list(orthography="knox"), words.context=0, no.progress=T)
-    oneWord <- getMatches(labbcat.url, list(orthography="knox"), words.context=1, no.progress=T)
-    fiveWords <- getMatches(labbcat.url, list(orthography="knox"), words.context=5, no.progress=T)
-    wholeLine <- getMatches(labbcat.url, list(orthography="knox"), words.context=-1, no.progress=T)
+    noContext <- getMatches(labbcat.url, list(orthography="knox"), words.context=0)
+    oneWord <- getMatches(labbcat.url, list(orthography="knox"), words.context=1)
+    fiveWords <- getMatches(labbcat.url, list(orthography="knox"), words.context=5)
+    wholeLine <- getMatches(labbcat.url, list(orthography="knox"), words.context=-1)
 
     ## check the amount of context
     expect_true(is.na(noContext$Before.Match)[[1]])
@@ -285,7 +284,7 @@ test_that("getMatches pagination works", {
                      segment = list(pattern = "I")))))
     
     ## get matches - the total (as above) is >= 140, but we ask for the first 5
-    matches <- getMatches(labbcat.url, pattern, max.matches=5, no.progress=T)
+    matches <- getMatches(labbcat.url, pattern, max.matches=5)
     
     expect_equal(length(matches$MatchId), 5)
 })

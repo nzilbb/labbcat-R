@@ -81,7 +81,7 @@ subdir <- "s-tokens"
 # get segment sound files from LaBB-CAT
 wav.files <- getSoundFragments(
   labbcat.url, matches$Transcript, matches$segment.3.start, matches$segment.3.end, 22050, 
-  path=subdir, no.progress = T)
+  path=subdir)
 
 # show the first few file names
 head(wav.files)

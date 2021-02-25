@@ -15,7 +15,7 @@ test_that("getSoundFragments works with vectors", {
     
     ## Get a list of fragments
     wav.files <- getSoundFragments(
-        labbcat.url, results$Transcript, results$Line, results$LineEnd, path=subdir, no.progress=T)
+        labbcat.url, results$Transcript, results$Line, results$LineEnd, path=subdir)
     
     expect_match(wav.files[[1]], "AP2505_Nelson__10.000-11.000.wav")
     expect_match(wav.files[[2]], "AP2512_MattBlack__20.000-21.500.wav")

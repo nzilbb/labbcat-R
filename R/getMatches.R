@@ -75,8 +75,6 @@
 #' @param words.context Number of words context to include in the `Before.Match' and
 #'     `After.Match' columns in the results.
 #' @param max.matches The maximum number of matches to return, or null to return all.
-#' @param no.progress Optionally suppress the progress bar when
-#'     multiple fragments are  specified - TRUE for no progress bar.
 #' @return A data frame identifying matches, containing the following columns:
 #' \itemize{
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
@@ -123,7 +121,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, no.progress=FALSE) { ## TODO overlap.threshold
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL) { ## TODO overlap.threshold
     
     ## first normalize the pattern...
 
@@ -192,7 +190,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     threadId <- resp.json$model$threadId
 
     pb <- NULL
-    if (!no.progress) {
+    if (interactive()) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
 

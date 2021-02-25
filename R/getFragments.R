@@ -10,8 +10,6 @@
 #' @param mimeType Optional content-type - "text/praat-textgrid" is the default, but your
 #'     LaBB-CAT installation may support other formats, which can be discovered using
 #'     \link{getSerializerDescriptors}.
-#' @param no.progress Optionally suppress the progress bar when
-#'     multiple fragments are  specified - TRUE for no progress bar.
 #' @param path Optional path to directory where the files should be saved.
 #' @return The name of the file, which is saved in the current
 #'     directory, or a list of names of files, if multiple
@@ -39,13 +37,13 @@
 #'     labbcat.url, results$Transcript, results$Line, results$LineEnd,
 #'     c("utterance", "word", "phonemes"))
 #' 
-#' ## Get a list of fragment TextGrids with no progress bar
+#' ## Get a list of fragment TextGrids
 #' textgrid.files <- getFragments(
-#'     labbcat.url, results$Transcript, results$Line, results$LineEnd, no.progress=TRUE)
+#'     labbcat.url, results$Transcript, results$Line, results$LineEnd)
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text/praat-textgrid", no.progress=FALSE, path="") {
+getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text/praat-textgrid", path="") {
 
     dir = path
     if (length(id) > 1) { ## multiple fragments
@@ -72,7 +70,7 @@ getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text
     }
     
     pb <- NULL
-    if (!no.progress && length(id) > 1) {
+    if (interactive() && length(id) > 1) {
         pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
     }
 

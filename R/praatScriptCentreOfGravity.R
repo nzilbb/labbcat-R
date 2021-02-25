@@ -27,8 +27,7 @@
 #' cog <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segment.start, results$Target.segment.end,
-#'               praatScriptCentreOfGravity(powers=c(1.0,2.0)),
-#'               no.progress=TRUE)
+#'               praatScriptCentreOfGravity(powers=c(1.0,2.0)))
 #' }
 #' @keywords praat
 #' 

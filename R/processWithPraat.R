@@ -73,8 +73,6 @@
 #'     gender of the speaker is, including the "participant_gender" attribute will make a
 #'     variable called participant_gender$ available to the praat script, whose value will
 #'     be the gender of the speaker for that segment.
-#' @param no.progress Optionally suppress the progress bar when
-#'     multiple fragments are  specified - TRUE for no progress bar.
 #' @return A data frame of acoustic measures, one row for each matchId.
 #' 
 #' @seealso \link{praatScriptFormants}
@@ -93,8 +91,7 @@
 #' formants <- processWithPraat(
 #'        labbcat.url,
 #'        results$MatchId, results$Target.segment.start, results$Target.segment.end,
-#'        praatScriptFormants(),
-#'        no.progress=TRUE)
+#'        praatScriptFormants())
 #' 
 #' ## get first 3 formants at three points during the sample, the mean, min, and max
 #' ## pitch, the max intensity, and the CoG using powers 1 and 2 
@@ -118,8 +115,7 @@
 #' 
 processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
                              praat.script, window.offset=0.0,
-                             gender.attribute="participant_gender", attributes=NULL,
-                             no.progress=FALSE) {
+                             gender.attribute="participant_gender", attributes=NULL) {
 
     ## make the script a single string
     praat.script <- paste(praat.script, collapse="\n")
@@ -168,7 +164,7 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
     ## wait until the task is finished
     threadId <- resp.json$model$threadId
     pb <- NULL
-    if (!no.progress) {
+    if (interactive()) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
     thread <- thread.get(labbcat.url, threadId)

@@ -16,7 +16,7 @@ test_that("getFragments works with vectors", {
     ## Get a list of fragments
     textgrid.files <- getFragments(
         labbcat.url, results$Transcript, results$Line, results$LineEnd, c("transcript","phonemes"),
-        path=subdir, no.progress=T) 
+        path=subdir) 
 
     expect_match(textgrid.files[[1]], "AP2505_Nelson__10.000-11.000.TextGrid")
     expect_match(textgrid.files[[2]], "AP2512_MattBlack__20.000-21.500.TextGrid")

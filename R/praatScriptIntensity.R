@@ -25,8 +25,7 @@
 #' intensity <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segment.start, results$Target.segment.end,
-#'               praatScriptIntensity(),
-#'               no.progress=TRUE)
+#'               praatScriptIntensity())
 #' }
 #' @keywords praat
 #' 

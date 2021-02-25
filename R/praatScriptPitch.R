@@ -46,8 +46,7 @@
 #' pitch <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segment.start, results$Target.segment.end,
-#'               praatScriptPitch(get.mean=TRUE, get.minimum=TRUE, get.maximum=TRUE),
-#'               no.progress=TRUE)
+#'               praatScriptPitch(get.mean=TRUE, get.minimum=TRUE, get.maximum=TRUE))
 #' }
 #' @keywords praat
 #' 

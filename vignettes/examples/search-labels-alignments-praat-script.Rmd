@@ -78,9 +78,9 @@ Conduct a search for each of the contexts we're interested in; we search for the
 which segment we're targeting for analysis, i.e. /s/.
 
 ```{r searches, warning=FALSE}
-sptkV.matches <- getMatches(labbcat.url, list(syllables = sptkV, segment = "s"), no.progress = T)
-sptkr.matches <- getMatches(labbcat.url, list(syllables = sptkr, segment = "s"), no.progress = T)
-stj.matches <- getMatches(labbcat.url, list(syllables = stj, segment = "s"), no.progress = T)
+sptkV.matches <- getMatches(labbcat.url, list(syllables = sptkV, segment = "s"))
+sptkr.matches <- getMatches(labbcat.url, list(syllables = sptkr, segment = "s"))
+stj.matches <- getMatches(labbcat.url, list(syllables = stj, segment = "s"))
 
 c(paste("There are", nrow(sptkr.matches), "tokens of ...s[ptk]r..."),
   paste("There are", nrow(sptkV.matches), "tokens of ...s[ptk]V..."),
@@ -91,7 +91,7 @@ In order to compare pronunciations with the 'standard' pronunciation of  /s/ or 
 i.e./s/ or /ʃ/ at the beginning of a word, followed by  the FLEECE, THOUGHT, or START vowel (the 'phonemes' layer contains the phonemic transcription of the whole word, so using that layer allows us to anchor the pattern to the start of the word).
 
 ```{r comparison}
-sSV.matches <- getMatches(labbcat.url, list(phonemes = sSV, segment = "[sS]"), no.progress = T)
+sSV.matches <- getMatches(labbcat.url, list(phonemes = sSV, segment = "[sS]"))
 
 paste("There are", nrow(sSV.matches), "reference tokens of [sS]V...")
 ```
