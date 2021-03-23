@@ -33,6 +33,7 @@ export(labbcatCredentials,
        getParticipantAttributes,
        getSerializerDescriptors, getDeserializerDescriptors,
        getUserInfo,
-       getSystemAttribute)
+       getSystemAttribute,
+       getAllUtterances)
 importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar", "head", "read.csv", "write.table", "count.fields")
 importFrom("rstudioapi", "askForPassword")
