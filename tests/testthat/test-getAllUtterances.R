@@ -11,12 +11,12 @@ test_that("getAllUtterances works ", {
     matches <- getAllUtterances(labbcat.url, participant.ids)
 
     ## check dataframe columns
-    expect_equal(length(matches$MatchId), 1)
-    expect_equal(length(matches$Transcript), 1)
-    expect_equal(length(matches$Line), 1)
-    expect_equal(length(matches$LineEnd), 1)
-    expect_equal(length(matches$Text), 1)
-    expect_equal(length(matches$URL), 1)
+    expect_true(length(matches$MatchId) > 3)
+    expect_true(length(matches$Transcript) > 3)
+    expect_true(length(matches$Line) > 3)
+    expect_true(length(matches$LineEnd) > 3)
+    expect_true(length(matches$Text) > 3)
+    expect_true(length(matches$URL) > 3)
 
     ## ensure there's no word/segment information returned
     expect_true(is.null(matches$Target.word))
