@@ -10,7 +10,7 @@ Description: 'LaBB-CAT' is a web-based language corpus management
  system developed by the New Zealand Institute of Language, Brain
  and Behaviour (NZILBB) - see <https://labbcat.canterbury.ac.nz>.
  This package defines functions for accessing corpus data in a 'LaBB-CAT'
- instance. You must have at least version 20210210.2032 of 'LaBB-CAT'
+ instance. You must have at least version 20210406.1721 of 'LaBB-CAT'
  to use this package.
  For more information about 'LaBB-CAT', see
  Robert Fromont and Jennifer Hay (2008) <doi:10.3366/E1749503208000142>
@@ -19,7 +19,7 @@ Description: 'LaBB-CAT' is a web-based language corpus management
 License: GPL (>= 3)
 Copyright: New Zealand Institute of Language, Brain and Behaviour,
  University of Canterbury
-URL: https://github.com/nzilbb/labbcat-R, https://labbcat.canterbury.ac.nz
+URL: https://nzilbb.github.io/labbcat-R/, https://labbcat.canterbury.ac.nz
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.1.0)
