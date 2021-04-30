@@ -44,7 +44,7 @@ matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no
 head(matches)[, c("Transcript", "Target.word", "Target.word.start")]
 ```
 
-In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segments* annotations of each token, the last of which will be the /s/ segment we're interested in.
+In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segment* annotations of each token, the last of which will be the /s/ segment we're interested in.
 
 ```{r segments}
 segments <- getMatchAlignments(
