@@ -48,10 +48,9 @@ getTranscriptAttributes <- function(labbcat.url, transcriptIds, layerIds) {
 
     ## make request
     parameters <- list(
-        todo='export', exportType='csv', 
         layers=layerIds,
         ids=transcriptIds)
-    resp <- http.post(labbcat.url, "transcripts", parameters, download.file)
+    resp <- http.post(labbcat.url, "api/attributes", parameters, download.file)
     
     ## check the reponse
     if (is.null(resp)) return()
