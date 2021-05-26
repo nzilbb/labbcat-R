@@ -28,6 +28,7 @@ reference:
   - getMatchAlignments
   - getSoundFragments
   - getFragments
+  - getAllUtterances
 - title: "Processing with Praat"
   desc: "Server-side processing of tokens with Praat"
 - contents: 
@@ -45,6 +46,12 @@ reference:
   - getAnnotations
   - starts_with("getGraph")
   - getMatchingGraphIds
+- title: "Transcript management"
+  desc: "Uploading/deleting transcripts"
+- contents: 
+  - newTranscript
+  - updateTranscript
+  - deleteTranscript
 - title: "Corpus information"
   desc: "Information about how your LaBB-CAT server is organised and configured"
 - contents: 
