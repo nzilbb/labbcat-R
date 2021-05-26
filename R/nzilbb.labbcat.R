@@ -7,7 +7,7 @@
 #' 
 #' 'LaBB-CAT' is a web-based language corpus management system and this
 #' package provides access to data stored in a 'LaBB-CAT' instance.
-#' You must have at least version 20210210.2032 of 'LaBB-CAT' to use
+#' You must have at least version 20210525.2102 'LaBB-CAT' to use
 #' this package.
 #' 
 #' @docType package
@@ -37,7 +37,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20210519.1927"
+.min.labbcat.version <- "20210525.2102"
 .user.agent <- paste("labbcat-R", packageVersion("nzilbb.labbcat"), sep="/")
 
 ### Internal functions:
@@ -255,12 +255,12 @@ http.post <- function(labbcat.url, path, parameters, file.name=NULL) {
     url <- paste(labbcat.url, path, sep="")
     ## attempt the request
     if (is.null(file.name)) {
-        resp <- httr::POST(url, 
+        resp <- httr::POST(url,
                            httr::add_headers("User-Agent" = .user.agent),
                            httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                            body = parameters, encode = "form")
     } else {
-        resp <- httr::POST(url, 
+        resp <- httr::POST(url,
                            httr::write_disk(file.name, overwrite=TRUE),
                            httr::add_headers("User-Agent" = .user.agent),
                            httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),

@@ -41,7 +41,7 @@
 #' formants <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segment.start, results$Target.segment.end,
-#'               window.offset=0.5,
+#'               window.offset=0.025,
 #'               praatScriptFormants(formants=c(1,2,3),
 #'               sample.points=c(0.25,0.5,0.75)))
 #' }
