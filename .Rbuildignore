@@ -4,3 +4,5 @@
 ^docs
 ^LICENSE
 ^vignettes
+^pkgdown
+^logo.png
