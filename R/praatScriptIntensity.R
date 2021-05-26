@@ -13,6 +13,7 @@
 #' @seealso \link{praatScriptFormants}
 #' @seealso \link{praatScriptCentreOfGravity}
 #' @seealso \link{praatScriptPitch}
+#' @seealso \link{praatScriptFastTrack}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL

@@ -34,6 +34,7 @@
 #' @seealso \link{praatScriptFormants}
 #' @seealso \link{praatScriptCentreOfGravity}
 #' @seealso \link{praatScriptIntensity}
+#' @seealso \link{praatScriptFastTrack}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL

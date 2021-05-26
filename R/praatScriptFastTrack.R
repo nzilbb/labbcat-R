@@ -1,5 +1,4 @@
-#' Generates a script for extracting formants using FastTrack, for use with
-#' \link{processWithPraat}. 
+#' Generates a script for extracting formants using FastTrack, for use with \link{processWithPraat}. 
 #'
 #' This function generates a Praat script fragment which can be passed as the praat.script
 #' parameter of \link{processWithPraat}, in order to extract selected formants using the
@@ -8,7 +7,7 @@
 #' The FastTrack Praat plugin, developed by Santiago Barreda, automatically runs multiple
 #' formant analyses on each segment, selects the best (the smoothest, with optional
 #' heuristics), and makes the winning formant object available for measurement. For more
-#' information, see \link{https://github.com/santiagobarreda/FastTrack}
+#' information, see \url{https://github.com/santiagobarreda/FastTrack}
 #'
 #' @param formants A vector of integers specifying which formants to extract, e.g c(1,2)
 #'     for the first and second formant.
@@ -49,8 +48,8 @@
 #' @param enable.f3.f4.proximity.heuristic Whether to enable the F3/F4 proximity
 #'     heuristic: If (F4 - F3) < 500 Hz, F1 and F2 should be at least 1500 Hz apart.
 #' @param number.of.steps Number of analyses between low and high analysis limits. More
-#'     analysis steps may improve results, but will increase analysis time (50% more steps
-#'     = around 50% longer to analyze).
+#'     analysis steps may improve results, but will increase analysis time (50 percent more steps
+#'     = around 50 percent longer to analyze).
 #' @param number.of.coefficients Number of coefficients for formant prediction. More
 #'     coefficients allow for more sudden, and 'wiggly' formant motion.
 #' @return A script fragment which can be passed as the praat.script parameter of

@@ -15,6 +15,7 @@
 #' @seealso \link{praatScriptFormants}
 #' @seealso \link{praatScriptIntensity}
 #' @seealso \link{praatScriptPitch}
+#' @seealso \link{praatScriptFastTrack}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL

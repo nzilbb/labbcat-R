@@ -3,6 +3,9 @@
 #' This function generates a Praat script fragment which can be passed as the praat.script
 #' parameter of \link{processWithPraat}, in order to extract selected formants.
 #'
+#' The \link{praatScriptFastTrack} function provides an alternative to this function which
+#' uses the FastTrack Praat plugin for formant analysis.
+#'
 #' @param formants A vector of integers specifying which formants to extract, e.g c(1,2)
 #'     for the first and second formant.
 #' @param sample.points A vector of numbers (0 <= sample.points <= 1) specifying multiple
@@ -29,6 +32,7 @@
 #' @seealso \link{praatScriptCentreOfGravity}
 #' @seealso \link{praatScriptIntensity}
 #' @seealso \link{praatScriptPitch}
+#' @seealso \link{praatScriptFastTrack}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL
