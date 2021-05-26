@@ -2,12 +2,12 @@
 
 Minimum LaBB-CAT version *20210210.2032*
 
-# Enhancements
+## Enhancements
 
 - remove no.progress parameter (progress bar will appear automatically only in interactive mode).
 - getMatches now supports *overlap.threshold* parameter.
 
-# New functions:
+## New functions:
 
 - *newTranscript* : Upload a new transcript (with media) to the server.
 - *updateTranscript* : Upload a new version of an existing transcript to the server.
