@@ -17,7 +17,7 @@
 #' ## upload new verison of transcript transcript
 #' updateTranscript(labbcat.url, "my-transcript.eaf")
 #' }
-#' @keywords praat
+#' @keywords transcript management
 #' 
 updateTranscript <- function(labbcat.url, transcript.path) {
     

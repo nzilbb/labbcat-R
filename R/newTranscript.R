@@ -28,7 +28,7 @@
 #'     labbcat.url, "my-transcript.eaf", "my-transcript.wav",
 #'     "", transcript.type, corpus, "episode-1")
 #' }
-#' @keywords praat
+#' @keywords transcript management
 #' 
 newTranscript <- function(labbcat.url, transcript, media=NULL, 
                           transcript.type=NULL, corpus=NULL, episode=NULL) {

@@ -17,7 +17,7 @@
 #' ## delete a transcript from the server
 #' deleteTranscript(labbcat.url, "my-transcript.eaf")
 #' }
-#' @keywords praat
+#' @keywords transcript management
 #' 
 deleteTranscript <- function(labbcat.url, id) {
     
