@@ -5,6 +5,7 @@ echo remove older versions
 rm nzilbb.labbcat_*.tar.gz
 
 echo generate documentation ...
+rm -r man
 R -e "devtools::document()"
 R -e "pkgdown::build_site()"
 cat docs/nzilbb.css >> docs/pkgdown.css
