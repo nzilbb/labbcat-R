@@ -139,13 +139,12 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
 
     ## upload CSV
     parameters <- list(
-        todo="upload",
-        gender_attribute=gender.attribute, attribute=attributes,
-        transcript="0", speaker="1", starttime="2", endtime="3", # column indices
-        column_mapping=T, windowoffset=window.offset,
-        custom_script=praat.script, pass_through_data="false",
+        attributes=attributes,
+        transcriptColumn="0", participantColumn="1", startTimeColumn="2", endTimeColumn="3",
+        windowOffset=window.offset,
+        script=praat.script, passThroughData="false",
         csv=httr::upload_file(upload.file))
-    resp <- http.post.multipart(labbcat.url, "praat", parameters, download.file)
+    resp <- http.post.multipart(labbcat.url, "api/praat", parameters, download.file)
 
     ## tidily remove the uploaded file
     file.remove(upload.file)
