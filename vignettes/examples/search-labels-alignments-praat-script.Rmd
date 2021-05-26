@@ -154,8 +154,7 @@ script <- readLines("CoGFinder.praat")
 cog <- processWithPraat(
   labbcat.url,
   matches$MatchId, matches$Target.segment.start, matches$Target.segment.end,
-  script, window.offset=0.5, 
-  no.progress = T)
+  script, window.offset=0.5)
 
 matches <- cbind(matches, cog)
 head(matches)[, c("Text", "cog1", "cog2", "cog3")]

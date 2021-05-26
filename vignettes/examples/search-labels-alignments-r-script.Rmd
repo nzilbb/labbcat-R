@@ -38,7 +38,7 @@ credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
 Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts "dis" or "mis".
 
 ```{r searches, warning=FALSE}
-matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T, no.progress=T)
+matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T)
 
 # show the first few matches
 head(matches)[, c("Transcript", "Target.word", "Target.word.start")]
