@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -118,12 +118,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -138,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Gets sound fragments from 'LaBB-CAT'.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/R/getSoundFragments.R'><code>R/getSoundFragments.R</code></a></small>
+    
     <div class="hidden name"><code>getSoundFragments.Rd</code></div>
     </div>
 
@@ -152,7 +147,6 @@
   <span class='no'>startOffsets</span>,
   <span class='no'>endOffsets</span>,
   <span class='kw'>sampleRate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>
 )</pre>
 
@@ -180,11 +174,6 @@ a vector of transcript IDs.</p></td>
       <th>sampleRate</th>
       <td><p>Optional sample rate in Hz - if a positive
 integer, then the result is a mono file with the given sample rate.</p></td>
-    </tr>
-    <tr>
-      <th>no.progress</th>
-      <td><p>Optionally suppress the progress bar when
-multiple fragments are  specified - TRUE for no progress bar.</p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -218,9 +207,9 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
 <span class='co'>## Get a list of fragments</span>
 <span class='no'>wav.files</span> <span class='kw'>&lt;-</span> <span class='fu'>getSoundFragments</span>(<span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>)
 
-<span class='co'>## Get a list of fragments with no progress bar</span>
+<span class='co'>## Get a list of fragments</span>
 <span class='no'>wav.file</span> <span class='kw'>&lt;-</span> <span class='fu'>getSoundFragments</span>(
-              <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>, <span class='kw'>no.progress</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+              <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -239,7 +228,7 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

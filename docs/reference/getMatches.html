@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -118,12 +118,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -138,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Search for tokens.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/R/getMatches.R'><code>R/getMatches.R</code></a></small>
+    
     <div class="hidden name"><code>getMatches.Rd</code></div>
     </div>
 
@@ -156,7 +151,7 @@
   <span class='kw'>matches.per.transcript</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>words.context</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>max.matches</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>overlap.threshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -256,9 +251,9 @@ return. NULL means all matches.</p></td>
       <td><p>The maximum number of matches to return, or null to return all.</p></td>
     </tr>
     <tr>
-      <th>no.progress</th>
-      <td><p>Optionally suppress the progress bar when
-multiple fragments are  specified - TRUE for no progress bar.</p></td>
+      <th>overlap.threshold</th>
+      <td><p>The percentage overlap with other utterances before
+simultaneous speech is excluded, or null to include overlapping speech.</p></td>
     </tr>
     </table>
 
@@ -303,8 +298,8 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
            <span class='kw'>phonemes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>not</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span>),
            <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>max</span> <span class='kw'>=</span> <span class='st'>"2"</span>)))))
 
-<span class='co'>## get the tokens matching the pattern</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatches</span>(<span class='no'>labbcat.url</span>, <span class='no'>pattern</span>)
+<span class='co'>## get the tokens matching the pattern, excluding overlapping speech</span>
+<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatches</span>(<span class='no'>labbcat.url</span>, <span class='no'>pattern</span>, <span class='kw'>overlap.threshold</span> <span class='kw'>=</span> <span class='fl'>5</span>)
 
 <span class='co'>## results$MatchId can be used to access results</span>
 }</div></pre>
@@ -325,7 +320,7 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

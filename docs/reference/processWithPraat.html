@@ -84,7 +84,7 @@ intervals, in order to extract acoustic measures." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -119,12 +119,7 @@ intervals, in order to extract acoustic measures." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -139,7 +134,7 @@ intervals, in order to extract acoustic measures." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Process a set of intervals with Praat.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/R/processWithPraat.R'><code>R/processWithPraat.R</code></a></small>
+    
     <div class="hidden name"><code>processWithPraat.Rd</code></div>
     </div>
 
@@ -156,8 +151,7 @@ intervals, in order to extract acoustic measures.</p>
   <span class='no'>praat.script</span>,
   <span class='kw'>window.offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>gender.attribute</span> <span class='kw'>=</span> <span class='st'>"participant_gender"</span>,
-  <span class='kw'>attributes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>attributes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -206,11 +200,6 @@ example, if you want to use different acoustic parameters depending on what the
 gender of the speaker is, including the "participant_gender" attribute will make a
 variable called participant_gender$ available to the praat script, whose value will
 be the gender of the speaker for that segment.</p></td>
-    </tr>
-    <tr>
-      <th>no.progress</th>
-      <td><p>Optionally suppress the progress bar when
-multiple fragments are  specified - TRUE for no progress bar.</p></td>
     </tr>
     </table>
 
@@ -280,8 +269,7 @@ form:</p>
 <span class='no'>formants</span> <span class='kw'>&lt;-</span> <span class='fu'>processWithPraat</span>(
        <span class='no'>labbcat.url</span>,
        <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
-       <span class='fu'><a href='praatScriptFormants.html'>praatScriptFormants</a></span>(),
-       <span class='kw'>no.progress</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+       <span class='fu'><a href='praatScriptFormants.html'>praatScriptFormants</a></span>())
 
 <span class='co'>## get first 3 formants at three points during the sample, the mean, min, and max</span>
 <span class='co'>## pitch, the max intensity, and the CoG using powers 1 and 2 </span>
@@ -318,7 +306,7 @@ form:</p>
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

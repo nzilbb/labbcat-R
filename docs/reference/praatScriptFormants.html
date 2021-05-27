@@ -84,7 +84,7 @@ parameter of processWithPraat, in order to extract selected formants." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -119,12 +119,7 @@ parameter of processWithPraat, in order to extract selected formants." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -139,7 +134,7 @@ parameter of processWithPraat, in order to extract selected formants." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generates a script for extracting formants, for use with <a href='processWithPraat.html'>processWithPraat</a>.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/R/praatScriptFormants.R'><code>R/praatScriptFormants.R</code></a></small>
+    
     <div class="hidden name"><code>praatScriptFormants.Rd</code></div>
     </div>
 
@@ -219,12 +214,17 @@ participant's gender - normally this is "participant_gender".</p></td>
 
     <p>A script fragment which can be passed as the praat.script parameter of
     <a href='processWithPraat.html'>processWithPraat</a></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <a href='praatScriptFastTrack.html'>praatScriptFastTrack</a> function provides an alternative to this function which
+uses the FastTrack Praat plugin for formant analysis.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='processWithPraat.html'>processWithPraat</a></p>
 <p><a href='praatScriptCentreOfGravity.html'>praatScriptCentreOfGravity</a></p>
 <p><a href='praatScriptIntensity.html'>praatScriptIntensity</a></p>
-<p><a href='praatScriptPitch.html'>praatScriptPitch</a></p></div>
+<p><a href='praatScriptPitch.html'>praatScriptPitch</a></p>
+<p><a href='praatScriptFastTrack.html'>praatScriptFastTrack</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -238,7 +238,7 @@ participant's gender - normally this is "participant_gender".</p></td>
 <span class='no'>formants</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='processWithPraat.html'>processWithPraat</a></span>(
               <span class='no'>labbcat.url</span>,
               <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
-              <span class='kw'>window.offset</span><span class='kw'>=</span><span class='fl'>0.5</span>,
+              <span class='kw'>window.offset</span><span class='kw'>=</span><span class='fl'>0.025</span>,
               <span class='fu'>praatScriptFormants</span>(<span class='kw'>formants</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
               <span class='kw'>sample.points</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>,<span class='fl'>0.5</span>,<span class='fl'>0.75</span>)))
 }</div></pre>
@@ -259,7 +259,7 @@ participant's gender - normally this is "participant_gender".</p></td>
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

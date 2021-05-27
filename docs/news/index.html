@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -117,12 +117,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -137,17 +132,45 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      
     </div>
 
+    <div id="nzilbblabbcat-07-1" class="section level1">
+<h1 class="page-header" data-toc-text="0.7-1">
+<a href="#nzilbblabbcat-07-1" class="anchor"></a>nzilbb.labbcat 0.7-1<small> Unreleased </small>
+</h1>
+<p>Minimum LaBB-CAT version <em>20210210.2032</em></p>
+<div id="enhancements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements" class="anchor"></a>Enhancements</h2>
+<ul>
+<li>remove no.progress parameter (progress bar will appear automatically only in interactive mode).</li>
+<li>getMatches now supports <em>overlap.threshold</em> parameter.</li>
+</ul>
+</div>
+<div id="new-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions" class="anchor"></a>New functions:</h2>
+<ul>
+<li>
+<em>newTranscript</em> : Upload a new transcript (with media) to the server.</li>
+<li>
+<em>updateTranscript</em> : Upload a new version of an existing transcript to the server.</li>
+<li>
+<em>deleteTranscript</em> : Delete a transcript (and its media) from the server.</li>
+<li>
+<em>praatScriptFastTrack</em> : Adds support for using the FastTrack Praat plugin for formant analysis.</li>
+</ul>
+</div>
+</div>
     <div id="nzilbblabbcat-06-1" class="section level1">
 <h1 class="page-header" data-toc-text="0.6-1">
 <a href="#nzilbblabbcat-06-1" class="anchor"></a>nzilbb.labbcat 0.6-1<small> 2020-08-26 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20200812.1253</em></p>
-<div id="new-functions" class="section level2">
+<div id="new-functions-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions" class="anchor"></a>New functions:</h2>
+<a href="#new-functions-1" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>getMatchAlignments</em> : Gets temporal alignments of matches on a given layer.</li>
@@ -167,9 +190,9 @@
 <a href="#nzilbblabbcat-05-1" class="anchor"></a>nzilbb.labbcat 0.5-1<small> 2020-06-13 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20200608.1507</em></p>
-<div id="new-functions-1" class="section level2">
+<div id="new-functions-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-1" class="anchor"></a>New functions:</h2>
+<a href="#new-functions-2" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>getParticipantAttributes</em> : Gets participant attribute values for given participant IDs.</li>
@@ -183,9 +206,9 @@
 <li><em>praatScriptPitch</em></li>
 </ul>
 </div>
-<div id="enhancements" class="section level2">
+<div id="enhancements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements" class="anchor"></a>Enhancements</h2>
+<a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>getAnnotationLabels now supports
 <ul>
@@ -201,9 +224,9 @@
 <a href="#nzilbblabbcat-04-1" class="anchor"></a>nzilbb.labbcat 0.4-1<small> 2020-01-09 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20200108.1025</em></p>
-<div id="enhancements-1" class="section level2">
+<div id="enhancements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
+<a href="#enhancements-2" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>Added <em>getMatches</em> function for searching LaBB-CAT</li>
 <li>Improved handling of large lists passed to getAnchors</li>
@@ -216,9 +239,9 @@
 <a href="#nzilbblabbcat-03-1" class="anchor"></a>nzilbb.labbcat 0.3-1<small> 2019-10-28 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20191022.1827</em></p>
-<div id="new-functions-2" class="section level2">
+<div id="new-functions-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-2" class="anchor"></a>New functions:</h2>
+<a href="#new-functions-3" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>getFragments</em> : for exporting fragments as Praat TextGrids.</li>
@@ -226,9 +249,9 @@
 <em>labbcatTimeout</em> : for specifying the request timeout (for those with slow internet)</li>
 </ul>
 </div>
-<div id="enhancements-2" class="section level2">
+<div id="enhancements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements-2" class="anchor"></a>Enhancements</h2>
+<a href="#enhancements-3" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>
 <em>path</em> parameter for the <em>getSoundFragments</em> function</li>
@@ -254,7 +277,7 @@
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

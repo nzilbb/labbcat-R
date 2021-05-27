@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generates a script for extracting pitch, for use with <a href='processWithPraat.html'>processWithPraat</a>. — praatScriptPitch • nzilbb.labbcat</title>
+<title>Generates a script for extracting formants using FastTrack, for use with <a href='processWithPraat.html'>processWithPraat</a>. — praatScriptFastTrack • nzilbb.labbcat</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="Generates a script for extracting pitch, for use with <a href='processWithPraat.html'>processWithPraat</a>. — praatScriptPitch" />
+<meta property="og:title" content="Generates a script for extracting formants using FastTrack, for use with <a href='processWithPraat.html'>processWithPraat</a>. — praatScriptFastTrack" />
 <meta property="og:description" content="This function generates a Praat script fragment which can be passed as the praat.script
-parameter of processWithPraat, in order to extract pitch information." />
+parameter of processWithPraat, in order to extract selected formants using the
+FastTrack Praat plugin." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@labbcat" />
@@ -133,108 +134,74 @@ parameter of processWithPraat, in order to extract pitch information." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generates a script for extracting pitch, for use with <a href='processWithPraat.html'>processWithPraat</a>.</h1>
+    <h1>Generates a script for extracting formants using FastTrack, for use with <a href='processWithPraat.html'>processWithPraat</a>.</h1>
     
-    <div class="hidden name"><code>praatScriptPitch.Rd</code></div>
+    <div class="hidden name"><code>praatScriptFastTrack.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>This function generates a Praat script fragment which can be passed as the praat.script
-parameter of <a href='processWithPraat.html'>processWithPraat</a>, in order to extract pitch information.</p>
+parameter of <a href='processWithPraat.html'>processWithPraat</a>, in order to extract selected formants using the
+FastTrack Praat plugin.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>praatScriptPitch</span>(
-  <span class='kw'>get.mean</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>get.minimum</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>get.maximum</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>time.step</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>pitch.floor</span> <span class='kw'>=</span> <span class='fl'>60</span>,
-  <span class='kw'>max.number.of.candidates</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-  <span class='kw'>very.accurate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>silence.threshold</span> <span class='kw'>=</span> <span class='fl'>0.03</span>,
-  <span class='kw'>voicing.threshold</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>octave.cost</span> <span class='kw'>=</span> <span class='fl'>0.01</span>,
-  <span class='kw'>octave.jump.cost</span> <span class='kw'>=</span> <span class='fl'>0.35</span>,
-  <span class='kw'>voiced.unvoiced.cost</span> <span class='kw'>=</span> <span class='fl'>0.35</span>,
-  <span class='kw'>pitch.ceiling</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>pitch.floor.male</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>voicing.threshold.male</span> <span class='kw'>=</span> <span class='fl'>0.4</span>,
-  <span class='kw'>pitch.ceiling.male</span> <span class='kw'>=</span> <span class='fl'>250</span>,
+    <pre class="usage"><span class='fu'>praatScriptFastTrack</span>(
+  <span class='kw'>formants</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>),
+  <span class='kw'>sample.points</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>),
+  <span class='kw'>lowest.analysis.frequency</span> <span class='kw'>=</span> <span class='fl'>5000</span>,
+  <span class='kw'>lowest.analysis.frequency.male</span> <span class='kw'>=</span> <span class='fl'>4500</span>,
+  <span class='kw'>highest.analysis.frequency</span> <span class='kw'>=</span> <span class='fl'>7000</span>,
+  <span class='kw'>highest.analysis.frequency.male</span> <span class='kw'>=</span> <span class='fl'>6500</span>,
   <span class='kw'>gender.attribute</span> <span class='kw'>=</span> <span class='st'>"participant_gender"</span>,
   <span class='kw'>value.for.male</span> <span class='kw'>=</span> <span class='st'>"M"</span>,
-  <span class='kw'>window.length</span> <span class='kw'>=</span> <span class='fl'>0.025</span>,
-  <span class='kw'>preemphasis.from</span> <span class='kw'>=</span> <span class='fl'>50</span>
+  <span class='kw'>time.step</span> <span class='kw'>=</span> <span class='fl'>0.002</span>,
+  <span class='kw'>tracking.method</span> <span class='kw'>=</span> <span class='st'>"burg"</span>,
+  <span class='kw'>number.of.formants</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>maximum.f1.frequency</span> <span class='kw'>=</span> <span class='fl'>1200</span>,
+  <span class='kw'>maximum.f1.bandwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>maximum.f2.bandwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>maximum.f3.bandwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>minimum.f4.frequency</span> <span class='kw'>=</span> <span class='fl'>2900</span>,
+  <span class='kw'>enable.rhotic.heuristic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>enable.f3.f4.proximity.heuristic</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>number.of.steps</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>number.of.coefficients</span> <span class='kw'>=</span> <span class='fl'>5</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>get.mean</th>
-      <td><p>Extract the mean pitch for the sample.</p></td>
+      <th>formants</th>
+      <td><p>A vector of integers specifying which formants to extract, e.g c(1,2)
+for the first and second formant.</p></td>
     </tr>
     <tr>
-      <th>get.minimum</th>
-      <td><p>Extract the minimum pitch for the sample.</p></td>
+      <th>sample.points</th>
+      <td><p>A vector of numbers (0 &lt;= sample.points &lt;= 1) specifying multiple
+points at which to take the measurement.  The default is a single point at 0.5 -
+this means one measurement will be taken halfway through the target interval.  If,
+for example, you wanted eleven measurements evenly spaced throughout the interval,
+you would specify sample.points as being
+c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).</p></td>
     </tr>
     <tr>
-      <th>get.maximum</th>
-      <td><p>Extract the maximum pitch for the sample.</p></td>
+      <th>lowest.analysis.frequency</th>
+      <td><p>Lowest analysis frequency (Hz) by default.</p></td>
     </tr>
     <tr>
-      <th>time.step</th>
-      <td><p>Step setting for praat command</p></td>
+      <th>lowest.analysis.frequency.male</th>
+      <td><p>Lowest analysis frequency (Hz) for male
+speakers, or NULL to use the same value as lowest.analysis.frequency.</p></td>
     </tr>
     <tr>
-      <th>pitch.floor</th>
-      <td><p>Minimum pitch (Hz) for all speakers, or for female speakers,
-if pitch.floor.male is also specified.</p></td>
+      <th>highest.analysis.frequency</th>
+      <td><p>Highest analysis frequency (Hz) by default.</p></td>
     </tr>
     <tr>
-      <th>max.number.of.candidates</th>
-      <td><p>Maximum number of candidates setting for praat command</p></td>
-    </tr>
-    <tr>
-      <th>very.accurate</th>
-      <td><p>Accuracy setting for praat command</p></td>
-    </tr>
-    <tr>
-      <th>silence.threshold</th>
-      <td><p>Silence threshold setting for praat command</p></td>
-    </tr>
-    <tr>
-      <th>voicing.threshold</th>
-      <td><p>Voicing threshold (Hz) for all speakers, or for female speakers,
-if voicing.threshold.male is also specified.</p></td>
-    </tr>
-    <tr>
-      <th>octave.cost</th>
-      <td><p>Octave cost setting for praat command</p></td>
-    </tr>
-    <tr>
-      <th>octave.jump.cost</th>
-      <td><p>Octave jump cost setting for praat command</p></td>
-    </tr>
-    <tr>
-      <th>voiced.unvoiced.cost</th>
-      <td><p>Voiced/unvoiced cost setting for praat command</p></td>
-    </tr>
-    <tr>
-      <th>pitch.ceiling</th>
-      <td><p>Maximum pitch (Hz) for all speakers, or for female speakers,
-if pitch.floor.male is also specified.</p></td>
-    </tr>
-    <tr>
-      <th>pitch.floor.male</th>
-      <td><p>Minimum pitch (Hz) for male speakers.</p></td>
-    </tr>
-    <tr>
-      <th>voicing.threshold.male</th>
-      <td><p>Voicing threshold (Hz) for male speakers.</p></td>
-    </tr>
-    <tr>
-      <th>pitch.ceiling.male</th>
-      <td><p>Maximum pitch (Hz) for male speakers.</p></td>
+      <th>highest.analysis.frequency.male</th>
+      <td><p>Highest analysis frequency (Hz) for male
+speakers, or NULL to use the same value as highest.analysis.frequency.</p></td>
     </tr>
     <tr>
       <th>gender.attribute</th>
@@ -246,12 +213,66 @@ participant's gender - normally this is "participant_gender".</p></td>
       <td><p>The value that the gender.attribute has when the participant is male.</p></td>
     </tr>
     <tr>
-      <th>window.length</th>
-      <td><p>Window length in seconds.</p></td>
+      <th>time.step</th>
+      <td><p>Time step in seconds.</p></td>
     </tr>
     <tr>
-      <th>preemphasis.from</th>
-      <td><p>Pre-emphasis from (Hz)</p></td>
+      <th>tracking.method</th>
+      <td><p>tracking_method parameter for trackAutoselectProcedure; "burg"
+or "robust".</p></td>
+    </tr>
+    <tr>
+      <th>number.of.formants</th>
+      <td><p>Number of formants to track - 3 or 4.</p></td>
+    </tr>
+    <tr>
+      <th>maximum.f1.frequency</th>
+      <td><p>Specifying a non-NULL value enables the F1 frequency
+heuristic: Median F1 frequency should not be higher than this value.</p></td>
+    </tr>
+    <tr>
+      <th>maximum.f1.bandwidth</th>
+      <td><p>Specifying a non-NULL value (e.g. 500)
+enables the F1 bandwidth heuristic: Median F1 bandwidth should not be higher than
+this value.</p></td>
+    </tr>
+    <tr>
+      <th>maximum.f2.bandwidth</th>
+      <td><p>Specifying a non-NULL value (e.g. 600)
+enables the F2 bandwidth heuristic: Median F2 bandwidth should not be higher than
+this value.</p></td>
+    </tr>
+    <tr>
+      <th>maximum.f3.bandwidth</th>
+      <td><p>Specifying a non-NULL value (e.g. 900)
+enables the F3 bandwidth heuristic: Median F3 bandwidth should not be higher than
+this value.</p></td>
+    </tr>
+    <tr>
+      <th>minimum.f4.frequency</th>
+      <td><p>Specifying a non-NULL value enables the F4 frequency
+heuristic: Median F4 frequency should not be lower than this value.</p></td>
+    </tr>
+    <tr>
+      <th>enable.rhotic.heuristic</th>
+      <td><p>Whether to enable the rhotic heuristic: If F3 &lt; 2000 Hz,
+F1 and F2 should be at least 500 Hz apart.</p></td>
+    </tr>
+    <tr>
+      <th>enable.f3.f4.proximity.heuristic</th>
+      <td><p>Whether to enable the F3/F4 proximity
+heuristic: If (F4 - F3) &lt; 500 Hz, F1 and F2 should be at least 1500 Hz apart.</p></td>
+    </tr>
+    <tr>
+      <th>number.of.steps</th>
+      <td><p>Number of analyses between low and high analysis limits. More
+analysis steps may improve results, but will increase analysis time (50 percent more steps
+= around 50 percent longer to analyze).</p></td>
+    </tr>
+    <tr>
+      <th>number.of.coefficients</th>
+      <td><p>Number of coefficients for formant prediction. More
+coefficients allow for more sudden, and 'wiggly' formant motion.</p></td>
     </tr>
     </table>
 
@@ -259,27 +280,35 @@ participant's gender - normally this is "participant_gender".</p></td>
 
     <p>A script fragment which can be passed as the praat.script parameter of
     <a href='processWithPraat.html'>processWithPraat</a></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The FastTrack Praat plugin, developed by Santiago Barreda, automatically runs multiple
+formant analyses on each segment, selects the best (the smoothest, with optional
+heuristics), and makes the winning formant object available for measurement. For more
+information, see <a href='https://github.com/santiagobarreda/FastTrack'>https://github.com/santiagobarreda/FastTrack</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='processWithPraat.html'>processWithPraat</a></p>
-<p><a href='praatScriptFormants.html'>praatScriptFormants</a></p>
 <p><a href='praatScriptCentreOfGravity.html'>praatScriptCentreOfGravity</a></p>
 <p><a href='praatScriptIntensity.html'>praatScriptIntensity</a></p>
-<p><a href='praatScriptFastTrack.html'>praatScriptFastTrack</a></p></div>
+<p><a href='praatScriptPitch.html'>praatScriptPitch</a></p>
+<p><a href='praatScriptFormants.html'>praatScriptFormants</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## define the LaBB-CAT URL</span>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
-<span class='co'>## Perform a search</span>
+<span class='co'>## Get all tokens of the KIT vowel</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getMatches.html'>getMatches</a></span>(<span class='no'>labbcat.url</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>segment</span><span class='kw'>=</span><span class='st'>"I"</span>))
 
-<span class='co'>## Get pitch mean, max, and min for all matches</span>
-<span class='no'>pitch</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='processWithPraat.html'>processWithPraat</a></span>(
+<span class='co'>## Get the first 3 formants at three points during the vowel</span>
+<span class='no'>formants</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='processWithPraat.html'>processWithPraat</a></span>(
               <span class='no'>labbcat.url</span>,
               <span class='no'>results</span>$<span class='no'>MatchId</span>, <span class='no'>results</span>$<span class='no'>Target.segment.start</span>, <span class='no'>results</span>$<span class='no'>Target.segment.end</span>,
-              <span class='fu'>praatScriptPitch</span>(<span class='kw'>get.mean</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>get.minimum</span><span class='kw'>=</span><span class='fl'>TRUE</span>, <span class='kw'>get.maximum</span><span class='kw'>=</span><span class='fl'>TRUE</span>))
+              <span class='kw'>window.offset</span><span class='kw'>=</span><span class='fl'>0.025</span>,
+              <span class='fu'>praatScriptFastTrack</span>(<span class='kw'>formants</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>),
+              <span class='kw'>sample.points</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>,<span class='fl'>0.5</span>,<span class='fl'>0.75</span>)))
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

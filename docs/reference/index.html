@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -117,12 +117,7 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -227,8 +222,13 @@ default timeout is 10 seconds.</p></td>
         <td>
           <p><code><a href="getFragments.html">getFragments()</a></code> </p>
         </td>
-        <td><p>Gets fragments of annotation transcript from 'LaBB-CAT', 
-converted to a given format (by default, Praat TextGrid)</p></td>
+        <td><p>Gets fragments transcript in a given format.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getAllUtterances.html">getAllUtterances()</a></code> </p>
+        </td>
+        <td><p>Get all utterances of participants.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -254,6 +254,12 @@ converted to a given format (by default, Praat TextGrid)</p></td>
           <p><code><a href="praatScriptCentreOfGravity.html">praatScriptCentreOfGravity()</a></code> </p>
         </td>
         <td><p>Generates a script for extracting the CoG, for use with processWithPraat.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="praatScriptFastTrack.html">praatScriptFastTrack()</a></code> </p>
+        </td>
+        <td><p>Generates a script for extracting formants using FastTrack, for use with processWithPraat.</p></td>
       </tr><tr>
         
         <td>
@@ -373,6 +379,37 @@ converted to a given format (by default, Praat TextGrid)</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-transcript-management" class="hasAnchor"><a href="#section-transcript-management" class="anchor"></a>Transcript management</h2>
+          <p class="section-desc"><p>Uploading/deleting transcripts</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="newTranscript.html">newTranscript()</a></code> </p>
+        </td>
+        <td><p>Upload a new transcript.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="updateTranscript.html">updateTranscript()</a></code> </p>
+        </td>
+        <td><p>Update an existing transcript.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="deleteTranscript.html">deleteTranscript()</a></code> </p>
+        </td>
+        <td><p>Delete a transcript from the corpus.</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-corpus-information" class="hasAnchor"><a href="#section-corpus-information" class="anchor"></a>Corpus information</h2>
           <p class="section-desc"><p>Information about how your LaBB-CAT server is organised and configured</p></p>
         </th>
@@ -481,7 +518,7 @@ converted to a given format (by default, Praat TextGrid)</p></td>
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

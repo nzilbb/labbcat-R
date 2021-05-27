@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets fragments of annotation transcript from 'LaBB-CAT', 
-converted to a given format (by default, Praat TextGrid) — getFragments • nzilbb.labbcat</title>
+<title>Gets fragments transcript in a given format. — getFragments • nzilbb.labbcat</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,10 +46,9 @@ converted to a given format (by default, Praat TextGrid) — getFragments • nz
 
 
 
-<meta property="og:title" content="Gets fragments of annotation transcript from 'LaBB-CAT', 
-converted to a given format (by default, Praat TextGrid) — getFragments" />
-<meta property="og:description" content="Gets fragments of annotation transcript from 'LaBB-CAT', 
-converted to a given format (by default, Praat TextGrid)" />
+<meta property="og:title" content="Gets fragments transcript in a given format. — getFragments" />
+<meta property="og:description" content="This function gets fragments of transcripts from 'LaBB-CAT', 
+converted to a given format (by default, Praat TextGrid)." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@labbcat" />
@@ -86,7 +84,7 @@ converted to a given format (by default, Praat TextGrid)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -121,12 +119,7 @@ converted to a given format (by default, Praat TextGrid)" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,15 +133,14 @@ converted to a given format (by default, Praat TextGrid)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets fragments of annotation transcript from 'LaBB-CAT', 
-converted to a given format (by default, Praat TextGrid)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/nzilbb/labbcat-R/blob/master/R/getFragments.R'><code>R/getFragments.R</code></a></small>
+    <h1>Gets fragments transcript in a given format.</h1>
+    
     <div class="hidden name"><code>getFragments.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gets fragments of annotation transcript from 'LaBB-CAT', 
-converted to a given format (by default, Praat TextGrid)</p>
+    <p>This function gets fragments of transcripts from 'LaBB-CAT', 
+converted to a given format (by default, Praat TextGrid).</p>
     </div>
 
     <pre class="usage"><span class='fu'>getFragments</span>(
@@ -158,7 +150,6 @@ converted to a given format (by default, Praat TextGrid)</p>
   <span class='no'>end</span>,
   <span class='no'>layerIds</span>,
   <span class='kw'>mimeType</span> <span class='kw'>=</span> <span class='st'>"text/praat-textgrid"</span>,
-  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>
 )</pre>
 
@@ -193,11 +184,6 @@ LaBB-CAT installation may support other formats, which can be discovered using
 <a href='getSerializerDescriptors.html'>getSerializerDescriptors</a>.</p></td>
     </tr>
     <tr>
-      <th>no.progress</th>
-      <td><p>Optionally suppress the progress bar when
-multiple fragments are  specified - TRUE for no progress bar.</p></td>
-    </tr>
-    <tr>
       <th>path</th>
       <td><p>Optional path to directory where the files should be saved.</p></td>
     </tr>
@@ -211,6 +197,11 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
 <p>If a list of files is returned, they are in the order that they
     were returned by the server, which *should* be the order that
     they were specified in the id/start/end lists.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><em>NB</em> Although many formats will generate exactly one file for each interval
+     (e.g. mimeType=text/praat-textgrid), this is not guaranted; some formats generate
+     a single file or a fixed collection of files regardless of how many fragments there are.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='getSerializerDescriptors.html'>getSerializerDescriptors</a></p></div>
@@ -232,9 +223,9 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
     <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>,
     <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"utterance"</span>, <span class='st'>"word"</span>, <span class='st'>"phonemes"</span>))
 
-<span class='co'>## Get a list of fragment TextGrids with no progress bar</span>
+<span class='co'>## Get a list of fragment TextGrids</span>
 <span class='no'>textgrid.files</span> <span class='kw'>&lt;-</span> <span class='fu'>getFragments</span>(
-    <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>, <span class='kw'>no.progress</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+    <span class='no'>labbcat.url</span>, <span class='no'>results</span>$<span class='no'>Transcript</span>, <span class='no'>results</span>$<span class='no'>Line</span>, <span class='no'>results</span>$<span class='no'>LineEnd</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -253,7 +244,7 @@ multiple fragments are  specified - TRUE for no progress bar.</p></td>
       display: inline-block;
   }
 </style>
-<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' style="vertical-align:middle;height:40px;display:inline-block;" /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
+<small><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.0/'><img alt='CC-BY-SA Creative Commons Licence ' src='/labbcat-R/cc-by-sa.svg' title='This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License' /></a><a rel='author' href='https://www.canterbury.ac.nz/nzilbb/'><img src='/labbcat-R/nzilbb.svg' alt='Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour' title='&copy; 2021 NZILBB'></a></small>
 
       </footer>
    </div>

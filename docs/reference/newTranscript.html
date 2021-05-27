@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lookup entries in a dictionary. — getDictionaryEntries • nzilbb.labbcat</title>
+<title>Upload a new transcript. — newTranscript • nzilbb.labbcat</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Lookup entries in a dictionary. — getDictionaryEntries" />
-<meta property="og:description" content="Lookup entries in a dictionary." />
+<meta property="og:title" content="Upload a new transcript. — newTranscript" />
+<meta property="og:description" content="This function adds a transcript and optionally a media file to the corpus." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@labbcat" />
@@ -132,16 +132,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Lookup entries in a dictionary.</h1>
+    <h1>Upload a new transcript.</h1>
     
-    <div class="hidden name"><code>getDictionaryEntries.Rd</code></div>
+    <div class="hidden name"><code>newTranscript.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Lookup entries in a dictionary.</p>
+    <p>This function adds a transcript and optionally a media file to the corpus.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getDictionaryEntries</span>(<span class='no'>labbcat.url</span>, <span class='no'>managerId</span>, <span class='no'>dictionaryId</span>, <span class='no'>keys</span>)</pre>
+    <pre class="usage"><span class='fu'>newTranscript</span>(
+  <span class='no'>labbcat.url</span>,
+  <span class='no'>transcript</span>,
+  <span class='kw'>media</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>transcript.type</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>corpus</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>episode</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,35 +158,49 @@
       <td><p>URL to the LaBB-CAT instance</p></td>
     </tr>
     <tr>
-      <th>managerId</th>
-      <td><p>The layer manager ID of the dictionary, as returned by getDictionaries</p></td>
+      <th>transcript</th>
+      <td><p>The path to the transcript to upload.</p></td>
     </tr>
     <tr>
-      <th>dictionaryId</th>
-      <td><p>The ID of the dictionary, as returned by getDictionaries</p></td>
+      <th>media</th>
+      <td><p>The path to the media to upload, if any.</p></td>
     </tr>
     <tr>
-      <th>keys</th>
-      <td><p>A list of entries to look up</p></td>
+      <th>transcript.type</th>
+      <td><p>The transcript type.</p></td>
+    </tr>
+    <tr>
+      <th>corpus</th>
+      <td><p>The corpus to add the transcript to.</p></td>
+    </tr>
+    <tr>
+      <th>episode</th>
+      <td><p>The transcript's episode.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with the keys and their dictionary entries.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>The ID of the new transcript in the corpus</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p><a href='getDictionaries.html'>getDictionaries</a></p></div>
+    <p>For this function to work, the credentials used to connect to the server must have at
+least 'edit' access.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## define the LaBB-CAT URL</span>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
-<span class='no'>keys</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"the"</span>, <span class='st'>"quick"</span>, <span class='st'>"brown"</span>, <span class='st'>"fox"</span>)
+<span class='co'>## Get attributes for new transcript</span>
+<span class='no'>corpus</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getCorpusIds.html'>getCorpusIds</a></span>(<span class='no'>labbcat.url</span>)[<span class='fl'>1</span>]
+<span class='no'>transcript.type.layer</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getLayer.html'>getLayer</a></span>(<span class='no'>labbcat.url</span>, <span class='st'>"transcript_type"</span>)
+<span class='no'>transcript.type</span> <span class='kw'>&lt;-</span> <span class='no'>transcript.type.layer</span>$<span class='no'>validLabels</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 
-<span class='co'>## get the pronunciations according to CELEX</span>
-<span class='no'>entries</span> <span class='kw'>&lt;-</span> <span class='fu'>getDictionaryEntries</span>(<span class='no'>labbcat.url</span>, <span class='st'>"CELEX-EN"</span>, <span class='st'>"Phonology (wordform)"</span>, <span class='no'>keys</span>)
+<span class='co'>## upload transcript</span>
+<span class='fu'>newTranscript</span>(
+    <span class='no'>labbcat.url</span>, <span class='st'>"my-transcript.eaf"</span>, <span class='st'>"my-transcript.wav"</span>,
+    <span class='st'>""</span>, <span class='no'>transcript.type</span>, <span class='no'>corpus</span>, <span class='st'>"episode-1"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

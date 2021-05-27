@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6-3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
       </span>
     </div>
 
@@ -75,14 +75,7 @@
   <a href="../../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/nzilbb/labbcat-R/">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+<ul class="nav navbar-nav navbar-right"></ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -100,7 +93,7 @@
             
             <h4 class="date">9 February 2021</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/search-labels-alignments-r-script.Rmd"><code>vignettes/examples/search-labels-alignments-r-script.Rmd</code></a></small>
+      
       <div class="hidden name"><code>search-labels-alignments-r-script.Rmd</code></div>
 
     </div>
@@ -123,7 +116,7 @@
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">nzilbb.labbcat</span>)
 <span class="no">labbcat.url</span> <span class="kw">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></pre></body></html></div>
 <p>Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts “dis” or “mis”.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">orthography</span> <span class="kw">=</span> <span class="st">"[dm]is.+"</span>), <span class="kw">aligned</span><span class="kw">=</span><span class="no">T</span>, <span class="kw">no.progress</span><span class="kw">=</span><span class="no">T</span>)
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">orthography</span> <span class="kw">=</span> <span class="st">"[dm]is.+"</span>), <span class="kw">aligned</span><span class="kw">=</span><span class="no">T</span>)
 
 <span class="co"># show the first few matches</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span>)]</pre></body></html></div>
@@ -134,7 +127,7 @@
 ## 4 AP2516_JasonEager.eaf        miss           259.740
 ## 5 AP2516_JasonEager.eaf      miss .           262.180
 ## 6 AP2516_JasonEager.eaf        miss           266.759</code></pre>
-<p>In order to be able to analyse the /s/ segments, we need it’s start and end time, so we can extract a matching sound sample. We identify the first three <em>segments</em> annotations of each token, the last of which will be the /s/ segment we’re interested in.</p>
+<p>In order to be able to analyse the /s/ segments, we need it’s start and end time, so we can extract a matching sound sample. We identify the first three <em>segment</em> annotations of each token, the last of which will be the /s/ segment we’re interested in.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">segments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(
   <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">annotationsPerLayer</span><span class="kw">=</span><span class="fl">3</span>)
 
@@ -175,7 +168,7 @@
 <span class="co"># get segment sound files from LaBB-CAT</span>
 <span class="no">wav.files</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getSoundFragments.html">getSoundFragments</a></span>(
   <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">Transcript</span>, <span class="no">matches</span>$<span class="no">segment.3.start</span>, <span class="no">matches</span>$<span class="no">segment.3.end</span>, <span class="fl">22050</span>,
-  <span class="kw">path</span><span class="kw">=</span><span class="no">subdir</span>, <span class="kw">no.progress</span> <span class="kw">=</span> <span class="no">T</span>)
+  <span class="kw">path</span><span class="kw">=</span><span class="no">subdir</span>)
 
 <span class="co"># show the first few file names</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">wav.files</span>)</pre></body></html></div>
@@ -240,7 +233,7 @@
       display: inline-block;
   }
 </style>
-<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/"><img alt="CC-BY-SA Creative Commons Licence " src="../../../../../../labbcat-R/cc-by-sa.svg" title="This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License" style="vertical-align:middle;height:40px;display:inline-block;"></a><a rel="author" href="https://www.canterbury.ac.nz/nzilbb/"><img src="../../../../../../labbcat-R/nzilbb.svg" alt="Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour" title="© 2021 NZILBB"></a></small>
+<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/"><img alt="CC-BY-SA Creative Commons Licence " src="../../../../../../labbcat-R/cc-by-sa.svg" title="This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License"></a><a rel="author" href="https://www.canterbury.ac.nz/nzilbb/"><img src="../../../../../../labbcat-R/nzilbb.svg" alt="Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour" title="© 2021 NZILBB"></a></small>
 
       </footer>
 </div>
