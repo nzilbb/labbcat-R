@@ -77,17 +77,24 @@
 #' @param max.matches The maximum number of matches to return, or null to return all.
 #' @param overlap.threshold The percentage overlap with other utterances before
 #'     simultaneous speech is excluded, or null to include overlapping speech.
+#' @param page.length In order to prevent timeouts when there are a large number of
+#'     matches or the network connection is slow, rather than retrieving matches in one
+#'     big request, they are retrieved using many smaller requests. This parameter
+#'     controls the number of results retrieved per request.
 #' @return A data frame identifying matches, containing the following columns:
 #' \itemize{
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
-#'  \item{\emph{Number} Row number}
+#'  \item{\emph{MatchId} A unique ID for the matching target token}
 #'  \item{\emph{Transcript} Name of the transcript in which the match was found}
+#'  \item{\emph{Participant} Name of the speaker}
+#'  \item{\emph{Corpus} The corpus of the transcript}
 #'  \item{\emph{Line} The start offset of the utterance/line}
 #'  \item{\emph{LineEnd} The end offset of the utterance/line}
-#'  \item{\emph{MatchId} A unique ID for the matching target token}
 #'  \item{\emph{Before.Match} Transcript text immediately before the match}
 #'  \item{\emph{Text} Transcript text of the match}
-#'  \item{\emph{Before.Match} Transcript text immediately after the match}
+#'  \item{\emph{After.Match} Transcript text immediately after the match}
+#'  \item{\emph{Number} Row number}
+#'  \item{\emph{URL} URL of the first matching word token}
 #'  \item{\emph{Target.word} Text of the target word token}
 #'  \item{\emph{Target.word.start} Start offset of the target word token}
 #'  \item{\emph{Target.word.end} End offset of the target word token}
@@ -123,7 +130,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL) {
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, page.length=1000) {
     
     ## first normalize the pattern...
 
@@ -219,42 +226,98 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
             setTxtProgressBar(pb, thread$percentComplete)
         }
         if (!is.null(thread$status)) {
-            cat(paste("\n", thread$status, "\n", sep=""))
+            cat(paste("\n", thread$status, " - fetching results...", "\n", sep=""))
         }
     }
-    
-    # now that the search is finished, get the results as CSV
-    # (ignore thread$resultUrl - we want the results stream, which starts returning immediately
-    # and saves memory on the server)
-    download.file <- paste(thread$threadName, ".csv", sep="");
-    # columns:
-    csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
-                    "line_time", "line_end_time", "match", "result_text", "word_url")
-    # layers - "word", and "segment" if mentioned in the pattern
-    csv_layer_option <- c("0")
-    if (segment.layer) csv_layer_option <- c("0","1")
-    resp <- http.get(labbcat.url,
-                     "resultsStream",
-                     list(threadId=threadId, todo="csv", csvFieldDelimiter=",",
-                          csv_option=csv_option, csv_layer_option=csv_layer_option,
-                          pageLength=max.matches),
-                     content.type="text/csv",
-                     file.name = download.file)
-    if (is.null(resp)) return()
-    if (httr::status_code(resp) != 200) { # 200 = OK
-        print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(httr::content(resp, as="text", encoding="UTF-8"))
-        return()
+
+    ## define the dataframe to return (which is, for now, empty)
+    allMatches <- data.frame(matrix(ncol = 15, nrow = 0))
+    if (segment.layer) {
+        allMatches <- data.frame(matrix(ncol = 18, nrow = 0))
     }
+    if (thread$size > 0) { ## there were actually some matches
+        
+        ## ensure labbcat base URL has a trailing slash (for URL reconstruction)
+        if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
+
+        ## layers - "word", and "segment" if mentioned in the pattern
+        tokenLayers <- c("word")
+        if (segment.layer) tokenLayers <- c("word", "segment")
+        
+        ## search results can be very large, and httr timeouts are short and merciless,
+        ## so we break the results into chunks and retrieve them using lots of small
+        ## requests instead of one big request
+        
+        matchesLeft <- min(thread$size, max.matches) ## (works even if max.matches == NULL)
+        pageNumber <- 0
+        
+        if (interactive()) {
+            pb <- txtProgressBar(min = 0, max = matchesLeft, style = 3)        
+        }
+        
+        while(matchesLeft > 0) { ## loop until we've got all the matches we want        
+            resp <- http.get(labbcat.url,
+                             "resultsStream",
+                             list(threadId=threadId, words_context=words.context,
+                                  pageLength=page.length, pageNumber=pageNumber),
+                             content.type="application/json")
+            if (is.null(resp)) break
+            if (httr::status_code(resp) != 200) { # 200 = OK
+                print(paste("ERROR: ", httr::http_status(resp)$message))
+                print(httr::content(resp, as="text", encoding="UTF-8"))
+                break
+            }
+        
+            resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+            resp.json <- jsonlite::fromJSON(resp.content)
+            matches <- resp.json$model$matches
+            
+            ## decrement the number of rows left to get
+            matchesLeft <- matchesLeft - nrow(matches)
+            ## ensure we don't have too many rows (on the last page)
+            if (matchesLeft < 0) { 
+                matches <- head(matches, page.length + matchesLeft)
+            }
+
+            matches <- cbind(resp.json$model$name, matches)
+            ## extract number from MatchId
+            matches <- cbind(
+                matches, as.numeric(stringr::str_match(matches$MatchId, "prefix=0*([0-9]+)-")[,2]))
+            ## reconstruct url
+            matches <- cbind(
+                matches, paste(
+                             labbcat.url, "transcript?transcript=",
+                             matches$Transcript, "#",
+                             stringr::str_match(matches$MatchId, "\\[0\\]=(.*)(;.*|$)")[,2], sep=""))
+            tokens <- getMatchAlignments(labbcat.url, matches$MatchId, tokenLayers)
+            matches <- cbind(matches, tokens)
+
+            ## add this chunk to the collection
+            allMatches <- rbind(allMatches, matches)
+
+            if (!is.null(pb)) {
+                setTxtProgressBar(pb, nrow(allMatches))
+            }
+
+            ## next page
+            pageNumber <- pageNumber + 1
+        } ## loop
+    } ## there are matches
+    ## ensure prompt comes back below progress bar
+    if (!is.null(pb)) cat("\n")
+    
+    frameNames <- c(
+        "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",
+        "Before.Match","Text","After.Match","Number","URL",
+        "Target.word","Target.word.start","Target.word.end")
+    if (segment.layer) {
+        frameNames <- c(frameNames,
+                        c("Target.segment", "Target.segment.start", "Target.segment.end"))
+    }
+    names(allMatches) = frameNames
     
     ## free the search thread so it's not using server resources
     http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
 
-    ## load the returned entries
-    results <- read.csv(download.file, header=T)
-
-    ## tidily remove the downloaded file
-    file.remove(download.file)
-    
-    return(results)
+    return(allMatches)
 }
