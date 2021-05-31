@@ -54,7 +54,7 @@
 #' 
 getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
                                annotationsPerLayer=1, anchor.confidence.min=50,
-                               include.match.ids=FALSE) {    
+                               include.match.ids=FALSE, page.length=1000) {    
     ## validate layer Ids
     for (layerId in layerIds) {
         layer <- getLayer(labbcat.url, layerId)
@@ -65,37 +65,56 @@ getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
     ## save keys to a CSV file
     upload.file = tempfile(pattern="matcheIds.", fileext=".csv")
     download.file = tempfile(pattern="labels.", fileext=".csv")
-    write.table(matchIds, upload.file, sep=",", row.names=FALSE, col.names=TRUE)
-
-    ## make request
-    layerIds <- paste(layerIds,collapse="\n")
-    parameters <- list(
-        layerIds=layerIds,
-        targetOffset=targetOffset, annotationsPerLayer=annotationsPerLayer,
-        csvFieldDelimiter=",", targetColumn=0, copyColumns=include.match.ids,
-        "content-type"="text/csv",
-        plus="Token.plus.", minus="Token.minus.",
-        offsetThreshold=anchor.confidence.min,
-        uploadfile=httr::upload_file(upload.file))
-    resp <- http.post.multipart(labbcat.url, "api/getMatchAnnotations", parameters, download.file)
-
-    ## tidily remove upload file
-    file.remove(upload.file)
-
-    ## check the reponse
-    if (is.null(resp)) return()
-    resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-    if (httr::status_code(resp) != 200) { # 200 = OK
-        print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(resp.content)
-        return()
+    
+    ## break matchIds into manageable chunks
+    allLabels <- NULL
+    pb <- NULL
+    if (interactive()) {
+        pb <- txtProgressBar(min = 0, max = length(matchIds), style = 3)
     }
 
-    ## load the returned entries
-    labels <- read.csv(download.file, header=T)
+    matchIdChunks <- split(matchIds, ceiling(seq_along(matchIds)/page.length))
+    for (matchIds in matchIdChunks) {
+        write.table(matchIds, upload.file, sep=",", row.names=FALSE, col.names=TRUE)
+        
+        ## make request
+        layerIds <- paste(layerIds,collapse="\n")
+        parameters <- list(
+            layerIds=layerIds,
+            targetOffset=targetOffset, annotationsPerLayer=annotationsPerLayer,
+            csvFieldDelimiter=",", targetColumn=0, copyColumns=include.match.ids,
+            "content-type"="text/csv",
+            plus="Token.plus.", minus="Token.minus.",
+            offsetThreshold=anchor.confidence.min,
+            uploadfile=httr::upload_file(upload.file))
+        resp <- http.post.multipart(labbcat.url, "api/getMatchAnnotations", parameters, download.file)
+        
+        ## tidily remove upload file
+        file.remove(upload.file)
+        
+        ## check the reponse
+        if (is.null(resp)) return()
+        resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+        if (httr::status_code(resp) != 200) { # 200 = OK
+            print(paste("ERROR: ", httr::http_status(resp)$message))
+            print(resp.content)
+            return()
+        }
+        
+        ## load the returned entries
+        labels <- read.csv(download.file, header=T)
+        
+        ## tidily remove the downloaded file
+        file.remove(download.file)
 
-    ## tidily remove the downloaded file
-    file.remove(download.file)
-    
-    return(labels)
+        ## append results to culumative data frame
+        allLabels <- rbind(allLabels, labels)
+        if (!is.null(pb)) {
+            setTxtProgressBar(pb, nrow(allLabels))
+        }
+    } ## next chunk
+    if (!is.null(pb)) { ## if there was a progress bar, 
+        cat("\n")     ## ensure the prompt appears on the next line
+    }    
+    return(allLabels)
 }
