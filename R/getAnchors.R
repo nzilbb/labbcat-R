@@ -5,6 +5,10 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
 #' @param anchorId A vector of anchor IDs (or a string representing one anchor ID)
+#' @param page.length In order to prevent timeouts when there are a large number of
+#'     matches or the network connection is slow, rather than retrieving anchors in one
+#'     big request, they are retrieved using many smaller requests. This parameter
+#'     controls the number of anchors retrieved per request.
 #' @return  A named list of anchors, with members:
 #' \itemize{
 #'  \item{\emph{id} The annotation's unique ID},
@@ -29,9 +33,8 @@
 #' 
 #' @keywords anchor
 #' 
-getAnchors <- function(labbcat.url, id, anchorId) {
-    chunkMax <- 300
-    anchorIdChunks <- split(anchorId, ceiling(seq_along(anchorId)/chunkMax))
+getAnchors <- function(labbcat.url, id, anchorId, page.length=1000) {
+    anchorIdChunks <- split(anchorId, ceiling(seq_along(anchorId)/page.length))
     result <- NULL
     for (anchorId in anchorIdChunks) {
         parameters <- list(id=id)
