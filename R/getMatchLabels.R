@@ -99,7 +99,7 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
         }
     } ## next chunk
     if (!is.null(pb)) { ## if there was a progress bar, 
-        print("\n")     ## ensure the prompt appears on the next line
+        cat("\n")     ## ensure the prompt appears on the next line
     }    
     return(allLabels)
 }
