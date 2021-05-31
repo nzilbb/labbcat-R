@@ -226,7 +226,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
             setTxtProgressBar(pb, thread$percentComplete)
         }
         if (!is.null(thread$status)) {
-            cat(paste("\n", thread$status, " - fetching results...", "\n", sep=""))
+            cat(paste("\n", thread$status, " - fetching data...", "\n", sep=""))
         }
     }
 
