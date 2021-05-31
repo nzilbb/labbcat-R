@@ -30,6 +30,8 @@
 #'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;}
 #'  \item{\emph{100} -- return only manually-set alignments.}
 #' }
+#' @param include.match.ids Whether or not the data frame returned includes the original
+#'     MatchId column or not.
 #' @return A data frame with label, start time, and end time, for each layer.
 #' 
 #' @seealso
@@ -51,7 +53,8 @@
 #' @keywords layer annotation label
 #' 
 getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
-                               annotationsPerLayer=1, anchor.confidence.min=50) {    
+                               annotationsPerLayer=1, anchor.confidence.min=50,
+                               include.match.ids=FALSE) {    
     ## validate layer Ids
     for (layerId in layerIds) {
         layer <- getLayer(labbcat.url, layerId)
@@ -69,7 +72,7 @@ getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
     parameters <- list(
         layerIds=layerIds,
         targetOffset=targetOffset, annotationsPerLayer=annotationsPerLayer,
-        csvFieldDelimiter=",", targetColumn=0, copyColumns=FALSE,
+        csvFieldDelimiter=",", targetColumn=0, copyColumns=include.match.ids,
         "content-type"="text/csv",
         plus="Token.plus.", minus="Token.minus.",
         offsetThreshold=anchor.confidence.min,
