@@ -62,7 +62,7 @@ getTranscriptAttributes <- function(labbcat.url, transcriptIds, layerIds) {
     }
 
     ## load the returned entries
-    attributes <- read.csv(download.file, header=T)
+    attributes <- read.csv(download.file, header=T, blank.lines.skip=F)
 
     ## tidily remove the downloaded file
     file.remove(download.file)

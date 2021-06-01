@@ -198,7 +198,7 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
     write("\n",file=download.file,append=TRUE)
     
     ## load data into frame
-    results <- read.csv(download.file, header=T)
+    results <- read.csv(download.file, header=T, blank.lines.skip=F)
 
     ## tidily remove the downloaded file
     file.remove(download.file)

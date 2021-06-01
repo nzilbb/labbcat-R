@@ -126,7 +126,7 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
     http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
 
     ## load the returned entries
-    results <- read.csv(download.file, header=T)
+    results <- read.csv(download.file, header=T, blank.lines.skip=F)
 
     ## tidily remove the downloaded file
     file.remove(download.file)

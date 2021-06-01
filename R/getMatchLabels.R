@@ -87,7 +87,7 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
         }
 
         ## load the returned entries
-        labels <- read.csv(download.file, header=T)
+        labels <- read.csv(download.file, header=T, blank.lines.skip=F)
         
         ## tidily remove the downloaded file
         file.remove(download.file)

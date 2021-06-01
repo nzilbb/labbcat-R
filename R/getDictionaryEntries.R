@@ -46,7 +46,8 @@ getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
     ncol <- max(count.fields(download.file, sep=",", quote="\""))
     
     ## load the returned entries
-    entries <- read.csv(download.file, header=F, col.names = paste0("V", seq_len(ncol)))
+    entries <- read.csv(
+        download.file, header=F, col.names = paste0("V", seq_len(ncol)), blank.lines.skip=F)
 
     ## rename the columns so that the one containing the keys is called "key"
     colnames(entries) <- c("key", head(colnames(entries), length(colnames(entries)) - 1))
