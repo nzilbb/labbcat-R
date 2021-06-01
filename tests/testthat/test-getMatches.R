@@ -256,8 +256,8 @@ test_that("words.context parameter of getMatches works", {
     wholeLine <- getMatches(labbcat.url, list(orthography="knox"), words.context=-1)
 
     ## check the amount of context
-    expect_true(is.na(noContext$Before.Match)[[1]])
-    expect_true(is.na(noContext$After.Match)[[1]])
+    expect_true(noContext$Before.Match[[1]] == "")
+    expect_true(noContext$After.Match[[1]] == "")
 
     expect_true(nchar(as.vector(oneWord$Before.Match)[[1]]) > 0)
     expect_true(nchar(as.vector(oneWord$After.Match)[[1]]) > 0)
