@@ -11,6 +11,8 @@
 #' @param transcript.type The transcript type.
 #' @param corpus The corpus to add the transcript to.
 #' @param episode The transcript's episode.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return The ID of the new transcript in the corpus
 #' 
 #' @examples
@@ -31,7 +33,7 @@
 #' @keywords transcript management
 #' 
 newTranscript <- function(labbcat.url, transcript, media=NULL, 
-                          transcript.type=NULL, corpus=NULL, episode=NULL) {
+                          transcript.type=NULL, corpus=NULL, episode=NULL, no.progress=FALSE) {
     
     ## upload file(s)
     parameters <- list(
@@ -63,7 +65,7 @@ newTranscript <- function(labbcat.url, transcript, media=NULL,
     transcript.id  <- names(resp.json$model$result[1])
     threadId <- resp.json$model$result[[1]]
     pb <- NULL
-    if (interactive()) {
+    if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
     thread <- thread.get(labbcat.url, threadId)
@@ -85,8 +87,9 @@ newTranscript <- function(labbcat.url, transcript, media=NULL,
         if (!is.null(thread$percentComplete)) {
            setTxtProgressBar(pb, thread$percentComplete)
         }
+        close(pb)
         if (!is.null(thread$status)) {
-            cat(paste("\n", thread$status, "\n", sep=""))
+            cat(paste(thread$status, "\n", sep=""))
         }
     }
     

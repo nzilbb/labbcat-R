@@ -8,6 +8,8 @@
 #' @param sampleRate Optional sample rate in Hz - if a positive
 #'     integer, then the result is a mono file with the given sample rate.
 #' @param path Optional path to directory where the files should be saved.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return The name of the file, which is saved in the current
 #'     directory, or a list of names of files, if multiple
 #'     id's/start's/end's were specified 
@@ -39,7 +41,7 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sampleRate = NULL, path="") {
+getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sampleRate = NULL, path="", no.progress=FALSE) {
     
     dir = path
     if (length(ids) > 1) { ## multiple fragments
@@ -66,7 +68,7 @@ getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sample
     }
 
     pb <- NULL
-    if (interactive() && length(ids) > 1) {
+    if (interactive() && !no.progress && length(ids) > 1) {
         pb <- txtProgressBar(min = 0, max = length(ids), style = 3)        
     }
 

@@ -32,6 +32,12 @@
 #' }
 #' @param include.match.ids Whether or not the data frame returned includes the original
 #'     MatchId column or not.
+#' @param page.length In order to prevent timeouts when there are a large number of
+#'     matches or the network connection is slow, rather than retrieving matches in one
+#'     big request, they are retrieved using many smaller requests. This parameter
+#'     controls the number of results retrieved per request.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return A data frame with label, start time, and end time, for each layer.
 #' 
 #' @seealso
@@ -54,7 +60,7 @@
 #' 
 getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
                                annotationsPerLayer=1, anchor.confidence.min=50,
-                               include.match.ids=FALSE, page.length=1000) {    
+                               include.match.ids=FALSE, page.length=1000, no.progress=FALSE) {    
     ## validate layer Ids
     for (layerId in layerIds) {
         layer <- getLayer(labbcat.url, layerId)
@@ -69,7 +75,7 @@ getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
     ## break matchIds into manageable chunks
     allLabels <- NULL
     pb <- NULL
-    if (interactive()) {
+    if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = length(matchIds), style = 3)
     }
 
@@ -114,7 +120,7 @@ getMatchAlignments <- function(labbcat.url, matchIds, layerIds, targetOffset=0,
         }
     } ## next chunk
     if (!is.null(pb)) { ## if there was a progress bar, 
-        cat("\n")     ## ensure the prompt appears on the next line
+        close(pb)
     }    
     return(allLabels)
 }

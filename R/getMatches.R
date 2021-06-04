@@ -81,6 +81,8 @@
 #'     matches or the network connection is slow, rather than retrieving matches in one
 #'     big request, they are retrieved using many smaller requests. This parameter
 #'     controls the number of results retrieved per request.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
 #' \itemize{
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
@@ -130,7 +132,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, page.length=1000) {
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, page.length=1000, no.progress=FALSE) {
     
     ## first normalize the pattern...
 
@@ -202,7 +204,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     threadId <- resp.json$model$threadId
 
     pb <- NULL
-    if (interactive()) {
+    if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
 
@@ -224,9 +226,10 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     if (!is.null(pb)) {
         if (!is.null(thread$percentComplete)) {
             setTxtProgressBar(pb, thread$percentComplete)
+            close(pb)
         }
         if (!is.null(thread$status)) {
-            cat(paste("\n", thread$status, " - fetching data...", "\n", sep=""))
+            cat(paste(thread$status, " - fetching data...", "\n", sep=""))
         }
     }
 
@@ -248,9 +251,11 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
         ## so we break the results into chunks and retrieve them using lots of small
         ## requests instead of one big request
         
-        matchesLeft <- min(thread$size, max.matches) ## (works even if max.matches == NULL)
+        totalMatches <- min(thread$size, max.matches) ## (works even if max.matches == NULL)
+        matchesLeft <- totalMatches
         pageNumber <- 0
-        
+
+        pb <- NULL
         if (interactive()) {
             pb <- txtProgressBar(min = 0, max = matchesLeft, style = 3)        
         }
@@ -289,7 +294,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
                              labbcat.url, "transcript?transcript=",
                              matches$Transcript, "#",
                              stringr::str_match(matches$MatchId, "\\[0\\]=(.*)(;.*|$)")[,2], sep=""))
-            tokens <- getMatchAlignments(labbcat.url, matches$MatchId, tokenLayers)
+            tokens <- getMatchAlignments(labbcat.url, matches$MatchId, tokenLayers, no.progress=T)
             matches <- cbind(matches, tokens)
 
             ## add this chunk to the collection
@@ -303,8 +308,11 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
             pageNumber <- pageNumber + 1
         } ## loop
     } ## there are matches
-    ## ensure prompt comes back below progress bar
-    if (!is.null(pb)) cat("\n")
+    ## finished with the progress bar
+    if (!is.null(pb)) {
+        setTxtProgressBar(pb, nrow(allMatches))
+        close(pb)
+    }
     
     frameNames <- c(
         "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",

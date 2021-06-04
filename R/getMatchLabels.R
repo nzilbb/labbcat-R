@@ -21,6 +21,8 @@
 #'     matches or the network connection is slow, rather than retrieving matches in one
 #'     big request, they are retrieved using many smaller requests. This parameter
 #'     controls the number of results retrieved per request.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return A data frame of labels.
 #' 
 #' @seealso
@@ -40,7 +42,7 @@
 #' 
 #' @keywords layer annotation label
 #' 
-getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, annotationsPerLayer=1, include.match.ids = FALSE, page.length=1000) {    
+getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, annotationsPerLayer=1, include.match.ids = FALSE, page.length=1000, no.progress=FALSE) {    
     ## validate layer Ids
     for (layerId in layerIds) {
         layer <- getLayer(labbcat.url, layerId)
@@ -54,7 +56,7 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
 
     allLabels <- NULL
     pb <- NULL
-    if (interactive()) {
+    if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = length(matchIds), style = 3)
     }
 
@@ -99,7 +101,7 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
         }
     } ## next chunk
     if (!is.null(pb)) { ## if there was a progress bar, 
-        cat("\n")     ## ensure the prompt appears on the next line
+        close(pb)
     }    
     return(allLabels)
 }

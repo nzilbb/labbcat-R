@@ -9,6 +9,8 @@
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
 #' @param max.matches The maximum number of matches to return, or null to return all.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
 #' \itemize{
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
@@ -47,7 +49,7 @@
 #'
 #' @keywords search
 #' 
-getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL, main.participant=TRUE, max.matches=NULL) {
+getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL, main.participant=TRUE, max.matches=NULL, no.progress=FALSE) {
     
     ## start the task
     parameters <- list(list="list", id=as.list(participant.ids))
@@ -73,7 +75,7 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
     threadId <- resp.json$model$threadId
 
     pb <- NULL
-    if (interactive()) {
+    if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
 
@@ -100,6 +102,7 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
             cat(paste("\n", thread$status, "\n", sep=""))
         }
     }
+    close(pb)
     
     # now that the task is finished, get the results as CSV
     # (ignore thread$resultUrl - we want the results stream, which starts returning immediately

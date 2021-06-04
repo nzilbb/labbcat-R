@@ -73,6 +73,8 @@
 #'     gender of the speaker is, including the "participant_gender" attribute will make a
 #'     variable called participant_gender$ available to the praat script, whose value will
 #'     be the gender of the speaker for that segment.
+#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#'     shown when interactive().
 #' @return A data frame of acoustic measures, one row for each matchId.
 #' 
 #' @seealso \link{praatScriptFormants}
@@ -115,7 +117,8 @@
 #' 
 processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
                              praat.script, window.offset=0.0,
-                             gender.attribute="participant_gender", attributes=NULL) {
+                             gender.attribute="participant_gender", attributes=NULL,
+                             no.progress=FALSE) {
 
     ## make the script a single string
     praat.script <- paste(praat.script, collapse="\n")
@@ -163,7 +166,7 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
     ## wait until the task is finished
     threadId <- resp.json$model$threadId
     pb <- NULL
-    if (interactive()) {
+    if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
     thread <- thread.get(labbcat.url, threadId)
@@ -184,8 +187,9 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
         if (!is.null(thread$percentComplete)) {
             setTxtProgressBar(pb, thread$percentComplete)
         }
+        close(pb)
         if (!is.null(thread$status)) {
-            cat(paste("\n", thread$status, "\n", sep=""))
+            cat(paste(thread$status, "\n", sep=""))
         }
     }
 
