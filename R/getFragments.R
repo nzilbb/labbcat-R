@@ -4,7 +4,7 @@
 #' converted to a given format (by default, Praat TextGrid).
 #'
 #' \emph{NB} Although many formats will generate exactly one file for each interval
-#'      (e.g. mimeType=text/praat-textgrid), this is not guaranted; some formats generate
+#'      (e.g. mime.type=text/praat-textgrid), this is not guaranted; some formats generate
 #'      a single file or a fixed collection of files regardless of how many fragments there are.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
@@ -12,8 +12,8 @@
 #'     a vector of transcript IDs. 
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
-#' @param layerIds A vector of layer IDs.
-#' @param mimeType Optional content-type - "text/praat-textgrid" is the default, but your
+#' @param layer.ids A vector of layer IDs.
+#' @param mime.type Optional content-type - "text/praat-textgrid" is the default, but your
 #'     LaBB-CAT installation may support other formats, which can be discovered using
 #'     \link{getSerializerDescriptors}.
 #' @param path Optional path to directory where the files should be saved.
@@ -49,7 +49,7 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text/praat-textgrid", path="") {
+getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "text/praat-textgrid", path="") {
 
     dir = path
     if (length(id) > 1) { ## multiple fragments
@@ -77,7 +77,7 @@ getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text
     
     ## create list of repeated parameters
     layerParameters <- list()
-    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layerIds)
+    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layer.ids)
     idParameters <- list()
     mapply(function(l) { idParameters <<- c(idParameters, list(id=l)) }, id)
     startParameters <- list()
@@ -85,7 +85,7 @@ getFragments <- function(labbcat.url, id, start, end, layerIds, mimeType = "text
     endParameters <- list()
     mapply(function(l) { endParameters <<- c(endParameters, list(end=l)) }, end)
 
-    parameters <- list(mimeType=mimeType)
+    parameters <- list(mimeType=mime.type)
     ## add list parameters
     parameters <- c(parameters, layerParameters)
     parameters <- c(parameters, idParameters)

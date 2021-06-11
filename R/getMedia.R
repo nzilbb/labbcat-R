@@ -2,8 +2,8 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
-#' @param trackSuffix The track suffix of the media
-#' @param mimeType The MIME type of the media
+#' @param track.suffix The track suffix of the media
+#' @param mime.type The MIME type of the media
 #' @return A URL to the given media for the given transcript
 #' @seealso \link{getTranscriptIds}
 #' @examples 
@@ -20,8 +20,8 @@
 #' 
 #' @keywords media audio
 #' 
-getMedia <- function(labbcat.url, id, trackSuffix = "", mimeType = "audio/wav") {
-    parameters <- list(id=id, trackSuffix=trackSuffix, mimeType=mimeType)
+getMedia <- function(labbcat.url, id, track.suffix = "", mime.type = "audio/wav") {
+    parameters <- list(id=id, trackSuffix=track.suffix, mimeType=mime.type)
     resp <- store.get(labbcat.url, "getMedia", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")

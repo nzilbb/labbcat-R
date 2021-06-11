@@ -3,9 +3,9 @@
 #' Gets a list of IDs of transcripts (i.e. transcript names) that match a
 #' particular pattern.
 #'
-#' The results can be exhaustive, by omitting pageLength and
-#' pageNumber, or they  can be a subset (a 'page') of results, by
-#' given pageLength and pageNumber values.
+#' The results can be exhaustive, by omitting page.length and
+#' page.number, or they  can be a subset (a 'page') of results, by
+#' given page.length and page.number values.
 #'
 #' The order of the list can be specified.  If ommitted, the transcripts
 #' are listed in ID order.
@@ -15,8 +15,8 @@
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param expression An expression that determines which transcripts match
-#' @param pageLength The maximum number of IDs to return, or null to return all
-#' @param pageNumber The zero-based page number to return, or null to return the first page
+#' @param page.length The maximum number of IDs to return, or null to return all
+#' @param page.number The zero-based page number to return, or null to return the first page
 #' @param order An expression that determines the order the transcripts are
 #' listed in - if specified, this must include the keyword 'ASC' for ascending or 'DESC'
 #' for descending order.
@@ -47,10 +47,10 @@
 #' 
 #' @keywords transcript expression
 #' 
-getMatchingTranscriptIds <- function(labbcat.url, expression, pageLength = NULL, pageNumber = NULL, order = NULL) {
+getMatchingTranscriptIds <- function(labbcat.url, expression, page.length = NULL, page.number = NULL, order = NULL) {
     parameters <- list(expression=expression)
-    if (!is.null(pageLength)) parameters <- append(parameters, list(pageLength=pageLength))
-    if (!is.null(pageNumber)) parameters <- append(parameters, list(pageNumber=pageNumber))
+    if (!is.null(page.length)) parameters <- append(parameters, list(pageLength=page.length))
+    if (!is.null(page.number)) parameters <- append(parameters, list(pageNumber=page.number))
     if (!is.null(order)) parameters <- append(parameters, list(order=order))
     resp <- store.get(labbcat.url, "getMatchingTranscriptIds", parameters)
     if (is.null(resp)) return()

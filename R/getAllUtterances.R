@@ -102,7 +102,7 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
             cat(paste("\n", thread$status, "\n", sep=""))
         }
     }
-    close(pb)
+    if (!is.null(pb)) close(pb)
     
     # now that the task is finished, get the results as CSV
     # (ignore thread$resultUrl - we want the results stream, which starts returning immediately

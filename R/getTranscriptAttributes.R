@@ -1,8 +1,8 @@
 #' Gets transcript attribute values for given transcript IDs.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param transcriptIds A vector of transcript IDs
-#' @param layerIds A vector of layer IDs corresponding to transcript attributes. In
+#' @param transcript.ids A vector of transcript IDs
+#' @param layer.ids A vector of layer IDs corresponding to transcript attributes. In
 #'     general, these are layers whose ID is prefixed 'transcript_', however formally it's
 #'     any layer where layer$parentId == 'transcript' && layer$alignment == 0, which includes
 #'     'corpus' as well as transcript attribute layers.
@@ -22,9 +22,9 @@
 #' 
 #' @keywords layer annotation label
 #' 
-getTranscriptAttributes <- function(labbcat.url, transcriptIds, layerIds) {    
+getTranscriptAttributes <- function(labbcat.url, transcript.ids, layer.ids) {    
     ## validate layer Ids
-    for (layerId in layerIds) {
+    for (layerId in layer.ids) {
         layer <- getLayer(labbcat.url, layerId)
         ## getLayer prints an error if the layerId isn't valid
         if (is.null(layer)) return()
@@ -39,17 +39,17 @@ getTranscriptAttributes <- function(labbcat.url, transcriptIds, layerIds) {
     download.file = tempfile(pattern="transcript-attributes.", fileext=".csv")
 
     ## add 'transcript' layer so that results can be matched with transcript IDs
-    layerIds <- c('transcript', layerIds)
+    layer.ids <- c('transcript', layer.ids)
 
     ## flatten lists into single newine-delimited strings
     ## (because httr can't handle multiple parameters with the same name)
-    layerIds <- paste(layerIds,collapse="\n")
-    transcriptIds <- paste(transcriptIds,collapse="\n")
+    layer.ids <- paste(layer.ids,collapse="\n")
+    transcript.ids <- paste(transcript.ids,collapse="\n")
 
     ## make request
     parameters <- list(
-        layers=layerIds,
-        ids=transcriptIds)
+        layers=layer.ids,
+        ids=transcript.ids)
     resp <- http.post(labbcat.url, "api/attributes", parameters, download.file)
     
     ## check the reponse

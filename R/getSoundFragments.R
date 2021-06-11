@@ -3,9 +3,9 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param ids The transcript ID (transcript name) of the sound recording, or
 #'     a vector of transcript IDs. 
-#' @param startOffsets The start time in seconds, or a vector of start times.
-#' @param endOffsets The end time in seconds, or a vector of end times.
-#' @param sampleRate Optional sample rate in Hz - if a positive
+#' @param start.offsets The start time in seconds, or a vector of start times.
+#' @param end.offsets The end time in seconds, or a vector of end times.
+#' @param sample.rate Optional sample rate in Hz - if a positive
 #'     integer, then the result is a mono file with the given sample rate.
 #' @param path Optional path to directory where the files should be saved.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
@@ -41,7 +41,7 @@
 #' }
 #' @keywords sample sound fragment wav
 #' 
-getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sampleRate = NULL, path="", no.progress=FALSE) {
+getSoundFragments <- function(labbcat.url, ids, start.offsets, end.offsets, sample.rate = NULL, path="", no.progress=FALSE) {
     
     dir = path
     if (length(ids) > 1) { ## multiple fragments
@@ -79,9 +79,9 @@ getSoundFragments <- function(labbcat.url, ids, startOffsets, endOffsets, sample
     file.names = c()
     r <- 1
     for (graph.id in ids) {
-        parameters <- list(id=graph.id, start=startOffsets[r], end=endOffsets[r])
-        if (!is.null(sampleRate)) parameters <- list(id=graph.id, start=startOffsets[r], end=endOffsets[r], sampleRate=sampleRate)
-        file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", startOffsets[r], "-", endOffsets[r], ".wav", sep="")
+        parameters <- list(id=graph.id, start=start.offsets[r], end=end.offsets[r])
+        if (!is.null(sample.rate)) parameters <- list(id=graph.id, start=start.offsets[r], end=end.offsets[r], sampleRate=sample.rate)
+        file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", start.offsets[r], "-", end.offsets[r], ".wav", sep="")
 
         tryCatch({
             resp <- http.post(labbcat.url, "soundfragment", parameters, file.name)

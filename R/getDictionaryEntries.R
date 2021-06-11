@@ -1,8 +1,8 @@
 #' Lookup entries in a dictionary.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param managerId The layer manager ID of the dictionary, as returned by getDictionaries
-#' @param dictionaryId The ID of the dictionary, as returned by getDictionaries
+#' @param manager.id The layer manager ID of the dictionary, as returned by getDictionaries
+#' @param dictionary.id The ID of the dictionary, as returned by getDictionaries
 #' @param keys A list of entries to look up
 #' @return A data frame with the keys and their dictionary entries.
 #' 
@@ -20,14 +20,14 @@
 #' 
 #' @keywords dictionary
 #' 
-getDictionaryEntries <- function(labbcat.url, managerId, dictionaryId, keys) {
+getDictionaryEntries <- function(labbcat.url, manager.id, dictionary.id, keys) {
     ## save keys to a CSV file
     upload.file = "keys.csv"
     download.file = "entries.csv"
     write.table(keys, upload.file, sep=",", row.names=FALSE, col.names=FALSE)
 
     ## make request
-    parameters <- list(managerId=managerId, dictionaryId=dictionaryId, uploadfile=httr::upload_file(upload.file))    
+    parameters <- list(managerId=manager.id, dictionaryId=dictionary.id, uploadfile=httr::upload_file(upload.file))    
     resp <- http.post.multipart(labbcat.url, "dictionary", parameters, download.file)
 
     ## tidily remove upload file

@@ -4,9 +4,9 @@
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
-#' @param layerId A layer ID
-#' @param pageLength The maximum number of annotations to return, or null to return all
-#' @param pageNumber The zero-based page number to return, or null to return the first page
+#' @param layer.id A layer ID
+#' @param page.length The maximum number of annotations to return, or null to return all
+#' @param page.number The zero-based page number to return, or null to return the first page
 #' @return A named list of annotations, with members:
 #' \itemize{
 #'  \item{\emph{id} The annotation's unique ID}
@@ -39,10 +39,10 @@
 #'
 #' @keywords transcript
 #' 
-getAnnotations <- function(labbcat.url, id, layerId, pageLength = NULL, pageNumber = NULL) {
-    parameters <- list(id=id, layerId=layerId)
-    if (!is.null(pageLength)) parameters <- append(parameters, list(pageLength=pageLength))
-    if (!is.null(pageNumber)) parameters <- append(parameters, list(pageNumber=pageNumber))
+getAnnotations <- function(labbcat.url, id, layer.id, page.length = NULL, page.number = NULL) {
+    parameters <- list(id=id, layerId=layer.id)
+    if (!is.null(page.length)) parameters <- append(parameters, list(pageLength=page.length))
+    if (!is.null(page.number)) parameters <- append(parameters, list(pageNumber=page.number))
     resp <- store.get(labbcat.url, "getAnnotations", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")

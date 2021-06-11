@@ -67,7 +67,8 @@ test_that("getMatchAlignments works with count > 1", {
                   "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7280;[0]=ew_0_7280"))
 
     ## get label/start/end
-    labels <- getMatchAlignments(labbcat.url, results$MatchId, "phonemes", annotationsPerLayer=2)
+    labels <- getMatchAlignments(
+        labbcat.url, results$MatchId, "phonemes", annotations.per.layer=2)
     ## 2 annotations per layer * 3 fields (label/start/end)
     expect_equal(length(labels), 6)
 

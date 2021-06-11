@@ -59,7 +59,7 @@ test_that("getMatchLabels works with count > 1", {
                   "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7280;[0]=ew_0_7280"))
 
     ## get labels
-    labels <- getMatchLabels(labbcat.url, results$MatchId, "phonemes", annotationsPerLayer=2)
+    labels <- getMatchLabels(labbcat.url, results$MatchId, "phonemes", annotations.per.layer=2)
     expect_equal(length(labels), 2)
 
     expect_equal(length(labels$phonemes.1), 3)

@@ -54,10 +54,10 @@
 #' }
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param matchIds A vector of annotation IDs, e.g. the MatchId column, or the URL column,
+#' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,
 #'     of a results set. 
-#' @param startOffsets The start time in seconds, or a vector of start times.
-#' @param endOffsets The end time in seconds, or a vector of end times.
+#' @param start.offsets The start time in seconds, or a vector of start times.
+#' @param end.offsets The end time in seconds, or a vector of end times.
 #' @param praat.script Script to run on each match. This may be a single string or a
 #'     character vector.
 #' @param window.offset In many circumstances, you will want some context before and after
@@ -115,7 +115,7 @@
 #' }
 #' @keywords praat
 #' 
-processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
+processWithPraat <- function(labbcat.url, match.ids, start.offsets, end.offsets,
                              praat.script, window.offset=0.0,
                              gender.attribute="participant_gender", attributes=NULL,
                              no.progress=FALSE) {
@@ -123,13 +123,13 @@ processWithPraat <- function(labbcat.url, matchIds, startOffsets, endOffsets,
     ## make the script a single string
     praat.script <- paste(praat.script, collapse="\n")
 
-    ## split matchIds into transcript ID and participant ID
-    transcriptIds <- stringr::str_replace(matchIds, ".*(g_[0-9]+);.*","\\1")
-    participantIds <- stringr::str_replace(matchIds, ".*(p_[0-9]+);.*","\\1")
+    ## split match.ids into transcript ID and participant ID
+    transcriptIds <- stringr::str_replace(match.ids, ".*(g_[0-9]+);.*","\\1")
+    participantIds <- stringr::str_replace(match.ids, ".*(p_[0-9]+);.*","\\1")
 
     ## save CSV file to upload
     upload.file <- tempfile(pattern="processWithPraat.", fileext=".csv")
-    write.table(data.frame(transcriptIds, participantIds, startOffsets, endOffsets),
+    write.table(data.frame(transcriptIds, participantIds, start.offsets, end.offsets),
                 upload.file, sep=",", row.names=FALSE, col.names=TRUE)
     download.file <- tempfile(pattern="praatOutput.", fileext=".csv")
 

@@ -1,21 +1,21 @@
 #' Gets labels of annotations on a given layer, identified by given match IDs.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param matchIds A vector of annotation IDs, e.g. the MatchId column, or the URL column,
+#' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,
 #'     of a results set. 
-#' @param layerIds A vector of layer IDs.
-#' @param targetOffset The distance from the original target of the match, e.g.
+#' @param layer.ids A vector of layer IDs.
+#' @param target.offset The distance from the original target of the match, e.g.
 #' \itemize{
 #'  \item{\emph{0} -- find annotations of the match target itself},
 #'  \item{\emph{1} -- find annotations of the token immediately \emph{after} match target}
 #'  \item{\emph{-1} -- find annotations of the token immediately \emph{before} match target}
 #' }
-#' @param annotationsPerLayer The number of annotations on the given layer to
+#' @param annotations.per.layer The number of annotations on the given layer to
 #'     retrieve. In most cases, there's only one annotation available. However, tokens
 #'     may, for example, be annotated with `all possible phonemic transcriptions', in which
 #'     case using a value of greater than 1 for this parameter provides other phonemic
 #'     transcriptions, for tokens that have more than one.
-#' @param includeMatchIds Whether or not the data frame returned includes the original
+#' @param include.match.ids Whether or not the data frame returned includes the original
 #'     MatchId column or not.
 #' @param page.length In order to prevent timeouts when there are a large number of
 #'     matches or the network connection is slow, rather than retrieving matches in one
@@ -42,9 +42,9 @@
 #' 
 #' @keywords layer annotation label
 #' 
-getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, annotationsPerLayer=1, include.match.ids = FALSE, page.length=1000, no.progress=FALSE) {    
+getMatchLabels <- function(labbcat.url, match.ids, layer.ids, target.offset=0, annotations.per.layer=1, include.match.ids = FALSE, page.length=1000, no.progress=FALSE) {    
     ## validate layer Ids
-    for (layerId in layerIds) {
+    for (layerId in layer.ids) {
         layer <- getLayer(labbcat.url, layerId)
         ## getLayer prints an error if the layerId isn't valid
         if (is.null(layer)) return()
@@ -57,19 +57,19 @@ getMatchLabels <- function(labbcat.url, matchIds, layerIds, targetOffset=0, anno
     allLabels <- NULL
     pb <- NULL
     if (interactive() && !no.progress) {
-        pb <- txtProgressBar(min = 0, max = length(matchIds), style = 3)
+        pb <- txtProgressBar(min = 0, max = length(match.ids), style = 3)
     }
 
-    ## break matchIds into manageable chunks
-    matchIdChunks <- split(matchIds, ceiling(seq_along(matchIds)/page.length))
-    for (matchIds in matchIdChunks) {
-        write.table(matchIds, upload.file, sep=",", row.names=FALSE, col.names=TRUE)
+    ## break match.ids into manageable chunks
+    matchIdChunks <- split(match.ids, ceiling(seq_along(match.ids)/page.length))
+    for (match.ids in matchIdChunks) {
+        write.table(match.ids, upload.file, sep=",", row.names=FALSE, col.names=TRUE)
         
         ## make request
-        layerIds <- paste(layerIds,collapse="\n")
+        layer.ids <- paste(layer.ids,collapse="\n")
         parameters <- list(
-            layerIds=layerIds,
-            targetOffset=targetOffset, annotationsPerLayer=annotationsPerLayer,
+            layerIds=layer.ids,
+            targetOffset=target.offset, annotationsPerLayer=annotations.per.layer,
             csvFieldDelimiter=",", targetColumn=0, copyColumns=include.match.ids,
             "content-type"="text/csv",
             plus="Token.plus.", minus="Token.minus.",

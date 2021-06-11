@@ -5,7 +5,7 @@
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
-#' @param layerId A layer ID
+#' @param layer.d A layer ID
 #' @return The number of annotations on that layer
 #' 
 #' @seealso
@@ -23,8 +23,8 @@
 #' 
 #' @keywords transcript
 #' 
-countAnnotations <- function(labbcat.url, id, layerId) {
-    parameters <- list(id=id, layerId=layerId)
+countAnnotations <- function(labbcat.url, id, layer.id) {
+    parameters <- list(id=id, layerId=layer.id)
     resp <- store.get(labbcat.url, "countAnnotations", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
