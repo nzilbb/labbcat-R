@@ -5,7 +5,7 @@
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
-#' @param layer.d A layer ID
+#' @param layer.id A layer ID
 #' @return The number of annotations on that layer
 #' 
 #' @seealso
