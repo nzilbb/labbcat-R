@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
 ## 6 AP2516_JasonEager.eaf        miss           266.759</code></pre>
 <p>In order to be able to analyse the /s/ segments, we need it’s start and end time, so we can extract a matching sound sample. We identify the first three <em>segment</em> annotations of each token, the last of which will be the /s/ segment we’re interested in.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">segments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(
-  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">annotationsPerLayer</span><span class="kw">=</span><span class="fl">3</span>)
+  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">annotations.per.layer</span><span class="kw">=</span><span class="fl">3</span>)
 
 <span class="co"># combine the segment data with the matches</span>
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">segments</span>)

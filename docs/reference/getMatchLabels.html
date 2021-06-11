@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -143,10 +143,13 @@
 
     <pre class="usage"><span class='fu'>getMatchLabels</span>(
   <span class='no'>labbcat.url</span>,
-  <span class='no'>matchIds</span>,
-  <span class='no'>layerIds</span>,
-  <span class='kw'>targetOffset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>annotationsPerLayer</span> <span class='kw'>=</span> <span class='fl'>1</span>
+  <span class='no'>match.ids</span>,
+  <span class='no'>layer.ids</span>,
+  <span class='kw'>target.offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>annotations.per.layer</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>include.match.ids</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>page.length</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -157,16 +160,16 @@
       <td><p>URL to the LaBB-CAT instance</p></td>
     </tr>
     <tr>
-      <th>matchIds</th>
+      <th>match.ids</th>
       <td><p>A vector of annotation IDs, e.g. the MatchId column, or the URL column,
 of a results set.</p></td>
     </tr>
     <tr>
-      <th>layerIds</th>
+      <th>layer.ids</th>
       <td><p>A vector of layer IDs.</p></td>
     </tr>
     <tr>
-      <th>targetOffset</th>
+      <th>target.offset</th>
       <td><p>The distance from the original target of the match, e.g.</p><ul>
 <li><p><em>0</em> -- find annotations of the match target itself,</p></li>
 <li><p><em>1</em> -- find annotations of the token immediately <em>after</em> match target</p></li>
@@ -174,12 +177,29 @@ of a results set.</p></td>
 </ul></td>
     </tr>
     <tr>
-      <th>annotationsPerLayer</th>
+      <th>annotations.per.layer</th>
       <td><p>The number of annotations on the given layer to
 retrieve. In most cases, there's only one annotation available. However, tokens
 may, for example, be annotated with `all possible phonemic transcriptions', in which
 case using a value of greater than 1 for this parameter provides other phonemic
 transcriptions, for tokens that have more than one.</p></td>
+    </tr>
+    <tr>
+      <th>include.match.ids</th>
+      <td><p>Whether or not the data frame returned includes the original
+MatchId column or not.</p></td>
+    </tr>
+    <tr>
+      <th>page.length</th>
+      <td><p>In order to prevent timeouts when there are a large number of
+matches or the network connection is slow, rather than retrieving matches in one
+big request, they are retrieved using many smaller requests. This parameter
+controls the number of results retrieved per request.</p></td>
+    </tr>
+    <tr>
+      <th>no.progress</th>
+      <td><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
+shown when interactive().</p></td>
     </tr>
     </table>
 

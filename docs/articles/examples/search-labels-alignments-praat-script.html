@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -203,7 +203,7 @@
 ## 5 substantial              s     'st{n          136.57        136.94
 ## 6     twisted              s      stId          144.25        144.44</code></pre>
 <p>And the start/end times for the segment that <em>follows</em> the token:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">following.segment</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(<span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">targetOffset</span> <span class="kw">=</span> <span class="fl">1</span>)
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">following.segment</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(<span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">target.offset</span> <span class="kw">=</span> <span class="fl">1</span>)
 
 <span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">following.segment</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(

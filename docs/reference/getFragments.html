@@ -84,7 +84,7 @@ converted to a given format (by default, Praat TextGrid)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -148,8 +148,8 @@ converted to a given format (by default, Praat TextGrid).</p>
   <span class='no'>id</span>,
   <span class='no'>start</span>,
   <span class='no'>end</span>,
-  <span class='no'>layerIds</span>,
-  <span class='kw'>mimeType</span> <span class='kw'>=</span> <span class='st'>"text/praat-textgrid"</span>,
+  <span class='no'>layer.ids</span>,
+  <span class='kw'>mime.type</span> <span class='kw'>=</span> <span class='st'>"text/praat-textgrid"</span>,
   <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>
 )</pre>
 
@@ -174,11 +174,11 @@ a vector of transcript IDs.</p></td>
       <td><p>The end time in seconds, or a vector of end times.</p></td>
     </tr>
     <tr>
-      <th>layerIds</th>
+      <th>layer.ids</th>
       <td><p>A vector of layer IDs.</p></td>
     </tr>
     <tr>
-      <th>mimeType</th>
+      <th>mime.type</th>
       <td><p>Optional content-type - "text/praat-textgrid" is the default, but your
 LaBB-CAT installation may support other formats, which can be discovered using
 <a href='getSerializerDescriptors.html'>getSerializerDescriptors</a>.</p></td>
@@ -200,7 +200,7 @@ LaBB-CAT installation may support other formats, which can be discovered using
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><em>NB</em> Although many formats will generate exactly one file for each interval
-     (e.g. mimeType=text/praat-textgrid), this is not guaranted; some formats generate
+     (e.g. mime.type=text/praat-textgrid), this is not guaranted; some formats generate
      a single file or a fixed collection of files regardless of how many fragments there are.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

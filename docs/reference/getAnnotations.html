@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -141,7 +141,13 @@
     <p>Returns the annotations on the given layer of the given transcript.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getAnnotations</span>(<span class='no'>labbcat.url</span>, <span class='no'>id</span>, <span class='no'>layerId</span>, <span class='kw'>pageLength</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pageNumber</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>getAnnotations</span>(
+  <span class='no'>labbcat.url</span>,
+  <span class='no'>id</span>,
+  <span class='no'>layer.id</span>,
+  <span class='kw'>page.length</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>page.number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,15 +161,15 @@
       <td><p>A transcript ID (i.e. transcript name)</p></td>
     </tr>
     <tr>
-      <th>layerId</th>
+      <th>layer.id</th>
       <td><p>A layer ID</p></td>
     </tr>
     <tr>
-      <th>pageLength</th>
+      <th>page.length</th>
       <td><p>The maximum number of annotations to return, or null to return all</p></td>
     </tr>
     <tr>
-      <th>pageNumber</th>
+      <th>page.number</th>
       <td><p>The zero-based page number to return, or null to return the first page</p></td>
     </tr>
     </table>

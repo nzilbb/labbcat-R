@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -146,7 +146,8 @@
   <span class='no'>participant.ids</span>,
   <span class='kw'>transcript.types</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>main.participant</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>max.matches</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>max.matches</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -173,6 +174,11 @@ search all utterances.</p></td>
     <tr>
       <th>max.matches</th>
       <td><p>The maximum number of matches to return, or null to return all.</p></td>
+    </tr>
+    <tr>
+      <th>no.progress</th>
+      <td><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
+shown when interactive().</p></td>
     </tr>
     </table>
 

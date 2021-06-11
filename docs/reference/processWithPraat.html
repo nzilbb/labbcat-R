@@ -84,7 +84,7 @@ intervals, in order to extract acoustic measures." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -145,13 +145,14 @@ intervals, in order to extract acoustic measures.</p>
 
     <pre class="usage"><span class='fu'>processWithPraat</span>(
   <span class='no'>labbcat.url</span>,
-  <span class='no'>matchIds</span>,
-  <span class='no'>startOffsets</span>,
-  <span class='no'>endOffsets</span>,
+  <span class='no'>match.ids</span>,
+  <span class='no'>start.offsets</span>,
+  <span class='no'>end.offsets</span>,
   <span class='no'>praat.script</span>,
   <span class='kw'>window.offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>gender.attribute</span> <span class='kw'>=</span> <span class='st'>"participant_gender"</span>,
-  <span class='kw'>attributes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>attributes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -162,16 +163,16 @@ intervals, in order to extract acoustic measures.</p>
       <td><p>URL to the LaBB-CAT instance</p></td>
     </tr>
     <tr>
-      <th>matchIds</th>
+      <th>match.ids</th>
       <td><p>A vector of annotation IDs, e.g. the MatchId column, or the URL column,
 of a results set.</p></td>
     </tr>
     <tr>
-      <th>startOffsets</th>
+      <th>start.offsets</th>
       <td><p>The start time in seconds, or a vector of start times.</p></td>
     </tr>
     <tr>
-      <th>endOffsets</th>
+      <th>end.offsets</th>
       <td><p>The end time in seconds, or a vector of end times.</p></td>
     </tr>
     <tr>
@@ -200,6 +201,11 @@ example, if you want to use different acoustic parameters depending on what the
 gender of the speaker is, including the "participant_gender" attribute will make a
 variable called participant_gender$ available to the praat script, whose value will
 be the gender of the speaker for that segment.</p></td>
+    </tr>
+    <tr>
+      <th>no.progress</th>
+      <td><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
+shown when interactive().</p></td>
     </tr>
     </table>
 

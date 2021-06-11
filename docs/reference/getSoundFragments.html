@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -144,10 +144,11 @@
     <pre class="usage"><span class='fu'>getSoundFragments</span>(
   <span class='no'>labbcat.url</span>,
   <span class='no'>ids</span>,
-  <span class='no'>startOffsets</span>,
-  <span class='no'>endOffsets</span>,
-  <span class='kw'>sampleRate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>
+  <span class='no'>start.offsets</span>,
+  <span class='no'>end.offsets</span>,
+  <span class='kw'>sample.rate</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -163,21 +164,26 @@
 a vector of transcript IDs.</p></td>
     </tr>
     <tr>
-      <th>startOffsets</th>
+      <th>start.offsets</th>
       <td><p>The start time in seconds, or a vector of start times.</p></td>
     </tr>
     <tr>
-      <th>endOffsets</th>
+      <th>end.offsets</th>
       <td><p>The end time in seconds, or a vector of end times.</p></td>
     </tr>
     <tr>
-      <th>sampleRate</th>
+      <th>sample.rate</th>
       <td><p>Optional sample rate in Hz - if a positive
 integer, then the result is a mono file with the given sample rate.</p></td>
     </tr>
     <tr>
       <th>path</th>
       <td><p>Optional path to directory where the files should be saved.</p></td>
+    </tr>
+    <tr>
+      <th>no.progress</th>
+      <td><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
+shown when interactive().</p></td>
     </tr>
     </table>
 

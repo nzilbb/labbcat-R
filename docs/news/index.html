@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -135,22 +135,75 @@
       
     </div>
 
-    <div id="nzilbblabbcat-07-1" class="section level1">
-<h1 class="page-header" data-toc-text="0.7-1">
-<a href="#nzilbblabbcat-07-1" class="anchor"></a>nzilbb.labbcat 0.7-1<small> 2021-05-27 </small>
+    <div id="nzilbblabbcat-10-1" class="section level1">
+<h1 class="page-header" data-toc-text="1.0-1">
+<a href="#nzilbblabbcat-10-1" class="anchor"></a>nzilbb.labbcat 1.0-1<small> Unreleased </small>
 </h1>
-<p>Minimum LaBB-CAT version <em>20210210.2032</em></p>
+<p>Minimum LaBB-CAT version <em>20210601.1528</em></p>
 <div id="enhancements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#enhancements" class="anchor"></a>Enhancements</h2>
 <ul>
-<li>remove no.progress parameter (progress bar will appear automatically only in interactive mode).</li>
-<li>getMatches now supports <em>overlap.threshold</em> parameter.</li>
+<li>All function parameters are now named with dot.case instead of camelCase, for internal and external consistency.</li>
+<li>Re-instate <em>no.progress</em> parameter for
+<ul>
+<li><em>getAllUtterances</em></li>
+<li><em>getMatchAlignments</em></li>
+<li><em>getMatchLabels</em></li>
+<li><em>getSoundFragments</em></li>
+<li><em>newTranscript</em></li>
+<li><em>updateTranscript</em></li>
+<li><em>processWithPraat</em></li>
+</ul>
+</li>
+<li>Break some requests into chunks to avoid timeouts for very large result sets:
+<ul>
+<li><em>getMatches</em></li>
+<li><em>getMatchLabels</em></li>
+<li><em>getMatchAlignments</em></li>
+</ul>
+</li>
+<li>Introduce <em>include.match.ids</em> parameter for manual matching of prior results if required for
+<ul>
+<li><em>getMatchLabels</em></li>
+<li><em>getMatchAlignments</em></li>
+</ul>
+</li>
+<li>Introduce <em>page.length</em> parameter for tuning request sizes on some functions for
+<ul>
+<li><em>getAnchors</em></li>
+<li><em>getAnnotations</em></li>
+<li><em>getMatchingTranscriptIds</em></li>
+<li><em>getMatches</em></li>
+<li><em>getMatchLabels</em></li>
+<li><em>getMatchAlignments</em></li>
+</ul>
+</li>
+<li>CSV-related bug fixes.</li>
+<li>Improve progress bar handling.</li>
 </ul>
 </div>
 <div id="new-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-functions" class="anchor"></a>New functions:</h2>
+</div>
+</div>
+    <div id="nzilbblabbcat-07-1" class="section level1">
+<h1 class="page-header" data-toc-text="0.7-1">
+<a href="#nzilbblabbcat-07-1" class="anchor"></a>nzilbb.labbcat 0.7-1<small> 2021-05-27 </small>
+</h1>
+<p>Minimum LaBB-CAT version <em>20210210.2032</em></p>
+<div id="enhancements-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
+<ul>
+<li>remove no.progress parameter (progress bar will appear automatically only in interactive mode).</li>
+<li>getMatches now supports <em>overlap.threshold</em> parameter.</li>
+</ul>
+</div>
+<div id="new-functions-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-functions-1" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>newTranscript</em> : Upload a new transcript (with media) to the server.</li>
@@ -170,9 +223,9 @@
 <a href="#nzilbblabbcat-06-1" class="anchor"></a>nzilbb.labbcat 0.6-1<small> 2020-08-26 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20200812.1253</em></p>
-<div id="new-functions-1" class="section level2">
+<div id="new-functions-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-1" class="anchor"></a>New functions:</h2>
+<a href="#new-functions-2" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>getMatchAlignments</em> : Gets temporal alignments of matches on a given layer.</li>
@@ -192,9 +245,9 @@
 <a href="#nzilbblabbcat-05-1" class="anchor"></a>nzilbb.labbcat 0.5-1<small> 2020-06-13 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20200608.1507</em></p>
-<div id="new-functions-2" class="section level2">
+<div id="new-functions-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-2" class="anchor"></a>New functions:</h2>
+<a href="#new-functions-3" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>getParticipantAttributes</em> : Gets participant attribute values for given participant IDs.</li>
@@ -208,9 +261,9 @@
 <li><em>praatScriptPitch</em></li>
 </ul>
 </div>
-<div id="enhancements-1" class="section level2">
+<div id="enhancements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements-1" class="anchor"></a>Enhancements</h2>
+<a href="#enhancements-2" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>getAnnotationLabels now supports
 <ul>
@@ -226,9 +279,9 @@
 <a href="#nzilbblabbcat-04-1" class="anchor"></a>nzilbb.labbcat 0.4-1<small> 2020-01-09 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20200108.1025</em></p>
-<div id="enhancements-2" class="section level2">
+<div id="enhancements-3" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements-2" class="anchor"></a>Enhancements</h2>
+<a href="#enhancements-3" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>Added <em>getMatches</em> function for searching LaBB-CAT</li>
 <li>Improved handling of large lists passed to getAnchors</li>
@@ -241,9 +294,9 @@
 <a href="#nzilbblabbcat-03-1" class="anchor"></a>nzilbb.labbcat 0.3-1<small> 2019-10-28 </small>
 </h1>
 <p>Minimum LaBB-CAT version <em>20191022.1827</em></p>
-<div id="new-functions-3" class="section level2">
+<div id="new-functions-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-functions-3" class="anchor"></a>New functions:</h2>
+<a href="#new-functions-4" class="anchor"></a>New functions:</h2>
 <ul>
 <li>
 <em>getFragments</em> : for exporting fragments as Praat TextGrids.</li>
@@ -251,9 +304,9 @@
 <em>labbcatTimeout</em> : for specifying the request timeout (for those with slow internet)</li>
 </ul>
 </div>
-<div id="enhancements-3" class="section level2">
+<div id="enhancements-4" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements-3" class="anchor"></a>Enhancements</h2>
+<a href="#enhancements-4" class="anchor"></a>Enhancements</h2>
 <ul>
 <li>
 <em>path</em> parameter for the <em>getSoundFragments</em> function</li>

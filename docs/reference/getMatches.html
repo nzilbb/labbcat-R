@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -151,7 +151,9 @@
   <span class='kw'>matches.per.transcript</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>words.context</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>max.matches</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>overlap.threshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>overlap.threshold</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>page.length</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
+  <span class='kw'>no.progress</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -255,20 +257,35 @@ return. NULL means all matches.</p></td>
       <td><p>The percentage overlap with other utterances before
 simultaneous speech is excluded, or null to include overlapping speech.</p></td>
     </tr>
+    <tr>
+      <th>page.length</th>
+      <td><p>In order to prevent timeouts when there are a large number of
+matches or the network connection is slow, rather than retrieving matches in one
+big request, they are retrieved using many smaller requests. This parameter
+controls the number of results retrieved per request.</p></td>
+    </tr>
+    <tr>
+      <th>no.progress</th>
+      <td><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
+shown when interactive().</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame identifying matches, containing the following columns:</p><ul>
 <li><p><em>SearchName</em> A name based on the pattern -- the same for all rows</p></li>
-<li><p><em>Number</em> Row number</p></li>
+<li><p><em>MatchId</em> A unique ID for the matching target token</p></li>
 <li><p><em>Transcript</em> Name of the transcript in which the match was found</p></li>
+<li><p><em>Participant</em> Name of the speaker</p></li>
+<li><p><em>Corpus</em> The corpus of the transcript</p></li>
 <li><p><em>Line</em> The start offset of the utterance/line</p></li>
 <li><p><em>LineEnd</em> The end offset of the utterance/line</p></li>
-<li><p><em>MatchId</em> A unique ID for the matching target token</p></li>
 <li><p><em>Before.Match</em> Transcript text immediately before the match</p></li>
 <li><p><em>Text</em> Transcript text of the match</p></li>
-<li><p><em>Before.Match</em> Transcript text immediately after the match</p></li>
+<li><p><em>After.Match</em> Transcript text immediately after the match</p></li>
+<li><p><em>Number</em> Row number</p></li>
+<li><p><em>URL</em> URL of the first matching word token</p></li>
 <li><p><em>Target.word</em> Text of the target word token</p></li>
 <li><p><em>Target.word.start</em> Start offset of the target word token</p></li>
 <li><p><em>Target.word.end</em> End offset of the target word token</p></li>

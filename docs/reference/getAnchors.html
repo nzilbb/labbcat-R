@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
       </span>
     </div>
 
@@ -141,7 +141,7 @@
     <p>Lists the given anchors in the given transcript.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getAnchors</span>(<span class='no'>labbcat.url</span>, <span class='no'>id</span>, <span class='no'>anchorId</span>)</pre>
+    <pre class="usage"><span class='fu'>getAnchors</span>(<span class='no'>labbcat.url</span>, <span class='no'>id</span>, <span class='no'>anchor.id</span>, <span class='kw'>page.length</span> <span class='kw'>=</span> <span class='fl'>1000</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,8 +155,15 @@
       <td><p>A transcript ID (i.e. transcript name)</p></td>
     </tr>
     <tr>
-      <th>anchorId</th>
+      <th>anchor.id</th>
       <td><p>A vector of anchor IDs (or a string representing one anchor ID)</p></td>
+    </tr>
+    <tr>
+      <th>page.length</th>
+      <td><p>In order to prevent timeouts when there are a large number of
+matches or the network connection is slow, rather than retrieving anchors in one
+big request, they are retrieved using many smaller requests. This parameter
+controls the number of anchors retrieved per request.</p></td>
     </tr>
     </table>
 
