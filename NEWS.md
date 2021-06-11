@@ -6,28 +6,28 @@ Minimum LaBB-CAT version *20210601.1528*
 
 - All function parameters are now named with dot.case instead of camelCase, for internal
   and external consistency.
-- Re-instate no.progress parameter for
-  + getAllUtterances
-  + getMatchAlignments
-  + getMatchLabels
-  + getSoundFragments
-  + newTranscript
-  + updateTranscript
-  + processWithPraat
+- Re-instate *no.progress* parameter for
+  + *getAllUtterances*
+  + *getMatchAlignments*
+  + *getMatchLabels*
+  + *getSoundFragments*
+  + *newTranscript*
+  + *updateTranscript*
+  + *processWithPraat*
 - Break some requests into chunks to avoid timeouts for very large result sets:
-  + getMatches
-  + getMatchLabels
-  + getMatchAlignments
-- Introduce include.match.ids parameter for manual matching of prior results if required for
-  + getMatchLabels
-  + getMatchAlignments
-- Introduce page.length parameter for tuning request sizes on some functions for
-  + getAnchors
-  + getAnnotations
-  + getMatchingTranscriptIds
-  + getMatches
-  + getMatchLabels
-  + getMatchAlignments
+  + *getMatches*
+  + *getMatchLabels*
+  + *getMatchAlignments*
+- Introduce *include.match.ids* parameter for manual matching of prior results if required for
+  + *getMatchLabels*
+  + *getMatchAlignments*
+- Introduce *page.length* parameter for tuning request sizes on some functions for
+  + *getAnchors*
+  + *getAnnotations*
+  + *getMatchingTranscriptIds*
+  + *getMatches*
+  + *getMatchLabels*
+  + *getMatchAlignments*
 - CSV-related bug fixes.
 - Improve progress bar handling.
 
