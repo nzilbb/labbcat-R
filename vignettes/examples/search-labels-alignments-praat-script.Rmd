@@ -135,7 +135,7 @@ head(matches)[, c(
 And the start/end times for the segment that *follows* the token:
 
 ```{r following-segment}
-following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segment"), targetOffset = 1)
+following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segment"), target.offset = 1)
 
 matches <- cbind(matches, following.segment)
 head(matches)[, c(
