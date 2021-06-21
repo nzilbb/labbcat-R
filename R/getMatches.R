@@ -293,7 +293,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
                 matches, paste(
                              labbcat.url, "transcript?transcript=",
                              matches$Transcript, "#",
-                             stringr::str_match(matches$MatchId, "\\[0\\]=(.*)(;.*|$)")[,2], sep=""))
+                             stringr::str_match(matches$MatchId, "\\[0\\]=([^;]*)(;.*|$)")[,2], sep=""))
             tokens <- getMatchAlignments(labbcat.url, matches$MatchId, tokenLayers, no.progress=T)
             matches <- cbind(matches, tokens)
 
