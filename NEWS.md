@@ -32,6 +32,9 @@ Minimum LaBB-CAT version *20210601.1528*
 - Improve progress bar handling.
 
 ## New functions:
+
+- *getMatchingParticipantIds*: Gets a list of IDs of participants that match a particular pattern.
+
 # nzilbb.labbcat 0.7-1
 
 Minimum LaBB-CAT version *20210210.2032*
