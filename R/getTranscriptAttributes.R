@@ -15,7 +15,7 @@
 #' 
 #' ## Get language, duration, and corpus for transcripts starting with 'BR'
 #' attributes <- getTranscriptAttributes(labbcat.url,
-#'             getMatchingTranscriptIds(labbcat.url, "id MATCHES 'BR.+'"),
+#'             getMatchingTranscriptIds(labbcat.url, "/'BR.+'/.test(id)"),
 #'             c('transcript_language', 'transcript_duration', 'corpus'))
 #' 
 #' }

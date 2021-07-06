@@ -6,8 +6,31 @@
 #' page.number, or they  can be a subset (a 'page') of results, by
 #' given page.length and page.number values.
 #'
-#' The expression language is currently not well defined, but
-#' expressions such as those in the examples can be used.
+#' The expression language is currently not well defined, but is based on JavaScript
+#' syntax.
+#' 
+#' \itemize{
+#'  \item{The \emph{labels} function can be used to represent a list of all the annotation
+#'        labels on a given layer. For example, each participant can have multiple
+#'        corpora, so the corpus labels (names) are represented by:
+#'        \emph{labels('corpus')}}
+#'  \item{Use the \emph{includes} function on a list to test whether the list contains a
+#'        given element. e.g. to match participant that include the corpus 'QB' use:
+#'        \emph{labels('corpus').includes('QB')}}
+#'  \item{Use the \emph{first} function to identify the first (or the only) annotation on
+#'        a given layer. e.g. the annotation representing the participant's gender is:
+#'        \emph{first('participant_gender')}}
+#'  \item{Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
+#'        e.g. the label of the participant's gender is:
+#'        \emph{first('participant_gender').label}}
+#'  \item{Regular expressions can be matched by using expressions like
+#'        '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:
+#'        \emph{/^BR.+/.test(id)}
+#'        or to test if the participant's gender includes 'binary' use:
+#'        \emph{/.*binary.*/.test(first('participant_gender').label)}}
+#' }
+#' 
+#' Expressions such as those in the examples can be used.
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param expression An expression that determines which participants match
