@@ -182,21 +182,21 @@ syntax.</p>
 <ul>
 <li><p>The <em>labels</em> function can be used to represent a list of all the annotation
        labels on a given layer. For example, each participant can have multiple
-       corpora, so the corpus labels (names) are represented by:
+       corpora, so the corpus labels (names) are represented by:  
        <em>labels('corpus')</em></p></li>
 <li><p>Use the <em>includes</em> function on a list to test whether the list contains a
-       given element. e.g. to match participant that include the corpus 'QB' use:
+       given element. e.g. to match participants that include the corpus 'QB' use:  
        <em>labels('corpus').includes('QB')</em></p></li>
 <li><p>Use the <em>first</em> function to identify the first (or the only) annotation on
-       a given layer. e.g. the annotation representing the participant's gender is:
+       a given layer. e.g. the annotation representing the participant's gender is:  
        <em>first('participant_gender')</em></p></li>
 <li><p>Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
-       e.g. the label of the participant's gender is:
+       e.g. the label of the participant's gender is:  
        <em>first('participant_gender').label</em></p></li>
 <li><p>Regular expressions can be matched by using expressions like
-       '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:
-       <em>/^BR.+/.test(id)</em>
-       or to test if the participant's gender includes 'binary' use:
+       '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:  
+       <em>/^BR.+/.test(id)</em>  
+       or to test if the participant's gender includes 'binary' use:  
        <em>/.*binary.*/.test(first('participant_gender').label)</em></p></li>
 </ul>
 
@@ -216,7 +216,7 @@ syntax.</p>
 
 <span class='co'>## Get all participants in the "QB" corpus that have "Jacqui" as part of the ID</span>
 <span class='no'>participants</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingTranscriptParticipantIds</span>(
-        <span class='no'>labbcat.url</span>, <span class='st'>"labels('corpus').includes('QB') &amp;&amp; /^BR.+/.test(id)"</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
+        <span class='no'>labbcat.url</span>, <span class='st'>"labels('corpus').includes('QB') &amp;&amp; /^BR.+/.test(id)"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
