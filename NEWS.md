@@ -30,6 +30,7 @@ Minimum LaBB-CAT version *20210601.1528*
   + *getMatchAlignments*
 - CSV-related bug fixes.
 - Improve progress bar handling.
+- Improve documentation of matching expression language.
 
 ## New functions:
 
