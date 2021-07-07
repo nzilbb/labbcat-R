@@ -91,7 +91,7 @@ getGraphIdsInCorpus(labbcat.url, "UC")
 getGraphIdsWithParticipant(labbcat.url, "QB1602")
 
 ## Transcripts with 'YW' in their name:
-getMatchingGraphIds(labbcat.url, "id MATCHES '.*YW.*'")
+getMatchingGraphIds(labbcat.url, "/.*YW.*/.test(id)")
 ```
 
 ### Accessing Media
@@ -296,7 +296,7 @@ Transcript attributes can be retrieved like this:
 ``` R
 # Get language, duration, and corpus for transcripts starting with 'BR'
 attributes <- getTranscriptAttributes(labbcat.url,
-            getMatchingTranscriptIds(labbcat.url, "id MATCHES 'BR.+'"),
+            getMatchingTranscriptIds(labbcat.url, "/BR.+/.test(id)"),
             c('transcript_language', 'transcript_duration', 'corpus'))
 ```
 
