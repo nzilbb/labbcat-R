@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets transcript attribute values for given transcript IDs. — getTranscriptAttributes • nzilbb.labbcat</title>
+<title>Gets a list of IDs of participants that match a particular pattern. — getMatchingParticipantIds • nzilbb.labbcat</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Gets transcript attribute values for given transcript IDs. — getTranscriptAttributes" />
-<meta property="og:description" content="Gets transcript attribute values for given transcript IDs." />
+<meta property="og:title" content="Gets a list of IDs of participants that match a particular pattern. — getMatchingParticipantIds" />
+<meta property="og:description" content="Gets a list of IDs of participants that match a particular pattern." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:creator" content="@labbcat" />
@@ -132,16 +132,21 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets transcript attribute values for given transcript IDs.</h1>
+    <h1>Gets a list of IDs of participants that match a particular pattern.</h1>
     
-    <div class="hidden name"><code>getTranscriptAttributes.Rd</code></div>
+    <div class="hidden name"><code>getMatchingParticipantIds.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gets transcript attribute values for given transcript IDs.</p>
+    <p>Gets a list of IDs of participants that match a particular pattern.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getTranscriptAttributes</span>(<span class='no'>labbcat.url</span>, <span class='no'>transcript.ids</span>, <span class='no'>layer.ids</span>)</pre>
+    <pre class="usage"><span class='fu'>getMatchingParticipantIds</span>(
+  <span class='no'>labbcat.url</span>,
+  <span class='no'>expression</span>,
+  <span class='kw'>page.length</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>page.number</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,32 +156,67 @@
       <td><p>URL to the LaBB-CAT instance</p></td>
     </tr>
     <tr>
-      <th>transcript.ids</th>
-      <td><p>A vector of transcript IDs</p></td>
+      <th>expression</th>
+      <td><p>An expression that determines which participants match</p></td>
     </tr>
     <tr>
-      <th>layer.ids</th>
-      <td><p>A vector of layer IDs corresponding to transcript attributes. In
-general, these are layers whose ID is prefixed 'transcript_', however formally it's
-any layer where layer$parentId == 'transcript' &amp;&amp; layer$alignment == 0, which includes
-'corpus' as well as transcript attribute layers.</p></td>
+      <th>page.length</th>
+      <td><p>The maximum number of IDs to return, or null to return all</p></td>
+    </tr>
+    <tr>
+      <th>page.number</th>
+      <td><p>The zero-based page number to return, or null to return the first page</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame of attribute value labels.</p>
+    <p>A list of paricipant IDs</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The results can be exhaustive, by omitting page.length and
+page.number, or they  can be a subset (a 'page') of results, by
+given page.length and page.number values.</p>
+<p>The expression language is currently not well defined, but is based on JavaScript
+syntax.</p>
+<ul>
+<li><p>The <em>labels</em> function can be used to represent a list of all the annotation
+       labels on a given layer. For example, each participant can have multiple
+       corpora, so the corpus labels (names) are represented by:
+       <em>labels('corpus')</em></p></li>
+<li><p>Use the <em>includes</em> function on a list to test whether the list contains a
+       given element. e.g. to match participant that include the corpus 'QB' use:
+       <em>labels('corpus').includes('QB')</em></p></li>
+<li><p>Use the <em>first</em> function to identify the first (or the only) annotation on
+       a given layer. e.g. the annotation representing the participant's gender is:
+       <em>first('participant_gender')</em></p></li>
+<li><p>Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
+       e.g. the label of the participant's gender is:
+       <em>first('participant_gender').label</em></p></li>
+<li><p>Regular expressions can be matched by using expressions like
+       '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:
+       <em>/^BR.+/.test(id)</em>
+       or to test if the participant's gender includes 'binary' use:
+       <em>/.*binary.*/.test(first('participant_gender').label)</em></p></li>
+</ul>
+
+<p>Expressions such as those in the examples can be used.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## define the LaBB-CAT URL</span>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
-<span class='co'>## Get language, duration, and corpus for transcripts starting with 'BR'</span>
-<span class='no'>attributes</span> <span class='kw'>&lt;-</span> <span class='fu'>getTranscriptAttributes</span>(<span class='no'>labbcat.url</span>,
-            <span class='fu'><a href='getMatchingTranscriptIds.html'>getMatchingTranscriptIds</a></span>(<span class='no'>labbcat.url</span>, <span class='st'>"/'BR.+'/.test(id)"</span>),
-            <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'transcript_language'</span>, <span class='st'>'transcript_duration'</span>, <span class='st'>'corpus'</span>))
+<span class='co'>## Get all participants whose IDs start with "BR"</span>
+<span class='no'>participants</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingParticipantIds</span>(<span class='no'>labbcat.url</span>, <span class='st'>"/^BR.+/.test(id)"</span>)
 
+<span class='co'>## Get the first twenty transcripts in the "QB" corpus</span>
+<span class='no'>participants</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingParticipantIds</span>(
+        <span class='no'>labbcat.url</span>, <span class='st'>"labels('corpus').includes('QB')"</span>, <span class='fl'>20</span>, <span class='fl'>0</span>)
+
+<span class='co'>## Get all participants in the "QB" corpus that have "Jacqui" as part of the ID</span>
+<span class='no'>participants</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingTranscriptParticipantIds</span>(
+        <span class='no'>labbcat.url</span>, <span class='st'>"labels('corpus').includes('QB') &amp;&amp; /^BR.+/.test(id)"</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

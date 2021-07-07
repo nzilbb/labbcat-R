@@ -188,8 +188,30 @@ page.number, or they  can be a subset (a 'page') of results, by
 given pageLength and page.number values.</p>
 <p>The order of the list can be specified.  If ommitted, the graphs
 are listed in ID order.</p>
-<p>The expression language is currently not well defined, but
-expressions such as those in the examples can be used.</p>
+<p>The expression language is currently not well defined, but is based on JavaScript
+syntax.</p>
+<ul>
+<li><p>The <em>labels</em> function can be used to represent a list of all the annotation
+       labels on a given layer. For example, each transcript can have multiple
+       participants, so the participant labels (names) are represented by:
+       <em>labels('participant')</em></p></li>
+<li><p>Use the <em>includes</em> function on a list to test whether the list contains a
+       given element. e.g. to match transcripts that include the participant 'Joe' use:
+       <em>labels('participant').includes('Joe')</em></p></li>
+<li><p>Use the <em>first</em> function to identify the first (or the only) annotation on
+       a given layer. e.g. the annotation representing the transcript's corpus is:
+       <em>first('corpus')</em></p></li>
+<li><p>Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
+       e.g. the name of the transcript's corpus is:
+       <em>first('corpus').label</em></p></li>
+<li><p>Regular expressions can be matched by using expressions like
+       '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:
+       <em>/^BR.+/.test(id)</em>
+       or to test if the transcript's corpus includes a B use:
+       <em>/.*B.*/.test(first('corpus').label)</em></p></li>
+</ul>
+
+<p>Expressions such as those in the examples can be used.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -197,21 +219,21 @@ expressions such as those in the examples can be used.</p>
 <span class='no'>labbcat.url</span> <span class='kw'>&lt;-</span> <span class='st'>"https://labbcat.canterbury.ac.nz/demo/"</span>
 
 <span class='co'>## Get all transcripts whose names start with "BR"</span>
-<span class='no'>transcripts</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingGraphIds</span>(<span class='no'>labbcat.url</span>, <span class='st'>"id MATCHES 'BR.+'"</span>)
+<span class='no'>transcripts</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingGraphIds</span>(<span class='no'>labbcat.url</span>, <span class='st'>"/^BR.+/.test(id)"</span>)
 
 <span class='co'>## Get the first twenty transcripts in the "QB" corpus</span>
 <span class='no'>transcripts</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingGraphIds</span>(
-        <span class='no'>labbcat.url</span>, <span class='st'>"my('corpus').label = 'QB'"</span>, <span class='fl'>20</span>, <span class='fl'>0</span>)
+        <span class='no'>labbcat.url</span>, <span class='st'>"first('corpus').label = 'QB'"</span>, <span class='fl'>20</span>, <span class='fl'>0</span>)
 
 <span class='co'>## Get the second transcript that has "QB247_Jacqui" as a speaker</span>
 <span class='no'>transcripts</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingGraphIds</span>(
-        <span class='no'>labbcat.url</span>, <span class='st'>"'QB247_Jacqui' IN labels('participant')"</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
+        <span class='no'>labbcat.url</span>, <span class='st'>"labels('participant').includes('QB247_Jacqui')"</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
 
-<span class='co'>## Get all transcripts whose names start with "BR" and have "QB247_Jacqui" as a speaker,</span>
+<span class='co'>## Get all transcripts in the QB corpus whose names start with "BR"</span>
 <span class='co'>## in word-count order </span>
 <span class='no'>transcripts</span> <span class='kw'>&lt;-</span> <span class='fu'>getMatchingGraphIds</span>(
-        <span class='no'>labbcat.url</span>, <span class='st'>"my('corpus').label = 'QB' AND 'QB247_Jacqui' IN labels('participant')"</span>, <span class='fl'>1</span>, <span class='fl'>1</span>,
-        <span class='st'>"my('transcript_word_count').label ASC"</span>)
+        <span class='no'>labbcat.url</span>, <span class='st'>"first('corpus').label = 'QB' &amp;&amp; /^BR.+/.test(id)"</span>,
+        <span class='kw'>order</span><span class='kw'>=</span><span class='st'>"first('transcript_word_count').label ASC"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

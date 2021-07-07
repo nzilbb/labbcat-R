@@ -154,7 +154,7 @@
 <span class="fu"><a href="reference/getGraphIdsWithParticipant.html">getGraphIdsWithParticipant</a></span>(<span class="no">labbcat.url</span>, <span class="st">"QB1602"</span>)
 
 <span class="co">## Transcripts with 'YW' in their name:</span>
-<span class="fu"><a href="reference/getMatchingGraphIds.html">getMatchingGraphIds</a></span>(<span class="no">labbcat.url</span>, <span class="st">"id MATCHES '.*YW.*'"</span>)</pre></div>
+<span class="fu"><a href="reference/getMatchingGraphIds.html">getMatchingGraphIds</a></span>(<span class="no">labbcat.url</span>, <span class="st">"/.*YW.*/.test(id)"</span>)</pre></div>
 </div>
 <div id="accessing-media" class="section level3">
 <h3 class="hasAnchor">
@@ -292,7 +292,7 @@
 <p>Transcript attributes can be retrieved like this:</p>
 <div class="sourceCode" id="cb21"><pre class="r"><span class="co"># Get language, duration, and corpus for transcripts starting with 'BR'</span>
 <span class="no">attributes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/getTranscriptAttributes.html">getTranscriptAttributes</a></span>(<span class="no">labbcat.url</span>,
-            <span class="fu"><a href="reference/getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span>(<span class="no">labbcat.url</span>, <span class="st">"id MATCHES 'BR.+'"</span>),
+            <span class="fu"><a href="reference/getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span>(<span class="no">labbcat.url</span>, <span class="st">"/BR.+/.test(id)"</span>),
             <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'transcript_language'</span>, <span class="st">'transcript_duration'</span>, <span class="st">'corpus'</span>))</pre></div>
 <p>Similarly, participant attributes can also be accessed:</p>
 <div class="sourceCode" id="cb22"><pre class="r"><span class="co"># Get gender and age for all participants</span>
