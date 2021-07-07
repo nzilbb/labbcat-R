@@ -39,6 +39,7 @@ reference:
 - contents: 
   - starts_with("getTranscript")
   - getMatchingTranscriptIds
+  - getMatchingParticipantIds
   - getAvailableMedia
   - getMedia
   - countAnnotations
