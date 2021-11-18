@@ -39,6 +39,9 @@ export(labbcatCredentials,
        getAllUtterances,
        newTranscript,
        updateTranscript,
+       updateFragment,
+       generateLayer,
+       generateLayerUtterances,
        deleteTranscript)
 importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar", "head", "read.csv", "write.table", "count.fields", "unzip")
 importFrom("rstudioapi", "askForPassword")

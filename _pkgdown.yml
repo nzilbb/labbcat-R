@@ -52,7 +52,13 @@ reference:
 - contents: 
   - newTranscript
   - updateTranscript
+  - updateFragment
   - deleteTranscript
+- title: "Generating annotations"
+  desc: "Generating annotations on selected layers"
+- contents: 
+  - generateLayer
+  - generateLayerUtterances
 - title: "Corpus information"
   desc: "Information about how your LaBB-CAT server is organised and configured"
 - contents: 
