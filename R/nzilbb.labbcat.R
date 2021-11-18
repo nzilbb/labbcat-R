@@ -7,7 +7,7 @@
 #' 
 #' 'LaBB-CAT' is a web-based language corpus management system and this
 #' package provides access to data stored in a 'LaBB-CAT' instance.
-#' You must have at least version 20210601.1528 'LaBB-CAT' to use
+#' You must have at least version 20211117.2027 'LaBB-CAT' to use
 #' this package.
 #' 
 #' @docType package
@@ -37,7 +37,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20210601.1528"
+.min.labbcat.version <- "20211117.2027"
 .user.agent <- paste("labbcat-R", packageVersion("nzilbb.labbcat"), sep="/")
 
 ### Internal functions:
