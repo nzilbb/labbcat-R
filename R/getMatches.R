@@ -256,7 +256,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
         pageNumber <- 0
 
         pb <- NULL
-        if (interactive()) {
+        if (interactive() && !no.progress) {
             pb <- txtProgressBar(min = 0, max = matchesLeft, style = 3)        
         }
         
