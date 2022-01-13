@@ -1,3 +1,15 @@
+# nzilbb.labbcat 1.1-0
+
+Minimum LaBB-CAT version *20211117.2027*
+
+## Enhancements
+
+## New functions:
+
+- *updateFragment*: Uploads an uttereance file (e.g. TextGrid) to update labels and/or alignments.
+- *generateLayer*: Generates annotations on a given layer for all transcripts in the corpus.
+- *generateLayerUtterances*: Generates a layer for a given utterances.
+
 # nzilbb.labbcat 1.0-1
 
 Minimum LaBB-CAT version *20210601.1528*
