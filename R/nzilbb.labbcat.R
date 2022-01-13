@@ -185,8 +185,9 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
     ## build request URL
-    url <- paste(path, "?", sep="")
+    url <- path
     if (!is.null(parameters)) {
+        url <- paste(path, "?", sep="")
         for (name in names(parameters)) {
             for (parameter in parameters[name]) {
                 for (value in parameter) {
