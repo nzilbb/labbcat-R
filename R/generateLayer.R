@@ -4,7 +4,7 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param layer.id The ID of the layer to generate.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'     shown when interactive().
 #' @return The final status of the layer generation task.
 #' 

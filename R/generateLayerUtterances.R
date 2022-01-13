@@ -1,7 +1,7 @@
-#' Generates a layer for a given utterances.
+#' Generates a layer for a given set of utterances.
 #'
 #' Generates annotations on a given layer for a given set of utterances, e.g. force-align
-#' selected utterances of a partcipant.
+#' selected utterances of a participant.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,
@@ -38,7 +38,7 @@ generateLayerUtterances <- function(labbcat.url, match.ids, layer.id, collection
         utterances=paste(match.ids,collapse="\n"))
     resp <- http.post(labbcat.url, "generateLayerUtterances", parameters)
     
-    ## check the reponse
+    ## check the response
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
