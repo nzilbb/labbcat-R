@@ -1,6 +1,6 @@
 # nzilbb.labbcat 1.1-0
 
-Minimum LaBB-CAT version *20211117.2027*
+Minimum LaBB-CAT version *20220224.1618*
 
 ## Enhancements
 
@@ -10,6 +10,8 @@ Minimum LaBB-CAT version *20211117.2027*
 - *generateLayer*: Generates annotations on a given layer for all transcripts in the corpus.
 - *generateLayerUtterances*: Generates a layer for a given utterances.
 - *annotatorExt*: Retrieves an annotator extension resource.
+- *uploadLexicon*: Uploads a lexicon file for the Flat Lexicon Tagger
+- *deleteLexicon*: Deletes a previously uploaded lexicon from the Flat Lexicon Tagger
 
 # nzilbb.labbcat 1.0-1
 
