@@ -6,6 +6,8 @@
 #'
 #' This function deletes such a lexicon, which was previously added using loadLexicon.
 #'
+#' You must have editing privileges in LaBB-CAT in order to be able to use this function.
+#'
 #' @param labbcat.url URL to the LaBB-CAT instance.
 #' @param lexicon The name of the lexicon to delete, e.g. 'cmudict'
 #' @return An error message, or NULL if the upload was successful.

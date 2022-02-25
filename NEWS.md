@@ -6,12 +6,15 @@ Minimum LaBB-CAT version *20220224.1618*
 
 ## New functions:
 
-- *updateFragment*: Uploads an uttereance file (e.g. TextGrid) to update labels and/or alignments.
-- *generateLayer*: Generates annotations on a given layer for all transcripts in the corpus.
-- *generateLayerUtterances*: Generates a layer for a given utterances.
-- *annotatorExt*: Retrieves an annotator extension resource.
-- *uploadLexicon*: Uploads a lexicon file for the Flat Lexicon Tagger
-- *deleteLexicon*: Deletes a previously uploaded lexicon from the Flat Lexicon Tagger
+- *updateFragment* : Upload an uttereance file (e.g. TextGrid) to update labels and/or alignments.
+- *generateLayer* : Generate annotations on a given layer for all transcripts in the corpus.
+- *generateLayerUtterances* : Generate a layer for a given utterances.
+- *annotatorExt* : Retrieve an annotator extension resource.
+- *uploadLexicon* : Upload a lexicon file for the Flat Lexicon Tagger.
+- *deleteLexicon* : Delete a previously uploaded lexicon from the Flat Lexicon Tagger.
+- *newLayer* : Add a new annotation layer.
+- *saveLayer* : Save a new definition for an existing annotation layer.
+- *deleteLayer* : Delete an existing annotation layer.
 
 # nzilbb.labbcat 1.0-1
 

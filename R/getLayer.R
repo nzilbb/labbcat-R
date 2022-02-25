@@ -33,7 +33,7 @@ getLayer <- function(labbcat.url, id) {
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
         if (httr::status_code(resp) == 400) { # 400 = Bad request
-            # the content should be valid JSON with informative errors
+            ## the content should be valid JSON with informative errors
             resp.json <- jsonlite::fromJSON(resp.content)
             for (error in resp.json$errors) print(paste("ERROR:", error))
         } else {

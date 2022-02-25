@@ -44,6 +44,7 @@ export(labbcatCredentials,
        generateLayerUtterances,
        annotatorExt,
        deleteTranscript,
-       loadLexicon, deleteLexicon)
+       loadLexicon, deleteLexicon,
+       newLayer, saveLayer, deleteLayer)
 importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar", "head", "read.csv", "write.table", "count.fields", "unzip")
 importFrom("rstudioapi", "askForPassword")

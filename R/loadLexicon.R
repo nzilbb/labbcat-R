@@ -7,6 +7,8 @@
 #' having a complex structure.
 #'
 #' This function uploads such a lexicon file, for use in tagging tokens.
+#' 
+#' You must have editing privileges in LaBB-CAT in order to be able to use this function.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance.
 #' @param lexicon The name for the resulting lexicon. If the named lexicon already exists,
