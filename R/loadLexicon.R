@@ -67,6 +67,7 @@ loadLexicon <- function(labbcat.url, lexicon, field.delimiter, quote, comment,
     running <- TRUE
     percent.complete <- 0
     status <- "Processing..."
+    pb <- NULL
     if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
     }
