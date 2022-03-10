@@ -9,6 +9,7 @@ Minimum LaBB-CAT version *20220225.1838*
 - *updateFragment* : Upload an uttereance file (e.g. TextGrid) to update labels and/or alignments.
 - *generateLayer* : Generate annotations on a given layer for all transcripts in the corpus.
 - *generateLayerUtterances* : Generate a layer for a given utterances.
+- *getAnnotatorDescriptor* : Get information about an annotator.
 - *annotatorExt* : Retrieve an annotator extension resource.
 - *uploadLexicon* : Upload a lexicon file for the Flat Lexicon Tagger.
 - *deleteLexicon* : Delete a previously uploaded lexicon from the Flat Lexicon Tagger.
