@@ -64,10 +64,6 @@ newLayer <- function(labbcat.url, layer.id, description, type="string", alignmen
                           category="General", parent.id="word", annotator.id=NULL, 
                           annotator.task.parameters=NULL) {
 
-    newLayer(labbcat.url, "phonemes", "CMU Dict pronunciations encoded in ARPAbet",
-             annotator.id="FlatFileDictionary",
-             annotator.task.parameters=
-                 "tokenLayerId=orthography&tagLayerId=phonemes&dictionary=cmudict:Word→Pron")
     ## create layer object
     scope = "W"
     if (parent.id == "turn") scope = "M"
