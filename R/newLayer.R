@@ -52,7 +52,7 @@
 #' newLayer(labbcat.url, "pronunciation", "CMU Dict pronunciations encoded in ARPAbet",
 #'          annotator.id="FlatFileDictionary",
 #'          annotator.task.parameters=
-#'              "tokenLayerId=orthography&tagLayerId=phonemes&dictionary=cmudict:Word→Pron")
+#'              "tokenLayerId=orthography&tagLayerId=phonemes&dictionary=cmudict:Word->Pron")
 #'
 #' ## Generate the pronunciation tags
 #' generateLayer(labbcat.url, "pronunciation")
@@ -61,9 +61,9 @@
 #' @keywords layer annotation
 #' 
 newLayer <- function(labbcat.url, layer.id, description, type="string", alignment=0,
-                          category="General", parent.id="word", annotator.id=NULL, 
-                          annotator.task.parameters=NULL) {
-
+                     category="General", parent.id="word", annotator.id=NULL, 
+                     annotator.task.parameters=NULL) {
+    
     ## create layer object
     scope = "W"
     if (parent.id == "turn") scope = "M"

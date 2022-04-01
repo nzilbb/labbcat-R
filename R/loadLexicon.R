@@ -40,8 +40,8 @@
 #' loadLexicon(labbcat.url, "cmudict", " - ", "", ";", "Word - Pron", FALSE, "cmudict.txt")
 #' }
 #'
-loadLexicon <- function(labbcat.url, lexicon, field.delimiter, quote, comment,
-                        field.names, skip.first.line, file, no.progress=FALSE) {
+loadLexicon <- function(labbcat.url, file, lexicon, field.delimiter, field.names,
+                        quote="", comment="", skip.first.line=FALSE, no.progress=FALSE) {
     
     ## make request
     parameters <- list(lexicon=lexicon,

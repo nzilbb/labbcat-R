@@ -11,11 +11,18 @@ Minimum LaBB-CAT version *20220225.1838*
 - *generateLayerUtterances* : Generate a layer for a given utterances.
 - *getAnnotatorDescriptor* : Get information about an annotator.
 - *annotatorExt* : Retrieve an annotator extension resource.
-- *uploadLexicon* : Upload a lexicon file for the Flat Lexicon Tagger.
-- *deleteLexicon* : Delete a previously uploaded lexicon from the Flat Lexicon Tagger.
-- *newLayer* : Add a new annotation layer.
-- *saveLayer* : Save a new definition for an existing annotation layer.
-- *deleteLayer* : Delete an existing annotation layer.
+- Manage annotation layers
+  + *newLayer* : Add a new annotation layer.
+  + *saveLayer* : Save a new definition for an existing annotation layer.
+  + *deleteLayer* : Delete an existing annotation layer.
+- Manage Flat Lexicon Tagger lexicons
+  + *uploadLexicon* : Upload a lexicon file for the Flat Lexicon Tagger.
+  + *deleteLexicon* : Delete a previously uploaded lexicon from the Flat Lexicon Tagger.
+- Manage dictionary entries
+  + *addLayerDictionaryEntry*
+  + *removeLayerDictionaryEntry*
+  + *addDictionaryEntry*
+  + *removeDictionaryEntry*
 
 # nzilbb.labbcat 1.0-1
 

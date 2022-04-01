@@ -10,7 +10,7 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance.
 #' @param lexicon The name of the lexicon to delete, e.g. 'cmudict'
-#' @return An error message, or NULL if the upload was successful.
+#' @return NULL if the deletion was successful, or an error message if not.
 #' @keywords lexicon
 #' @seealso
 #' \code{\link{loadLexicon}}
