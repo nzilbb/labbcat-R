@@ -1,6 +1,6 @@
 # nzilbb.labbcat 1.1-0
 
-Minimum LaBB-CAT version *20220225.1838*
+Minimum LaBB-CAT version *20220401.1842*
 
 ## Enhancements
 
