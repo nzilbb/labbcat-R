@@ -63,11 +63,6 @@ reference:
   desc: "Information about how your LaBB-CAT server is organised and configured"
 - contents: 
   - getCorpusIds
-  - getDictionaries
-  - getDictionaryEntries
-  - getLayerIds
-  - getLayer
-  - getLayers
   - getMediaTracks
   - getParticipantAttributes
   - getParticipantIds
@@ -75,3 +70,25 @@ reference:
   - getSerializerDescriptors
   - getSystemAttribute
   - nzilbb.labbcat
+- title: "Layer management"
+  desc: "Functions for managing annotation layers"
+- contents: 
+  - getLayerIds
+  - getLayer
+  - getLayers
+  - newLayer
+  - saveLayer
+  - deleteLayer
+  - getAnnotatorDescriptor
+  - annotatorExt
+- title: "Lexicon management"
+  desc: "Functions for managing dictionaries for lookups and annotation"
+- contents: 
+  - getDictionaries
+  - getDictionaryEntries
+  - loadLexicon
+  - deleteLexicon
+  - addDictionaryEntry
+  - removeDictionaryEntry
+  - addLayerDictionaryEntry
+  - removeLayerDictionaryEntry
