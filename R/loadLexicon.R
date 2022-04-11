@@ -11,6 +11,7 @@
 #' You must have editing privileges in LaBB-CAT in order to be able to use this function.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance.
+#' @param file The full path name of the lexicon file.
 #' @param lexicon The name for the resulting lexicon. If the named lexicon already exists,
 #'     it will be completely replaced with the contents of the file (i.e. all existing
 #'     entries will be deleted befor adding new entries from the file).
@@ -19,14 +20,13 @@
 #'     If this is " - ", rows are split on only the <em>first</em> space, in line with
 #'     common dictionary formats.
 #'     e.g. ',' for Comma Separated Values (CSV) files.
+#' @param field.names A list of field names, delimited by field.delimiter,
+#'     e.g. 'Word,Pronunciation'.
 #' @param quote The character used to quote field values (if any), e.g. '"'.
 #' @param comment The character used to indicate a line is a comment (not an entry) (if any)
 #'     e.g. '#'.
-#' @param field.names A list of field names, delimited by field.delimiter,
-#'     e.g. 'Word,Pronunciation'.
 #' @param skip.first.line Whether to ignore the first line of the file (because it
 #'     contains field names). 
-#' @param file The full path name of the lexicon file.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
 #'     shown when interactive().
 #' @return An error message, or NULL if the upload was successful.

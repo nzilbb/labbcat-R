@@ -6,7 +6,7 @@
 #' You must have edit privileges in LaBB-CAT in order to be able to use this function.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
-#' @param layer.id The ID of the layer to create, which must be unique to the LaBB-CAT instance.
+#' @param layer.id The ID of the layer with a dictionary configured to manage it.
 #' @param key The key (word) in the dictionary to remove an entry from.
 #' @param entry The value (definition) for the given key, or NULL to remove all entries
 #'     for the given key.

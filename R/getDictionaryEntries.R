@@ -3,8 +3,8 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param manager.id The layer manager ID of the dictionary, as returned by getDictionaries
 #' @param dictionary.id The ID of the dictionary, as returned by getDictionaries
-#' @param keys A list of entries to look up
-#' @return A data frame with the keys and their dictionary entries.
+#' @param keys A list of keys (words) identifying entries to look up
+#' @return A data frame with the keys and their dictionary entries, if any.
 #' 
 #' @seealso \link{getDictionaries}
 #' @examples 
