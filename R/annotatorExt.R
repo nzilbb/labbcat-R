@@ -35,7 +35,7 @@ annotatorExt <- function(labbcat.url, annotator.id, resource, parameters=NULL) {
     if (is.null(resp)) return()
     if (httr::status_code(resp) != 200) { # 200 = OK
         print(paste("ERROR: ", httr::http_status(resp)$message))
-        print(resp.content)
+        print(httr::content(resp, as="text", encoding="UTF-8"))
         return()
     }
     return(httr::content(resp, as="text", encoding="UTF-8"))
