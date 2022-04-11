@@ -46,12 +46,11 @@ test_that("praatScriptIntensity with non-default arguments works", {
         sep="")
     expect_equal(praatScriptPitch(
         get.mean = FALSE, get.minimum = TRUE, get.maximum = TRUE,
-        time.step = 0.01, pitch.floor = 50, max.number.of.candidates = 10, very.accurate = T,
+        time.step = 0.01, pitch.floor = 50, max.number.of.candidates = 10, very.accurate = TRUE,
         silence.threshold = 0.035, voicing.threshold = 0.55, octave.cost = 0.02,
         octave.jump.cost = 0.4, voiced.unvoiced.cost = 0.45,
         pitch.ceiling = 600, pitch.floor.male = 40, voicing.threshold.male = 0.55,
-        pitch.ceiling.male = 300, gender.attribute = 'participant_sex', value.for.male = "male",
-        window.length = 0.02, preemphasis.from = 60),
+        pitch.ceiling.male = 300, gender.attribute = 'participant_sex', value.for.male = "male"),
         script)
 })
 
