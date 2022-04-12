@@ -49,8 +49,8 @@
 #' pronunciation <- getLayer(labbcat.url, "pronunciation")
 #' 
 #' ## Change some details of the definition
-#' pronunciation$description "CMU Dict pronunciations encoded in DISC"
-#' pronunciation$type "IPA"
+#' pronunciation$description <- "CMU Dict pronunciations encoded in DISC"
+#' pronunciation$type <- "ipa"
 #'
 #' ## Save the changes to the layer definition
 #' saveLayer(labbcat.url, pronunciation)

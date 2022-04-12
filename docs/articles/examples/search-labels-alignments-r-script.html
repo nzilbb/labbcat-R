@@ -29,6 +29,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,23 +43,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -89,9 +85,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Search, Annotation, and R Script Example</h1>
-                        <h4 class="author">Robert Fromont</h4>
+                        <h4 data-toc-skip class="author">Robert Fromont</h4>
             
-            <h4 class="date">9 February 2021</h4>
+            <h4 data-toc-skip class="date">9 February 2021</h4>
       
       
       <div class="hidden name"><code>search-labels-alignments-r-script.Rmd</code></div>
@@ -100,7 +96,7 @@
 
     
     
-<p><a href="https://labbcat.canterbury.ac.nz">LaBB-CAT</a> is a browser-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations. The <em>nzilbb.labbcat</em> R package provides access to linguistic data stored in LaBB-CAT servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.</p>
+<p><a href="https://labbcat.canterbury.ac.nz" class="external-link">LaBB-CAT</a> is a browser-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations. The <em>nzilbb.labbcat</em> R package provides access to linguistic data stored in LaBB-CAT servers, allowing tokens and their annotations to be identified and extracted, along with media data, and acoustic measurements.</p>
 <p>This worked example illustrates how to:</p>
 <ol style="list-style-type: decimal">
 <li>identify a set of phone tokens in a specific context,</li>
@@ -108,91 +104,95 @@
 <li>download audio files for all tokens,</li>
 <li>execute a custom R script to extract acoustic measurements from the audio files.</li>
 </ol>
-<div id="example-the-effects-of-morphology-and-demographics-on-the-acoustic-properties-of-s" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-the-effects-of-morphology-and-demographics-on-the-acoustic-properties-of-s" class="anchor"></a>Example: the effects of morphology and demographics on the acoustic properties of /s/</h2>
+<div class="section level2">
+<h2 id="example-the-effects-of-morphology-and-demographics-on-the-acoustic-properties-of-s">Example: the effects of morphology and demographics on the acoustic properties of /s/<a class="anchor" aria-label="anchor" href="#example-the-effects-of-morphology-and-demographics-on-the-acoustic-properties-of-s"></a>
+</h2>
 <p>In particular, we might be interested in whether the /s/ in a <em>mis</em> in a prefixed word like <em>mistimes</em> is pronounced differently from the <em>mis</em> in an unprefixed word like <em>mistakes</em>, and whether demographics of the speaker make any difference.</p>
 <p>First the <em>nzilbb.labbcat</em> package must be loaded, and the LaBB-CAT corpus is specified:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">nzilbb.labbcat</span>)
-<span class="no">labbcat.url</span> <span class="kw">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span>
+<span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></code></pre></div>
 <p>Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts “dis” or “mis”.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span>(<span class="no">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">orthography</span> <span class="kw">=</span> <span class="st">"[dm]is.+"</span>), <span class="kw">aligned</span><span class="kw">=</span><span class="no">T</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"[dm]is.+"</span><span class="op">)</span>, aligned<span class="op">=</span><span class="cn">T</span><span class="op">)</span>
 
 <span class="co"># show the first few matches</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span>)]</pre></body></html></div>
-<pre><code>##              Transcript Target.word Target.word.start
-## 1     AP2505_Nelson.eaf    distance           305.480
-## 2     AP2505_Nelson.eaf    distance           345.300
-## 3 AP2516_JasonEager.eaf        miss           257.580
-## 4 AP2516_JasonEager.eaf        miss           259.740
-## 5 AP2516_JasonEager.eaf      miss .           262.180
-## 6 AP2516_JasonEager.eaf        miss           266.759</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transcript"</span>, <span class="st">"Target.word"</span>, <span class="st">"Target.word.start"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code><span class="co">##              Transcript Target.word Target.word.start</span>
+<span class="co">## 1     AP2505_Nelson.eaf    distance           305.480</span>
+<span class="co">## 2     AP2505_Nelson.eaf    distance           345.300</span>
+<span class="co">## 3 AP2516_JasonEager.eaf        miss           257.580</span>
+<span class="co">## 4 AP2516_JasonEager.eaf        miss           259.740</span>
+<span class="co">## 5 AP2516_JasonEager.eaf      miss .           262.180</span>
+<span class="co">## 6 AP2516_JasonEager.eaf        miss           266.759</span></code></pre>
 <p>In order to be able to analyse the /s/ segments, we need it’s start and end time, so we can extract a matching sound sample. We identify the first three <em>segment</em> annotations of each token, the last of which will be the /s/ segment we’re interested in.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">segments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span>(
-  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"segment"</span>), <span class="kw">annotations.per.layer</span><span class="kw">=</span><span class="fl">3</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">segments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span>
+  <span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"segment"</span><span class="op">)</span>, annotations.per.layer<span class="op">=</span><span class="fl">3</span><span class="op">)</span>
 
 <span class="co"># combine the segment data with the matches</span>
-<span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">segments</span>)
+<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">segments</span><span class="op">)</span>
 
 <span class="co"># show the first few alignments</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
-  <span class="st">"Text"</span>, <span class="st">"segment.3"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"segment.3.end"</span>)]</pre></body></html></div>
-<pre><code>##       Text segment.3 segment.3.start segment.3.end
-## 1 distance         s         305.640       305.690
-## 2 distance         s         345.420       345.480
-## 3     miss         s         257.750       257.930
-## 4     miss         s         259.880       260.030
-## 5   miss .         s         262.490       262.990
-## 6     miss         s         266.899       267.039</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+  <span class="st">"Text"</span>, <span class="st">"segment.3"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"segment.3.end"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code><span class="co">##       Text segment.3 segment.3.start segment.3.end</span>
+<span class="co">## 1 distance         s         305.640       305.690</span>
+<span class="co">## 2 distance         s         345.420       345.480</span>
+<span class="co">## 3     miss         s         257.750       257.930</span>
+<span class="co">## 4     miss         s         259.880       260.030</span>
+<span class="co">## 5   miss .         s         262.490       262.990</span>
+<span class="co">## 6     miss         s         266.899       267.039</span></code></pre>
 <p>We want to check whether the acoustic properties of /s/ vary depending on whether it’s in a morphological prefix or not, so we need the morphological parses of each word token. We also extract some demographic information about the speakers.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">morphology.demographics</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getMatchLabels.html">getMatchLabels</a></span>(
-  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>))
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">morphology.demographics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span>
+  <span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># combine the annotation data with the matches</span>
-<span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="no">morphology.demographics</span>)
+<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">morphology.demographics</span><span class="op">)</span>
 
 <span class="co"># show the first few annotations</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(
-  <span class="st">"Text"</span>, <span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span>)]</pre></body></html></div>
-<pre><code>##       Text   morphology participant_age_category participant_gender
-## 1 distance distant+ance                    36-45                  M
-## 2 distance distant+ance                    36-45                  M
-## 3     miss         Miss                    26-35                  M
-## 4     miss         Miss                    26-35                  M
-## 5   miss .         Miss                    26-35                  M
-## 6     miss         Miss                    26-35                  M</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
+  <span class="st">"Text"</span>, <span class="st">"morphology"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code><span class="co">##       Text   morphology participant_age_category participant_gender</span>
+<span class="co">## 1 distance distant+ance                    36-45                  M</span>
+<span class="co">## 2 distance distant+ance                    36-45                  M</span>
+<span class="co">## 3     miss         Miss                    26-35                  M</span>
+<span class="co">## 4     miss         Miss                    26-35                  M</span>
+<span class="co">## 5   miss .         Miss                    26-35                  M</span>
+<span class="co">## 6     miss         Miss                    26-35                  M</span></code></pre>
 <p>We want to perform acoustic analysis, so we need the wav sample for each match, which can be extracted from LaBB-CAT as as a mono 22kHz files using <code>getSoundFragments</code>.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># define subdirectory to save the files in</span>
-<span class="no">subdir</span> <span class="kw">&lt;-</span> <span class="st">"s-tokens"</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># define subdirectory to save the files in</span>
+<span class="va">subdir</span> <span class="op">&lt;-</span> <span class="st">"s-tokens"</span>
 
 <span class="co"># get segment sound files from LaBB-CAT</span>
-<span class="no">wav.files</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/getSoundFragments.html">getSoundFragments</a></span>(
-  <span class="no">labbcat.url</span>, <span class="no">matches</span>$<span class="no">Transcript</span>, <span class="no">matches</span>$<span class="no">segment.3.start</span>, <span class="no">matches</span>$<span class="no">segment.3.end</span>, <span class="fl">22050</span>,
-  <span class="kw">path</span><span class="kw">=</span><span class="no">subdir</span>)
+<span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span>
+  <span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">Transcript</span>, <span class="va">matches</span><span class="op">$</span><span class="va">segment.3.start</span>, <span class="va">matches</span><span class="op">$</span><span class="va">segment.3.end</span>, <span class="fl">22050</span>, 
+  path<span class="op">=</span><span class="va">subdir</span><span class="op">)</span>
 
 <span class="co"># show the first few file names</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">wav.files</span>)</pre></body></html></div>
-<pre><code>## [1] "s-tokens/AP2505_Nelson__305.640-305.690.wav"    
-## [2] "s-tokens/AP2505_Nelson__345.420-345.480.wav"    
-## [3] "s-tokens/AP2516_JasonEager__257.750-257.930.wav"
-## [4] "s-tokens/AP2516_JasonEager__259.880-260.030.wav"
-## [5] "s-tokens/AP2516_JasonEager__262.490-262.990.wav"
-## [6] "s-tokens/AP2516_JasonEager__266.899-267.039.wav"</code></pre>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wav.files</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "s-tokens/AP2505_Nelson__305.640-305.690.wav"    </span>
+<span class="co">## [2] "s-tokens/AP2505_Nelson__345.420-345.480.wav"    </span>
+<span class="co">## [3] "s-tokens/AP2516_JasonEager__257.750-257.930.wav"</span>
+<span class="co">## [4] "s-tokens/AP2516_JasonEager__259.880-260.030.wav"</span>
+<span class="co">## [5] "s-tokens/AP2516_JasonEager__262.490-262.990.wav"</span>
+<span class="co">## [6] "s-tokens/AP2516_JasonEager__266.899-267.039.wav"</span></code></pre>
 <p>Now that we have tokens of /s/, we want to use R to perform acoustic analysis of the sound of each token, and save the resulting acoustic measurements in the data frame with the results.</p>
-<p>By way of example, <a href="https://doi.org/10.1044/1092-4388(2012/12-0038)">Koenig <em>et al.</em> (2013)</a> propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called <code>process.wav</code> which takes a .wav file for a given token and returns the Koenig <em>et al.</em> (2013) measures.</p>
-<p>This function is defined in <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R">hayhawkins-multitaper.R</a>, which must be loaded:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">'hayhawkins-multitaper.R'</span>)</pre></body></html></div>
-<pre><code>## Registered S3 methods overwritten by 'tibble':
-##   method     from  
-##   format.tbl pillar
-##   print.tbl  pillar</code></pre>
+<p>By way of example, <a href="https://doi.org/10.1044/1092-4388(2012/12-0038)" class="external-link">Koenig <em>et al.</em> (2013)</a> propose an 8-factor multitaper spectrum calculated over 25 ms portions of the segment, i.e. 8 independent estimates of the spectrum in a single time window are calculated and averaged. We will use a custom R script (adapted from a script written by Patrick Reidy, who has kindly given permission for its use in this example) to provide a function called <code>process.wav</code> which takes a .wav file for a given token and returns the Koenig <em>et al.</em> (2013) measures.</p>
+<p>This function is defined in <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/hayhawkins-multitaper.R" class="external-link">hayhawkins-multitaper.R</a>, which must be loaded:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">'hayhawkins-multitaper.R'</span><span class="op">)</span></code></pre></div>
 <p>The <code>process.wav</code> function processes a single sound file, so we <code>apply</code> it to all our /s/ tokens, and add the resulting acoustic measures to our <em>matches</em> data frame.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">s.measures.lists</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">wav.files</span>, <span class="no">process.wav</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s.measures.lists</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">wav.files</span>, <span class="va">process.wav</span><span class="op">)</span>
 
 <span class="co"># combine the acoustic measures with the matches</span>
-<span class="no">matches</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="no">matches</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="fu">rbindlist</span>(<span class="no">s.measures.lists</span>)))</pre></body></html></div>
+<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu">rbindlist</span><span class="op">(</span><span class="va">s.measures.lists</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Now that the sound files we downloaded have been processed, we don’t need them any more, so we tidily delete them to save disk space.</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span>(<span class="no">subdir</span>, <span class="kw">recursive</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="va">subdir</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Our <code>process.wav</code> function produces 12 acoustic measures, three of which are printed below by way of example:</p>
 <ul>
 <li>
@@ -202,14 +202,15 @@
 <li>
 <em>CoG</em> - the centre of gravity of the whole spectrum</li>
 </ul>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">matches</span>)[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Number"</span>, <span class="st">"Text"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"freqM"</span>, <span class="st">"freqH"</span>, <span class="st">"CoG"</span>)]</pre></body></html></div>
-<pre><code>##   Number     Text segment.3.start    freqM    freqH      CoG
-## 1      1 distance         305.640 4401.996 7003.176 6128.388
-## 2      2 distance         345.420 3754.891 7030.435 5779.537
-## 3      3     miss         257.750 6311.413 7030.435 6149.090
-## 4      4     miss         259.880 4673.641 7310.054 6399.511
-## 5      5   miss .         262.490 5712.228 7549.728 7242.374
-## 6      6     miss         266.899 6990.489 7030.435 6858.675</code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Number"</span>, <span class="st">"Text"</span>, <span class="st">"segment.3.start"</span>, <span class="st">"freqM"</span>, <span class="st">"freqH"</span>, <span class="st">"CoG"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code><span class="co">##   Number     Text segment.3.start    freqM    freqH      CoG</span>
+<span class="co">## 1      1 distance         305.640 4401.996 7003.176 6128.388</span>
+<span class="co">## 2      2 distance         345.420 3754.891 7030.435 5779.537</span>
+<span class="co">## 3      3     miss         257.750 6311.413 7030.435 6149.090</span>
+<span class="co">## 4      4     miss         259.880 4673.641 7310.054 6399.511</span>
+<span class="co">## 5      5   miss .         262.490 5712.228 7549.728 7242.374</span>
+<span class="co">## 6      6     miss         266.899 6990.489 7030.435 6858.675</span></code></pre>
 <p>The dataset now includes acoustic measurements allowing study the acoustic properties of /s/, in relation to morphology and speaker demographics:</p>
 <ul>
 <li>tokens of /s/ in dis/mis prefixed words,</li>
@@ -237,13 +238,15 @@
       display: inline-block;
   }
 </style>
-<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/"><img alt="CC-BY-SA Creative Commons Licence " src="../../../../../../labbcat-R/cc-by-sa.svg" title="This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License"></a><a rel="author" href="https://www.canterbury.ac.nz/nzilbb/"><img src="../../../../../../labbcat-R/nzilbb.svg" alt="Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour" title="© 2021 NZILBB"></a></small>
+<small><a rel="license" href="http://creativecommons.org/licenses/by-sa/2.0/" class="external-link"><img alt="CC-BY-SA Creative Commons Licence " src="https://nzilbb.github.io/labbcat-R/cc-by-sa.svg" title="This work is licensed under a Creative Commons Attribution-ShareAlike 2.0 Generic License"></a><a rel="author" href="https://www.canterbury.ac.nz/nzilbb/" class="external-link"><img src="https://nzilbb.github.io/labbcat-R/nzilbb.svg" alt="Te Kāhui Roro Reo | The New Zealand Institute of Language, Brain and Behaviour" title="🄯 2021 NZILBB"></a></small>
 
       </footer>
 </div>
 
   
 
+
+  
 
   </body>
 </html>

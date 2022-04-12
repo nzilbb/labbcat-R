@@ -7,7 +7,7 @@ template:
     twitter:
       creator: "@labbcat"
       card: summary
-  path: "docs"
+  path: "/home/robert/nzilbb/labbcat-R/docs"
   
 authors:
   Robert Fromont:
