@@ -1,0 +1,435 @@
+---
+title: "Forced Alignment Comparison"
+author: "Robert Fromont"
+date: "13/04/2022"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Forced Alignment Comparison}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+LaBB-CAT integrates with several forced-aligners, which automatically determine the start and end time of each word, and each segment within each word, given each utterance transcript and start/edn time, and the wav corresponding file.
+
+LaBB-CAT can also compare alignments using a module that maps annotations on one layer to those on another, and computes the overlap rate of the annotation pairs; i.e. a measure of how much the alignments agree with each other.
+
+This example shows how, given a set of manual word/segment alignments (in this case, New Zealand English utterances), it's possible to run several different forced alignment configurations, and compare them with the manual alignments, in order to determine which forced alignment configuration works best for the type of speech data being processed.
+
+## Set Up Initial Environment
+
+Almost all the operations needed for forced alignment comparison can be implemented directly in code. However, the annotator modules used must be already installed in LaBB-CAT. In this case, there is a local LaBB-CAT instance that already has the following annotator modules installed:
+
+- *CMU Dictionary Manager*, which provides ARPAbet-encoded pronunciations for words
+- *HTK Layer Manager*, which will perform forced alignment using the above dictionary and the 'P2FA' pre-trained models.
+- *MFA Manager*, which integrates with the Montreal Forced Aligner
+- *BAS Web Services Annotator*, which provides access to the 'WebMAUS' web service for forced alignment.
+
+Defining the location of the LaBB-CAT server, and the transcript/media files is also required:
+
+```{r where-is-everything, results='hide', message=FALSE, warning=FALSE}
+library(nzilbb.labbcat)
+dataDir <- "data"
+transcriptFiles = dir(path = dataDir, pattern = ".*\\.TextGrid$", full.names = FALSE)
+url <- "http://localhost:8080/labbcat/"
+```
+```{r credentials, echo=FALSE,results='hide',message=FALSE}
+labbcatCredentials(url, "labbcat", "labbcat")
+```
+
+## Cleaning up any previous setup
+
+This process is designed to be re-runnable, so we don't assume that the LaBB-CAT instance is completely empty. 
+The following code removes any previously-created configuration and data.
+
+```{r prepare, results='hide', message=FALSE, warning=FALSE}
+
+# delete layers
+deleteLayer(url, "cmuDictPhonemes")
+deleteLayer(url, "p2fa")
+deleteLayer(url, "p2faPhone")
+deleteLayer(url, "p2faComp")
+deleteLayer(url, "mfaGAm")
+deleteLayer(url, "mfaGAmPhone")
+deleteLayer(url, "mfaGAmComp")
+deleteLayer(url, "mfaUKE")
+deleteLayer(url, "mfaUKEPhone")
+deleteLayer(url, "mfaUKEComp")
+deleteLayer(url, "maus")
+deleteLayer(url, "mausPhone")
+deleteLayer(url, "mausComp")
+
+# delete any pre-existing transcripts
+for (transcriptName in transcriptFiles) {
+  # if the transcript is in LaBB-CAT...
+  if (length(getMatchingTranscriptIds(url, paste("id = '", transcriptName, "'", sep=""))) > 0) {
+    # ...delete it 
+    deleteTranscript(url, transcriptName)
+  }
+} # next textGrid
+```
+
+## Forced alignment
+
+There are several configurations for forced alignment compared here, including different forced aligners, and different configurations of the same forced aligner.
+
+These can be compared to the manual alignments by mapping manually aligned words to automatically aligned words, and then within 
+each word token, mapping the manually aligned phones to the automatically aligned phones.
+
+This is performed using the Layer Mapper module, which is configured to map and compare each of the forced alignment configurations.
+
+### HTK
+
+The Hidden Markov Model Toolkit (HTK) is a speech recognition toolkit developed at Cambridge University. Integration with LaBB-CAT involves specifying the layer where the orthographic transcription comes from, and another that provides phonemic transcriptions for each word token, in adding to setting up layers for receiving word and phoneme alignments. 
+
+#### CMU Pronouncing Dictionary
+
+We will use the [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict), to provide word pronunciations for our corpus, using a LaBB-CAT module that integrates with the CMU Pronouncing dictionary:
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "CMUDictionaryTagger")$taskParameterInfo</code></summary>
+```{r cmudict-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "CMUDictionaryTagger")$taskParameterInfo)
+```
+</details>
+````
+___
+
+The *cmuDictPhonemes* layer is configured as follows:
+
+```{r cmu-dict-phonemes}
+cmuDictPhonemes = newLayer(
+  url, "cmuDictPhonemes", 
+  description = "Phonemic transcriptions according to the CMU Pronouncing Dictionary",
+  alignment = 0, parent.id = "word", 
+  annotator.id = "CMUdict", 
+  annotator.task.parameters = paste(
+    "tokenLayerId=orthography",   # get word tokens from orthography layer
+    "pronunciationLayerId=cmuDictPhonemes",
+    "encoding=CMU",               # Use original ARPAbet encoding, not CELEX DISC encoding
+    "transcriptLanguageLayerId=", # not filtering tagging by language...
+    "phraseLanguageLayerId=",
+    sep = "&"))
+```
+
+#### P2FA forced alignment
+
+The LaBB-CAT module that integrates with HTK can be configured in various ways, for example to train acoustic models from scratch on the corpus data itself, or to use pre-trained models from another corpus. 
+
+The module includes pre-trained acoustic models from the [University of Pennsylvania Phonetics Lab Forced Aligner (P2FA)](https://babel.ling.upenn.edu/phonetics/old_website_2015/p2fa/index.html). The P2FA models were trained on 25.5 hours of speech by adult American English speakers, specifically speech of eight Supreme Court Justices selected from oral arguments in the Supreme Court of the United States (SCOTUS) corpus.
+
+The LaBB-CAT module that integrates with HTK is called *HTKAligner*:
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "HTKAligner")$taskParameterInfo</code></summary>
+```{r htk-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "HTKAligner")$taskParameterInfo)
+```
+</details>
+````
+___
+
+The configuration for using the P2FA pre-trained models is:
+
+```{r p2fa}
+p2fa <- newLayer(
+  url, "p2fa", 
+  description = "Word alignments from HTK using the P2FA pretrained acoustic models.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "HTK", 
+  annotator.task.parameters = paste(
+    "orthographyLayerId=orthography",
+    "pronunciationLayerId=cmuDictPhonemes", # pronunciations come from the CMU Dict layer
+    "useP2FA=on",                           # use pre-trained P2FA models
+    "overlapThreshold=5",                   # ignore utterances that overlap more than 5%
+    "wordAlignmentLayerId=p2fa",     # save word alignments to this layer
+    "phoneAlignmentLayerId=p2faPhone", # this layer will be created by the annotator
+    "cleanupOption=100", sep="&"))
+```
+
+### Montreal Forced Aligner
+
+The [Montreal Forced Aligner (MFA)](https://montrealcorpustools.github.io/Montreal-Forced-Aligner/), 
+is another forced alignment system that uses the [Kaldi ASR toolkit](http://kaldi-asr.org/) instead of HTK.
+
+The LaBB-CAT module that integrates with the Montreal Forced Aligner is called *MFA*:
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "MFA")$taskParameterInfo</code></summary>
+```{r mfa-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "MFA")$taskParameterInfo)
+```
+</details>
+````
+___
+
+#### MFA Alignment with General American English ARPAbet Models
+
+MFA provides a set [pre-trained English models](https://mfa-models.readthedocs.io/en/latest/acoustic/English/English%20%28US%29%20ARPA%20acoustic%20model%20v2_0_0.html#English%20(US)%20ARPA%20acoustic%20model%20v2_0_0) trained on 982 hours of speech by 2484 American English speakers 
+from the LibriSpeech corpus,
+(Vassil Panayotov and Guoguo Chen and Daniel Povey and Sanjeev Khudanpur (2015)
+ "Librispeech: An ASR corpus based on public domain audio books",
+ 2015 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP),
+ pp 5206-5210, DOI:10.1109/ICASSP.2015.7178964)
+and pronunciations from an [ARPAbet encoded General American English dictionary](https://mfa-models.readthedocs.io/en/latest/dictionary/English/English%20%28US%29%20ARPA%20dictionary%20v2_0_0.html#English%20(US)%20ARPA%20dictionary%20v2_0_0).
+
+A layer is set up to use this configuration:
+
+```{r mfa-pretrained-arpabet}
+mfaGAm <- newLayer(
+  url, "mfaGAm", 
+  description = "Word alignments from MFA using an ARPAbet dictionary and pretrained models.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "MFA", 
+  annotator.task.parameters = paste(
+    "orthographyLayerId=orthography",
+    "dictionaryName=english_us_arpa",
+    "modelsName=english_us_arpa",
+    "wordAlignmentLayerId=mfaGAm",       # save word alignments to this layer
+    "phoneAlignmentLayerId=mfaGAmPhone", # this will be created by the annotator
+    sep="&"))
+```
+
+#### MFA Alignment with IPA Models and a Non-rhotic Dictionary
+
+MFA also includes [IPA-encoded models trained on 3687 hours of English speech](https://mfa-models.readthedocs.io/en/latest/acoustic/English/English%20MFA%20acoustic%20model%20v2_0_0.html#English%20MFA%20acoustic%20model%20v2_0_0) of a number of varieties, and an [IPA-encoded British English pronunciation dictionary](https://mfa-models.readthedocs.io/en/latest/dictionary/English/English%20%28UK%29%20MFA%20dictionary%20v2_0_0.html#English%20(UK)%20MFA%20dictionary%20v2_0_0) which may perform better for our New Zealand English data, as both varieties are non-rhotic (unlike the US English dictionary used for the *mfaGAm* layer above).
+
+This configuration uses pre-trained English models and pronunciations from an IPA encoded British English dictionary.
+
+```{r mfa-pretrained-ipa}
+# create layer
+mfaUKE <- newLayer(
+  url, "mfaUKE", 
+  description = "Word alignments from MFA using an IPA dictionary and pretrained models.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "MFA", 
+  annotator.task.parameters = paste(
+    "orthographyLayerId=orthography",
+    "dictionaryName=english_uk_mfa",
+    "modelsName=english_mfa",
+    "wordAlignmentLayerId=mfaUKE",       # save word alignments to this layer
+    "phoneAlignmentLayerId=mfaUKEPhone", # this will be created by the annotator
+    sep="&"))
+```
+
+### BAS Web Service and MAUS Basic
+
+MAUSBasic web service; part of the CLARIN-D's [BAS Web Services suite](https://clarin.phonetik.uni-muenchen.de/BASWebServices/interface) provides a [web service](https://clarin.phonetik.uni-muenchen.de/BASWebServices/interface/WebMAUSBasic) for the MAUS forced aligner, which supports a number of languages and varieties.
+
+LaBB-CAT integrates with the BAS Web Services using a module called *BASAnnotator* (which also provides access to the G2P BAS web service):
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "BASAnnotator")$taskParameterInfo</code></summary>
+```{r bas-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "BASAnnotator")$taskParameterInfo)
+```
+</details>
+````
+___
+
+New Zealand English is supported explicitly by MAUSBasic, so layer is set up to using the following configuration:
+
+```{r maus}
+maus <- newLayer(
+  url, "maus", 
+  description = "Word alignments from MAUSBasic web service provided by the BAS Web Services.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "BAS", 
+  annotator.task.parameters = paste(
+    "service=MAUSBasic",
+    "orthographyLayerId=orthography",
+    "forceLanguageMAUSBasic=eng-NZ",   # New Zealand English
+    "phonemeEncoding=disc",            # use DISC for phone labels
+    "wordAlignmentLayerId=maus",       # save word alignments to this layer
+    "phoneAlignmentLayerId=mausPhone", # this will be created by the annotator
+    sep = "&"))
+```
+
+## Upload transcripts and recordings
+
+The speech to be force-aligned is in New Zealand English, and has been transcribed in a Praat. This corpus is (very!) small, but enough to illustrate what's possible.
+
+TextGrid files are uploaded with their corresponsing .wav files. The TextGrids include manually aligned words and segments (phones). The phone labels use the CELEX 'DISC' encoding, which utilises one character per phoneme. These will be the 'gold standard' alignments for evaluating each forced alignment configuration. 
+
+```{r upload}
+# for each transcript
+for (transcriptName in transcriptFiles) {
+  transcript <- file.path(dataDir, transcriptName)
+  
+  # locate recording
+  noExtension <- substr(transcriptName, 1, nchar(transcriptName) - 9)
+  wav <- file.path(dataDir, paste(noExtension, ".wav", sep=""))
+  if (!file.exists(wav)) {
+    wav <- file.path(dataDir, paste(noExtension, ".WAV", sep=""))
+  }
+  if (!file.exists(wav)) cat(paste(wav, "doesn't exist\n"))
+  if (!file.exists(transcript)) cat(paste(transcript, "doesn't exist\n"))
+  
+  # upload the transcript/recording
+  newTranscript(url, transcript, wav, no.progress = TRUE)
+
+} # next trancript
+cat(paste("Transcripts uploaded: ", length(transcriptFiles), "\n"))
+```
+
+At this point the manually aligned transcripts have been uploaded, and all of the forced-alignment configurations have been run.
+
+## Compare Automatic Alignments with Manual Alignments
+
+In order to compare the word and phone alignments produced by the forced aligners with the manual alignments, we use LaBB-CAT's Label Mapper layer manager:
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "LabelMapper")$info</code></summary>
+```{r label-mapper-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "LabelMapper")$info)
+```
+</details>
+````
+___
+
+The details of the Label Mapper configuration are:
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "LabelMapper")$taskParameterInfo</code></summary>
+```{r label-mapper-parameter-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "LabelMapper")$taskParameterInfo)
+```
+</details>
+````
+___
+
+A comparison is set up for each of the forced-alignment configurations above, i.e each automatic word alignment is matched to a corresponding manual word alignment, and within each word, each automatic phone alignment is matched to a corresponding manual phone alignment. Once this is done, it's possible to measure the degree to which the automatic alignments overlap with the manual ones.
+
+```{r comparison-mappings}
+# compare p2fa alignments with manual ones
+p2faComp <- newLayer(
+  url, "p2faComp", 
+  description = "Compare P2FA alignments with Manual alignments.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "labelmapper", 
+  annotator.task.parameters = paste(
+    "sourceLayerId=orthography",
+    "targetLayerId=p2fa",
+    "splitLabels=",                    # no splitting; target to source annotations map 1:1
+    "comparator=CharacterToCharacter", # word tokens use plain orthography
+    "subSourceLayerId=segment",
+    "subTargetLayerId=p2faPhone", 
+    "subComparator=DISCToArpabet",     # phone tokens in p2faPhone use ARPAbet encoding
+    sep="&"))
+generateLayer(url, "p2faComp")
+
+# compare MFA ARPAbet alignments with manual ones
+mfaGAmComp <- newLayer(
+  url, "mfaGAmComp", 
+  description = "Compare MFA ARPAbet pretrained-model alignments with Manual alignments.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "labelmapper", 
+  annotator.task.parameters = paste(
+    "sourceLayerId=orthography",
+    "targetLayerId=mfaGAm",
+    "splitLabels=",                    # no splitting; target to source annotations map 1:1
+    "comparator=CharacterToCharacter", # word tokens use plain orthography
+    "subSourceLayerId=segment",
+    "subTargetLayerId=mfaGAmPhone", 
+    "subComparator=DISCToArpabet",     # phone tokens in mfaGAmPhone use ARPAbet encoding
+    sep="&"))
+generateLayer(url, "mfaGAmComp")
+
+# compare MFA non-rhotic IPA alignments with manual ones
+mfaUKEComp <- newLayer(
+  url, "mfaUKEComp", 
+  description = "Compare MFA IPA pretrained-model alignments with Manual alignments.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "labelmapper", 
+  annotator.task.parameters = paste(
+    "sourceLayerId=orthography",
+    "targetLayerId=mfaUKE",
+    "splitLabels=",                    # no splitting; target to source annotations map 1:1
+    "comparator=CharacterToCharacter", # word tokens use plain orthography
+    "subSourceLayerId=segment",
+    "subTargetLayerId=mfaUKEPhone", 
+    "subComparator=DISCToIPA",         # phone tokens in mfaUKEPhone use IPA encoding
+    sep="&"))
+generateLayer(url, "mfaUKEComp")
+
+# compare MAUSBasic alignments with manual ones
+mausComp <- newLayer(
+  url, "mausComp", 
+  description = "Compare MAUS Basic New Zealand English alignments with Manual alignments.",
+  alignment = 2, parent.id = "turn", # a phrase layer
+  annotator.id = "labelmapper", 
+  annotator.task.parameters = paste(
+    "sourceLayerId=orthography",
+    "targetLayerId=maus",
+    "splitLabels=",                    # no splitting; target to source annotations map 1:1
+    "comparator=CharacterToCharacter", # word tokens use plain orthography
+    "subSourceLayerId=segment",
+    "subTargetLayerId=mausPhone", 
+    "subComparator=DISCToDISC",        # phone tokens in mausPhone use DISC encoding
+    sep="&"))
+generateLayer(url, "mausComp")
+```
+
+## Edit Paths and Alignment Comparisons
+
+The LabelMapper has an extended API for exporting information about the edit-paths computed, and the resulting alignment comparisons.
+
+````{=html}
+<details><summary><code>getAnnotatorDescriptor(url, "LabelMapper")$extApiInfo</code></summary>
+```{r label-mapper-api-info, echo=FALSE, results='asis'}
+cat(getAnnotatorDescriptor(url, "LabelMapper")$extApiInfo)
+```
+</details>
+````
+___
+
+The mean overlap rates for the forced alignment configurations can be directly compared, by extracting the mapping summaries and comparing them:
+
+```{r comparison}
+p2faPhone <- jsonlite::fromJSON(
+  annotatorExt(url, "LabelMapper", "summarizeMapping", list("segment","p2faPhone")))
+mfaGAmPhone <- jsonlite::fromJSON(
+  annotatorExt(url, "LabelMapper", "summarizeMapping", list("segment","mfaGAmPhone")))
+mfaUKEPhone <- jsonlite::fromJSON(
+  annotatorExt(url, "LabelMapper", "summarizeMapping", list("segment","mfaUKEPhone")))
+mausPhone <- jsonlite::fromJSON(
+  annotatorExt(url, "LabelMapper", "summarizeMapping", list("segment","mausPhone")))
+
+knitr::kable(rbind(p2faPhone, mfaGAmPhone, mfaUKEPhone, mausPhone))
+```
+
+The LabelMapper module can also provide finely-grained details of the mappings - i.e. exactly which manual phones mapped to which automatic phones.
+
+```{r edit-paths}
+# get edit paths for manual-to-P2FA comparison
+p2faPhoneEditPaths <- read.csv(
+  text = annotatorExt(url, "LabelMapper", "mappingToCsv", list("segment","p2faPhone")))
+# show a sample of the paths to give an idea
+knitr::kable(head(
+  p2faPhoneEditPaths[
+    c("sourceParentLabel", "sourceLabel", "sourceStart","sourceEnd", 
+      "targetLabel", "targetStart","targetEnd", "overlapRate")]),
+  # tweak some column names for display purposes
+  col.names = c("Word","sourceLabel", "sourceStart","sourceEnd", 
+      "targetLabel", "targetStart","targetEnd", "OvR"))
+```
+
+This allows closer analysis of the forced-alignments, beyond the overlap rate summary. 
+
+For example, it allows us to identify which phones are being produced the the forced aligner which have no corresponding phone in the manual alignments; forced aligners that are using a rhotic dictionary are expected to produce many spurious /r/ segments that are not really present in the non-rhotic speech in the corpus:
+
+```{r spurious-segments}
+# identify all edit steps where a phone is added - i.e. the source phone label is empty
+spuriousSegments <- subset(p2faPhoneEditPaths, sourceLabel == "")
+# count these spurious segments grouping by their label to see which is most common
+knitr::kable(
+  aggregate(spuriousSegments$targetLabel, 
+            by=list(spuriousSegments$targetLabel), 
+            FUN=length),
+  col.names = c("Spurious Segment", "Count"))
+```
+
+With this detailed mapping information, it's possible to:
+
+- identify which segments are added or removed
+- analyse which types of segments are aligned more accurately, e.g. vowels vs. consonants, etc.
+- apply other alignment accuracy measurements other than Overlap Rate
