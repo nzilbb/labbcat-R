@@ -1,8 +1,16 @@
+# nzilbb.labbcat 1.2-0
+
+## New functions:
+
+- *countMatchingAnnotations* and *getMatchingAnnotations* : Retrieve individual annotations that match a pattern expression.
+
+## Enhancements
+
+- getMatches accepts a string as a pattern, and assumes it's a space-delimited orthography layer search.
+
 # nzilbb.labbcat 1.1-0
 
 Minimum LaBB-CAT version *20220401.1842*
-
-## Enhancements
 
 ## New functions:
 
