@@ -90,6 +90,20 @@ test_that("getMatches works with 2x1 orthographic search using simple structure"
     expect_equal(as.vector(matches$Text)[[1]], "Knox Church .")
 })
 
+test_that("getMatches works with 2x1 orthographic search using string", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    ## create pattern
+    pattern <- "knox church"
+    
+    ## get matches
+    matches <- getMatches(labbcat.url, pattern)
+
+    expect_equal(length(matches$MatchId), 1)
+    expect_equal(as.vector(matches$Text)[[1]], "Knox Church .")
+})
+
 test_that("getMatches works with 2x3 non-orthographic search using full structure", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
