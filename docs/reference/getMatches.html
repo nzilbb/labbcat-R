@@ -85,32 +85,44 @@
 <dd><p>URL to the LaBB-CAT instance</p></dd>
 <dt>pattern</dt>
 <dd><p>An object representing the pattern to search for.</p>
-<p>Strictly speaking, this should be a named list that replicates the structure of the
-    `search matrix' in the LaBB-CAT browser interface, with one element called
-    ``columns'', containing a named list for each column.</p>
-<p>Each element in the ``columns'' named list contains an element named ``layers'', whose
+<p>This can be:</p><ul><li><p>A string, representing a search of the orthography layer - spaces are
+       taken to be word boundaries</p></li>
+<li><p>A single named list, representing a one-column search - names are taken to be layer IDs</p></li>
+<li><p>A list of named lists, representing a multi-column search - the outer list
+       represents the columns of the search matrix where each column 'immediately
+       follows' the previous, and the names of the inner lists are taken to be layer IDs</p></li>
+<li><p>A named list fully replicating the structure of the search matrix in the
+       LaBB-CAT browser interface, with one element called ``columns'', containing a
+       named list for each column.       Each element in the ``columns'' named list contains an element named ``layers'', whose
     value is a named list for patterns to match on each layer, and optionally an
     element named ``adj'', whose value is a number representing the maximum distance, in
     tokens, between this column and the next column - if ``adj'' is not specified, the
-    value defaults to 1, so tokens are contiguous.</p>
-<p>Each element in the ``layers'' named list is named after the layer it matches, and the
-    value is a named list with the following possible elements:</p><ul><li><p><em>pattern</em>  A regular expression to match against the label</p></li>
+    value defaults to 1, so tokens are contiguous.        Each element in the ``layers'' named list is named after the layer it matches, and the
+    value is a named list with the following possible elements:
+        </p><ul><li><p><em>pattern</em>  A regular expression to match against the label</p></li>
 <li><p><em>min</em>  An inclusive minimum numeric value for the label</p></li>
 <li><p><em>max</em>  An exclusive maximum numeric value for the label</p></li>
 <li><p><em>not</em>  TRUE to negate the match</p></li>
 <li><p><em>anchorStart</em>  TRUE to anchor to the start of the annotation on this layer
-    (i.e. the matching word token will be the first at/after the start of the matching
-    annotation on this layer)</p></li>
+            (i.e. the matching word token will be the first at/after the start of the matching
+            annotation on this layer)</p></li>
 <li><p><em>anchorEnd</em>  TRUE to anchor to the end of the annotation on this layer
-    (i.e. the matching word token will be the last before/at the end of the matching
-    annotation on this layer)</p></li>
-<li><p><em>target</em>  TRUE to make this layer the target of the search; the results will
-    contain one row for each match on the target layer</p></li>
+            (i.e. the matching word token will be the last before/at the end of the matching
+            annotation on this layer)</p></li>
+<li><p><em>target</em>  TRUE to make this layer the target of the search; the
+            results will contain one row for each match on the target layer</p></li>
+</ul></li>
 </ul><p>Examples of valid pattern objects include:</p><div class="sourceCode"><pre><code>
-## words starting with 'ps...'
-pattern &lt;- list(columns = list(
-    list(layers = list(
-           orthography = list(pattern = "ps.*")))))
+## the word 'the' followed immediately by a word starting with an orthographic vowel
+pattern &lt;- "the [aeiou]"
+
+## a word spelt with "k" but pronounced "n" word initially
+pattern &lt;- list(orthography = "k.*", phonemes = "n.*")
+
+## the word 'the' followed immediately by a word starting with an phonemic vowel
+pattern &lt;- list(
+    list(orthography = "the"),
+    list(phonemes = "[cCEFHiIPqQuUV0123456789~#\$@].*"))
 
 ## the word 'the' followed immediately or with one intervening word by
 ## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel
@@ -121,17 +133,6 @@ pattern &lt;- list(columns = list(
     list(layers = list(
            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\$@].*"),
            frequency = list(max = "2")))))
-</code></pre></div><p>For ease of use, the function will also accept the following abbreviated forms:</p>
-<div class="sourceCode"><pre><code>
-## a single list representing a 'one column' search, 
-## and string values, representing regular expression pattern matching
-pattern &lt;- list(orthography = "ps.*")
-
-## a list containing the columns (adj defaults to 1, so matching tokens are contiguous)...
-pattern &lt;- list(
-    list(orthography = "the"),
-    list(phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\$@].*"),
-         frequency = list(max = "2")))
 </code></pre></div></dd>
 <dt>participant.ids</dt>
 <dd><p>An optional list of participant IDs to search the utterances of. If
@@ -191,7 +192,12 @@ shown when interactive().</p></dd>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="getParticipantIds.html">getParticipantIds</a></code></p></div>
+    <div class="dont-index"><p><code><a href="getFragments.html">getFragments</a></code></p>
+<p><code><a href="getSoundFragments.html">getSoundFragments</a></code></p>
+<p><code><a href="getMatchLabels.html">getMatchLabels</a></code></p>
+<p><code><a href="getMatchAlignments.html">getMatchAlignments</a></code></p>
+<p><code><a href="processWithPraat.html">processWithPraat</a></code></p>
+<p><code><a href="getParticipantIds.html">getParticipantIds</a></code></p></div>
     </div>
 
     <div id="ref-examples">
@@ -200,19 +206,32 @@ shown when interactive().</p></dd>
 <span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
 <span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co">## create a pattern object to match against</span></span>
-<span class="r-in"><span class="va">pattern</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in"><span class="co">## the word 'the' followed immediately by a word starting with an orthographic vowel</span></span>
+<span class="r-in"><span class="va">theThenOrthVowel</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"the [aeiou]"</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## a word spelt with "k" but pronounced "n" word initially</span></span>
+<span class="r-in"><span class="va">knWords</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"k.*"</span>, phonemes <span class="op">=</span> <span class="st">"n.*"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## the word 'the' followed immediately by a word starting with an phonemic vowel</span></span>
+<span class="r-in"><span class="va">theThenPhonVowel</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span>
+<span class="r-in">  <span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span>,</span>
+<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>phonemes <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## the word 'the' followed immediately or with one intervening word by</span></span>
+<span class="r-in"><span class="co">## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span></span>
+<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span>
+<span class="r-in">  <span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span class="r-in">           orthography <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span class="r-in">         adj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
 <span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span class="r-in">           phonemes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>not<span class="op">=</span><span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span>,</span>
-<span class="r-in">           frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in">           frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span class="r-in">  overlap.threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co">## get the tokens matching the pattern, excluding overlapping speech</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">pattern</span>, overlap.threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## results$MatchId can be used to access results</span></span>
+<span class="r-in"><span class="co">## results$Text is the text that matched</span></span>
+<span class="r-in"><span class="co">## results$MatchId can be used to access results using other functions</span></span>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"></span>
 </code></pre></div>
