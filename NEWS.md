@@ -7,6 +7,7 @@ Minimum LaBB-CAT version *20220401.1842*
 - *praatScriptPitch* and *praatScriptIntensity* have additional parameters
   + *sample.points* - `Get value at time` for points spread through the duration of the sample
   + *interpolation* - interpolation to use for `Get value at time`
+  + *skip.errors* - how to handle errors when Praat can't create objects
 
 # nzilbb.labbcat 1.1-0
 
