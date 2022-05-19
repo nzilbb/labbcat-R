@@ -56,11 +56,12 @@
 #' ## Perform a search
 #' results <- getMatches(labbcat.url, list(segment="I"))
 #' 
-#' ## Get pitch mean, max, and min for all matches
+#' ## Get pitch mean, max, and min, and the midpoint of the segment, for each match
 #' pitch <- processWithPraat(
 #'               labbcat.url,
 #'               results$MatchId, results$Target.segment.start, results$Target.segment.end,
-#'               praatScriptPitch(get.mean=TRUE, get.minimum=TRUE, get.maximum=TRUE))
+#'               praatScriptPitch(get.mean=TRUE, get.minimum=TRUE, get.maximum=TRUE,
+#'                                sample.points = c(.5)))
 #' }
 #' @keywords praat
 #' 
