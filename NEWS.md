@@ -1,3 +1,13 @@
+# nzilbb.labbcat 1.1-1
+
+Minimum LaBB-CAT version *20220401.1842*
+
+## Enhancements
+
+- *praatScriptPitch* and *praatScriptIntensity* have additional parameters
+  + *sample.points* - `Get value at time` for points spread through the duration of the sample
+  + *interpolation* - interpolation to use for `Get value at time`
+
 # nzilbb.labbcat 1.1-0
 
 Minimum LaBB-CAT version *20220401.1842*

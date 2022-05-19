@@ -23,6 +23,41 @@ test_that("praatScriptPitch default arguments works", {
     expect_equal(praatScriptPitch(), script)
 })
 
+test_that("praatScriptPitch works with sample.points", {    
+    script <- paste(
+        "\npitchfloor = 60",
+        "\nvoicingthreshold = 0.5",
+        "\npitchceiling = 500",
+        "\nveryaccurate$ = \"no\"",
+        "\nif participant_gender$ = \"M\"",
+        "\n  pitchfloor = 30",
+        "\nendif",
+        "\nif participant_gender$ = \"M\"",
+        "\n  voicingthreshold = 0.4",
+        "\nendif",
+        "\nif participant_gender$ = \"M\"",
+        "\n  pitchceiling = 250",
+        "\nendif",
+        "\nselect Sound 'sampleName$'",
+        "\nTo Pitch (ac): 0, pitchfloor, 15, veryaccurate$, 0.03, voicingthreshold, 0.01, 0.35, ",
+        "0.35, pitchceiling",
+        "\npointoffset = targetAbsoluteStart + 0.3 * targetDuration",
+        "\ntime_0_3_for_pitch = pointoffset",
+        "\nprint 'time_0_3_for_pitch' 'newline$'",
+        "\npointoffset = targetStart + 0.3 * targetDuration",
+        "\npitch_time_0_3 = Get value at time: pointoffset, \"Hertz\", \"linear\"",
+        "\nprint 'pitch_time_0_3:0' 'newline$'",
+        "\npointoffset = targetAbsoluteStart + 0.6 * targetDuration",
+        "\ntime_0_6_for_pitch = pointoffset",
+        "\nprint 'time_0_6_for_pitch' 'newline$'",
+        "\npointoffset = targetStart + 0.6 * targetDuration",
+        "\npitch_time_0_6 = Get value at time: pointoffset, \"Hertz\", \"linear\"",
+        "\nprint 'pitch_time_0_6:0' 'newline$'",
+        "\nRemove\n",
+        sep="")
+    expect_equal(praatScriptPitch(sample.points = c(0.3,0.6), get.mean = FALSE), script)
+})
+
 test_that("praatScriptIntensity with non-default arguments works", {    
     script <- paste(
         "\npitchfloor = 50",
@@ -42,6 +77,12 @@ test_that("praatScriptIntensity with non-default arguments works", {
         "\nprint 'minPitch' 'newline$'",
         "\nmaxPitch = Get maximum: targetStart, targetEnd, \"Hertz\", \"Parabolic\"",
         "\nprint 'maxPitch' 'newline$'",
+        "\npointoffset = targetAbsoluteStart + 0.5 * targetDuration",
+        "\ntime_0_5_for_pitch = pointoffset",
+        "\nprint 'time_0_5_for_pitch' 'newline$'",
+        "\npointoffset = targetStart + 0.5 * targetDuration",
+        "\npitch_time_0_5 = Get value at time: pointoffset, \"Hertz\", \"nearest\"",
+        "\nprint 'pitch_time_0_5:0' 'newline$'",
         "\nRemove\n",
         sep="")
     expect_equal(praatScriptPitch(
@@ -50,7 +91,7 @@ test_that("praatScriptIntensity with non-default arguments works", {
         silence.threshold = 0.035, voicing.threshold = 0.55, octave.cost = 0.02,
         octave.jump.cost = 0.4, voiced.unvoiced.cost = 0.45,
         pitch.ceiling = 600, pitch.floor.male = 40, voicing.threshold.male = 0.55,
-        pitch.ceiling.male = 300, gender.attribute = 'participant_sex', value.for.male = "male"),
+        pitch.ceiling.male = 300, gender.attribute = 'participant_sex', value.for.male = "male",
+        sample.points = c(0.5), interpolation = "nearest"),
         script)
 })
-

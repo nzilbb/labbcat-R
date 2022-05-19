@@ -25,6 +25,16 @@
 #' @param gender.attribute Name of the LaBB-CAT participant attribute that contains the
 #'     participant's gender - normally this is "participant_gender".
 #' @param value.for.male The value that the gender.attribute has when the participant is male.
+#' @param sample.points A vector of numbers (0 <= sample.points <= 1) specifying multiple
+#'     points at which to take the measurement.  The default is NULL, meaning no
+#'     individual measurements will be taken (only the aggregate values identified by
+#'     get.mean, get.minimum, and get.maximum).  A single point at 0.5 means one
+#'     measurement will be taken halfway through the target interval.  If, for example, 
+#'     you wanted eleven measurements evenly spaced throughout the interval, you would
+#'     specify sample.points as being 
+#'     c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).  
+#' @param interpolation If sample.points are specified, this is the interpolation to use
+#'     when getting individual values. Possible values are 'nearest' or 'linear'.
 #' @return A script fragment which can be passed as the praat.script parameter of
 #'     \link{processWithPraat} 
 #' 
@@ -49,7 +59,13 @@
 #' }
 #' @keywords praat
 #' 
-praatScriptPitch <- function(get.mean = TRUE, get.minimum = FALSE, get.maximum = FALSE, time.step = 0.0, pitch.floor = 60, max.number.of.candidates = 15, very.accurate = FALSE, silence.threshold = 0.03, voicing.threshold = 0.5, octave.cost = 0.01, octave.jump.cost = 0.35, voiced.unvoiced.cost = 0.35, pitch.ceiling = 500, pitch.floor.male = 30, voicing.threshold.male = 0.4, pitch.ceiling.male = 250, gender.attribute = 'participant_gender', value.for.male = "M") {
+praatScriptPitch <- function(get.mean = TRUE, get.minimum = FALSE, get.maximum = FALSE,
+    time.step = 0.0, pitch.floor = 60, max.number.of.candidates = 15, very.accurate =
+    FALSE, silence.threshold = 0.03, voicing.threshold = 0.5, octave.cost = 0.01,
+    octave.jump.cost = 0.35, voiced.unvoiced.cost = 0.35, pitch.ceiling = 500,
+    pitch.floor.male = 30, voicing.threshold.male = 0.4, pitch.ceiling.male = 250,
+    gender.attribute = 'participant_gender', value.for.male = "M", sample.points = NULL,
+    interpolation = 'linear') {
     script <- paste(
         "\npitchfloor = ", pitch.floor,
         "\nvoicingthreshold = ", voicing.threshold,
@@ -106,6 +122,24 @@ praatScriptPitch <- function(get.mean = TRUE, get.minimum = FALSE, get.maximum =
         script <- paste(script,
                        "\nmaxPitch = Get maximum: targetStart, targetEnd, \"Hertz\", \"Parabolic\"",
                        "\nprint 'maxPitch' 'newline$'", sep="")
+    }
+    if (!is.null(sample.points)) {
+        for (point in sample.points) {
+            varname = paste("time_", stringr::str_replace(point, "\\.","_"), "_for_pitch", sep="")
+            ## first output absolute point offset
+            script <- paste(script, "\npointoffset =",
+                            " targetAbsoluteStart + ", point, " * targetDuration", sep="")
+            script <- paste(script, "\n", varname, " = pointoffset", sep="")
+            script <- paste(script, "\nprint '", varname, "' 'newline$'", sep="")
+            ## now use the relative point offset
+            script <- paste(script, "\npointoffset =",
+                            " targetStart + ", point, " * targetDuration", sep="")
+            varname = paste("pitch_time_", stringr::str_replace(point, "\\.","_"), sep="")
+            script <- paste(script, "\n", varname,
+                           " = Get value at time: pointoffset, \"Hertz\", \"",interpolation,"\"",
+                           sep="")
+            script <- paste(script, "\nprint '", varname, ":0' 'newline$'", sep="")
+        } ## next sample point
     }
     script <- paste( # remove pitch object
         script, "\nRemove\n", sep="")
