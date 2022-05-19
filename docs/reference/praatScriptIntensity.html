@@ -18,7 +18,7 @@ parameter of processWithPraat, in order to extract maximum intensity value."><me
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
       </span>
     </div>
 
@@ -65,7 +65,15 @@ parameter of <a href="processWithPraat.html">processWithPraat</a>, in order to e
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">praatScriptIntensity</span><span class="op">(</span>minimum.pitch <span class="op">=</span> <span class="fl">100</span>, time.step <span class="op">=</span> <span class="fl">0</span>, subtract.mean <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">praatScriptIntensity</span><span class="op">(</span>
+  minimum.pitch <span class="op">=</span> <span class="fl">100</span>,
+  time.step <span class="op">=</span> <span class="fl">0</span>,
+  subtract.mean <span class="op">=</span> <span class="cn">TRUE</span>,
+  get.maximum <span class="op">=</span> <span class="cn">TRUE</span>,
+  sample.points <span class="op">=</span> <span class="cn">NULL</span>,
+  interpolation <span class="op">=</span> <span class="st">"cubic"</span>,
+  skip.errors <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -76,6 +84,27 @@ parameter of <a href="processWithPraat.html">processWithPraat</a>, in order to e
 <dd><p>Time step in seconds, or 0.0 for 'auto'.</p></dd>
 <dt>subtract.mean</dt>
 <dd><p>Whether to subtract the mean or not.</p></dd>
+<dt>get.maximum</dt>
+<dd><p>Extract the maximum intensity for the sample.</p></dd>
+<dt>sample.points</dt>
+<dd><p>A vector of numbers (0 &lt;= sample.points &lt;= 1) specifying multiple
+points at which to take the measurement.  The default is NULL, meaning no
+individual measurements will be taken (only the aggregate values identified by
+get.mean, get.minimum, and get.maximum).  A single point at 0.5 means one
+measurement will be taken halfway through the target interval.  If, for example, 
+you wanted eleven measurements evenly spaced throughout the interval, you would
+specify sample.points as being 
+c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).</p></dd>
+<dt>interpolation</dt>
+<dd><p>If sample.points are specified, this is the interpolation to use
+when getting individual values. Possible values are 'nearest', 'linear', 'cubic',
+'sinc70', or 'sinc700'.</p></dd>
+<dt>skip.errors</dt>
+<dd><p>Sometimes, for some segments, Praat fails to create an Intensity
+object. If skip.errors = TRUE, analysis those segments will be skipped, and corresponding
+pitch values will be returned as "--undefined--". If skip.errors = FALSE, the error
+message from Praat will be returned in the Error field, but no pitch measures will
+be returned for any segments in the same recording.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
