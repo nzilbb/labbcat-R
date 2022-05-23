@@ -115,14 +115,24 @@ getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "te
                 file.name <- final.file.name
             }
 
-            ## list the files
-            file.names <- paste(dir, unzip(file.name, list=T)$Name, sep="")
-
-            ## unzip result
-            unzip(file.name, exdir=dir)
-
-            ## remove zip file
-            file.remove(file.name)
+            if (endsWith(file.name, ".zip")) {
+                ## list the files
+                file.names <- paste(dir, unzip(file.name, list=T)$Name, sep="")
+                
+                ## unzip result
+                unzip(file.name, exdir=dir)
+                
+                ## remove zip file
+                file.remove(file.name)
+            } else { ## a single file returned
+                ## move it to the dir
+                if (stringr::str_length(dir) > 0) { ## directory is specified
+                    file.names <- paste(dir, .Platform$file.sep, file.name, sep="")
+                    file.rename(file.name, file.names)
+                } else {
+                    file.names = file.name
+                }
+            }
         }
     }, error = function(e) {
         print(paste("ERROR:", e))

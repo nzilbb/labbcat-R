@@ -43,6 +43,9 @@
     <loc>/reference/countAnnotations.html</loc>
   </url>
   <url>
+    <loc>/reference/countMatchingAnnotations.html</loc>
+  </url>
+  <url>
     <loc>/reference/deleteLayer.html</loc>
   </url>
   <url>
@@ -116,6 +119,9 @@
   </url>
   <url>
     <loc>/reference/getMatches.html</loc>
+  </url>
+  <url>
+    <loc>/reference/getMatchingAnnotations.html</loc>
   </url>
   <url>
     <loc>/reference/getMatchingGraphIds.html</loc>

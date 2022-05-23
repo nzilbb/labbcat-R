@@ -5,39 +5,55 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param pattern An object representing the pattern to search for.
 #'
-#' Strictly speaking, this should be a named list that replicates the structure of the
-#'     `search matrix' in the LaBB-CAT browser interface, with one element called
-#'     ``columns'', containing a named list for each column.
-#'
-#' Each element in the ``columns'' named list contains an element named ``layers'', whose
+#' This can be:
+#' \itemize{
+#'  \item{A string, representing a search of the orthography layer - spaces are
+#'        taken to be word boundaries}
+#'  \item{A single named list, representing a one-column search - names are taken to be layer IDs}
+#'  \item{A list of named lists, representing a multi-column search - the outer list
+#'        represents the columns of the search matrix where each column 'immediately
+#'        follows' the previous, and the names of the inner lists are taken to be layer IDs} 
+#'  \item{A named list fully replicating the structure of the search matrix in the
+#'        LaBB-CAT browser interface, with one element called ``columns'', containing a
+#'        named list for each column.
+#' 
+#'        Each element in the ``columns'' named list contains an element named ``layers'', whose
 #'     value is a named list for patterns to match on each layer, and optionally an
 #'     element named ``adj'', whose value is a number representing the maximum distance, in
 #'     tokens, between this column and the next column - if ``adj'' is not specified, the
 #'     value defaults to 1, so tokens are contiguous.
 #'
-#' Each element in the ``layers'' named list is named after the layer it matches, and the
+#'         Each element in the ``layers'' named list is named after the layer it matches, and the
 #'     value is a named list with the following possible elements:
-#' \itemize{
-#'  \item{\emph{pattern}  A regular expression to match against the label}
-#'  \item{\emph{min}  An inclusive minimum numeric value for the label}
-#'  \item{\emph{max}  An exclusive maximum numeric value for the label}
-#'  \item{\emph{not}  TRUE to negate the match}
-#'  \item{\emph{anchorStart}  TRUE to anchor to the start of the annotation on this layer
-#'     (i.e. the matching word token will be the first at/after the start of the matching
-#'     annotation on this layer)}
-#'  \item{\emph{anchorEnd}  TRUE to anchor to the end of the annotation on this layer
-#'     (i.e. the matching word token will be the last before/at the end of the matching
-#'     annotation on this layer)}
-#'  \item{\emph{target}  TRUE to make this layer the target of the search; the results will
-#'     contain one row for each match on the target layer}
+#'         \itemize{
+#'          \item{\emph{pattern}  A regular expression to match against the label}
+#'          \item{\emph{min}  An inclusive minimum numeric value for the label}
+#'          \item{\emph{max}  An exclusive maximum numeric value for the label}
+#'          \item{\emph{not}  TRUE to negate the match}
+#'          \item{\emph{anchorStart}  TRUE to anchor to the start of the annotation on this layer
+#'             (i.e. the matching word token will be the first at/after the start of the matching
+#'             annotation on this layer)}
+#'          \item{\emph{anchorEnd}  TRUE to anchor to the end of the annotation on this layer
+#'             (i.e. the matching word token will be the last before/at the end of the matching
+#'             annotation on this layer)}
+#'          \item{\emph{target}  TRUE to make this layer the target of the search; the
+#'             results will contain one row for each match on the target layer}
+#'       }
+#'  }
 #' }
 #'
 #' Examples of valid pattern objects include:
 #' \preformatted{
-#' ## words starting with 'ps...'
-#' pattern <- list(columns = list(
-#'     list(layers = list(
-#'            orthography = list(pattern = "ps.*")))))
+#' ## the word 'the' followed immediately by a word starting with an orthographic vowel
+#' pattern <- "the [aeiou]"
+#' 
+#' ## a word spelt with "k" but pronounced "n" word initially
+#' pattern <- list(orthography = "k.*", phonemes = "n.*")
+#' 
+#' ## the word 'the' followed immediately by a word starting with an phonemic vowel
+#' pattern <- list(
+#'     list(orthography = "the"),
+#'     list(phonemes = "[cCEFHiIPqQuUV0123456789~#\\$@].*"))
 #' 
 #' ## the word 'the' followed immediately or with one intervening word by
 #' ## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel
@@ -48,19 +64,6 @@
 #'     list(layers = list(
 #'            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
 #'            frequency = list(max = "2")))))
-#' }
-#' For ease of use, the function will also accept the following abbreviated forms:
-#'
-#' \preformatted{
-#' ## a single list representing a 'one column' search, 
-#' ## and string values, representing regular expression pattern matching
-#' pattern <- list(orthography = "ps.*")
-#'
-#' ## a list containing the columns (adj defaults to 1, so matching tokens are contiguous)...
-#' pattern <- list(
-#'     list(orthography = "the"),
-#'     list(phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
-#'          frequency = list(max = "2")))
 #' }
 #' @param participant.ids An optional list of participant IDs to search the utterances of. If
 #'     not supplied, all utterances in the corpus will be searched.
@@ -108,6 +111,11 @@
 #'     segment layer is included in the pattern)}
 #' }
 #' 
+#' @seealso \code{\link{getFragments}}
+#' @seealso \code{\link{getSoundFragments}}
+#' @seealso \code{\link{getMatchLabels}}
+#' @seealso \code{\link{getMatchAlignments}}
+#' @seealso \code{\link{processWithPraat}}
 #' @seealso \code{\link{getParticipantIds}}
 #' 
 #' @examples 
@@ -115,19 +123,32 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #'
-#' ## create a pattern object to match against
-#' pattern <- list(columns = list(
+#' ## the word 'the' followed immediately by a word starting with an orthographic vowel
+#' theThenOrthVowel <- getMatches(labbcat.url, "the [aeiou]")
+#'
+#' ## a word spelt with "k" but pronounced "n" word initially
+#' knWords <- getMatches(labbcat.url, list(orthography = "k.*", phonemes = "n.*"))
+#'
+#' ## the word 'the' followed immediately by a word starting with an phonemic vowel
+#' theThenPhonVowel <- getMatches(
+#'   labbcat.url, list(
+#'     list(orthography = "the"),
+#'     list(phonemes = "[cCEFHiIPqQuUV0123456789~#\\$@].*")))
+#' 
+#' ## the word 'the' followed immediately or with one intervening word by
+#' ## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel
+#' results <- getMatches(
+#'   labbcat.url, list(columns = list(
 #'     list(layers = list(
 #'            orthography = list(pattern = "the")),
 #'          adj = 2),
 #'     list(layers = list(
 #'            phonemes = list(not=TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
-#'            frequency = list(max = "2")))))
-#' 
-#' ## get the tokens matching the pattern, excluding overlapping speech
-#' results <- getMatches(labbcat.url, pattern, overlap.threshold = 5)
+#'            frequency = list(max = "2"))))),
+#'   overlap.threshold = 5)
 #'
-#' ## results$MatchId can be used to access results
+#' ## results$Text is the text that matched
+#' ## results$MatchId can be used to access results using other functions
 #' }
 #'
 #' @keywords search
@@ -135,6 +156,14 @@
 getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, page.length=1000, no.progress=FALSE) {
     
     ## first normalize the pattern...
+    if (is.character(pattern) && length(pattern) == 1) { # it's a string
+        ## assume it's an orthography search
+        tokens <- strsplit(pattern," ")
+        pattern <- list()
+        for (token in tokens[[1]]) {
+            pattern[[length(pattern)+1]] <- list(orthography=token)
+        } ## next token
+    } # it's a string
 
     ## if pattern isn't a list, convert it to one
     if (!is.list(pattern)) pattern <- as.list(pattern)
