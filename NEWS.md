@@ -1,5 +1,13 @@
 # nzilbb.labbcat 1.2-0
 
+## New functions:
+
+- *countMatchingAnnotations* and *getMatchingAnnotations* : Retrieve individual annotations that match a pattern expression.
+
+## Enhancements
+
+- *getMatches* accepts a string as a pattern, and assumes it's a space-delimited orthography layer search.
+
 # nzilbb.labbcat 1.1-1
 
 Minimum LaBB-CAT version *20220401.1842*
@@ -10,16 +18,6 @@ Minimum LaBB-CAT version *20220401.1842*
   + *sample.points* - `Get value at time` for points spread through the duration of the sample
   + *interpolation* - interpolation to use for `Get value at time`
   + *skip.errors* - how to handle errors when Praat can't create objects
-
-# nzilbb.labbcat 1.1-0
-
-## New functions:
-
-- *countMatchingAnnotations* and *getMatchingAnnotations* : Retrieve individual annotations that match a pattern expression.
-
-## Enhancements
-
-- getMatches accepts a string as a pattern, and assumes it's a space-delimited orthography layer search.
 
 # nzilbb.labbcat 1.1-0
 
