@@ -266,7 +266,11 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
             close(pb)
         }
         if (!is.null(thread$status)) {
-            cat(paste(thread$status, " - fetching data...", "\n", sep=""))
+            if (thread$size > 0) {
+                cat(paste(thread$status, " - fetching data...", "\n", sep=""))
+            } else {
+                cat(paste(thread$status, "\n", sep=""))
+            }
         }
     }
 
@@ -344,12 +348,12 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
             ## next page
             pageNumber <- pageNumber + 1
         } ## loop
+        ## finished with the progress bar
+        if (!is.null(pb)) {
+            setTxtProgressBar(pb, nrow(allMatches))
+            close(pb)
+        }
     } ## there are matches
-    ## finished with the progress bar
-    if (!is.null(pb)) {
-        setTxtProgressBar(pb, nrow(allMatches))
-        close(pb)
-    }
     
     frameNames <- c(
         "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",
