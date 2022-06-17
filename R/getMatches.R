@@ -183,7 +183,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     } # next column
 
     ## convert layer=string to layer=list(pattern=string)
-    segment.layer <- FALSE # (and check for searching the "segment" layer)
+    target.layer <- "word"
     for (c in 1:length(pattern$columns)) { # for each column
         for (l in names(pattern$columns[[c]]$layers)) { # for each layer in the column
             # if the layer value isn't a list
@@ -191,7 +191,15 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
                 # wrap a list(pattern=...) around it
                 pattern$columns[[c]]$layers[[l]] <- list(pattern = pattern$columns[[c]]$layers[[l]])
             } # value isn't a list
-            if (l == "segment") segment.layer <- TRUE
+            # if they're searching the segment layer, assume it's the target
+            if (l == "segment" && target.layer == "word") {
+                target.layer <- "segment"
+            }
+            # ... unless there's an explicitly selected target
+            if (!is.null(pattern$columns[[c]]$layers[[l]]$target)
+                && pattern$columns[[c]]$layers[[l]]$target) {
+                target.layer <- l
+            }
         } # next layer
     } # next column
 
@@ -264,7 +272,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
 
     ## define the dataframe to return (which is, for now, empty)
     allMatches <- data.frame(matrix(ncol = 15, nrow = 0))
-    if (segment.layer) {
+    if (target.layer != "word") {
         allMatches <- data.frame(matrix(ncol = 18, nrow = 0))
     }
     if (thread$size > 0) { ## there were actually some matches
@@ -274,7 +282,7 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
 
         ## layers - "word", and "segment" if mentioned in the pattern
         tokenLayers <- c("word")
-        if (segment.layer) tokenLayers <- c("word", "segment")
+        if (target.layer != "word") tokenLayers <- c("word", target.layer)
         
         ## search results can be very large, and httr timeouts are short and merciless,
         ## so we break the results into chunks and retrieve them using lots of small
@@ -347,9 +355,11 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
         "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",
         "Before.Match","Text","After.Match","Number","URL",
         "Target.word","Target.word.start","Target.word.end")
-    if (segment.layer) {
+    if (target.layer != "word") {
         frameNames <- c(frameNames,
-                        c("Target.segment", "Target.segment.start", "Target.segment.end"))
+                        c(paste("Target.",target.layer,sep=""),
+                          paste("Target.",target.layer,".start",sep=""),
+                          paste("Target.",target.layer,".end",sep="")))
     }
     names(allMatches) = frameNames
     
