@@ -47,7 +47,7 @@
 #' textgrid.files <- getFragments(
 #'     labbcat.url, results$Transcript, results$Line, results$LineEnd)
 #' }
-#' @keywords sample sound fragment wav
+#' @keywords sample fragment TextGrid
 #' 
 getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "text/praat-textgrid", path="") {
 
