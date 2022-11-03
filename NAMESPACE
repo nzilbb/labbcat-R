@@ -22,7 +22,7 @@ export(labbcatCredentials,
        getMatchingAnnotations,
        getAnchors,
        getAvailableMedia,
-       getMedia,
+       getMediaUrl, getMedia,
        getSoundFragments,
        getFragments,
        getMatchLabels,
@@ -47,6 +47,7 @@ export(labbcatCredentials,
        annotatorExt, getAnnotatorDescriptor,   
        loadLexicon, deleteLexicon,
        addLayerDictionaryEntry, removeLayerDictionaryEntry,
-       addDictionaryEntry, removeDictionaryEntry)
+       addDictionaryEntry, removeDictionaryEntry,
+       formatTranscript)
 importFrom("utils", "URLencode", "setTxtProgressBar", "txtProgressBar", "head", "read.csv", "write.table", "count.fields", "unzip")
 importFrom("rstudioapi", "askForPassword")

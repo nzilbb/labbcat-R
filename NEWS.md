@@ -3,9 +3,12 @@
 ## New functions:
 
 - *countMatchingAnnotations* and *getMatchingAnnotations* : Retrieve individual annotations that match a pattern expression.
+- *formatTranscript*: Downloads an entire transcript in a given format - e.g. Praat TextGrid.
+- *getMediaUrl*: Returns the URL for a given transcript.
 
 ## Enhancements
 
+- *getMedia*: Now downloads the media and returns the file name, rather than returning the URL.
 - *getMatches* accepts a string as a pattern, and assumes it's a space-delimited orthography layer search.
 
 # nzilbb.labbcat 1.1-1
