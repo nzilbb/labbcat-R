@@ -34,7 +34,9 @@
 #' \dontrun{
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
+#'
+#' quake.topics <- getMatchingAnnotations(
+#'                    labbcat.url, "layer.id == 'topic' && /.*quake.*/.test(label)")
 #' }
 #' 
 #' @keywords transcript expression
