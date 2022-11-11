@@ -80,6 +80,12 @@
 #' @param max.matches The maximum number of matches to return, or null to return all.
 #' @param overlap.threshold The percentage overlap with other utterances before
 #'     simultaneous speech is excluded, or null to include overlapping speech.
+#' @param anchor.confidence.min The minimum confidence for alignments, e.g.
+#' \itemize{
+#'  \item{\emph{0} -- return all alignments, regardless of confidence;}
+#'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;}
+#'  \item{\emph{100} -- return only manually-set alignments.}
+#' }
 #' @param page.length In order to prevent timeouts when there are a large number of
 #'     matches or the network connection is slow, rather than retrieving matches in one
 #'     big request, they are retrieved using many smaller requests. This parameter
@@ -153,7 +159,7 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, page.length=1000, no.progress=FALSE) {
+getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, anchor.confidence.min=50, page.length=1000, no.progress=FALSE) {
     
     ## first normalize the pattern...
     if (is.character(pattern) && length(pattern) == 1) { # it's a string
@@ -335,7 +341,9 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
                              labbcat.url, "transcript?transcript=",
                              matches$Transcript, "#",
                              stringr::str_match(matches$MatchId, "\\[0\\]=([^;]*)(;.*|$)")[,2], sep=""))
-            tokens <- getMatchAlignments(labbcat.url, matches$MatchId, tokenLayers, no.progress=T)
+            tokens <- getMatchAlignments(
+                labbcat.url, matches$MatchId, tokenLayers,
+                anchor.confidence.min=anchor.confidence.min, no.progress=T)
             matches <- cbind(matches, tokens)
 
             ## add this chunk to the collection
