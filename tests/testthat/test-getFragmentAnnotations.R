@@ -1,0 +1,25 @@
+labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
+
+test_that("getFragmentAnnotations works with vectors", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    ## Get a list of span annotations
+    topics <- getMatches(labbcat.url, list("topic" = '.*quake.*'))
+    
+    ## Get the words and orthographies of the first view
+    topics <- head(topics)
+    tokens <- getFragmentAnnotations(
+        labbcat.url, topics$Transcript, topics$Participant,
+        topics$Target.topic.start, topics$Target.topic.end, c("word", "orthography")) 
+
+    ## has the right columns
+    expect_equal(length(token$word), 6)
+    expect_equal(length(token$word.start), 6)
+    expect_equal(length(token$word.end), 6)
+    expect_equal(length(token$orthography), 6)
+    expect_equal(length(token$orthography.start), 6)
+    expect_equal(length(token$orthography.end), 6)
+    ## doesn't have extra columns
+    expect_equal(length(colnames(words)), 6)
+})
