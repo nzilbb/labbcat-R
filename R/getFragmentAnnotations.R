@@ -31,21 +31,13 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #' 
-#' ## Get the 5 seconds starting from 10s after the beginning of a recording
-#' textgrid.file <- getFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0,
-#'     c("transcript", "phonemes"), path="samples") 
+#' ## Get some span-layer intervales
+#' topics <- getMatches(labbcat.url, list(topic = ".*quake.*"))
 #' 
-#' ## Load some search results previously exported from LaBB-CAT
-#' results <- read.csv("results.csv", header=T)
-#' 
-#' ## Get a list of fragment TextGrids, including the utterances, transcript, and phonemes layers
-#' textgrid.files <- getFragments(
-#'     labbcat.url, results$Transcript, results$Line, results$LineEnd,
-#'     c("utterance", "word", "phonemes"))
-#' 
-#' ## Get a list of fragment TextGrids
-#' textgrid.files <- getFragments(
-#'     labbcat.url, results$Transcript, results$Line, results$LineEnd)
+#' ## Get concantenated word tokens for each topic annotation
+#' topic.tokens <- getFragmentAnnotations(
+#'     labbcat.url, topics$Transcript, topics$Participant, topics$topic.start, topics$topic.end,
+#'     c("word"))
 #' }
 #' @keywords sample fragment TextGrid
 #' 
