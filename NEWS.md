@@ -5,11 +5,13 @@
 - *countMatchingAnnotations* and *getMatchingAnnotations* : Retrieve individual annotations that match a pattern expression.
 - *formatTranscript*: Downloads an entire transcript in a given format - e.g. Praat TextGrid.
 - *getMediaUrl*: Returns the URL for a given transcript.
+- *getFragmentAnnotations*: Returns all tokens in given transcripts on given layers between start/end times.
 
 ## Enhancements
 
-- *getMedia*: Now downloads the media and returns the file name, rather than returning the URL.
+- *getMedia* now downloads the media and returns the file name, rather than returning the URL.
 - *getMatches* accepts a string as a pattern, and assumes it's a space-delimited orthography layer search.
+- *getMatches* now has *anchor.confidence.min* parameter, to allow retrieval of start/end times that have low confidence.
 
 # nzilbb.labbcat 1.1-1
 
