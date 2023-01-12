@@ -9,3 +9,11 @@ test_that("getTranscriptIdsInCorpus works", {
     expect_true("QB247_Jacqui.eaf" %in% ids)
     expect_false("UC427_ViktoriaPapp_A_ENG.eaf" %in% ids)
 })
+
+test_that("getTranscriptIdsInCorpus empty result is correct type", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    ids <- getTranscriptIdsInCorpus(labbcat.url, "nonexistent")
+    expect_equal(length(ids), 0)
+})

@@ -24,5 +24,9 @@ getTranscriptIds <- function(labbcat.url) {
     }
     resp.json <- jsonlite::fromJSON(resp.content)
     for (error in resp.json$errors) print(error)
-    return(resp.json$model)
+    if (length(resp.json$model) > 0) {
+        return(resp.json$model)
+    } else { # ensure return type is the same as it would have been with elements
+        return(character(0L))
+    }
 }
