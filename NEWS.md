@@ -1,5 +1,7 @@
 # nzilbb.labbcat 1.2-0
 
+Minimum LaBB-CAT version *20221013.1114*
+
 ## New functions:
 
 - *countMatchingAnnotations* and *getMatchingAnnotations* : Retrieve individual annotations that match a pattern expression.

@@ -37,7 +37,7 @@ NULL
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20220401.1842"
+.min.labbcat.version <- "20221013.1114"
 .user.agent <- paste("labbcat-R", packageVersion("nzilbb.labbcat"), sep="/")
 
 ### Internal functions:
