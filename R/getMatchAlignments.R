@@ -108,7 +108,7 @@ getMatchAlignments <- function(labbcat.url, match.ids, layer.ids, target.offset=
         }
         
         ## load the returned entries
-        labels <- read.csv(download.file, header=T, blank.lines.skip=F)
+        labels <- read.csv(download.file, header=T, blank.lines.skip=F, na.strings="")
         
         ## tidily remove the downloaded file
         file.remove(download.file)
