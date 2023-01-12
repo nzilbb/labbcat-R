@@ -1,6 +1,6 @@
 # nzilbb.labbcat 1.2-0
 
-Minimum LaBB-CAT version *20221013.1114*
+Minimum LaBB-CAT version *20221111.1200*
 
 ## New functions:
 
