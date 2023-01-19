@@ -1,5 +1,11 @@
 #' Gets the number of annotations matching a particular pattern.
 #'
+#' Returns the number of annotations in the corpus that match the given expression.
+#' 
+#' 
+#' @param labbcat.url URL to the LaBB-CAT instance
+#' @param expression An expression that determines which annotations match. This must
+#' match by either id or layer.id.
 #' The expression language is currently not well defined, but is based on JavaScript
 #' syntax. e.g.
 #' 
@@ -7,19 +13,13 @@
 #'  \item{id == 'ew_0_456'}
 #'  \item{['ew_2_456', 'ew_2_789', 'ew_2_101112'].includes(id)}
 #'  \item{layerId == 'orthography' && !/th[aeiou].+/.test(label)}
-#'  \item{layer.id == 'orthography' && first('participant').label == 'Robert'
-#'    && first('utterances').start.offset = 12.345</code> - TODO</li> 
 #'  \item{graph.id == 'AdaAicheson-01.trs' && layer.id == 'orthography' &&
 #'    start.offset &gt; 10.5} 
 #'  \item{layer.id == 'utterance' && all('word').includes('ew_0_456')}
-#'  \item{previous.id = 'ew_0_456'</code> - TODO</li>
 #'  \item{layerId = 'utterance' && labels('orthography').includes('foo')}
 #'  \item{layerId = 'utterance' && labels('participant').includes('Ada')}
 #' }
 #' 
-#' @param labbcat.url URL to the LaBB-CAT instance
-#' @param expression An expression that determines which annotations match. This must
-#' match by either id or layer.id. 
 #' @return The number of annotations that match the expression.
 #' 
 #' @seealso

@@ -22,7 +22,7 @@ accessing these resources via R."><meta property="og:image" content="/logo.png">
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -73,39 +73,48 @@ accessing these resources via R.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">annotatorExt</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">annotator.id</span>, <span class="va">resource</span>, parameters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">annotatorExt</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">annotator.id</span>, <span class="va">resource</span>, parameters <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance.</p></dd>
+
+
 <dt>annotator.id</dt>
 <dd><p>ID of the annotator to interrogate.</p></dd>
+
+
 <dt>resource</dt>
 <dd><p>The name of the file to retrieve or instance method (function) to
 invoke. Possible values for this depend on the specific annotator being interrogated.</p></dd>
+
+
 <dt>parameters</dt>
 <dd><p>Optional list of ordered parameters for the instance method (function).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The resource requested.</p>
+    
+
+<p>The resource requested.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Get the version of the currently installed LabelMapper annotator:</span></span>
-<span class="r-in"><span class="fu">annotatorExt</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"getVersion"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the summary of the segment to speakerDependentPhone mapping</span></span>
-<span class="r-in"><span class="co">## implemented by the LabelMapper annotator:</span></span>
-<span class="r-in"><span class="va">summaryJson</span> <span class="op">&lt;-</span> <span class="fu">annotatorExt</span><span class="op">(</span><span class="va">labbcat.url</span>,</span>
-<span class="r-in">              <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"speakerDependentPhone"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">summaryJson</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Get the version of the currently installed LabelMapper annotator:</span></span></span>
+<span class="r-in"><span><span class="fu">annotatorExt</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"getVersion"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the summary of the segment to speakerDependentPhone mapping</span></span></span>
+<span class="r-in"><span><span class="co">## implemented by the LabelMapper annotator:</span></span></span>
+<span class="r-in"><span><span class="va">summaryJson</span> <span class="op">&lt;-</span> <span class="fu">annotatorExt</span><span class="op">(</span><span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>              <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"speakerDependentPhone"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">summaryJson</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

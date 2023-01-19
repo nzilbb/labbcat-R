@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -92,20 +92,20 @@
 </h1></div>
 <p>This R package provides functionality for querying and extracting data from <a href="https://labbcat.canterbury.ac.nz/" class="external-link">LaBB-CAT</a> servers, directly from R.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span>
-<span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span>
-
-<span class="co"># search for tokens of the KIT vowel</span>
-<span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># extract F1, 2, and 3 from the mid-point of each vowel</span>
-<span class="va">f123</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span>
-    <span class="va">labbcat.url</span>,
-    <span class="va">m</span><span class="op">$</span><span class="va">MatchId</span>, 
-    <span class="va">m</span><span class="op">$</span><span class="va">Target.segment.start</span>, 
-    <span class="va">m</span><span class="op">$</span><span class="va">Target.segment.end</span>,
-    <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>, 
-    window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span></span>
+<span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span></span>
+<span></span>
+<span><span class="co"># search for tokens of the KIT vowel</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># extract F1, 2, and 3 from the mid-point of each vowel</span></span>
+<span><span class="va">f123</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
+<span>    <span class="va">labbcat.url</span>,</span>
+<span>    <span class="va">m</span><span class="op">$</span><span class="va">MatchId</span>, </span>
+<span>    <span class="va">m</span><span class="op">$</span><span class="va">Target.segment.start</span>, </span>
+<span>    <span class="va">m</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
+<span>    <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p>LaBB-CAT is a web-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations.</p>
 <p>This package provides access to basic corpus structure data, pattern-based search, annotation, audio, TextGrid (and other format) extraction, and server-side acoustic measurement with Praat.</p>
 <p>Online documentation is available at <a href="https://nzilbb.github.io/labbcat-R" class="external-link uri">https://nzilbb.github.io/labbcat-R</a></p>
@@ -117,10 +117,10 @@
 </h3>
 <p>To install the latest version of the package in CRAN:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"nzilbb.labbcat"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"nzilbb.labbcat"</span><span class="op">)</span></span></code></pre></div>
 <p>To use it:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span></span></code></pre></div>
 <p>For all functions, the first parameter is the URL to the LaBB-CAT instance you want to interact with - e.g. “<a href="https://labbcat.canterbury.ac.nz/demo/" class="external-link uri">https://labbcat.canterbury.ac.nz/demo/</a>”.</p>
 <p>If the instance is password-protected, you’ll be prompted for the username and password the first time you invoke a function for that instance.</p>
 </div>
@@ -129,14 +129,14 @@
 </h3>
 <p>There are some basic functions that provide information about the LaBB-CAT instance you’re using.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo"</span>
-
-<span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getId.html">getId</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>
-<span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getLayerIds.html">getLayerIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>
-<span class="va">corpora</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getCorpusIds.html">getCorpusIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"LaBB-CAT instance"</span>, <span class="va">id</span>, <span class="st">"has"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">layers</span><span class="op">)</span>, <span class="st">"layers. The corpora are:"</span><span class="op">)</span>
-<span class="va">corpora</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo"</span></span>
+<span></span>
+<span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getId.html">getId</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span>
+<span><span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getLayerIds.html">getLayerIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span>
+<span><span class="va">corpora</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getCorpusIds.html">getCorpusIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"LaBB-CAT instance"</span>, <span class="va">id</span>, <span class="st">"has"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">layers</span><span class="op">)</span>, <span class="st">"layers. The corpora are:"</span><span class="op">)</span></span>
+<span><span class="va">corpora</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="accessing-specific-transcript-and-participant-ids">Accessing specific transcript and participant IDs<a class="anchor" aria-label="anchor" href="#accessing-specific-transcript-and-participant-ids"></a>
@@ -144,98 +144,98 @@
 <p>Transcripts are called ‘graphs’ because each one is represented as an ‘Annotation Graph’ (see Bird &amp; Liberman 2001)</p>
 <p>You can get a complete list of participants and transcripts:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>
-<span class="va">transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getGraphIds.html">getGraphIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span>, <span class="st">"participants. The first one is"</span>, <span class="va">participants</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span>, <span class="st">"transcripts. The first one is"</span>, <span class="va">transcripts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span>
+<span><span class="va">transcripts</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getGraphIds.html">getGraphIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">participants</span><span class="op">)</span>, <span class="st">"participants. The first one is"</span>, <span class="va">participants</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcripts</span><span class="op">)</span>, <span class="st">"transcripts. The first one is"</span>, <span class="va">transcripts</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>There are also ways to get a filtered list of transcripts:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Transcripts in the UC corpus:</span>
-<span class="fu"><a href="reference/getGraphIdsInCorpus.html">getGraphIdsInCorpus</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC"</span><span class="op">)</span>
-
-<span class="co">## Transcripts featuring the participant QB1602:</span>
-<span class="fu"><a href="reference/getGraphIdsWithParticipant.html">getGraphIdsWithParticipant</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"QB1602"</span><span class="op">)</span>
-
-<span class="co">## Transcripts with 'YW' in their name:</span>
-<span class="fu"><a href="reference/getMatchingGraphIds.html">getMatchingGraphIds</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/.*YW.*/.test(id)"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Transcripts in the UC corpus:</span></span>
+<span><span class="fu"><a href="reference/getGraphIdsInCorpus.html">getGraphIdsInCorpus</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Transcripts featuring the participant QB1602:</span></span>
+<span><span class="fu"><a href="reference/getGraphIdsWithParticipant.html">getGraphIdsWithParticipant</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"QB1602"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Transcripts with 'YW' in their name:</span></span>
+<span><span class="fu"><a href="reference/getMatchingGraphIds.html">getMatchingGraphIds</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/.*YW.*/.test(id)"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="accessing-media">Accessing Media<a class="anchor" aria-label="anchor" href="#accessing-media"></a>
 </h3>
 <p>Given a graph ID (i.e. a transcript name) you can access information about what media it has available:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Default WAV URL:</span>
-<span class="fu"><a href="reference/getMedia.html">getMedia</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2515_ErrolHitt.eaf"</span><span class="op">)</span>
-
-<span class="va">media</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getAvailableMedia.html">getAvailableMedia</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2515_ErrolHitt.eaf"</span><span class="op">)</span>
-
-<span class="co">## All media file names</span>
-<span class="va">media</span><span class="op">$</span><span class="va">name</span>
-
-<span class="co">## Their URLs</span>
-<span class="va">media</span><span class="op">$</span><span class="va">url</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Default WAV URL:</span></span>
+<span><span class="fu"><a href="reference/getMedia.html">getMedia</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2515_ErrolHitt.eaf"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">media</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getAvailableMedia.html">getAvailableMedia</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2515_ErrolHitt.eaf"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## All media file names</span></span>
+<span><span class="va">media</span><span class="op">$</span><span class="va">name</span></span>
+<span></span>
+<span><span class="co">## Their URLs</span></span>
+<span><span class="va">media</span><span class="op">$</span><span class="va">url</span></span></code></pre></div>
 <p>Once you’ve got a URL, you can save its contents using the <em>httr</em> package, something like this:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"httr"</span><span class="op">)</span>
-
-<span class="va">wav.file</span> <span class="op">&lt;-</span> <span class="va">media</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-<span class="va">wav.url</span> <span class="op">&lt;-</span> <span class="va">media</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
-
-<span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">(</span><span class="va">wav.url</span>, <span class="va">labbcat</span><span class="op">$</span><span class="va">authorization</span>, <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_disk</a></span><span class="op">(</span><span class="va">wav.file</span>, overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/progress.html" class="external-link">progress</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="kw">if</span> <span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html" class="external-link">status_code</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">{</span> <span class="co"># 200 means OK</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Downloading"</span>, <span class="va">wav.file</span>, <span class="st">"failed:"</span>, <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/http_status.html" class="external-link">http_status</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span><span class="op">$</span><span class="va">message</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Downloading"</span>, <span class="va">wav.file</span>, <span class="st">"worked!"</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="co">## Tidily delete the file we just downloaded</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">wav.file</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"httr"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">wav.file</span> <span class="op">&lt;-</span> <span class="va">media</span><span class="op">$</span><span class="va">name</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">wav.url</span> <span class="op">&lt;-</span> <span class="va">media</span><span class="op">$</span><span class="va">url</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">(</span><span class="va">wav.url</span>, <span class="va">labbcat</span><span class="op">$</span><span class="va">authorization</span>, <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/write_disk.html" class="external-link">write_disk</a></span><span class="op">(</span><span class="va">wav.file</span>, overwrite<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/progress.html" class="external-link">progress</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html" class="external-link">status_code</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">!=</span> <span class="fl">200</span><span class="op">)</span> <span class="op">{</span> <span class="co"># 200 means OK</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Downloading"</span>, <span class="va">wav.file</span>, <span class="st">"failed:"</span>, <span class="fu">httr</span><span class="fu">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/http_status.html" class="external-link">http_status</a></span><span class="op">(</span><span class="va">response</span><span class="op">)</span><span class="op">$</span><span class="va">message</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Downloading"</span>, <span class="va">wav.file</span>, <span class="st">"worked!"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co">## Tidily delete the file we just downloaded</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">wav.file</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="media-fragments">Media fragments<a class="anchor" aria-label="anchor" href="#media-fragments"></a>
 </h3>
 <p>You can access a selected fragment of a wav file with <code>getSoundFragments</code>. The function downloads a wav file to the current working directory, and returns the name of the file:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">wav.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2505_Nelson.eaf"</span>, <span class="fl">10.0</span>, <span class="fl">15.0</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"The third 5 seconds is in this file:"</span>, <span class="va">wav.file</span><span class="op">)</span>
-
-<span class="co">## tidily delete the file we just downloaded</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">wav.file</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wav.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2505_Nelson.eaf"</span>, <span class="fl">10.0</span>, <span class="fl">15.0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"The third 5 seconds is in this file:"</span>, <span class="va">wav.file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## tidily delete the file we just downloaded</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">wav.file</span><span class="op">)</span></span></code></pre></div>
 <p><code>getSoundFragments</code> also accepts vectors for the <code>id</code>, <code>start</code>, and <code>end</code> parameters:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AP2505_Nelson.eaf"</span>, <span class="st">"AP2512_MattBlack.eaf"</span>, <span class="st">"AP2512_MattBlack.eaf"</span><span class="op">)</span>,
-  start<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10.0</span>, <span class="fl">20.0</span>, <span class="fl">30.0</span><span class="op">)</span>,
-  end<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15.0</span>, <span class="fl">25.0</span>, <span class="fl">35.0</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">id</span>, <span class="va">results</span><span class="op">$</span><span class="va">start</span>, <span class="va">results</span><span class="op">$</span><span class="va">end</span>, no.progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="va">wav.files</span>
-
-<span class="co">## tidily delete the files we just downloaded</span>
-<span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">wav.files</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  id<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AP2505_Nelson.eaf"</span>, <span class="st">"AP2512_MattBlack.eaf"</span>, <span class="st">"AP2512_MattBlack.eaf"</span><span class="op">)</span>,</span>
+<span>  start<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10.0</span>, <span class="fl">20.0</span>, <span class="fl">30.0</span><span class="op">)</span>,</span>
+<span>  end<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">15.0</span>, <span class="fl">25.0</span>, <span class="fl">35.0</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">id</span>, <span class="va">results</span><span class="op">$</span><span class="va">start</span>, <span class="va">results</span><span class="op">$</span><span class="va">end</span>, no.progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">wav.files</span></span>
+<span></span>
+<span><span class="co">## tidily delete the files we just downloaded</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">wav.files</span><span class="op">)</span></span></code></pre></div>
 <p>This means that, if you have a results csv file exported from LaBB-CAT, which identifies segment tokens, you can iterate through the rows, downloading the corresponding wav files, something like:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## load the results from the CSV file</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>
-
-<span class="co">## download all the segment WAV files</span>
-<span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span>
-    <span class="va">labbcat</span>, <span class="va">results</span><span class="op">$</span><span class="va">Transcript</span>, <span class="va">results</span><span class="op">$</span><span class="va">segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">segment.end</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## load the results from the CSV file</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## download all the segment WAV files</span></span>
+<span><span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span></span>
+<span>    <span class="va">labbcat</span>, <span class="va">results</span><span class="op">$</span><span class="va">Transcript</span>, <span class="va">results</span><span class="op">$</span><span class="va">segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">segment.end</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="getting-annotations-from-other-layers">Getting annotations from other layers<a class="anchor" aria-label="anchor" href="#getting-annotations-from-other-layers"></a>
 </h3>
 <p>If you have search results in a CSV file, and would like to retrieve annotations from some other layer, you can use the <code>getMatchLabels</code> function, providing the <em>MatchId</em> column (or the <em>URL</em> column) that indentifies the token, and the desired layer name:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>
-<span class="va">phonemes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"participant_age"</span>, <span class="st">"phonemes"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">phonemes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"participant_age"</span>, <span class="st">"phonemes"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>If you want alignment information - i.e. start and end time – you can use <code>getMatchAlignments</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span>
-<span class="va">phonemes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"syllables"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">phonemes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"syllables"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="search">Search<a class="anchor" aria-label="anchor" href="#search"></a>
@@ -243,30 +243,30 @@
 <p>Searching for matching tokens can be achieved using the <code>getMatches</code> function.</p>
 <p>A basic search can be achieved with a simple, single-layer pattern like:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># all words starting with "ps..."</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"ps.*"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># all words starting with "ps..."</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"ps.*"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>More complex patterns, across multiple tokens an multiple layers, is possible by specifying a more complex structure:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># the word 'the' followed immediately or with one intervening word by</span>
-<span class="co"># a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-            orthography <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span><span class="op">)</span>,
-          adj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
-     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
-            phonemes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>not <span class="op">=</span> <span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\{\\$@].*"</span><span class="op">)</span>,
-            frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># the word 'the' followed immediately or with one intervening word by</span></span>
+<span><span class="co"># a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            orthography <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>          adj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            phonemes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>not <span class="op">=</span> <span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\{\\$@].*"</span><span class="op">)</span>,</span>
+<span>            frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The data frame that’s returned contains columns that can be used as parameters for other functions:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get all instances of the KIT vowel</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment <span class="op">=</span> <span class="st">"I"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># get phonemic transcription for the whole word</span>
-<span class="va">phonemes</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"phonemes"</span><span class="op">)</span>
-
-<span class="co"># download all the segment WAV files</span>
-<span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span>
-    <span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">Transcript</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># get all instances of the KIT vowel</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment <span class="op">=</span> <span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># get phonemic transcription for the whole word</span></span>
+<span><span class="va">phonemes</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"phonemes"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># download all the segment WAV files</span></span>
+<span><span class="va">wav.files</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getSoundFragments.html">getSoundFragments</a></span><span class="op">(</span></span>
+<span>    <span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">Transcript</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="looking-up-dictionaries">Looking up dictionaries<a class="anchor" aria-label="anchor" href="#looking-up-dictionaries"></a>
@@ -274,11 +274,11 @@
 <p>LaBB-CAT maintains a number of <a href="https://labbcat.canterbury.ac.nz/demo/dictionaries" class="external-link">dictionaries</a> it uses to look things up. These include access to CELEX, LIWC, and other lexicons that might be set up in the LaBB-CAT instance.</p>
 <p>You can list the available dictionaries using:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dictionaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getDictionaries.html">getDictionaries</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dictionaries</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getDictionaries.html">getDictionaries</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span></code></pre></div>
 <p>With one of the returned layer manager ID and dictionary ID pairs, you can look up dictionary entries for a list of keys:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"quick"</span>, <span class="st">"brown"</span>, <span class="st">"fox"</span><span class="op">)</span>
-<span class="va">pronunciation</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getDictionaryEntries.html">getDictionaryEntries</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"CELEX-EN"</span>, <span class="st">"Phonology (wordform)"</span>, <span class="va">words</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">words</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"quick"</span>, <span class="st">"brown"</span>, <span class="st">"fox"</span><span class="op">)</span></span>
+<span><span class="va">pronunciation</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getDictionaryEntries.html">getDictionaryEntries</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"CELEX-EN"</span>, <span class="st">"Phonology (wordform)"</span>, <span class="va">words</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="process-with-praat">Process with Praat<a class="anchor" aria-label="anchor" href="#process-with-praat"></a>
@@ -287,38 +287,38 @@
 <p>The exact measurements to return depend on the <code>praat.script</code> that is invoked. This is a Praat script fragment that will run once for each sound interval specified.</p>
 <p>There are functions to allow the generation of a number of pre-defined praat scripts for common tasks such as formant, pitch, intensity, and centre of gravity:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Perform a search</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># get F1 and F2 for the mid point of the vowel</span>
-<span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span>
-       <span class="va">labbcat.url</span>,
-       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,
-       <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="op">)</span>,
-       no.progress<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Perform a search</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># get F1 and F2 for the mid point of the vowel</span></span>
+<span><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
+<span>       <span class="va">labbcat.url</span>,</span>
+<span>       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
+<span>       <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>       no.progress<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>You can provide your own script, either by building a string with your code, or loading one from a file.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># execute a custom script loaded form a file</span>
-<span class="va">acoustic.measurements</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span>
-       <span class="va">labbcat.url</span>,
-       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,
-       <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"acousticMeasurements.praat"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># execute a custom script loaded form a file</span></span>
+<span><span class="va">acoustic.measurements</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
+<span>       <span class="va">labbcat.url</span>,</span>
+<span>       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"acousticMeasurements.praat"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="retrieving-transcript-and-participant-attributes">Retrieving transcript and participant attributes<a class="anchor" aria-label="anchor" href="#retrieving-transcript-and-participant-attributes"></a>
 </h3>
 <p>Transcript attributes can be retrieved like this:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Get language, duration, and corpus for transcripts starting with 'BR'</span>
-<span class="va">attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getTranscriptAttributes.html">getTranscriptAttributes</a></span><span class="op">(</span><span class="va">labbcat.url</span>,
-            <span class="fu"><a href="reference/getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/BR.+/.test(id)"</span><span class="op">)</span>,
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'transcript_language'</span>, <span class="st">'transcript_duration'</span>, <span class="st">'corpus'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Get language, duration, and corpus for transcripts starting with 'BR'</span></span>
+<span><span class="va">attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getTranscriptAttributes.html">getTranscriptAttributes</a></span><span class="op">(</span><span class="va">labbcat.url</span>,</span>
+<span>            <span class="fu"><a href="reference/getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/BR.+/.test(id)"</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'transcript_language'</span>, <span class="st">'transcript_duration'</span>, <span class="st">'corpus'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly, participant attributes can also be accessed:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Get gender and age for all participants</span>
-<span class="va">attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getParticipantAttributes.html">getParticipantAttributes</a></span><span class="op">(</span><span class="va">labbcat.url</span>,
-            <span class="fu"><a href="reference/getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>,
-            <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'participant_gender'</span>, <span class="st">'participant_age'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Get gender and age for all participants</span></span>
+<span><span class="va">attributes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getParticipantAttributes.html">getParticipantAttributes</a></span><span class="op">(</span><span class="va">labbcat.url</span>,</span>
+<span>            <span class="fu"><a href="reference/getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'participant_gender'</span>, <span class="st">'participant_age'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -336,7 +336,7 @@ R -e "install.packages("pkgdown")"</code></pre>
 <h2 id="building-the-package-and-documentation">Building the package and documentation<a class="anchor" aria-label="anchor" href="#building-the-package-and-documentation"></a>
 </h2>
 <p>The package can be built from the source code using using:</p>
-<pre><code><span class="va">.</span><span class="op">/</span><span class="va">build.sh</span></code></pre>
+<pre><code><span><span class="va">.</span><span class="op">/</span><span class="va">build.sh</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="running-automated-tests">Running automated tests<a class="anchor" aria-label="anchor" href="#running-automated-tests"></a>

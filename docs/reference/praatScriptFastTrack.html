@@ -19,7 +19,7 @@ FastTrack Praat plugin."><meta property="og:image" content="/logo.png"><meta nam
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -67,28 +67,28 @@ FastTrack Praat plugin.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">praatScriptFastTrack</span><span class="op">(</span>
-  formants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
-  sample.points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
-  lowest.analysis.frequency <span class="op">=</span> <span class="fl">5000</span>,
-  lowest.analysis.frequency.male <span class="op">=</span> <span class="fl">4500</span>,
-  highest.analysis.frequency <span class="op">=</span> <span class="fl">7000</span>,
-  highest.analysis.frequency.male <span class="op">=</span> <span class="fl">6500</span>,
-  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,
-  value.for.male <span class="op">=</span> <span class="st">"M"</span>,
-  time.step <span class="op">=</span> <span class="fl">0.002</span>,
-  tracking.method <span class="op">=</span> <span class="st">"burg"</span>,
-  number.of.formants <span class="op">=</span> <span class="fl">3</span>,
-  maximum.f1.frequency <span class="op">=</span> <span class="fl">1200</span>,
-  maximum.f1.bandwidth <span class="op">=</span> <span class="cn">NULL</span>,
-  maximum.f2.bandwidth <span class="op">=</span> <span class="cn">NULL</span>,
-  maximum.f3.bandwidth <span class="op">=</span> <span class="cn">NULL</span>,
-  minimum.f4.frequency <span class="op">=</span> <span class="fl">2900</span>,
-  enable.rhotic.heuristic <span class="op">=</span> <span class="cn">TRUE</span>,
-  enable.f3.f4.proximity.heuristic <span class="op">=</span> <span class="cn">TRUE</span>,
-  number.of.steps <span class="op">=</span> <span class="fl">20</span>,
-  number.of.coefficients <span class="op">=</span> <span class="fl">5</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">praatScriptFastTrack</span><span class="op">(</span></span>
+<span>  formants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  sample.points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>  lowest.analysis.frequency <span class="op">=</span> <span class="fl">5000</span>,</span>
+<span>  lowest.analysis.frequency.male <span class="op">=</span> <span class="fl">4500</span>,</span>
+<span>  highest.analysis.frequency <span class="op">=</span> <span class="fl">7000</span>,</span>
+<span>  highest.analysis.frequency.male <span class="op">=</span> <span class="fl">6500</span>,</span>
+<span>  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,</span>
+<span>  value.for.male <span class="op">=</span> <span class="st">"M"</span>,</span>
+<span>  time.step <span class="op">=</span> <span class="fl">0.002</span>,</span>
+<span>  tracking.method <span class="op">=</span> <span class="st">"burg"</span>,</span>
+<span>  number.of.formants <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  maximum.f1.frequency <span class="op">=</span> <span class="fl">1200</span>,</span>
+<span>  maximum.f1.bandwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  maximum.f2.bandwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  maximum.f3.bandwidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  minimum.f4.frequency <span class="op">=</span> <span class="fl">2900</span>,</span>
+<span>  enable.rhotic.heuristic <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  enable.f3.f4.proximity.heuristic <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  number.of.steps <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  number.of.coefficients <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,6 +96,8 @@ FastTrack Praat plugin.</p>
     <dl><dt>formants</dt>
 <dd><p>A vector of integers specifying which formants to extract, e.g c(1,2)
 for the first and second formant.</p></dd>
+
+
 <dt>sample.points</dt>
 <dd><p>A vector of numbers (0 &lt;= sample.points &lt;= 1) specifying multiple
 points at which to take the measurement.  The default is a single point at 0.5 -
@@ -103,64 +105,106 @@ this means one measurement will be taken halfway through the target interval.  I
 for example, you wanted eleven measurements evenly spaced throughout the interval,
 you would specify sample.points as being
 c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).</p></dd>
+
+
 <dt>lowest.analysis.frequency</dt>
 <dd><p>Lowest analysis frequency (Hz) by default.</p></dd>
+
+
 <dt>lowest.analysis.frequency.male</dt>
 <dd><p>Lowest analysis frequency (Hz) for male
 speakers, or NULL to use the same value as lowest.analysis.frequency.</p></dd>
+
+
 <dt>highest.analysis.frequency</dt>
 <dd><p>Highest analysis frequency (Hz) by default.</p></dd>
+
+
 <dt>highest.analysis.frequency.male</dt>
 <dd><p>Highest analysis frequency (Hz) for male
 speakers, or NULL to use the same value as highest.analysis.frequency.</p></dd>
+
+
 <dt>gender.attribute</dt>
 <dd><p>Name of the LaBB-CAT participant attribute that contains the
 participant's gender - normally this is "participant_gender".</p></dd>
+
+
 <dt>value.for.male</dt>
 <dd><p>The value that the gender.attribute has when the participant is male.</p></dd>
+
+
 <dt>time.step</dt>
 <dd><p>Time step in seconds.</p></dd>
+
+
 <dt>tracking.method</dt>
 <dd><p>tracking_method parameter for trackAutoselectProcedure; "burg"
 or "robust".</p></dd>
+
+
 <dt>number.of.formants</dt>
 <dd><p>Number of formants to track - 3 or 4.</p></dd>
+
+
 <dt>maximum.f1.frequency</dt>
 <dd><p>Specifying a non-NULL value enables the F1 frequency
 heuristic: Median F1 frequency should not be higher than this value.</p></dd>
+
+
 <dt>maximum.f1.bandwidth</dt>
 <dd><p>Specifying a non-NULL value (e.g. 500)
 enables the F1 bandwidth heuristic: Median F1 bandwidth should not be higher than
 this value.</p></dd>
+
+
 <dt>maximum.f2.bandwidth</dt>
 <dd><p>Specifying a non-NULL value (e.g. 600)
 enables the F2 bandwidth heuristic: Median F2 bandwidth should not be higher than
 this value.</p></dd>
+
+
 <dt>maximum.f3.bandwidth</dt>
 <dd><p>Specifying a non-NULL value (e.g. 900)
 enables the F3 bandwidth heuristic: Median F3 bandwidth should not be higher than
 this value.</p></dd>
+
+
 <dt>minimum.f4.frequency</dt>
 <dd><p>Specifying a non-NULL value enables the F4 frequency
 heuristic: Median F4 frequency should not be lower than this value.</p></dd>
+
+
 <dt>enable.rhotic.heuristic</dt>
 <dd><p>Whether to enable the rhotic heuristic: If F3 &lt; 2000 Hz,
 F1 and F2 should be at least 500 Hz apart.</p></dd>
+
+
 <dt>enable.f3.f4.proximity.heuristic</dt>
 <dd><p>Whether to enable the F3/F4 proximity
 heuristic: If (F4 - F3) &lt; 500 Hz, F1 and F2 should be at least 1500 Hz apart.</p></dd>
+
+
 <dt>number.of.steps</dt>
 <dd><p>Number of analyses between low and high analysis limits. More
 analysis steps may improve results, but will increase analysis time (50 percent more steps
 = around 50 percent longer to analyze).</p></dd>
+
+
 <dt>number.of.coefficients</dt>
 <dd><p>Number of coefficients for formant prediction. More
 coefficients allow for more sudden, and 'wiggly' formant motion.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A script fragment which can be passed as the praat.script parameter of
-<a href="processWithPraat.html">processWithPraat</a></p>
+    
+
+<p>A script fragment which can be passed as the praat.script parameter of</p>
+<p></p>
+<p><a href="processWithPraat.html">processWithPraat</a></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -180,21 +224,21 @@ information, see <a href="https://github.com/santiagobarreda/FastTrack" class="e
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get all tokens of the KIT vowel</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the first 3 formants at three points during the vowel</span></span>
-<span class="r-in"><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu"><a href="processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
-<span class="r-in">              <span class="va">labbcat.url</span>,</span>
-<span class="r-in">              <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
-<span class="r-in">              window.offset<span class="op">=</span><span class="fl">0.025</span>,</span>
-<span class="r-in">              <span class="fu">praatScriptFastTrack</span><span class="op">(</span>formants<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">              sample.points<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get all tokens of the KIT vowel</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the first 3 formants at three points during the vowel</span></span></span>
+<span class="r-in"><span><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu"><a href="processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>              <span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>              <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
+<span class="r-in"><span>              window.offset<span class="op">=</span><span class="fl">0.025</span>,</span></span>
+<span class="r-in"><span>              <span class="fu">praatScriptFastTrack</span><span class="op">(</span>formants<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              sample.points<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

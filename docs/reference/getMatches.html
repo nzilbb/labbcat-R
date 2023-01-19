@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,26 +63,29 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getMatches</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">pattern</span>,
-  participant.ids <span class="op">=</span> <span class="cn">NULL</span>,
-  transcript.types <span class="op">=</span> <span class="cn">NULL</span>,
-  main.participant <span class="op">=</span> <span class="cn">TRUE</span>,
-  aligned <span class="op">=</span> <span class="cn">FALSE</span>,
-  matches.per.transcript <span class="op">=</span> <span class="cn">NULL</span>,
-  words.context <span class="op">=</span> <span class="fl">0</span>,
-  max.matches <span class="op">=</span> <span class="cn">NULL</span>,
-  overlap.threshold <span class="op">=</span> <span class="cn">NULL</span>,
-  page.length <span class="op">=</span> <span class="fl">1000</span>,
-  no.progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getMatches</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">pattern</span>,</span>
+<span>  participant.ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  transcript.types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  main.participant <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  aligned <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  matches.per.transcript <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  words.context <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  max.matches <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  overlap.threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  anchor.confidence.min <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  page.length <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>pattern</dt>
 <dd><p>An object representing the pattern to search for.</p>
 <p>This can be:</p><ul><li><p>A string, representing a search of the orthography layer - spaces are
@@ -134,41 +137,71 @@ pattern &lt;- list(columns = list(
            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\$@].*"),
            frequency = list(max = "2")))))
 </code></pre></div></dd>
+
+
 <dt>participant.ids</dt>
 <dd><p>An optional list of participant IDs to search the utterances of. If
 not supplied, all utterances in the corpus will be searched.</p></dd>
+
+
 <dt>transcript.types</dt>
 <dd><p>An optional list of transcript types to limit the results
 to. If null, all transcript types will be searched.</p></dd>
+
+
 <dt>main.participant</dt>
 <dd><p>TRUE to search only main-participant utterances, FALSE to
 search all utterances.</p></dd>
+
+
 <dt>aligned</dt>
 <dd><p>true to include only words that are aligned (i.e. have anchor
 confidence &amp;ge; 50, false to search include un-aligned words as well.</p></dd>
+
+
 <dt>matches.per.transcript</dt>
 <dd><p>Optional maximum number of matches per transcript to
 return. NULL means all matches.</p></dd>
+
+
 <dt>words.context</dt>
 <dd><p>Number of words context to include in the `Before.Match' and
 `After.Match' columns in the results.</p></dd>
+
+
 <dt>max.matches</dt>
 <dd><p>The maximum number of matches to return, or null to return all.</p></dd>
+
+
 <dt>overlap.threshold</dt>
 <dd><p>The percentage overlap with other utterances before
 simultaneous speech is excluded, or null to include overlapping speech.</p></dd>
+
+
+<dt>anchor.confidence.min</dt>
+<dd><p>The minimum confidence for alignments, e.g.</p><ul><li><p><em>0</em> -- return all alignments, regardless of confidence;</p></li>
+<li><p><em>50</em> -- return only alignments that have been at least automatically aligned;</p></li>
+<li><p><em>100</em> -- return only manually-set alignments.</p></li>
+</ul></dd>
+
+
 <dt>page.length</dt>
 <dd><p>In order to prevent timeouts when there are a large number of
 matches or the network connection is slow, rather than retrieving matches in one
 big request, they are retrieved using many smaller requests. This parameter
 controls the number of results retrieved per request.</p></dd>
+
+
 <dt>no.progress</dt>
 <dd><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
 shown when interactive().</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data frame identifying matches, containing the following columns:</p><ul><li><p><em>SearchName</em> A name based on the pattern -- the same for all rows</p></li>
+    
+
+<p>A data frame identifying matches, containing the following columns:</p><ul><li><p><em>SearchName</em> A name based on the pattern -- the same for all rows</p></li>
 <li><p><em>MatchId</em> A unique ID for the matching target token</p></li>
 <li><p><em>Transcript</em> Name of the transcript in which the match was found</p></li>
 <li><p><em>Participant</em> Name of the speaker</p></li>
@@ -202,38 +235,38 @@ shown when interactive().</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## the word 'the' followed immediately by a word starting with an orthographic vowel</span></span>
-<span class="r-in"><span class="va">theThenOrthVowel</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"the [aeiou]"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## a word spelt with "k" but pronounced "n" word initially</span></span>
-<span class="r-in"><span class="va">knWords</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"k.*"</span>, phonemes <span class="op">=</span> <span class="st">"n.*"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## the word 'the' followed immediately by a word starting with an phonemic vowel</span></span>
-<span class="r-in"><span class="va">theThenPhonVowel</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>phonemes <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## the word 'the' followed immediately or with one intervening word by</span></span>
-<span class="r-in"><span class="co">## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">           orthography <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">         adj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">           phonemes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>not<span class="op">=</span><span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span>,</span>
-<span class="r-in">           frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">  overlap.threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## results$Text is the text that matched</span></span>
-<span class="r-in"><span class="co">## results$MatchId can be used to access results using other functions</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## the word 'the' followed immediately by a word starting with an orthographic vowel</span></span></span>
+<span class="r-in"><span><span class="va">theThenOrthVowel</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"the [aeiou]"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## a word spelt with "k" but pronounced "n" word initially</span></span></span>
+<span class="r-in"><span><span class="va">knWords</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"k.*"</span>, phonemes <span class="op">=</span> <span class="st">"n.*"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## the word 'the' followed immediately by a word starting with an phonemic vowel</span></span></span>
+<span class="r-in"><span><span class="va">theThenPhonVowel</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>orthography <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>phonemes <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## the word 'the' followed immediately or with one intervening word by</span></span></span>
+<span class="r-in"><span><span class="co">## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           orthography <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"the"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>         adj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>layers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           phonemes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>not<span class="op">=</span><span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  overlap.threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## results$Text is the text that matched</span></span></span>
+<span class="r-in"><span><span class="co">## results$MatchId can be used to access results using other functions</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

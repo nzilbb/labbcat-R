@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,28 +63,37 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getMatchingParticipantIds</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">expression</span>,
-  page.length <span class="op">=</span> <span class="cn">NULL</span>,
-  page.number <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getMatchingParticipantIds</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">expression</span>,</span>
+<span>  page.length <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  page.number <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>expression</dt>
 <dd><p>An expression that determines which participants match</p></dd>
+
+
 <dt>page.length</dt>
 <dd><p>The maximum number of IDs to return, or null to return all</p></dd>
+
+
 <dt>page.number</dt>
 <dd><p>The zero-based page number to return, or null to return the first page</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of paricipant IDs</p>
+    
+
+<p>A list of paricipant IDs</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -116,22 +125,22 @@ syntax.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get all participants whose IDs start with "BR"</span></span>
-<span class="r-in"><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu">getMatchingParticipantIds</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/^BR.+/.test(id)"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the first twenty transcripts in the "QB" corpus</span></span>
-<span class="r-in"><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu">getMatchingParticipantIds</span><span class="op">(</span></span>
-<span class="r-in">        <span class="va">labbcat.url</span>, <span class="st">"labels('corpus').includes('QB')"</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get all participants in the "QB" corpus that have "Jacqui" as part of the ID</span></span>
-<span class="r-in"><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu">getMatchingTranscriptParticipantIds</span><span class="op">(</span></span>
-<span class="r-in">        <span class="va">labbcat.url</span>, <span class="st">"labels('corpus').includes('QB') &amp;&amp; /^BR.+/.test(id)"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get all participants whose IDs start with "BR"</span></span></span>
+<span class="r-in"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu">getMatchingParticipantIds</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/^BR.+/.test(id)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the first twenty transcripts in the "QB" corpus</span></span></span>
+<span class="r-in"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu">getMatchingParticipantIds</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">labbcat.url</span>, <span class="st">"labels('corpus').includes('QB')"</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get all participants in the "QB" corpus that have "Jacqui" as part of the ID</span></span></span>
+<span class="r-in"><span><span class="va">participants</span> <span class="op">&lt;-</span> <span class="fu">getMatchingTranscriptParticipantIds</span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">labbcat.url</span>, <span class="st">"labels('corpus').includes('QB') &amp;&amp; /^BR.+/.test(id)"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

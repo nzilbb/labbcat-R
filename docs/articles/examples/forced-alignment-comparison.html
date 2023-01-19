@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
       </span>
     </div>
 
@@ -500,8 +500,10 @@
   <span class="co"># upload the transcript/recording</span>
   <span class="fu"><a href="../../reference/newTranscript.html">newTranscript</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">transcript</span>, <span class="va">wav</span>, no.progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="op">}</span> <span class="co"># next trancript</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Transcripts uploaded: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcriptFiles</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="op">}</span> <span class="co"># next trancript</span></code></pre></div>
+<pre><code><span class="co">## [1] "Token layer not found: null"</span></code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Transcripts uploaded: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcriptFiles</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## Transcripts uploaded:  1</span></code></pre>
 <p>At this point the manually aligned transcripts have been uploaded, and all of the forced-alignment configurations have been run.</p>
 </div>
@@ -810,7 +812,7 @@
   
 </dl></details><hr>
 <p>A comparison is set up for each of the forced-alignment configurations above, i.e each automatic word alignment is matched to a corresponding manual word alignment, and within each word, each automatic phone alignment is matched to a corresponding manual phone alignment. Once this is done, it’s possible to measure the degree to which the automatic alignments overlap with the manual ones.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare p2fa alignments with manual ones</span>
 <span class="va">p2faComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
   <span class="va">url</span>, <span class="st">"p2faComp"</span>, 
@@ -827,8 +829,25 @@
     <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in p2faPhone use ARPAbet encoding</span>
     sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faComp"</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span></code></pre>
 <pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare MFA ARPAbet alignments with manual ones</span>
 <span class="va">mfaGAmComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
   <span class="va">url</span>, <span class="st">"mfaGAmComp"</span>, 
@@ -845,8 +864,22 @@
     <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in mfaGAmPhone use ARPAbet encoding</span>
     sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmComp"</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span></code></pre>
 <pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare MFA non-rhotic IPA alignments with manual ones</span>
 <span class="va">mfaUKEComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
   <span class="va">url</span>, <span class="st">"mfaUKEComp"</span>, 
@@ -863,8 +896,21 @@
     <span class="st">"subComparator=DISCToIPA"</span>,         <span class="co"># phone tokens in mfaUKEPhone use IPA encoding</span>
     sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEComp"</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span></code></pre>
 <pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># compare MAUSBasic alignments with manual ones</span>
 <span class="va">mausComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
   <span class="va">url</span>, <span class="st">"mausComp"</span>, 
@@ -881,6 +927,19 @@
     <span class="st">"subComparator=DISCToDISC"</span>,        <span class="co"># phone tokens in mausPhone use DISC encoding</span>
     sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausComp"</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
+<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span></code></pre>
 <pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
 </div>
 <div class="section level2">
@@ -1025,7 +1084,7 @@
     mapping. The query string should be a mapping ID returned by <i>listMappings</i>.</dd>
 </dl></details><hr>
 <p>The mean overlap rates for the forced alignment configurations can be directly compared, by extracting the mapping summaries and comparing them:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">p2faPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>
   <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">mfaGAmPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>
@@ -1081,7 +1140,7 @@
 </tbody>
 </table>
 <p>The LabelMapper module can also provide finely-grained details of the mappings - i.e. exactly which manual phones mapped to which automatic phones.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get edit paths for manual-to-P2FA comparison</span>
 <span class="va">p2faPhoneEditPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>
   text <span class="op">=</span> <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"mappingToCsv"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
@@ -1169,7 +1228,7 @@
 </table>
 <p>This allows closer analysis of the forced-alignments, beyond the overlap rate summary.</p>
 <p>For example, it allows us to identify which phones are being produced the the forced aligner which have no corresponding phone in the manual alignments; forced aligners that are using a rhotic dictionary are expected to produce many spurious /r/ segments that are not really present in the non-rhotic speech in the corpus:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># identify all edit steps where a phone is added - i.e. the source phone label is empty</span>
 <span class="va">spuriousSegments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">p2faPhoneEditPaths</span>, <span class="va">sourceLabel</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span>
 <span class="co"># count these spurious segments grouping by their label to see which is most common</span>

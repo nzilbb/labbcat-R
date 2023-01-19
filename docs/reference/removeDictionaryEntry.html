@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,32 +63,43 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">removeDictionaryEntry</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">manager.id</span>,
-  <span class="va">dictionary.id</span>,
-  <span class="va">key</span>,
-  entry <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">removeDictionaryEntry</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">manager.id</span>,</span>
+<span>  <span class="va">dictionary.id</span>,</span>
+<span>  <span class="va">key</span>,</span>
+<span>  entry <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>manager.id</dt>
 <dd><p>The layer manager ID of the dictionary, as returned by getDictionaries</p></dd>
+
+
 <dt>dictionary.id</dt>
 <dd><p>The ID of the dictionary, as returned by getDictionaries</p></dd>
+
+
 <dt>key</dt>
 <dd><p>The key (word) in the dictionary to remove an entry for.</p></dd>
+
+
 <dt>entry</dt>
 <dd><p>The value (definition) for the given key, or NULL to remove all entries
 for the key.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>NULL if the entry was removed, or a list of error messages if not.</p>
+    
+
+<p>NULL if the entry was removed, or a list of error messages if not.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -96,20 +107,17 @@ for the key.</p></dd>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index">
-
-
-<p><a href="getDictionaries.html">getDictionaries</a></p>
+    <div class="dont-index"><p><a href="getDictionaries.html">getDictionaries</a></p>
 <p><a href="getDictionaryEntries.html">getDictionaryEntries</a></p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Remove a pronuciation of the word "robert" from the CELEX wordform pronunciation dictionary</span></span>
-<span class="r-in"><span class="fu">removeDictionaryEntry</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"CELEX-EN"</span>, <span class="st">"Phonology (wordform)"</span>, <span class="st">"robert"</span>, <span class="st">"'rQ-bErt"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Remove a pronuciation of the word "robert" from the CELEX wordform pronunciation dictionary</span></span></span>
+<span class="r-in"><span><span class="fu">removeDictionaryEntry</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"CELEX-EN"</span>, <span class="st">"Phonology (wordform)"</span>, <span class="st">"robert"</span>, <span class="st">"'rQ-bErt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

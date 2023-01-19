@@ -19,7 +19,7 @@ file (e.g. a CSV file)."><meta property="og:image" content="/logo.png"><meta nam
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -67,19 +67,24 @@ file (e.g. a CSV file).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">deleteLexicon</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">lexicon</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">deleteLexicon</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">lexicon</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance.</p></dd>
+
+
 <dt>lexicon</dt>
 <dd><p>The name of the lexicon to delete, e.g. 'cmudict'</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>NULL if the deletion was successful, or an error message if not.</p>
+    
+
+<p>NULL if the deletion was successful, or an error message if not.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -93,11 +98,11 @@ file (e.g. a CSV file).</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Delete the previously loaded CMU Pronouncing Dictionary lexicon</span></span>
-<span class="r-in"><span class="fu">deleteLexicon</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"cmudict"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Delete the previously loaded CMU Pronouncing Dictionary lexicon</span></span></span>
+<span class="r-in"><span><span class="fu">deleteLexicon</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"cmudict"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

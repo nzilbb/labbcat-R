@@ -18,7 +18,7 @@ associated with it."><meta property="og:image" content="/logo.png"><meta name="t
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -65,19 +65,24 @@ associated with it.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">deleteLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">layer.id</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">deleteLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">layer.id</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>layer.id</dt>
 <dd><p>The ID of the layer to delete.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>NULL, or an error message if deletion failed.</p>
+    
+
+<p>NULL, or an error message if deletion failed.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -91,11 +96,11 @@ associated with it.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Delete the phonemes layer</span></span>
-<span class="r-in"><span class="fu">deleteLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"phonemes"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Delete the phonemes layer</span></span></span>
+<span class="r-in"><span><span class="fu">deleteLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"phonemes"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

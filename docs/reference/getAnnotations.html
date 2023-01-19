@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,31 +63,42 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getAnnotations</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">id</span>,
-  <span class="va">layer.id</span>,
-  page.length <span class="op">=</span> <span class="cn">NULL</span>,
-  page.number <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getAnnotations</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">id</span>,</span>
+<span>  <span class="va">layer.id</span>,</span>
+<span>  page.length <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  page.number <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A transcript ID (i.e. transcript name)</p></dd>
+
+
 <dt>layer.id</dt>
 <dd><p>A layer ID</p></dd>
+
+
 <dt>page.length</dt>
 <dd><p>The maximum number of annotations to return, or null to return all</p></dd>
+
+
 <dt>page.number</dt>
 <dd><p>The zero-based page number to return, or null to return the first page</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A named list of annotations, with members:</p><ul><li><p><em>id</em> The annotation's unique ID</p></li>
+    
+
+<p>A named list of annotations, with members:</p><ul><li><p><em>id</em> The annotation's unique ID</p></li>
 <li><p><em>layerId</em> The name of the layer it comes from</p></li>
 <li><p><em>label</em> The value of the annotation</p></li>
 <li><p><em>startId</em> The ID of the start anchor,</p></li>
@@ -107,17 +118,17 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get all the orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf</span></span>
-<span class="r-in"><span class="va">orthography</span> <span class="op">&lt;-</span> <span class="fu">getAnnotations</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="st">"orthography"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the first 20 orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf</span></span>
-<span class="r-in"><span class="va">orthography</span> <span class="op">&lt;-</span> <span class="fu">getAnnotations</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="st">"orthography"</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get all the orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf</span></span></span>
+<span class="r-in"><span><span class="va">orthography</span> <span class="op">&lt;-</span> <span class="fu">getAnnotations</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="st">"orthography"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the first 20 orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf</span></span></span>
+<span class="r-in"><span><span class="va">orthography</span> <span class="op">&lt;-</span> <span class="fu">getAnnotations</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="st">"orthography"</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

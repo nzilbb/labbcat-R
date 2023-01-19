@@ -18,7 +18,7 @@ annotation structures from a specific file format, e.g. Praat TextGrid, plain te
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -65,17 +65,20 @@ annotation structures from a specific file format, e.g. Praat TextGrid, plain te
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDeserializerDescriptors</span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getDeserializerDescriptors</span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list of serializers, each including the following information:</p><ul><li><p><em>name</em> The name of the format.</p></li>
+    
+
+<p>A list of serializers, each including the following information:</p><ul><li><p><em>name</em> The name of the format.</p></li>
 <li><p><em>version</em> The installed version of the serializer module.</p></li>
 <li><p><em>fileSuffixes</em> The normal file name suffixes (extensions) of the files.,</p></li>
 <li><p><em>mimeType</em> The MIME type of the format, i.e. the value to use as the
@@ -84,14 +87,14 @@ annotation structures from a specific file format, e.g. Praat TextGrid, plain te
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## List file upload formats supported</span></span>
-<span class="r-in"><span class="va">formats</span> <span class="op">&lt;-</span> <span class="fu">getDeserializerDescriptors</span><span class="op">(</span><span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## can we upload as plain text?</span></span>
-<span class="r-in"><span class="va">plainTextSupported</span> <span class="op">&lt;-</span> <span class="st">"text/plain"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">formats</span><span class="op">$</span><span class="va">mimeType</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## List file upload formats supported</span></span></span>
+<span class="r-in"><span><span class="va">formats</span> <span class="op">&lt;-</span> <span class="fu">getDeserializerDescriptors</span><span class="op">(</span><span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## can we upload as plain text?</span></span></span>
+<span class="r-in"><span><span class="va">plainTextSupported</span> <span class="op">&lt;-</span> <span class="st">"text/plain"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">formats</span><span class="op">$</span><span class="va">mimeType</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

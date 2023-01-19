@@ -20,7 +20,7 @@ this function. To generate the automatic annotations, use generateLayer."><meta 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -69,51 +69,70 @@ this function. To generate the automatic annotations, use <a href="generateLayer
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">newLayer</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">layer.id</span>,
-  <span class="va">description</span>,
-  type <span class="op">=</span> <span class="st">"string"</span>,
-  alignment <span class="op">=</span> <span class="fl">0</span>,
-  category <span class="op">=</span> <span class="st">"General"</span>,
-  parent.id <span class="op">=</span> <span class="st">"word"</span>,
-  annotator.id <span class="op">=</span> <span class="cn">NULL</span>,
-  annotator.task.parameters <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">newLayer</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">layer.id</span>,</span>
+<span>  <span class="va">description</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"string"</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  category <span class="op">=</span> <span class="st">"General"</span>,</span>
+<span>  parent.id <span class="op">=</span> <span class="st">"word"</span>,</span>
+<span>  annotator.id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>layer.id</dt>
 <dd><p>The ID of the layer to create, which must be unique to the LaBB-CAT instance.</p></dd>
+
+
 <dt>description</dt>
 <dd><p>A description of the annotations the layer will contain.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>The type of data the labels will represent. Valid values are "string",
 "number", "ipa" (for phoneme representations), or "boolean" (labels "0" or "1").</p></dd>
+
+
 <dt>alignment</dt>
 <dd><p>How annotations on the layer will relate to time alignment; valid
 values are 0 (no alignment; annototations are just tags on the parent annotation),
 1 (instants; annotations mark a single point in time), or 2 (intervals; annotations
 have a start and end time).</p></dd>
+
+
 <dt>category</dt>
 <dd><p>The project/category the layer belongs to.</p></dd>
+
+
 <dt>parent.id</dt>
 <dd><p>The parent layer; valid values are "word" (for word layers), "segment"
 (for segment layers) "turn" (for phrase layers), or "transcript" (for span layers).</p></dd>
+
+
 <dt>annotator.id</dt>
 <dd><p>The ID of the layer manager that automatically fills in
 annotations on the layer, if any</p></dd>
+
+
 <dt>annotator.task.parameters</dt>
 <dd><p>The configuration the layer manager should use when
 filling the layer with annotations. This is a string whose format is specific to
 each layer manager.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The resulting layer definition, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
+    
+
+<p>The resulting layer definition, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
 <li><p><em>parentId</em> The layer's parent layer ID</p></li>
 <li><p><em>description</em> The description of the layer</p></li>
 <li><p><em>alignment</em> The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment</p></li>
@@ -138,20 +157,20 @@ each layer manager.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Upload the CMU Pronouncing Dictionary </span></span>
-<span class="r-in"><span class="fu"><a href="loadLexicon.html">loadLexicon</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"cmudict"</span>, <span class="st">" - "</span>, <span class="st">""</span>, <span class="st">";"</span>, <span class="st">"Word - Pron"</span>, <span class="cn">FALSE</span>, <span class="st">"cmudict.txt"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Create a layer that tags each token with its CMU Pronouncing Dictionary pronunciation</span></span>
-<span class="r-in"><span class="fu">newLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"pronunciation"</span>, <span class="st">"CMU Dict pronunciations encoded in ARPAbet"</span>,</span>
-<span class="r-in">         annotator.id<span class="op">=</span><span class="st">"FlatFileDictionary"</span>,</span>
-<span class="r-in">         annotator.task.parameters<span class="op">=</span></span>
-<span class="r-in">             <span class="st">"tokenLayerId=orthography&amp;tagLayerId=phonemes&amp;dictionary=cmudict:Word-&gt;Pron"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Generate the pronunciation tags</span></span>
-<span class="r-in"><span class="fu"><a href="generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"pronunciation"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Upload the CMU Pronouncing Dictionary </span></span></span>
+<span class="r-in"><span><span class="fu"><a href="loadLexicon.html">loadLexicon</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"cmudict"</span>, <span class="st">" - "</span>, <span class="st">""</span>, <span class="st">";"</span>, <span class="st">"Word - Pron"</span>, <span class="cn">FALSE</span>, <span class="st">"cmudict.txt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Create a layer that tags each token with its CMU Pronouncing Dictionary pronunciation</span></span></span>
+<span class="r-in"><span><span class="fu">newLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"pronunciation"</span>, <span class="st">"CMU Dict pronunciations encoded in ARPAbet"</span>,</span></span>
+<span class="r-in"><span>         annotator.id<span class="op">=</span><span class="st">"FlatFileDictionary"</span>,</span></span>
+<span class="r-in"><span>         annotator.task.parameters<span class="op">=</span></span></span>
+<span class="r-in"><span>             <span class="st">"tokenLayerId=orthography&amp;tagLayerId=phonemes&amp;dictionary=cmudict:Word-&gt;Pron"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Generate the pronunciation tags</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"pronunciation"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

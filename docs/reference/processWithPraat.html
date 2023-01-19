@@ -18,7 +18,7 @@ intervals, in order to extract acoustic measures."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -65,33 +65,43 @@ intervals, in order to extract acoustic measures.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">processWithPraat</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">match.ids</span>,
-  <span class="va">start.offsets</span>,
-  <span class="va">end.offsets</span>,
-  <span class="va">praat.script</span>,
-  window.offset <span class="op">=</span> <span class="fl">0</span>,
-  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,
-  attributes <span class="op">=</span> <span class="cn">NULL</span>,
-  no.progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">processWithPraat</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">match.ids</span>,</span>
+<span>  <span class="va">start.offsets</span>,</span>
+<span>  <span class="va">end.offsets</span>,</span>
+<span>  <span class="va">praat.script</span>,</span>
+<span>  window.offset <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,</span>
+<span>  attributes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>match.ids</dt>
 <dd><p>A vector of annotation IDs, e.g. the MatchId column, or the URL column,
 of a results set.</p></dd>
+
+
 <dt>start.offsets</dt>
 <dd><p>The start time in seconds, or a vector of start times.</p></dd>
+
+
 <dt>end.offsets</dt>
 <dd><p>The end time in seconds, or a vector of end times.</p></dd>
+
+
 <dt>praat.script</dt>
 <dd><p>Script to run on each match. This may be a single string or a
 character vector.</p></dd>
+
+
 <dt>window.offset</dt>
 <dd><p>In many circumstances, you will want some context before and after
 the sample start/end time.  For this reason, you can specify a "window offset" -
@@ -100,21 +110,30 @@ end time, before extracting that part of the audio for processing. For example, 
 the sample starts at 2.0s and ends at 3.0s, and you set the window offset to 0.5s,
 then Praat will extract a sample of audio from  1.5s to 3.5s, and do the selected
 processing on that sample.</p></dd>
+
+
 <dt>gender.attribute</dt>
 <dd><p>Which participant attribute represents the participant's gender.</p></dd>
+
+
 <dt>attributes</dt>
 <dd><p>Vector of participant attributes to make available to the script. For
 example, if you want to use different acoustic parameters depending on what the
 gender of the speaker is, including the "participant_gender" attribute will make a
 variable called participant_gender$ available to the praat script, whose value will
 be the gender of the speaker for that segment.</p></dd>
+
+
 <dt>no.progress</dt>
 <dd><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
 shown when interactive().</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data frame of acoustic measures, one row for each matchId.</p>
+    
+
+<p>A data frame of acoustic measures, one row for each matchId.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -168,37 +187,37 @@ form:</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Perform a search</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## get F1 and F2 for the mid point of the vowel</span></span>
-<span class="r-in"><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span>
-<span class="r-in">       <span class="va">labbcat.url</span>,</span>
-<span class="r-in">       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
-<span class="r-in">       <span class="fu"><a href="praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## get first 3 formants at three points during the sample, the mean, min, and max</span></span>
-<span class="r-in"><span class="co">## pitch, the max intensity, and the CoG using powers 1 and 2 </span></span>
-<span class="r-in"><span class="va">acoustic.measurements</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span>
-<span class="r-in">       <span class="va">labbcat.url</span>,</span>
-<span class="r-in">       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
-<span class="r-in">       <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
-<span class="r-in">           <span class="fu"><a href="praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="fu"><a href="praatScriptPitch.html">praatScriptPitch</a></span><span class="op">(</span>get.mean<span class="op">=</span><span class="cn">TRUE</span>, get.minimum<span class="op">=</span><span class="cn">TRUE</span>, get.maximum<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="fu"><a href="praatScriptIntensity.html">praatScriptIntensity</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span class="r-in">           <span class="fu"><a href="praatScriptCentreOfGravity.html">praatScriptCentreOfGravity</a></span><span class="op">(</span>powers<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>,<span class="fl">2.0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">       window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## execute a custom script loaded form a file</span></span>
-<span class="r-in"><span class="va">acoustic.measurements</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span>
-<span class="r-in">       <span class="va">labbcat.url</span>,</span>
-<span class="r-in">       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">result</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
-<span class="r-in">       <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"acousticMeasurements.praat"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Perform a search</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## get F1 and F2 for the mid point of the vowel</span></span></span>
+<span class="r-in"><span><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       <span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## get first 3 formants at three points during the sample, the mean, min, and max</span></span></span>
+<span class="r-in"><span><span class="co">## pitch, the max intensity, and the CoG using powers 1 and 2 </span></span></span>
+<span class="r-in"><span><span class="va">acoustic.measurements</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       <span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>           <span class="fu"><a href="praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="praatScriptPitch.html">praatScriptPitch</a></span><span class="op">(</span>get.mean<span class="op">=</span><span class="cn">TRUE</span>, get.minimum<span class="op">=</span><span class="cn">TRUE</span>, get.maximum<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="praatScriptIntensity.html">praatScriptIntensity</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           <span class="fu"><a href="praatScriptCentreOfGravity.html">praatScriptCentreOfGravity</a></span><span class="op">(</span>powers<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>,<span class="fl">2.0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## execute a custom script loaded form a file</span></span></span>
+<span class="r-in"><span><span class="va">acoustic.measurements</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       <span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">result</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"acousticMeasurements.praat"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

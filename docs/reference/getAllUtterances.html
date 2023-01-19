@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,37 +63,50 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getAllUtterances</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">participant.ids</span>,
-  transcript.types <span class="op">=</span> <span class="cn">NULL</span>,
-  main.participant <span class="op">=</span> <span class="cn">TRUE</span>,
-  max.matches <span class="op">=</span> <span class="cn">NULL</span>,
-  no.progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getAllUtterances</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">participant.ids</span>,</span>
+<span>  transcript.types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  main.participant <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  max.matches <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>participant.ids</dt>
 <dd><p>A list of participant IDs to identify the utterances of.</p></dd>
+
+
 <dt>transcript.types</dt>
 <dd><p>An optional list of transcript types to limit the results
 to. If null, all transcript types will be searched.</p></dd>
+
+
 <dt>main.participant</dt>
 <dd><p>TRUE to search only main-participant utterances, FALSE to
 search all utterances.</p></dd>
+
+
 <dt>max.matches</dt>
 <dd><p>The maximum number of matches to return, or null to return all.</p></dd>
+
+
 <dt>no.progress</dt>
 <dd><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
 shown when interactive().</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data frame identifying matches, containing the following columns:</p><ul><li><p><em>SearchName</em> A name based on the pattern -- the same for all rows</p></li>
+    
+
+<p>A data frame identifying matches, containing the following columns:</p><ul><li><p><em>SearchName</em> A name based on the pattern -- the same for all rows</p></li>
 <li><p><em>Number</em> Row number</p></li>
 <li><p><em>Transcript</em> Name of the transcript in which the match was found</p></li>
 <li><p><em>Line</em> The start offset of the utterance/line</p></li>
@@ -119,17 +132,17 @@ shown when interactive().</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## get all utterances of the given participants</span></span>
-<span class="r-in"><span class="va">participant.ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getAllUtterances</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">participant.ids</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## results$MatchId can be used to access results</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## get all utterances of the given participants</span></span></span>
+<span class="r-in"><span><span class="va">participant.ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getAllUtterances</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">participant.ids</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## results$MatchId can be used to access results</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

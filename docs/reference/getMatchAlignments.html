@@ -18,7 +18,7 @@ match IDs."><meta property="og:image" content="/logo.png"><meta name="twitter:ca
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -65,59 +65,78 @@ match IDs.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getMatchAlignments</span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">match.ids</span>,
-  <span class="va">layer.ids</span>,
-  target.offset <span class="op">=</span> <span class="fl">0</span>,
-  annotations.per.layer <span class="op">=</span> <span class="fl">1</span>,
-  anchor.confidence.min <span class="op">=</span> <span class="fl">50</span>,
-  include.match.ids <span class="op">=</span> <span class="cn">FALSE</span>,
-  page.length <span class="op">=</span> <span class="fl">1000</span>,
-  no.progress <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getMatchAlignments</span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">match.ids</span>,</span>
+<span>  <span class="va">layer.ids</span>,</span>
+<span>  target.offset <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  annotations.per.layer <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  anchor.confidence.min <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  include.match.ids <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  page.length <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>match.ids</dt>
 <dd><p>A vector of annotation IDs, e.g. the MatchId column, or the URL column,
 of a results set.</p></dd>
+
+
 <dt>layer.ids</dt>
 <dd><p>A vector of layer IDs.</p></dd>
+
+
 <dt>target.offset</dt>
 <dd><p>The distance from the original target of the match, e.g.</p><ul><li><p><em>0</em> -- find annotations of the match target itself,</p></li>
 <li><p><em>1</em> -- find annotations of the token immediately <em>after</em> match target</p></li>
 <li><p><em>-1</em> -- find annotations of the token immediately <em>before</em> match target</p></li>
 </ul></dd>
+
+
 <dt>annotations.per.layer</dt>
 <dd><p>The number of annotations on the given layer to
 retrieve. In most cases, there's only one annotation available. However, tokens
 may, for example, be annotated with `all possible phonemic transcriptions', in which
 case using a value of greater than 1 for this parameter provides other phonemic
 transcriptions, for tokens that have more than one.</p></dd>
+
+
 <dt>anchor.confidence.min</dt>
 <dd><p>The minimum confidence for alignments, e.g.</p><ul><li><p><em>0</em> -- return all alignments, regardless of confidence;</p></li>
 <li><p><em>50</em> -- return only alignments that have been at least automatically aligned;</p></li>
 <li><p><em>100</em> -- return only manually-set alignments.</p></li>
 </ul></dd>
+
+
 <dt>include.match.ids</dt>
 <dd><p>Whether or not the data frame returned includes the original
 MatchId column or not.</p></dd>
+
+
 <dt>page.length</dt>
 <dd><p>In order to prevent timeouts when there are a large number of
 matches or the network connection is slow, rather than retrieving matches in one
 big request, they are retrieved using many smaller requests. This parameter
 controls the number of results retrieved per request.</p></dd>
+
+
 <dt>no.progress</dt>
 <dd><p>TRUE to supress visual progress bar. Otherwise, progress bar will be
 shown when interactive().</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data frame with label, start time, and end time, for each layer.</p>
+    
+
+<p>A data frame with label, start time, and end time, for each layer.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -135,18 +154,18 @@ is returned, but the start/end times are NA.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Perform a search</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the segment following the token, with alignment if it's been manually aligned</span></span>
-<span class="r-in"><span class="va">following.segment</span> <span class="op">&lt;-</span> <span class="fu">getMatchAlignments</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"segment"</span>,</span>
-<span class="r-in">    target.offset<span class="op">=</span><span class="fl">1</span>, anchor.confidence.min<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Perform a search</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the segment following the token, with alignment if it's been manually aligned</span></span></span>
+<span class="r-in"><span><span class="va">following.segment</span> <span class="op">&lt;-</span> <span class="fu">getMatchAlignments</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"segment"</span>,</span></span>
+<span class="r-in"><span>    target.offset<span class="op">=</span><span class="fl">1</span>, anchor.confidence.min<span class="op">=</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

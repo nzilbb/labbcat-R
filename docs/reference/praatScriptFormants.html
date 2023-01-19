@@ -18,7 +18,7 @@ parameter of processWithPraat, in order to extract selected formants."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -65,18 +65,18 @@ parameter of <a href="processWithPraat.html">processWithPraat</a>, in order to e
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">praatScriptFormants</span><span class="op">(</span>
-  formants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
-  sample.points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,
-  time.step <span class="op">=</span> <span class="fl">0</span>,
-  max.number.formants <span class="op">=</span> <span class="fl">5</span>,
-  max.formant <span class="op">=</span> <span class="fl">5500</span>,
-  max.formant.male <span class="op">=</span> <span class="fl">5000</span>,
-  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,
-  value.for.male <span class="op">=</span> <span class="st">"M"</span>,
-  window.length <span class="op">=</span> <span class="fl">0.025</span>,
-  preemphasis.from <span class="op">=</span> <span class="fl">50</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">praatScriptFormants</span><span class="op">(</span></span>
+<span>  formants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  sample.points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>  time.step <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  max.number.formants <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  max.formant <span class="op">=</span> <span class="fl">5500</span>,</span>
+<span>  max.formant.male <span class="op">=</span> <span class="fl">5000</span>,</span>
+<span>  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,</span>
+<span>  value.for.male <span class="op">=</span> <span class="st">"M"</span>,</span>
+<span>  window.length <span class="op">=</span> <span class="fl">0.025</span>,</span>
+<span>  preemphasis.from <span class="op">=</span> <span class="fl">50</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,6 +84,8 @@ parameter of <a href="processWithPraat.html">processWithPraat</a>, in order to e
     <dl><dt>formants</dt>
 <dd><p>A vector of integers specifying which formants to extract, e.g c(1,2)
 for the first and second formant.</p></dd>
+
+
 <dt>sample.points</dt>
 <dd><p>A vector of numbers (0 &lt;= sample.points &lt;= 1) specifying multiple
 points at which to take the measurement.  The default is a single point at 0.5 -
@@ -91,30 +93,52 @@ this means one measurement will be taken halfway through the target interval.  I
 for example, you wanted eleven measurements evenly spaced throughout the interval,
 you would specify sample.points as being
 c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).</p></dd>
+
+
 <dt>time.step</dt>
 <dd><p>Time step in seconds, or 0.0 for 'auto'.</p></dd>
+
+
 <dt>max.number.formants</dt>
 <dd><p>Maximum number of formants.</p></dd>
+
+
 <dt>max.formant</dt>
 <dd><p>Maximum formant value (Hz) for all speakers, or for female speakers,
 if max.formant.male is also specified.</p></dd>
+
+
 <dt>max.formant.male</dt>
 <dd><p>Maximum formant value (Hz) for male speakers, or NULL to use
 the same value as max.formant.</p></dd>
+
+
 <dt>gender.attribute</dt>
 <dd><p>Name of the LaBB-CAT participant attribute that contains the
 participant's gender - normally this is "participant_gender".</p></dd>
+
+
 <dt>value.for.male</dt>
 <dd><p>The value that the gender.attribute has when the participant is male.</p></dd>
+
+
 <dt>window.length</dt>
 <dd><p>Window length in seconds.</p></dd>
+
+
 <dt>preemphasis.from</dt>
 <dd><p>Pre-emphasis from (Hz)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A script fragment which can be passed as the praat.script parameter of
-<a href="processWithPraat.html">processWithPraat</a></p>
+    
+
+<p>A script fragment which can be passed as the praat.script parameter of</p>
+<p></p>
+<p><a href="processWithPraat.html">processWithPraat</a></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -132,21 +156,21 @@ uses the FastTrack Praat plugin for formant analysis.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get all tokens of the KIT vowel</span></span>
-<span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the first 3 formants at three points during the vowel</span></span>
-<span class="r-in"><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu"><a href="processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
-<span class="r-in">              <span class="va">labbcat.url</span>,</span>
-<span class="r-in">              <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
-<span class="r-in">              window.offset<span class="op">=</span><span class="fl">0.025</span>,</span>
-<span class="r-in">              <span class="fu">praatScriptFormants</span><span class="op">(</span>formants<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,</span>
-<span class="r-in">              sample.points<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get all tokens of the KIT vowel</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the first 3 formants at three points during the vowel</span></span></span>
+<span class="r-in"><span><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu"><a href="processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>              <span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>              <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
+<span class="r-in"><span>              window.offset<span class="op">=</span><span class="fl">0.025</span>,</span></span>
+<span class="r-in"><span>              <span class="fu">praatScriptFormants</span><span class="op">(</span>formants<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>              sample.points<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>

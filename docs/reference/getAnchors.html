@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,26 +63,35 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getAnchors</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">id</span>, <span class="va">anchor.id</span>, page.length <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getAnchors</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">id</span>, <span class="va">anchor.id</span>, page.length <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>id</dt>
 <dd><p>A transcript ID (i.e. transcript name)</p></dd>
+
+
 <dt>anchor.id</dt>
 <dd><p>A vector of anchor IDs (or a string representing one anchor ID)</p></dd>
+
+
 <dt>page.length</dt>
 <dd><p>In order to prevent timeouts when there are a large number of
 matches or the network connection is slow, rather than retrieving anchors in one
 big request, they are retrieved using many smaller requests. This parameter
 controls the number of anchors retrieved per request.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A named list of anchors, with members:</p><ul><li><p><em>id</em> The annotation's unique ID,</p></li>
+    
+
+<p>A named list of anchors, with members:</p><ul><li><p><em>id</em> The annotation's unique ID,</p></li>
 <li><p><em>offset</em> The offset from the beginning (in seconds if it's a
  transcript of a recording, or in characters if it's a text document)</p></li>
 <li><p><em>confidence</em> A rating from 0-100 of the confidence of the offset,
@@ -95,17 +104,17 @@ controls the number of anchors retrieved per request.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## define the LaBB-CAT URL</span></span>
-<span class="r-in"><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the first 20 orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf</span></span>
-<span class="r-in"><span class="va">orthography</span> <span class="op">&lt;-</span> <span class="fu"><a href="getAnnotations.html">getAnnotations</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="st">"orthography"</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Get the start anchors for the above tokens</span></span>
-<span class="r-in"><span class="va">word.starts</span> <span class="op">&lt;-</span> <span class="fu">getAnchors</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="va">orthography</span><span class="op">$</span><span class="va">startId</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
+<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the first 20 orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf</span></span></span>
+<span class="r-in"><span><span class="va">orthography</span> <span class="op">&lt;-</span> <span class="fu"><a href="getAnnotations.html">getAnnotations</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="st">"orthography"</span>, <span class="fl">20</span>, <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Get the start anchors for the above tokens</span></span></span>
+<span class="r-in"><span><span class="va">word.starts</span> <span class="op">&lt;-</span> <span class="fu">getAnchors</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"UC427_ViktoriaPapp_A_ENG.eaf"</span>, <span class="va">orthography</span><span class="op">$</span><span class="va">startId</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>

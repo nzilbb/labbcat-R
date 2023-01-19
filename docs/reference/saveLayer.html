@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
       </span>
     </div>
 
@@ -63,13 +63,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">saveLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">layer</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">saveLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">layer</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>labbcat.url</dt>
 <dd><p>URL to the LaBB-CAT instance</p></dd>
+
+
 <dt>layer</dt>
 <dd><p>A named list object representing the layer attributes, as would be
     returned by <a href="getLayer.html">getLayer</a> or <a href="newLayer.html">newLayer</a>, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
@@ -86,10 +88,13 @@
 <li><p><em>type</em> The type for labels on this layer</p></li>
 <li><p><em>validLabels</em> List of valid label values for this layer</p></li>
 </ul></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The resulting layer definition, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
+    
+
+<p>The resulting layer definition, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
 <li><p><em>parentId</em> The layer's parent layer ID</p></li>
 <li><p><em>description</em> The description of the layer</p></li>
 <li><p><em>alignment</em> The layer's alignment - 0 for none, 1 for point alignment, 2
@@ -116,18 +121,18 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Get the pronunciation layer definition</span></span>
-<span class="r-in"><span class="va">pronunciation</span> <span class="op">&lt;-</span> <span class="fu"><a href="getLayer.html">getLayer</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"pronunciation"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Change some details of the definition</span></span>
-<span class="r-in"><span class="va">pronunciation</span><span class="op">$</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"CMU Dict pronunciations encoded in DISC"</span></span>
-<span class="r-in"><span class="va">pronunciation</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="st">"ipa"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Save the changes to the layer definition</span></span>
-<span class="r-in"><span class="fu">saveLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">pronunciation</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Get the pronunciation layer definition</span></span></span>
+<span class="r-in"><span><span class="va">pronunciation</span> <span class="op">&lt;-</span> <span class="fu"><a href="getLayer.html">getLayer</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"pronunciation"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Change some details of the definition</span></span></span>
+<span class="r-in"><span><span class="va">pronunciation</span><span class="op">$</span><span class="va">description</span> <span class="op">&lt;-</span> <span class="st">"CMU Dict pronunciations encoded in DISC"</span></span></span>
+<span class="r-in"><span><span class="va">pronunciation</span><span class="op">$</span><span class="va">type</span> <span class="op">&lt;-</span> <span class="st">"ipa"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Save the changes to the layer definition</span></span></span>
+<span class="r-in"><span><span class="fu">saveLayer</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">pronunciation</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
