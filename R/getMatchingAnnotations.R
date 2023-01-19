@@ -35,13 +35,14 @@
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
 #'
+#' ## get all topic annotations whose label includes the word 'quake'
 #' quake.topics <- getMatchingAnnotations(
 #'                    labbcat.url, "layer.id == 'topic' && /.*quake.*/.test(label)")
 #' }
 #' 
-#' @keywords transcript expression
+#' @keywords annotation expression
 #' 
-getMatchingAnnotations <- function(labbcat.url, expression, page.length = NULL, page.number = NULL, order = NULL) {
+getMatchingAnnotations <- function(labbcat.url, expression, page.length = NULL, page.number = NULL) {
     parameters <- list(expression=expression)
     if (!is.null(page.length)) parameters <- append(parameters, list(pageLength=page.length))
     if (!is.null(page.number)) parameters <- append(parameters, list(pageNumber=page.number))

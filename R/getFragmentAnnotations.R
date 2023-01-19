@@ -25,7 +25,7 @@
 #' }
 #' 
 #' @seealso \link{getFragments}
-#' @seealso \link{getAudioFragments}
+#' @seealso \link{getSoundFragments}
 #' @examples
 #' \dontrun{
 #' ## define the LaBB-CAT URL

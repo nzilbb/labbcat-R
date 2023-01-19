@@ -28,6 +28,7 @@ reference:
   - getMatchAlignments
   - getSoundFragments
   - getFragments
+  - getFragmentAnnotations
   - getAllUtterances
   - getMatchingAnnotations
   - countMatchingAnnotations
@@ -40,9 +41,11 @@ reference:
   desc: "Identifying transcript IDs, annotations, media, and meta data"
 - contents: 
   - starts_with("getTranscript")
+  - formatTranscript
   - getMatchingTranscriptIds
   - getMatchingParticipantIds
   - getAvailableMedia
+  - getMediaUrl
   - getMedia
   - countAnnotations
   - getAnchors

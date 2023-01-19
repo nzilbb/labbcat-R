@@ -1,5 +1,5 @@
 Package: nzilbb.labbcat
-Version: 1.1-1
+Version: 1.2-0
 Date: 2022-05-19
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
@@ -20,6 +20,6 @@ License: GPL (>= 3)
 Copyright: New Zealand Institute of Language, Brain and Behaviour,
  University of Canterbury
 URL: https://nzilbb.github.io/labbcat-R/, https://labbcat.canterbury.ac.nz
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0)

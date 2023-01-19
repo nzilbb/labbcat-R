@@ -11,7 +11,6 @@
 #' @param entry The value (definition) for the given key.
 #' @return NULL if the entry was added, or a list of error messages if not.
 #' 
-#' @seealso
 #' @seealso \link{getDictionaries}
 #' @seealso \link{getDictionaryEntries}
 #' @examples

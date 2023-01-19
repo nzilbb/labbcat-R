@@ -28,9 +28,12 @@
 #' \dontrun{
 #' ## define the LaBB-CAT URL
 #' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
+#'
+#' ## count the number of topic tags that include the word 'quake'
+#' countMatchingAnnotations(labbcat.url, "layer.id == 'topic' && /.*quake.*/.test(label)")
 #' }
 #' 
-#' @keywords transcript
+#' @keywords annotation expression
 #' 
 countMatchingAnnotations <- function(labbcat.url, expression) {
     parameters <- list(expression=expression)
