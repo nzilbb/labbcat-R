@@ -15,6 +15,7 @@ Minimum LaBB-CAT version *20221111.1200*
 - *getMatches* accepts a string as a pattern, and assumes it's a space-delimited orthography layer search.
 - *getMatches* now has *anchor.confidence.min* parameter, to allow retrieval of start/end times that have low confidence.
 - *getMatchLabels* and *getMatchAlignments* now return `NA` rather than empty strings.
+- *getTranscriptIdsInCorpus*, *getTranscriptIdsWithParticipant*, and *getTranscriptIds now return a character vector whether there are results or not.
 
 # nzilbb.labbcat 1.1-1
 
