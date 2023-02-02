@@ -1,6 +1,6 @@
 # nzilbb.labbcat 1.2-0
 
-Minimum LaBB-CAT version *20221111.1200*
+Minimum LaBB-CAT version *20230202.1600*
 
 ## New functions:
 
@@ -16,6 +16,7 @@ Minimum LaBB-CAT version *20221111.1200*
 - *getMatches* now has *anchor.confidence.min* parameter, to allow retrieval of start/end times that have low confidence.
 - *getMatchLabels* and *getMatchAlignments* now return `NA` rather than empty strings.
 - *getTranscriptIdsInCorpus*, *getTranscriptIdsWithParticipant*, and *getTranscriptIds now return a character vector whether there are results or not.
+- *countAnnotations* and *getAnnotations* now has *max.ordinal* parameter, to allow retrieval of only the first word tag annotations in a transcript.
 
 # nzilbb.labbcat 1.1-1
 

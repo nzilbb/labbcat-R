@@ -4,7 +4,9 @@ test_that("getAnnotations works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
 
-    orthography <- getAnnotations(labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "orthography", 20, 0)
+    orthography <- getAnnotations(
+        labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "orthography",
+        page.length = 20, page.number = 0)
     expect_equal(length(orthography$id), 20)
     expect_equal(length(orthography$layerId), 20)
     expect_equal(length(orthography$label), 20)
@@ -25,4 +27,19 @@ test_that("getAnnotations works", {
 
     expect_equal(orthography$label[[1]], "i")
     expect_equal(orthography$label[[20]], "for")
+})
+
+test_that("getAnnotations max.ordinal parameter works", {
+    skip_on_cran() # don't run tests that depend on external resource on CRAN
+    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+
+    all.annotations <- getAnnotations(
+        labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "phonemes")
+    first.annotations <- getAnnotations(
+        labbcat.url, "UC427_ViktoriaPapp_A_ENG.eaf", "phonemes", max.ordinal = 1)
+
+    expect_true(nrow(first.annotations) < nrow(all.annotations))
+    for(i in seq_len(nrow(first.annotations))){
+        expect_equal(first.annotations$ordinal[i], 1)
+    }
 })

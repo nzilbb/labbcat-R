@@ -5,6 +5,9 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
 #' @param layer.id A layer ID
+#' @param max.ordinal The maximum ordinal for the returned annotations. e.g. a max.ordinal
+#' of 1 will ensure that only the first annotation for each parent is returned. If
+#' max.ordinal is null, then all annotations are returned, regardless of their ordinal.
 #' @param page.length The maximum number of annotations to return, or null to return all
 #' @param page.number The zero-based page number to return, or null to return the first page
 #' @return A named list of annotations, with members:
@@ -39,8 +42,9 @@
 #'
 #' @keywords transcript
 #' 
-getAnnotations <- function(labbcat.url, id, layer.id, page.length = NULL, page.number = NULL) {
+getAnnotations <- function(labbcat.url, id, layer.id, max.ordinal = NULL, page.length = NULL, page.number = NULL) {
     parameters <- list(id=id, layerId=layer.id)
+    if (!is.null(max.ordinal)) parameters <- append(parameters, list(maxOrdinal=max.ordinal))
     if (!is.null(page.length)) parameters <- append(parameters, list(pageLength=page.length))
     if (!is.null(page.number)) parameters <- append(parameters, list(pageNumber=page.number))
     resp <- store.get(labbcat.url, "getAnnotations", parameters)

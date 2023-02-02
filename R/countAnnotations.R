@@ -6,6 +6,9 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
 #' @param layer.id A layer ID
+#' @param max.ordinal The maximum ordinal for the counted annotations. e.g. a max.ordinal
+#' of 1 will ensure that only the first annotation for each parent is returned. If
+#' max.ordinal is null, then all annotations are counted, regardless of their ordinal.
 #' @return The number of annotations on that layer
 #' 
 #' @seealso
@@ -23,8 +26,9 @@
 #' 
 #' @keywords transcript
 #' 
-countAnnotations <- function(labbcat.url, id, layer.id) {
+countAnnotations <- function(labbcat.url, id, layer.id, max.ordinal = NULL) {
     parameters <- list(id=id, layerId=layer.id)
+    if (!is.null(max.ordinal)) parameters <- append(parameters, list(maxOrdinal=max.ordinal))
     resp <- store.get(labbcat.url, "countAnnotations", parameters)
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")

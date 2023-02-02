@@ -65,7 +65,7 @@ transcript.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">countAnnotations</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">id</span>, <span class="va">layer.id</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">countAnnotations</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">id</span>, <span class="va">layer.id</span>, max.ordinal <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,6 +80,12 @@ transcript.</p>
 
 <dt>layer.id</dt>
 <dd><p>A layer ID</p></dd>
+
+
+<dt>max.ordinal</dt>
+<dd><p>The maximum ordinal for the counted annotations. e.g. a max.ordinal
+of 1 will ensure that only the first annotation for each parent is returned. If
+max.ordinal is null, then all annotations are counted, regardless of their ordinal.</p></dd>
 
 </dl></div>
     <div id="value">
