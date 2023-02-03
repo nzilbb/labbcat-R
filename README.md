@@ -68,14 +68,11 @@ corpora
 
 ### Accessing specific transcript and participant IDs
 
-Transcripts are called 'graphs' because each one is represented as an 'Annotation Graph'
-(see Bird & Liberman 2001) 
-
 You can get a complete list of participants and transcripts:
 
 ``` R
 participants <- getParticipantIds(labbcat.url)
-transcripts <- getGraphIds(labbcat.url)
+transcripts <- getTranscriptIds(labbcat.url)
 
 paste("There are", length(participants), "participants. The first one is", participants[1])
 paste("There are", length(transcripts), "transcripts. The first one is", transcripts[1])
@@ -85,50 +82,38 @@ There are also ways to get a filtered list of transcripts:
 
 ``` R
 ## Transcripts in the UC corpus:
-getGraphIdsInCorpus(labbcat.url, "UC")
+getTranscriptIdsInCorpus(labbcat.url, "UC")
 
 ## Transcripts featuring the participant QB1602:
-getGraphIdsWithParticipant(labbcat.url, "QB1602")
+getTranscriptIdsWithParticipant(labbcat.url, "QB1602")
 
 ## Transcripts with 'YW' in their name:
-getMatchingGraphIds(labbcat.url, "/.*YW.*/.test(id)")
+getMatchingTranscriptIds(labbcat.url, "/.*YW.*/.test(id)")
 ```
 
 ### Accessing Media
 
-Given a graph ID (i.e. a transcript name) you can access information about what media it
+Given a transcript ID you can access information about what media it
 has available: 
 
 ``` R
-## Default WAV URL:
-getMedia(labbcat.url, "AP2515_ErrolHitt.eaf")
+## Download the default WAV file
+wav.file <- getMedia(labbcat.url, "AP2515_ErrolHitt.eaf")
 
+## Get information about all media available
 media <- getAvailableMedia(labbcat.url, "AP2515_ErrolHitt.eaf")
 
-## All media file names
-media$name
+## All media file names with their track suffixes and content types
+media[,c("name","trackSuffix","mimeType")]
 
-## Their URLs
-media$url
-```
+## Download a specific media file
+quake.face.video.file <- getMedia(labbcat.url, "AP2515_ErrolHitt.eaf",
+                                  track.suffix = "_face", mime.type = "video/mp4")
 
-Once you've got a URL, you can save its contents using the *httr* package, something like this:
+## tidily delete the files we just downloaded
+file.remove(wav.file)
+file.remove(quake.face.video.file)
 
-``` R
-install.packages("httr")
-
-wav.file <- media$name[1]
-wav.url <- media$url[1]
-
-response <- httr::GET(wav.url, labbcat$authorization, httr::write_disk(wav.file, overwrite=TRUE), httr::progress())
-if (httr::status_code(response) != 200) { # 200 means OK
-  print(paste("Downloading", wav.file, "failed:", httr::http_status(response)$message))
-} else {
-  print(paste("Downloading", wav.file, "worked!"))
-  
-  ## Tidily delete the file we just downloaded
-  file.remove(wav.file)
-}
 ```
 
 ### Media fragments
