@@ -31,7 +31,7 @@
 #' 
 #' ## Get the TextGrid of a recording
 #' textgrid.file <- formatTranscript(labbcat.url, "AP2505_Nelson.eaf",
-#'     c("transcript", "phonemes"), path="textgrids") 
+#'     c("word", "segment"), path="textgrids") 
 #' 
 #' ## Get all the transcripts of a given participant
 #' transcript.ids <- getTranscriptIdsWithParticipant(labbcat.url, "AP2505_Nelson")
