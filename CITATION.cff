@@ -18,6 +18,12 @@ url: 'https://cran.r-project.org/web/packages/nzilbb.labbcat/index.html'
 abstract: >-
   Client library for communicating with LaBB-CAT
   servers using R.
+keywords:
+  - LaBB-CAT
+  - corpus linguistics
 license: AGPL-3.0-or-later
 version: 1.2-0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.7602887
 date-released: '2023-02-02'
