@@ -1,5 +1,7 @@
 # nzilbb.labbcat package for R <img src="logo.png" align="right" />
 
+[![DOI](https://zenodo.org/badge/175465781.svg)](https://zenodo.org/badge/latestdoi/175465781)
+
 This R package provides functionality for querying and extracting data
 from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
 
