@@ -211,7 +211,9 @@ test_that("getMatches includes segment info when segment layer searched", {
                      segment = list(pattern = "I")))))
     
     ## get matches
-    matches <- getMatches(labbcat.url, pattern, participant.ids="UC427_ViktoriaPapp_A_ENG")
+    matches <- getMatches(
+        labbcat.url, pattern,
+        participant.expression=expressionFromIds("UC427_ViktoriaPapp_A_ENG"))
     
     ## check dataframe columns
     expect_true(length(matches$MatchId) >= 140)
@@ -245,7 +247,11 @@ test_that("filter parameters of getMatches work", {
     matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F)
     matchesOnePerTranscript <- getMatches(labbcat.url, list(orthography="the"), matches.per.transcript=2)
     matchesMainParticipant <- getMatches(labbcat.url, list(orthography="the"), main.participant=T)
-    matchesOneParticipant <- getMatches(labbcat.url, list(orthography="the"), participant.ids="UC427_ViktoriaPapp_A_ENG")
+    matchesOneParticipant <- getMatches(
+        labbcat.url, list(orthography="the"),
+        ## backward compatibility: if passing a single ID as the 3rd parameter,
+        ## it's converted to a participant expression
+        "UC427_ViktoriaPapp_A_ENG")
     
     ## check the number of results
     expect_true(length(matchesAll$MatchId) > length(matchesMainParticipant$MatchId))

@@ -65,10 +65,16 @@
 #'            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
 #'            frequency = list(max = "2")))))
 #' }
-#' @param participant.ids An optional list of participant IDs to search the utterances of. If
-#'     not supplied, all utterances in the corpus will be searched.
-#' @param transcript.types An optional list of transcript types to limit the results
-#'     to. If null, all transcript types will be searched. 
+#' @param participant.expression An optional participant query expression for identifying
+#'     participants to search the utterances of. This should be the output of
+#'     \link{expressionFromIds}, \link{expressionFromAttributeValue},
+#'     or \link{expressionFromAttributeValues}, or more than one concatentated together
+#'     and delimited by ' && '. If not supplied, utterances of all participants will be searched.
+#' @param transcript.expression An optional transript query expression for identifying
+#'     transcripts to search in. This should be the output of \link{expressionFromIds},
+#'     \link{expressionFromTranscriptType}, \link{expressionFromAttributeValue},
+#'     or \link{expressionFromAttributeValues}, or more than one concatentated together
+#'     and delimited by ' && '. If not supplied, all transcripts will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
 #' @param aligned true to include only words that are aligned (i.e. have anchor
@@ -153,13 +159,26 @@
 #'            frequency = list(max = "2"))))),
 #'   overlap.threshold = 5)
 #'
+#' ## all tokens of the KIT vowel, from the interview or monologue
+#' ## of the participants AP511_MikeThorpe and BR2044_OllyOhlson
+#' results <- getMatches(labbcat.url, list(segment="I"),
+#'   participant.expression = expressionFromIds(c("AP511_MikeThorpe","BR2044_OllyOhlson")),
+#'   transcript.expression = expressionFromTranscriptTypes(c("interview","monologue")))
+#' 
+#' ## all tokens of the KIT vowel for male speakers who speak English
+#' results <- getMatches(labbcat.url, list(segment="I"),
+#'   participant.expression = paste(
+#'     expressionFromAttributeValue("participant_gender", "M"),
+#'     expressionFromAttributeValues("participant_languages_spoken", "en"),
+#'     sep=" && "))
+#'
 #' ## results$Text is the text that matched
 #' ## results$MatchId can be used to access results using other functions
 #' }
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.types=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, anchor.confidence.min=50, page.length=1000, no.progress=FALSE) {
+getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transcript.expression=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, anchor.confidence.min=50, page.length=1000, no.progress=FALSE) {
     
     ## first normalize the pattern...
     if (is.character(pattern) && length(pattern) == 1) { # it's a string
@@ -222,11 +241,23 @@ getMatches <- function(labbcat.url, pattern, participant.ids=NULL, transcript.ty
     if (!is.null(matches.per.transcript)) {
         parameters$matches_per_transcript <- as.list(matches.per.transcript)
     }
-    if (!is.null(participant.ids)) {
-        parameters$participant_id <- as.list(participant.ids)
+    if (!is.null(participant.expression)) {
+        if (length(participant.expression) > 1        # it's a list, not a string
+            || !grepl("'", participant.expression)) { # or it is a string, but not an expression
+            ## for backwards compatibility for when the 3rd parameter was participant.ids
+            ## we convert a list of IDs to the appropriate participant expression
+            participant.expression <- expressionFromIds(participant.expression)
+        } # it's a list, not a string
+        parameters$participant_expression <- as.list(participant.expression)
     }
-    if (!is.null(transcript.types)) {
-        parameters$transcript_type <- as.list(transcript.types)
+    if (!is.null(transcript.expression)) {
+        if (length(transcript.expression) > 1        # it's a list, not a string
+            || !grepl("'", transcript.expression)) { # or it is a string, but not an expression
+            ## for backwards compatibility for when the 4th parameter was trascript.types
+            ## we convert a list of IDs to the appropriate transcript expression
+            transcript.expression <- expressionFromTranscriptTypes(transcript.expression)
+        } # it's a list, not a string
+        parameters$transcript_expression <- as.list(transcript.expression)
     }
     if (!is.null(overlap.threshold)) {
         parameters$overlap_threshold <- overlap.threshold

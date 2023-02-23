@@ -1,3 +1,19 @@
+# nzilbb.labbcat 1.3-0
+
+Minimum LaBB-CAT version *20230202.1600*
+
+## Enhancements
+
+- *getMatches* replaces *participant.ids* and *transcript.types* parameters with *participant.expression* and *transcript.expression* parameters, in line with the underlying API, and allowing more flexibility with queries.
+
+## New functions:
+
+- Helper functions for formulating the new *participant.expression* and *transcript.expression* parameters of *getMatches*:
+  + *expressionFromIds* : expression based on a list of IDs
+  + *expressionFromAttributeValue* : expression based on a list of possible attribute values
+  + *expressionFromAttributeValues* : expression based on a list of possible attribute values, for attributes that can have multiple values
+  + *expressionFromTranscriptTypes* : expression based on a list of possible transcript types
+
 # nzilbb.labbcat 1.2-0
 
 Minimum LaBB-CAT version *20230202.1600*
