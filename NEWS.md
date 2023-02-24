@@ -13,6 +13,11 @@ Minimum LaBB-CAT version *20230202.1600*
   + *expressionFromAttributeValue* : expression based on a list of possible attribute values
   + *expressionFromAttributeValues* : expression based on a list of possible attribute values, for attributes that can have multiple values
   + *expressionFromTranscriptTypes* : expression based on a list of possible transcript types
+- Manage participant records
+  + *getParticipant* : Gets ID and participant attribute values for a single participant.
+  + *saveParticipant* : Saves participant data (supports creating and renaming participants).
+  + *deleteParticipant* : Deletes a single participant record.
+  + *renameParticipants* : Batch rename participants.
 
 # nzilbb.labbcat 1.2-0
 

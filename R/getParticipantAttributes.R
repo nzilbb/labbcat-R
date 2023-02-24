@@ -37,7 +37,7 @@ getParticipantAttributes <- function(labbcat.url, participant.ids, layer.ids) {
     ## save labels to a CSV file
     download.file = tempfile(pattern="participant-attributes.", fileext=".csv")
 
-    ## flatten lists into single newine-delimited strings
+    ## flatten lists into single newine-delimited string
     ## (because httr can't handle multiple parameters with the same name)
     layer.ids <- paste(layer.ids,collapse="\n")
     participant.ids <- paste(participant.ids,collapse="\n")
