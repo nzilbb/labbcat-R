@@ -32,6 +32,7 @@ reference:
   - getAllUtterances
   - getMatchingAnnotations
   - countMatchingAnnotations
+  - starts_with("expression")
 - title: "Processing with Praat"
   desc: "Server-side processing of tokens with Praat"
 - contents: 
@@ -75,6 +76,13 @@ reference:
   - getSerializerDescriptors
   - getSystemAttribute
   - nzilbb.labbcat
+- title: "Participant management"
+  desc: "Functions for creating, updating, and deleting participant records"
+- contents: 
+  - getParticipant
+  - saveParticipant
+  - deleteParticipant
+  - renameParticipants
 - title: "Layer management"
   desc: "Functions for managing annotation layers"
 - contents: 
