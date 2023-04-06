@@ -5,6 +5,7 @@ Minimum LaBB-CAT version *20230224.1731*
 ## Enhancements
 
 - *getMatches* replaces *participant.ids* and *transcript.types* parameters with *participant.expression* and *transcript.expression* parameters, in line with the underlying API, and allowing more flexibility with queries.
+- *processWithPraat*'s *window.offset* parameter no longer has a default value, and includes more thorough documentation, to ensure callers are aware of the parameter's implications. 
 
 ## New functions:
 
