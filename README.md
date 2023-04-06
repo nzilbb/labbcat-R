@@ -29,7 +29,7 @@ This package provides access to basic corpus structure data, pattern-based
 search, annotation, audio, TextGrid (and other format) extraction, and server-side
 acoustic measurement with Praat.
 
-Online documentation is available at https://nzilbb.github.io/labbcat-R
+**Online documentation is available at https://nzilbb.github.io/labbcat-R**
 
 ## Basic usage instructions
 
