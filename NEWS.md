@@ -1,5 +1,9 @@
 # nzilbb.labbcat 1.3-0
 
+## New functions:
+
+- *labbcatVersionInfo* - gets version information of all components of LaBB-CAT
+
 Minimum LaBB-CAT version *20230224.1731*
 
 ## Enhancements
