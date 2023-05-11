@@ -78,7 +78,7 @@
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
 #' @param aligned true to include only words that are aligned (i.e. have anchor
-#'     confidence &ge; 50, false to search include un-aligned words as well. 
+#'     confidence &ge; 50), false to search include un-aligned words as well. 
 #' @param matches.per.transcript Optional maximum number of matches per transcript to
 #'     return. NULL means all matches.
 #' @param words.context Number of words context to include in the `Before.Match' and
