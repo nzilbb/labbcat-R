@@ -60,7 +60,13 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
         parameters$transcript_type <- as.list(transcript.types)
     }
     
-    resp <- http.get(labbcat.url, "allUtterances", parameters)
+    resp <- http.get(labbcat.url, "api/utterances", parameters)
+    deprecatedApi <- FALSE
+    if (httr::status_code(resp) == 404) { # server version prior to 20230511.1949
+        resp <- http.get(labbcat.url, "allUtterances", parameters) # use deprecated endpoint
+        if (is.null(resp)) return()
+        deprecatedApi <- TRUE
+    }
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
@@ -111,8 +117,10 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
     # columns:
     csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
                     "line_time", "line_end_time", "match", "result_text", "word_url")
+    endpoint <- "api/results"
+    if (deprecatedApi) endpoint <- "resultsStream" # server version prior to 20230511.1949
     resp <- http.get(labbcat.url,
-                     "resultsStream",
+                     endpoint,
                      list(threadId=threadId, todo="csv", csvFieldDelimiter=",",
                           csv_option=csv_option, csv_layer_option=c(),
                           pageLength=max.matches),

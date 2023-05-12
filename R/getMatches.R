@@ -263,8 +263,14 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
         parameters$overlap_threshold <- overlap.threshold
     }
     
-    resp <- http.get(labbcat.url, "search", parameters)
+    resp <- http.get(labbcat.url, "api/search", parameters)
     if (is.null(resp)) return()
+    deprecatedApi <- FALSE
+    if (httr::status_code(resp) == 404) { # server version prior to 20230511.1949
+        resp <- http.get(labbcat.url, "search", parameters) # use deprecated endpoint
+        if (is.null(resp)) return()
+        deprecatedApi <- TRUE
+    }
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
         print(paste("ERROR: ", httr::http_status(resp)$message))
@@ -337,10 +343,12 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
         if (interactive() && !no.progress) {
             pb <- txtProgressBar(min = 0, max = matchesLeft, style = 3)        
         }
-        
+
+        endpoint <- "api/results"
+        if (deprecatedApi) endpoint <- "resultsStream" # server version prior to 20230511.1949
         while(matchesLeft > 0) { ## loop until we've got all the matches we want        
             resp <- http.get(labbcat.url,
-                             "resultsStream",
+                             endpoint,
                              list(threadId=threadId, words_context=words.context,
                                   pageLength=page.length, pageNumber=pageNumber),
                              content.type="application/json")

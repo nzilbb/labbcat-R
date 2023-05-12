@@ -1,9 +1,5 @@
 # nzilbb.labbcat 1.3-0
 
-## New functions:
-
-- *labbcatVersionInfo* - gets version information of all components of LaBB-CAT
-
 Minimum LaBB-CAT version *20230224.1731*
 
 ## Enhancements
@@ -13,6 +9,7 @@ Minimum LaBB-CAT version *20230224.1731*
 
 ## New functions:
 
+- *labbcatVersionInfo* - gets version information of all components of LaBB-CAT
 - Helper functions for formulating the new *participant.expression* and *transcript.expression* parameters of *getMatches*:
   + *expressionFromIds* : expression based on a list of IDs
   + *expressionFromAttributeValue* : expression based on a list of possible attribute values
