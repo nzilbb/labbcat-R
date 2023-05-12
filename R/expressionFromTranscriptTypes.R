@@ -7,7 +7,7 @@
 #' transcript types.
 #'
 #' @param transcript.types A list of transcript types. 
-#' @param not Whether to match the given IDs (FALSE), or everything \textbf{except} the
+#' @param not Whether to match the given IDs (FALSE), or everything *except* the
 #' given IDs.
 #' @return A transcript query expression which can be passed as the
 #' transcript.expression parameter of \link{getMatches} or the expression parameter

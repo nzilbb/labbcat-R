@@ -6,7 +6,7 @@
 #' using a list of corresponding IDs. 
 #'
 #' @param ids A list of IDs. 
-#' @param not Whether to match the given IDs (FALSE), or everything \textbf{except} the
+#' @param not Whether to match the given IDs (FALSE), or everything *except* the
 #' given IDs.  
 #' @return A query expression which can be passed as the
 #' transcript.expression or participant.expression parameter of \link{getMatches} 

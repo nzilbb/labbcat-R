@@ -12,7 +12,7 @@
 #'
 #' @param transcript.attribute The transcript attribute to filter by. 
 #' @param values A list of possible values for transcript.attribute. 
-#' @param not Whether to match the given IDs (FALSE), or everything \textbf{except} the
+#' @param not Whether to match the given IDs (FALSE), or everything *except* the
 #' given IDs.
 #' @return A transcript query expression which can be passed as the
 #' transcript.expression parameter of \link{getMatches} or the expression parameter
