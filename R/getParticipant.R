@@ -13,7 +13,7 @@
 #'  \item{\emph{label} The ID (name) of the participant}
 #'  \item{\emph{annotations} A named list of participant attributes
 #'  e.g. the label of the participant's 'gender' attribute would be:
-#'  participant$annotations$participant_gender$label
+#'  participant$annotations$participant_gender$label}
 #' }
 #' 
 #' @seealso 
