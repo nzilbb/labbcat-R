@@ -13,14 +13,13 @@
 #' @param id The participant ID - either the unique internal database ID, or their name.
 #' @param label The new ID (name) for the participant
 #' @param attributes A named list of participant attribute values - the names are the
-#'   participant attribute layer IDs, and the values are the corresponding new attribute
-#'   values. The pass phrase for participant access can also be set by specifying a "_password"
-#'   attribute.
+#'     participant attribute layer IDs, and the values are the corresponding new attribute
+#'     values. The pass phrase for participant access can also be set by specifying a "_password"
+#'     attribute.
 #' @return TRUE if the participant's record was updated, FALSE if there were no changes detected.
 #' 
-#' @seealso 
-#'   \code{\link{getParticipant}}
-#'   \code{\link{deleteParticipant}}
+#' @seealso \code{\link{getParticipant}}
+#' @seealso \code{\link{deleteParticipant}}
 #' @examples 
 #' \dontrun{
 #' ## define the LaBB-CAT URL
@@ -30,15 +29,15 @@
 #' saveParticipant(labbcat.url, "Juan Perez", attributes=list(participant_gender="M"))
 #' 
 #' ## Change the name and the gender of the participant record
-#' saveParticipant(labbcat.url, "Juan Perez", "María Perez", list(participant_gender="F"))
+#' saveParticipant(labbcat.url, "Juan Perez", "Maria Perez", list(participant_gender="F"))
 #' 
 #' ### Delete the participant we just created
-#' deleteParticipant(labbcat.url, "María Perez")
+#' deleteParticipant(labbcat.url, "Maria Perez")
 #' }
 #'
 #' @keywords participant
-#' 
-saveParticipant <- function(labbcat.url, id, label = id, attributes = NULL) {
+#'
+saveParticipant <- function(labbcat.url, id, label=id, attributes=NULL) {
     if (is.null(attributes)) attributes = list()
     parameters <- attributes
     parameters$id <- id
