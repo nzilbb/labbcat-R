@@ -14,7 +14,8 @@ test_that("processWithPraat works with default format measures", {
     formants <- processWithPraat(
         labbcat.url,
         matches$MatchId, matches$Target.segment.start, matches$Target.segment.end,
-        praatScriptFormants())
+        praatScriptFormants(),
+        0.025)
 
     expect_equal(length(formants$time_0_5), 5)
     expect_equal(length(formants$f1_time_0_5), 5)
