@@ -322,7 +322,19 @@ Unit tests use the 'testthat' package, which requires a one-time installation:
 R -e "install.packages('testthat')"
 ```
 
-After 'testthat' is installed, you can use the following commands to run unit tests: 
+The tests assume access to at least one LaBB-CAT server, with URL and credentials defined
+by environment variables, so you must create a `.Renviron` file something like:
+
+```
+TEST_READ_LABBCAT_URL=https://labbcat.canterbury.ac.nz/demo/
+TEST_READ_LABBCAT_USERNAME=demo
+TEST_READ_LABBCAT_PASSWORD=demo
+TEST_ADMIN_LABBCAT_URL=http://localhost:8080/labbcat/
+TEST_ADMIN_LABBCAT_USERNAME=labbcat
+TEST_ADMIN_LABBCAT_PASSWORD=labbcat
+```
+
+Then you can use the following commands to run unit tests: 
 
 ```
 R -e "devtools::test()"
