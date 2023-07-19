@@ -5,10 +5,13 @@
 #' the transcript.expression or participant.expression parameter of \link{getMatches},
 #' using a list of corresponding IDs. 
 #'
-#' @param transcript.ids A list of transcript IDs. 
-#' @return A transcript query expression which can be passed as the
-#' transcript.expression parameter of \link{getMatches} or the expression parameter
-#' of \link{getMatchingTranscriptIds}
+#' @param ids A list of IDs. 
+#' @param not Whether to match the given IDs (FALSE), or everything *except* the
+#' given IDs.  
+#' @return A query expression which can be passed as the
+#' transcript.expression or participant.expression parameter of \link{getMatches} 
+#' or the expression parameter of \link{getMatchingTranscriptIds} or
+#' \link{getMatchingParticipantIds} 
 #' 
 #' @seealso \link{expressionFromAttributeValue}
 #' @seealso \link{expressionFromAttributeValues}
@@ -26,10 +29,15 @@
 #' }
 #' @keywords search
 #' 
-expressionFromIds <- function(transcript.ids) {
-    escapedIds <- gsub("'","\\\\'", transcript.ids)
+expressionFromIds <- function(ids, not=FALSE) {
+    escapedIds <- gsub("'","\\\\'", ids)
     quotedIds  <- sapply(escapedIds, function(id) paste("'",id,"'", sep=""))
     idList     <- paste(quotedIds, collapse=",")
-    expression <- paste("[",idList,"].includes(id)", sep="")
+    if (not) {
+        prefix <- "!"
+    } else {
+        prefix <- ""
+    }
+    expression <- paste(prefix, "[",idList,"].includes(id)", sep="")
     return(expression)
 }

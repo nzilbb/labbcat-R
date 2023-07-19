@@ -3,6 +3,11 @@ test_that("expressionFromTranscriptTypes works", {
         expressionFromTranscriptTypes(c("wordlist","monologue")),
         "['wordlist','monologue'].includes(first('transcript_type').label)")
 })
+test_that("expressionFromTranscriptTypes works with negation", {
+    expect_equal(
+        expressionFromTranscriptTypes(c("wordlist","monologue"), not=TRUE),
+        "!['wordlist','monologue'].includes(first('transcript_type').label)")
+})
 test_that("expressionFromTranscriptTypes works with quotes", {
     expect_equal(
         expressionFromTranscriptTypes(c("participant's life story","\"Star Wars\" retelling")),

@@ -320,3 +320,7 @@ test_that("overlap.threshold parameter of getMatches works", {
     ## allUtterances should be bigger than noOverlap
     expect_true(nrow(allUtterances) > nrow(noOverlap))
 })
+
+## TODO test_that("getMatches fails when participant.expression matches no participants", {
+## TODO test_that("getMatches fails when transcript.expression matches no transcripts", {
+## TODO test_that("getMatches fails when participant.expression and transcript.expression together match no utterances", {

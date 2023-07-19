@@ -52,7 +52,25 @@
     <loc>/reference/deleteLexicon.html</loc>
   </url>
   <url>
+    <loc>/reference/deleteParticipant.html</loc>
+  </url>
+  <url>
     <loc>/reference/deleteTranscript.html</loc>
+  </url>
+  <url>
+    <loc>/reference/expressionFromAttributeValue.html</loc>
+  </url>
+  <url>
+    <loc>/reference/expressionFromAttributeValues.html</loc>
+  </url>
+  <url>
+    <loc>/reference/expressionFromIds.html</loc>
+  </url>
+  <url>
+    <loc>/reference/expressionFromTranscriptTypes.html</loc>
+  </url>
+  <url>
+    <loc>/reference/formatTranscript.html</loc>
   </url>
   <url>
     <loc>/reference/generateLayer.html</loc>
@@ -86,6 +104,9 @@
   </url>
   <url>
     <loc>/reference/getDictionaryEntries.html</loc>
+  </url>
+  <url>
+    <loc>/reference/getFragmentAnnotations.html</loc>
   </url>
   <url>
     <loc>/reference/getFragments.html</loc>
@@ -139,6 +160,12 @@
     <loc>/reference/getMediaTracks.html</loc>
   </url>
   <url>
+    <loc>/reference/getMediaUrl.html</loc>
+  </url>
+  <url>
+    <loc>/reference/getParticipant.html</loc>
+  </url>
+  <url>
     <loc>/reference/getParticipantAttributes.html</loc>
   </url>
   <url>
@@ -178,6 +205,9 @@
     <loc>/reference/labbcatTimeout.html</loc>
   </url>
   <url>
+    <loc>/reference/labbcatVersionInfo.html</loc>
+  </url>
+  <url>
     <loc>/reference/loadLexicon.html</loc>
   </url>
   <url>
@@ -214,7 +244,13 @@
     <loc>/reference/removeLayerDictionaryEntry.html</loc>
   </url>
   <url>
+    <loc>/reference/renameParticipants.html</loc>
+  </url>
+  <url>
     <loc>/reference/saveLayer.html</loc>
+  </url>
+  <url>
+    <loc>/reference/saveParticipant.html</loc>
   </url>
   <url>
     <loc>/reference/updateFragment.html</loc>

@@ -12,6 +12,8 @@
 #'
 #' @param transcript.attribute The transcript attribute to filter by. 
 #' @param values A list of possible values for transcript.attribute. 
+#' @param not Whether to match the given IDs (FALSE), or everything *except* the
+#' given IDs.
 #' @return A transcript query expression which can be passed as the
 #' transcript.expression parameter of \link{getMatches} or the expression parameter
 #' of \link{getMatchingTranscriptIds}
@@ -33,14 +35,23 @@
 #' }
 #' @keywords search
 #' 
-expressionFromAttributeValue <- function(transcript.attribute, values) {
+expressionFromAttributeValue <- function(transcript.attribute, values, not=FALSE) {
     escapedValues <- gsub("'","\\\\'", values)
     quotedValues  <- sapply(escapedValues, function(id) paste("'",id,"'", sep=""))
     valuesList     <- paste(quotedValues, collapse=",")
     escapedAttribute <- gsub("'","\\\\'", transcript.attribute)
-    if (length(values) == 1) {
-        return(paste("first('",escapedAttribute,"').label == ", valuesList, sep=""))
+    if (not) {
+        prefix <- "!"
+        operator <- " <> "
     } else {
-        return(paste("[",valuesList,"].includes(first('",escapedAttribute,"').label)", sep=""))
+        prefix <- ""
+        operator <- " == "
+    }
+    if (length(values) == 1) {
+        return(paste("first('",escapedAttribute,"').label", operator, valuesList,
+                     sep=""))
+    } else {
+        return(paste(prefix, "[",valuesList,"].includes(first('",escapedAttribute,"').label)",
+                     sep=""))
     }
 }

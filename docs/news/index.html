@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -58,30 +58,87 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1-1" id="nzilbblabbcat-11-1">nzilbb.labbcat 1.1-1<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-11-1"></a></h2>
+<h2 class="page-header" data-toc-text="1.3-0" id="nzilbblabbcat-13-0">nzilbb.labbcat 1.3-0<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-13-0"></a></h2>
+<p>Minimum LaBB-CAT version <em>20230224.1731</em></p>
+<div class="section level3">
+<h3 id="enhancements-1-3-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-3-0"></a></h3>
+<ul><li>
+<em>getMatches</em> replaces <em>participant.ids</em> and <em>transcript.types</em> parameters with <em>participant.expression</em> and <em>transcript.expression</em> parameters, in line with the underlying API, and allowing more flexibility with queries.</li>
+<li>
+<em>getMatches</em> parameter <em>aligned</em> is now deprecated, please set <em>anchor.confidence.min</em> = 50 instead</li>
+<li>
+<em>getMatches</em> parameter <em>anchor.confidence.min</em> now filters out results, instead of just returning NA for offsets below the minumum confidence. To return all results and offsets, regardless of confidence, set <em>anchor.confidence.min</em> = 0.</li>
+<li>
+<em>processWithPraat</em>’s <em>window.offset</em> parameter no longer has a default value, and includes more thorough documentation, to ensure callers are aware of the parameter’s implications.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-functions-1-3-0">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-3-0"></a></h3>
+<ul><li>
+<em>labbcatVersionInfo</em> - gets version information of all components of LaBB-CAT</li>
+<li>Helper functions for formulating the new <em>participant.expression</em> and <em>transcript.expression</em> parameters of <em>getMatches</em>:<ul><li>
+<em>expressionFromIds</em> : expression based on a list of IDs</li>
+<li>
+<em>expressionFromAttributeValue</em> : expression based on a list of possible attribute values</li>
+<li>
+<em>expressionFromAttributeValues</em> : expression based on a list of possible attribute values, for attributes that can have multiple values</li>
+<li>
+<em>expressionFromTranscriptTypes</em> : expression based on a list of possible transcript types</li>
+</ul></li>
+<li>Manage participant records<ul><li>
+<em>getParticipant</em> : Gets ID and participant attribute values for a single participant.</li>
+<li>
+<em>saveParticipant</em> : Saves participant data (supports creating and renaming participants).</li>
+<li>
+<em>deleteParticipant</em> : Deletes a single participant record.</li>
+<li>
+<em>renameParticipants</em> : Batch rename participants.</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2-0" id="nzilbblabbcat-12-0">nzilbb.labbcat 1.2-0<small>2023-02-02</small><a class="anchor" aria-label="anchor" href="#nzilbblabbcat-12-0"></a></h2>
+<p>Minimum LaBB-CAT version <em>20230202.1600</em></p>
+<div class="section level3">
+<h3 id="new-functions-1-2-0">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-2-0"></a></h3>
+<ul><li>
+<em>countMatchingAnnotations</em> and <em>getMatchingAnnotations</em> : Retrieve individual annotations that match a pattern expression.</li>
+<li>
+<em>formatTranscript</em>: Downloads an entire transcript in a given format - e.g. Praat TextGrid.</li>
+<li>
+<em>getMediaUrl</em>: Returns the URL for a given transcript.</li>
+<li>
+<em>getFragmentAnnotations</em>: Returns all tokens in given transcripts on given layers between start/end times.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="enhancements-1-2-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-2-0"></a></h3>
+<ul><li>
+<em>getMedia</em> now downloads the media and returns the file name, rather than returning the URL.</li>
+<li>
+<em>getMatches</em> accepts a string as a pattern, and assumes it’s a space-delimited orthography layer search.</li>
+<li>
+<em>getMatches</em> now has <em>anchor.confidence.min</em> parameter, to allow retrieval of start/end times that have low confidence.</li>
+<li>
+<em>getMatchLabels</em> and <em>getMatchAlignments</em> now return <code>NA</code> rather than empty strings.</li>
+<li>
+<em>getTranscriptIdsInCorpus</em>, <em>getTranscriptIdsWithParticipant</em>, and *getTranscriptIds now return a character vector whether there are results or not.</li>
+<li>
+<em>countAnnotations</em> and <em>getAnnotations</em> now has <em>max.ordinal</em> parameter, to allow retrieval of only the first word tag annotations in a transcript.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1-1" id="nzilbblabbcat-11-1">nzilbb.labbcat 1.1-1<small>2022-05-19</small><a class="anchor" aria-label="anchor" href="#nzilbblabbcat-11-1"></a></h2>
 <p>Minimum LaBB-CAT version <em>20220401.1842</em></p>
 <div class="section level3">
 <h3 id="enhancements-1-1-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-1-1"></a></h3>
 <ul><li>
-<em>praatScriptPitch</em> and <em>praatScriptIntensity</em> have additional parameters
-<ul><li>
+<em>praatScriptPitch</em> and <em>praatScriptIntensity</em> have additional parameters<ul><li>
 <em>sample.points</em> - <code>Get value at time</code> for points spread through the duration of the sample</li>
 <li>
 <em>interpolation</em> - interpolation to use for <code>Get value at time</code>
 </li>
 <li>
 <em>skip.errors</em> - how to handle errors when Praat can’t create objects</li>
-</ul></li>
-</ul></div>
-</div>
-    <div class="section level2">
-<h2 class="page-header" data-toc-text="1.1-0" id="nzilbblabbcat-11-0">nzilbb.labbcat 1.1-0<small>2022-04-12</small><a class="anchor" aria-label="anchor" href="#nzilbblabbcat-11-0"></a></h2>
-<p>Minimum LaBB-CAT version <em>20220401.1842</em></p>
-<div class="section level3">
-<h3 id="new-functions-1-2-0">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-2-0"></a></h3>
-<ul><li>
-<em>countMatchingAnnotations</em> and <em>getMatchingAnnotations</em> : Retrieve individual annotations that match a pattern expression.</li>
-</ul></div>
+</ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1-0" id="nzilbblabbcat-11-0">nzilbb.labbcat 1.1-0<small>2022-04-12</small><a class="anchor" aria-label="anchor" href="#nzilbblabbcat-11-0"></a></h2>
@@ -98,22 +155,19 @@
 <em>getAnnotatorDescriptor</em> : Get information about an annotator.</li>
 <li>
 <em>annotatorExt</em> : Retrieve an annotator extension resource.</li>
-<li>Manage annotation layers
-<ul><li>
+<li>Manage annotation layers<ul><li>
 <em>newLayer</em> : Add a new annotation layer.</li>
 <li>
 <em>saveLayer</em> : Save a new definition for an existing annotation layer.</li>
 <li>
 <em>deleteLayer</em> : Delete an existing annotation layer.</li>
 </ul></li>
-<li>Manage Flat Lexicon Tagger lexicons
-<ul><li>
+<li>Manage Flat Lexicon Tagger lexicons<ul><li>
 <em>uploadLexicon</em> : Upload a lexicon file for the Flat Lexicon Tagger.</li>
 <li>
 <em>deleteLexicon</em> : Delete a previously uploaded lexicon from the Flat Lexicon Tagger.</li>
 </ul></li>
-<li>Manage dictionary entries
-<ul><li><em>addLayerDictionaryEntry</em></li>
+<li>Manage dictionary entries<ul><li><em>addLayerDictionaryEntry</em></li>
 <li><em>removeLayerDictionaryEntry</em></li>
 <li><em>addDictionaryEntry</em></li>
 <li><em>removeDictionaryEntry</em></li>
@@ -126,8 +180,7 @@
 <div class="section level3">
 <h3 id="enhancements-1-0-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-1"></a></h3>
 <ul><li>All function parameters are now named with dot.case instead of camelCase, for internal and external consistency.</li>
-<li>Re-instate <em>no.progress</em> parameter for
-<ul><li><em>getAllUtterances</em></li>
+<li>Re-instate <em>no.progress</em> parameter for<ul><li><em>getAllUtterances</em></li>
 <li><em>getMatchAlignments</em></li>
 <li><em>getMatchLabels</em></li>
 <li><em>getSoundFragments</em></li>
@@ -135,17 +188,14 @@
 <li><em>updateTranscript</em></li>
 <li><em>processWithPraat</em></li>
 </ul></li>
-<li>Break some requests into chunks to avoid timeouts for very large result sets:
-<ul><li><em>getMatches</em></li>
+<li>Break some requests into chunks to avoid timeouts for very large result sets:<ul><li><em>getMatches</em></li>
 <li><em>getMatchLabels</em></li>
 <li><em>getMatchAlignments</em></li>
 </ul></li>
-<li>Introduce <em>include.match.ids</em> parameter for manual matching of prior results if required for
-<ul><li><em>getMatchLabels</em></li>
+<li>Introduce <em>include.match.ids</em> parameter for manual matching of prior results if required for<ul><li><em>getMatchLabels</em></li>
 <li><em>getMatchAlignments</em></li>
 </ul></li>
-<li>Introduce <em>page.length</em> parameter for tuning request sizes on some functions for
-<ul><li><em>getAnchors</em></li>
+<li>Introduce <em>page.length</em> parameter for tuning request sizes on some functions for<ul><li><em>getAnchors</em></li>
 <li><em>getAnnotations</em></li>
 <li><em>getMatchingTranscriptIds</em></li>
 <li><em>getMatches</em></li>
@@ -159,8 +209,7 @@
 <div class="section level3">
 <h3 id="new-functions-1-0-1">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-0-1"></a></h3>
 <ul><li>
-<em>getMatchingParticipantIds</em>: Gets a list of IDs of participants that match a particular pattern.</li>
-</ul></div>
+<em>getMatchingParticipantIds</em>: Gets a list of IDs of participants that match a particular pattern.</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.7-1" id="nzilbblabbcat-07-1">nzilbb.labbcat 0.7-1<small>2021-05-27</small><a class="anchor" aria-label="anchor" href="#nzilbblabbcat-07-1"></a></h2>
@@ -219,11 +268,9 @@
 </ul></div>
 <div class="section level3">
 <h3 id="enhancements-0-5-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-5-1"></a></h3>
-<ul><li>getAnnotationLabels now supports
-<ul><li>retrieval of multiple layers</li>
+<ul><li>getAnnotationLabels now supports<ul><li>retrieval of multiple layers</li>
 <li>labels for next/previous token</li>
-</ul></li>
-</ul></div>
+</ul></li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4-1" id="nzilbblabbcat-04-1">nzilbb.labbcat 0.4-1<small>2020-01-09</small><a class="anchor" aria-label="anchor" href="#nzilbblabbcat-04-1"></a></h2>
@@ -248,8 +295,7 @@
 <div class="section level3">
 <h3 id="enhancements-0-3-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-1"></a></h3>
 <ul><li>
-<em>path</em> parameter for the <em>getSoundFragments</em> function</li>
-</ul></div>
+<em>path</em> parameter for the <em>getSoundFragments</em> function</li></ul></div>
 </div>
   </div>
 

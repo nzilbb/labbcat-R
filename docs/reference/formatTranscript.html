@@ -18,7 +18,7 @@ converted to a given format (by default, Praat TextGrid)."><meta property="og:im
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@ path, or a list of names of files, if multiple id's were specified.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get the TextGrid of a recording</span></span></span>
 <span class="r-in"><span><span class="va">textgrid.file</span> <span class="op">&lt;-</span> <span class="fu">formatTranscript</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2505_Nelson.eaf"</span>,</span></span>
-<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"transcript"</span>, <span class="st">"phonemes"</span><span class="op">)</span>, path<span class="op">=</span><span class="st">"textgrids"</span><span class="op">)</span> </span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"word"</span>, <span class="st">"segment"</span><span class="op">)</span>, path<span class="op">=</span><span class="st">"textgrids"</span><span class="op">)</span> </span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get all the transcripts of a given participant</span></span></span>
 <span class="r-in"><span><span class="va">transcript.ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="getTranscriptIdsWithParticipant.html">getTranscriptIdsWithParticipant</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2505_Nelson"</span><span class="op">)</span></span></span>

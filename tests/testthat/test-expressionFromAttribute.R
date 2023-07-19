@@ -3,6 +3,11 @@ test_that("expressionFromAttributeValue works", {
         expressionFromAttributeValue("transcript_language", c("en","en-NZ")),
         "['en','en-NZ'].includes(first('transcript_language').label)")
 })
+test_that("expressionFromAttributeValue works with negation", {
+    expect_equal(
+        expressionFromAttributeValue("transcript_language", c("en","en-NZ"), not=TRUE),
+        "!['en','en-NZ'].includes(first('transcript_language').label)")
+})
 test_that("expressionFromAttributeValue works with quotes", {
     expect_equal(
         expressionFromAttributeValue(
@@ -14,10 +19,20 @@ test_that("expressionFromAttributeValue works with a single value", {
         expressionFromAttributeValue("transcript_language", "en"),
         "first('transcript_language').label == 'en'")
 })
+test_that("expressionFromAttributeValue works with a single value and negation", {
+    expect_equal(
+        expressionFromAttributeValue("transcript_language", "en", not=TRUE),
+        "first('transcript_language').label <> 'en'")
+})
 test_that("expressionFromAttributeValues works", {
     expect_equal(
         expressionFromAttributeValues("participant_languages", c("en","en-NZ")),
         "['en','en-NZ'].includesAny(labels('participant_languages'))")
+})
+test_that("expressionFromAttributeValues works with negation", {
+    expect_equal(
+        expressionFromAttributeValues("participant_languages", c("en","en-NZ"), not=TRUE),
+        "!['en','en-NZ'].includesAny(labels('participant_languages'))")
 })
 test_that("expressionFromAttributeValues works with a single value", {
     expect_equal(

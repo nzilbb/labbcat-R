@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -66,15 +66,15 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getMatches</span><span class="op">(</span></span>
 <span>  <span class="va">labbcat.url</span>,</span>
 <span>  <span class="va">pattern</span>,</span>
-<span>  participant.ids <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  transcript.types <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  participant.expression <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  transcript.expression <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  main.participant <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  aligned <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  aligned <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  matches.per.transcript <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  words.context <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  max.matches <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  overlap.threshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  anchor.confidence.min <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  anchor.confidence.min <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  page.length <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -139,14 +139,20 @@ pattern &lt;- list(columns = list(
 </code></pre></div></dd>
 
 
-<dt>participant.ids</dt>
-<dd><p>An optional list of participant IDs to search the utterances of. If
-not supplied, all utterances in the corpus will be searched.</p></dd>
+<dt>participant.expression</dt>
+<dd><p>An optional participant query expression for identifying
+participants to search the utterances of. This should be the output of
+<a href="expressionFromIds.html">expressionFromIds</a>, <a href="expressionFromAttributeValue.html">expressionFromAttributeValue</a>,
+or <a href="expressionFromAttributeValues.html">expressionFromAttributeValues</a>, or more than one concatentated together
+and delimited by ' &amp;&amp; '. If not supplied, utterances of all participants will be searched.</p></dd>
 
 
-<dt>transcript.types</dt>
-<dd><p>An optional list of transcript types to limit the results
-to. If null, all transcript types will be searched.</p></dd>
+<dt>transcript.expression</dt>
+<dd><p>An optional transript query expression for identifying
+transcripts to search in. This should be the output of <a href="expressionFromIds.html">expressionFromIds</a>,
+<a href="expressionFromTranscriptTypes.html">expressionFromTranscriptTypes</a>, <a href="expressionFromAttributeValue.html">expressionFromAttributeValue</a>,
+or <a href="expressionFromAttributeValues.html">expressionFromAttributeValues</a>, or more than one concatentated together
+and delimited by ' &amp;&amp; '. If not supplied, all transcripts will be searched.</p></dd>
 
 
 <dt>main.participant</dt>
@@ -155,8 +161,8 @@ search all utterances.</p></dd>
 
 
 <dt>aligned</dt>
-<dd><p>true to include only words that are aligned (i.e. have anchor
-confidence &amp;ge; 50, false to search include un-aligned words as well.</p></dd>
+<dd><p>This parameter is deprecated and will be removed in future versions;
+please use anchor.confidence.min=50 instead.</p></dd>
 
 
 <dt>matches.per.transcript</dt>
@@ -262,6 +268,19 @@ shown when interactive().</p></dd>
 <span class="r-in"><span>           phonemes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>not<span class="op">=</span><span class="cn">TRUE</span>, pattern <span class="op">=</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#\\$@].*"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>           frequency <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>max <span class="op">=</span> <span class="st">"2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  overlap.threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## all tokens of the KIT vowel, from the interview or monologue</span></span></span>
+<span class="r-in"><span><span class="co">## of the participants AP511_MikeThorpe and BR2044_OllyOhlson</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  participant.expression <span class="op">=</span> <span class="fu"><a href="expressionFromIds.html">expressionFromIds</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"AP511_MikeThorpe"</span>,<span class="st">"BR2044_OllyOhlson"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  transcript.expression <span class="op">=</span> <span class="fu"><a href="expressionFromTranscriptTypes.html">expressionFromTranscriptTypes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"interview"</span>,<span class="st">"monologue"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## all tokens of the KIT vowel for male speakers who speak English</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getMatches</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  participant.expression <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="expressionFromAttributeValue.html">expressionFromAttributeValue</a></span><span class="op">(</span><span class="st">"participant_gender"</span>, <span class="st">"M"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="fu"><a href="expressionFromAttributeValues.html">expressionFromAttributeValues</a></span><span class="op">(</span><span class="st">"participant_languages_spoken"</span>, <span class="st">"en"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    sep<span class="op">=</span><span class="st">" &amp;&amp; "</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## results$Text is the text that matched</span></span></span>
 <span class="r-in"><span><span class="co">## results$MatchId can be used to access results using other functions</span></span></span>

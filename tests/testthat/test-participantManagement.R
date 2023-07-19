@@ -10,7 +10,7 @@ test_that("participant CRUD functions work", {
         result <- saveParticipant(labbcat.url, id)
         expect_true(result[[1]])
         ## ensure ID exists
-        expect_false(is.null(getParticipant(id)))
+        expect_false(is.null(getParticipant(labbcat.url, id, list())))
     }
 
     ## Batch change the IDs
@@ -22,7 +22,7 @@ test_that("participant CRUD functions work", {
     renameParticipants(labbcat.url, old.ids, new.ids)
     for (id in new.ids) {
         ## ensure new ID exists
-        expect_true(is.null(getParticipant(labbcat.url, id, list())))
+        expect_false(is.null(getParticipant(labbcat.url, id, list())))
     }
     for (id in old.ids) {
         ## ensure old ID doesn't exist any more

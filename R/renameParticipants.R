@@ -41,6 +41,11 @@
 #' 
 renameParticipants <- function(labbcat.url, current.ids, new.ids, no.progress = FALSE) {
     renamed <- c()
+
+    if (length(current.ids) != length(new.ids)) {
+        print("current.ids and new.ids must be vectors of the same length.")
+        return(NULL)
+    }
     
     pb <- NULL
     if (interactive() && !no.progress) {

@@ -72,13 +72,13 @@
 #'     and delimited by ' && '. If not supplied, utterances of all participants will be searched.
 #' @param transcript.expression An optional transript query expression for identifying
 #'     transcripts to search in. This should be the output of \link{expressionFromIds},
-#'     \link{expressionFromTranscriptType}, \link{expressionFromAttributeValue},
+#'     \link{expressionFromTranscriptTypes}, \link{expressionFromAttributeValue},
 #'     or \link{expressionFromAttributeValues}, or more than one concatentated together
 #'     and delimited by ' && '. If not supplied, all transcripts will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'     search all utterances.
-#' @param aligned true to include only words that are aligned (i.e. have anchor
-#'     confidence &ge; 50, false to search include un-aligned words as well. 
+#' @param aligned This parameter is deprecated and will be removed in future versions;
+#'     please use anchor.confidence.min=50 instead.
 #' @param matches.per.transcript Optional maximum number of matches per transcript to
 #'     return. NULL means all matches.
 #' @param words.context Number of words context to include in the `Before.Match' and
@@ -178,7 +178,21 @@
 #'
 #' @keywords search
 #' 
-getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transcript.expression=NULL, main.participant=TRUE, aligned=FALSE, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, anchor.confidence.min=50, page.length=1000, no.progress=FALSE) {
+getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transcript.expression=NULL, main.participant=TRUE, aligned=NULL, matches.per.transcript=NULL, words.context=0, max.matches=NULL, overlap.threshold=NULL, anchor.confidence.min=NULL, page.length=1000, no.progress=FALSE) {
+
+    ## if they've explicitly passed a value for aligned
+    if (!is.null(aligned)) {
+        print("WARNING: the getMatches parameter 'aligned' is deprecated; please use anchor.confidence.min=50 instead")
+    } else { ## use previous default value
+        aligned = FALSE
+        ## if they've just followed the advice above, but their LaBB-CAT version is old
+        ## we need to make sure that it still behaves as it did before
+        if (!is.null(anchor.confidence.min)) {
+            if (anchor.confidence.min >= 50) {
+                aligned = TRUE ## (this has no effect on newer versions of LaBB-CAT)
+            }
+        }
+    }
     
     ## first normalize the pattern...
     if (is.character(pattern) && length(pattern) == 1) { # it's a string
@@ -238,6 +252,9 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
     if (aligned) {
         parameters$only_aligned <- TRUE
     }
+    if (!is.null(anchor.confidence.min)) {
+        parameters$offsetThreshold <- anchor.confidence.min
+    }
     if (!is.null(matches.per.transcript)) {
         parameters$matches_per_transcript <- as.list(matches.per.transcript)
     }
@@ -263,8 +280,14 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
         parameters$overlap_threshold <- overlap.threshold
     }
     
-    resp <- http.get(labbcat.url, "search", parameters)
+    resp <- http.get(labbcat.url, "api/search", parameters)
     if (is.null(resp)) return()
+    deprecatedApi <- FALSE
+    if (httr::status_code(resp) == 404) { # server version prior to 20230511.1949
+        resp <- http.get(labbcat.url, "search", parameters) # use deprecated endpoint
+        if (is.null(resp)) return()
+        deprecatedApi <- TRUE
+    }
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
         print(paste("ERROR: ", httr::http_status(resp)$message))
@@ -337,10 +360,12 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
         if (interactive() && !no.progress) {
             pb <- txtProgressBar(min = 0, max = matchesLeft, style = 3)        
         }
-        
+
+        endpoint <- "api/results"
+        if (deprecatedApi) endpoint <- "resultsStream" # server version prior to 20230511.1949
         while(matchesLeft > 0) { ## loop until we've got all the matches we want        
             resp <- http.get(labbcat.url,
-                             "resultsStream",
+                             endpoint,
                              list(threadId=threadId, words_context=words.context,
                                   pageLength=page.length, pageNumber=pageNumber),
                              content.type="application/json")
@@ -366,12 +391,23 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
             ## extract number from MatchId
             matches <- cbind(
                 matches, as.numeric(stringr::str_match(matches$MatchId, "prefix=0*([0-9]+)-")[,2]))
-            ## reconstruct url
-            matches <- cbind(
-                matches, paste(
-                             labbcat.url, "transcript?transcript=",
-                             matches$Transcript, "#",
-                             stringr::str_match(matches$MatchId, "\\[0\\]=([^;]*)(;.*|$)")[,2], sep=""))
+            if (deprecatedApi) {
+                ## reconstruct url
+                matches <- cbind(
+                    matches, paste(
+                                 labbcat.url, "transcript?transcript=",
+                                 matches$Transcript, "#",
+                                 stringr::str_match(matches$MatchId, "\\[0\\]=([^;]*)(;.*|$)")[,2], sep=""))
+            }
+            ## Ensure previous default anchor.confidence.min behaviour still works
+            ## i.e. if they don't specify a value, then only autmatically aligned offsets
+            ## are returned.
+            ## If they really want all offsets regardless of confidence, they can call with
+            ## anchor.confidence.min=0
+            if (is.null(anchor.confidence.min)) {
+                anchor.confidence.min = 50
+            }
+            ## get the alignments
             tokens <- getMatchAlignments(
                 labbcat.url, matches$MatchId, tokenLayers,
                 anchor.confidence.min=anchor.confidence.min, no.progress=T)
@@ -393,11 +429,18 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
             close(pb)
         }
     } ## there are matches
-    
-    frameNames <- c(
-        "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",
-        "Before.Match","Text","After.Match","Number","URL",
-        "Target.word","Target.word.start","Target.word.end")
+
+    if (deprecatedApi) {
+        frameNames <- c(
+            "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",
+            "Before.Match","Text","After.Match","Number","URL",
+            "Target.word","Target.word.start","Target.word.end")
+    } else {
+        frameNames <- c(
+            "SearchName","Transcript","Participant","Corpus","Line","LineEnd",
+            "MatchId","URL","Before.Match","Text","After.Match","Number",
+            "Target.word","Target.word.start","Target.word.end")
+    }
     if (target.layer != "word") {
         frameNames <- c(frameNames,
                         c(paste("Target.",target.layer,sep=""),

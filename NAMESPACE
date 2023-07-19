@@ -1,5 +1,5 @@
 export(labbcatCredentials,
-       labbcatTimeout,
+       labbcatTimeout, labbcatVersionInfo,
        getId,
        getLayerIds,
        getLayers,

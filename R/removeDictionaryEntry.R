@@ -12,7 +12,6 @@
 #'     for the key.
 #' @return NULL if the entry was removed, or a list of error messages if not.
 #' 
-#' @seealso
 #' @seealso \link{getDictionaries}
 #' @seealso \link{getDictionaryEntries}
 #' @examples

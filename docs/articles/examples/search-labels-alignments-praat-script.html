@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -122,10 +122,10 @@
 </ul>
 <p>Each of these contexts will be identified by a different regular expression, assuming that the phonemes are encoded using the CELEX ‘DISC’ encoding, which uses exactly one ASCII character per phoneme:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sptkV</span> <span class="op">&lt;-</span> <span class="st">".*s[ptk][cCEFHiIPqQuUV0123456789~#{$@].*"</span>
-<span class="va">sptkr</span> <span class="op">&lt;-</span> <span class="st">".*s[ptk]r.*"</span>
-<span class="va">stj</span>   <span class="op">&lt;-</span> <span class="st">".*stj.*"</span>
-<span class="va">sSV</span>   <span class="op">&lt;-</span> <span class="st">"[sS][i$#].*"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">sptkV</span> <span class="op">&lt;-</span> <span class="st">".*s[ptk][cCEFHiIPqQuUV0123456789~#{$@].*"</span></span>
+<span><span class="va">sptkr</span> <span class="op">&lt;-</span> <span class="st">".*s[ptk]r.*"</span></span>
+<span><span class="va">stj</span>   <span class="op">&lt;-</span> <span class="st">".*stj.*"</span></span>
+<span><span class="va">sSV</span>   <span class="op">&lt;-</span> <span class="st">"[sS][i$#].*"</span></span></code></pre></div>
 <p>To measure the pronunciation of the /s/ tokens, we will use the spectral Centre of Gravity (CoG) of the fricative, which we will determine using a custom Praat script which will be executed by LaBB-CAT for each token.</p>
 <p>For analysis after extracting the data, we may also want some other information, e.g.</p>
 <ul>
@@ -143,104 +143,104 @@
 </ol>
 <p>First the <em>nzilbb.labbcat</em> package must be loaded, and the LaBB-CAT corpus is specified:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span>
-<span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span></span>
+<span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></code></pre></div>
 <p>Conduct a search for each of the contexts we’re interested in; we search for the context in the syllable layer, and specify which segment we’re targeting for analysis, i.e. /s/.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sptkV.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>syllables <span class="op">=</span> <span class="va">sptkV</span>, segment <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">sptkr.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>syllables <span class="op">=</span> <span class="va">sptkr</span>, segment <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">stj.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>syllables <span class="op">=</span> <span class="va">stj</span>, segment <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sptkr.matches</span><span class="op">)</span>, <span class="st">"tokens of ...s[ptk]r..."</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sptkV.matches</span><span class="op">)</span>, <span class="st">"tokens of ...s[ptk]V..."</span><span class="op">)</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">stj.matches</span><span class="op">)</span>, <span class="st">"tokens of ...stj..."</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "There are 118 tokens of ...s[ptk]r..."</span>
-<span class="co">## [2] "There are 486 tokens of ...s[ptk]V..."</span>
-<span class="co">## [3] "There are 9 tokens of ...stj..."</span></code></pre>
+<code class="sourceCode R"><span><span class="va">sptkV.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>syllables <span class="op">=</span> <span class="va">sptkV</span>, segment <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">sptkr.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>syllables <span class="op">=</span> <span class="va">sptkr</span>, segment <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">stj.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>syllables <span class="op">=</span> <span class="va">stj</span>, segment <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sptkr.matches</span><span class="op">)</span>, <span class="st">"tokens of ...s[ptk]r..."</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sptkV.matches</span><span class="op">)</span>, <span class="st">"tokens of ...s[ptk]V..."</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">stj.matches</span><span class="op">)</span>, <span class="st">"tokens of ...stj..."</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "There are 118 tokens of ...s[ptk]r..."</span></span>
+<span><span class="co">## [2] "There are 486 tokens of ...s[ptk]V..."</span></span>
+<span><span class="co">## [3] "There are 9 tokens of ...stj..."</span></span></code></pre>
 <p>In order to compare pronunciations with the ‘standard’ pronunciation of /s/ or /ʃ/, we also identify some ‘reference’ phones; i.e./s/ or /ʃ/ at the beginning of a word, followed by the FLEECE, THOUGHT, or START vowel (the ‘phonemes’ layer contains the phonemic transcription of the whole word, so using that layer allows us to anchor the pattern to the start of the word).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sSV.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>phonemes <span class="op">=</span> <span class="va">sSV</span>, segment <span class="op">=</span> <span class="st">"[sS]"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sSV.matches</span><span class="op">)</span>, <span class="st">"reference tokens of [sS]V..."</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "There are 279 reference tokens of [sS]V..."</span></code></pre>
+<code class="sourceCode R"><span><span class="va">sSV.matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>phonemes <span class="op">=</span> <span class="va">sSV</span>, segment <span class="op">=</span> <span class="st">"[sS]"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"There are"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sSV.matches</span><span class="op">)</span>, <span class="st">"reference tokens of [sS]V..."</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "There are 279 reference tokens of [sS]V..."</span></span></code></pre>
 <p>We’ll combine all the data frames into one for convenience; we can use <code>matches$SearchName</code> to distinguish them if necessary:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">sptkV.matches</span>, <span class="va">sptkr.matches</span>, <span class="va">stj.matches</span>, <span class="va">sSV.matches</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Total tokens:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "Total tokens: 892"</span></code></pre>
+<code class="sourceCode R"><span><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">sptkV.matches</span>, <span class="va">sptkr.matches</span>, <span class="va">stj.matches</span>, <span class="va">sSV.matches</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Total tokens:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Total tokens: 892"</span></span></code></pre>
 <p>This gives us a data frame with different tokens, with their start/end times</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="st">"Text"</span>, <span class="st">"Target.segment"</span>, <span class="st">"Target.segment.start"</span>, <span class="st">"Target.segment.end"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">##          Text Target.segment Target.segment.start Target.segment.end</span>
-<span class="co">## 1 experiences              s                12.92              12.99</span>
-<span class="co">## 2       stood              s                52.93              53.03</span>
-<span class="co">## 3      stay .              s                60.45              60.62</span>
-<span class="co">## 4      escape              s                74.29              74.44</span>
-<span class="co">## 5 substantial              s               136.57             136.66</span>
-<span class="co">## 6     twisted              s               144.25             144.29</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Text"</span>, <span class="st">"Target.segment"</span>, <span class="st">"Target.segment.start"</span>, <span class="st">"Target.segment.end"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##          Text Target.segment Target.segment.start Target.segment.end</span></span>
+<span><span class="co">## 1 experiences              s                12.92              12.99</span></span>
+<span><span class="co">## 2       stood              s                52.93              53.03</span></span>
+<span><span class="co">## 3      stay .              s                60.45              60.62</span></span>
+<span><span class="co">## 4      escape              s                74.29              74.44</span></span>
+<span><span class="co">## 5 substantial              s               136.57             136.66</span></span>
+<span><span class="co">## 6     twisted              s               144.25             144.29</span></span></code></pre>
 <p>For all the tokens, we also want the word’s phonemic transcription, and the speaker’s gender and age:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">participant.demographics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span>
-  <span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"phonemes"</span>, <span class="st">"participant_gender"</span>, <span class="st">"participant_age_category"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">participant.demographics</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="st">"Text"</span>, <span class="st">"phonemes"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">##          Text    phonemes participant_age_category participant_gender</span>
-<span class="co">## 1 experiences Iksp7r7nsIz                    36-45                  M</span>
-<span class="co">## 2       stood        stUd                    36-45                  M</span>
-<span class="co">## 3      stay .         st1                    36-45                  M</span>
-<span class="co">## 4      escape       Isk1p                    36-45                  M</span>
-<span class="co">## 5 substantial   s@bst{nSP                    36-45                  M</span>
-<span class="co">## 6     twisted     twIstId                    36-45                  M</span></code></pre>
+<code class="sourceCode R"><span><span class="va">participant.demographics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"phonemes"</span>, <span class="st">"participant_gender"</span>, <span class="st">"participant_age_category"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">participant.demographics</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Text"</span>, <span class="st">"phonemes"</span>, <span class="st">"participant_age_category"</span>, <span class="st">"participant_gender"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##          Text    phonemes participant_age_category participant_gender</span></span>
+<span><span class="co">## 1 experiences Iksp7r7nsIz                    36-45                  M</span></span>
+<span><span class="co">## 2       stood        stUd                    36-45                  M</span></span>
+<span><span class="co">## 3      stay .         st1                    36-45                  M</span></span>
+<span><span class="co">## 4      escape       Isk1p                    36-45                  M</span></span>
+<span><span class="co">## 5 substantial   s@bst{nSP                    36-45                  M</span></span>
+<span><span class="co">## 6     twisted     twIstId                    36-45                  M</span></span></code></pre>
 <p>We also want start/end times and phonemic transcription labels for the syllable of the /s/ or /ʃ/ token:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">syllable</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"syllables"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">syllable</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="st">"Text"</span>, <span class="st">"Target.segment"</span>, <span class="st">"syllables"</span>, <span class="st">"syllables.start"</span>, <span class="st">"syllables.end"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">##          Text Target.segment syllables syllables.start syllables.end</span>
-<span class="co">## 1 experiences              s      'sp7           12.92         13.11</span>
-<span class="co">## 2       stood              s     'stUd           52.93         53.24</span>
-<span class="co">## 3      stay .              s      'st1           60.45         61.21</span>
-<span class="co">## 4      escape              s     'sk1p           74.29         74.70</span>
-<span class="co">## 5 substantial              s     'st{n          136.57        136.94</span>
-<span class="co">## 6     twisted              s      stId          144.25        144.44</span></code></pre>
+<code class="sourceCode R"><span><span class="va">syllable</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"syllables"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">syllable</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Text"</span>, <span class="st">"Target.segment"</span>, <span class="st">"syllables"</span>, <span class="st">"syllables.start"</span>, <span class="st">"syllables.end"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##          Text Target.segment syllables syllables.start syllables.end</span></span>
+<span><span class="co">## 1 experiences              s      'sp7           12.92         13.11</span></span>
+<span><span class="co">## 2       stood              s     'stUd           52.93         53.24</span></span>
+<span><span class="co">## 3      stay .              s      'st1           60.45         61.21</span></span>
+<span><span class="co">## 4      escape              s     'sk1p           74.29         74.70</span></span>
+<span><span class="co">## 5 substantial              s     'st{n          136.57        136.94</span></span>
+<span><span class="co">## 6     twisted              s      stId          144.25        144.44</span></span></code></pre>
 <p>And the start/end times for the segment that <em>follows</em> the token:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">following.segment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"segment"</span><span class="op">)</span>, target.offset <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-
-<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">following.segment</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
-  <span class="st">"Token.plus.1.segment"</span>, <span class="st">"Token.plus.1.segment.start"</span>, <span class="st">"Token.plus.1.segment.end"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">##   Token.plus.1.segment Token.plus.1.segment.start Token.plus.1.segment.end</span>
-<span class="co">## 1                    p                      12.99                    13.06</span>
-<span class="co">## 2                    t                      53.03                    53.11</span>
-<span class="co">## 3                    t                      60.62                    60.72</span>
-<span class="co">## 4                    k                      74.44                    74.53</span>
-<span class="co">## 5                    t                     136.66                   136.73</span>
-<span class="co">## 6                    t                     144.29                   144.38</span></code></pre>
+<code class="sourceCode R"><span><span class="va">following.segment</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/getMatchAlignments.html">getMatchAlignments</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"segment"</span><span class="op">)</span>, target.offset <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">following.segment</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Token.plus.1.segment"</span>, <span class="st">"Token.plus.1.segment.start"</span>, <span class="st">"Token.plus.1.segment.end"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##   Token.plus.1.segment Token.plus.1.segment.start Token.plus.1.segment.end</span></span>
+<span><span class="co">## 1                    p                      12.99                    13.06</span></span>
+<span><span class="co">## 2                    t                      53.03                    53.11</span></span>
+<span><span class="co">## 3                    t                      60.62                    60.72</span></span>
+<span><span class="co">## 4                    k                      74.44                    74.53</span></span>
+<span><span class="co">## 5                    t                     136.66                   136.73</span></span>
+<span><span class="co">## 6                    t                     144.29                   144.38</span></span></code></pre>
 <p>Now we want to calculate Centre of Gravity (CoG) for the target segment. To do this, we use a custom Praat script called <a href="https://github.com/nzilbb/labbcat-R/blob/master/vignettes/examples/CoGFinder.praat" class="external-link">CoGFinder.praat</a>. The script provides a measure of Center of Gravity at three points during the fricative (among other things).</p>
 <p>We give it the <code>MatchId</code>, and start/end of the token, and ensure that Praat extracts 0.5s acoustic context before/after the token.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">script</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"CoGFinder.praat"</span><span class="op">)</span>
-<span class="va">cog</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span>
-  <span class="va">labbcat.url</span>,
-  <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">matches</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">matches</span><span class="op">$</span><span class="va">Target.segment.end</span>,
-  <span class="va">script</span>, window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>
-
-<span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">cog</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Text"</span>, <span class="st">"cog1"</span>, <span class="st">"cog2"</span>, <span class="st">"cog3"</span><span class="op">)</span><span class="op">]</span></code></pre></div>
-<pre><code><span class="co">##          Text     cog1     cog2     cog3</span>
-<span class="co">## 1 experiences 6072.962 6266.089 6961.379</span>
-<span class="co">## 2       stood 4543.998 5214.732 5404.704</span>
-<span class="co">## 3      stay . 5118.318 4298.182 4407.484</span>
-<span class="co">## 4      escape 4784.069 4667.481 4478.938</span>
-<span class="co">## 5 substantial 4185.975 4278.835 4386.030</span>
-<span class="co">## 6     twisted 4424.939 4193.710 3932.203</span></code></pre>
+<code class="sourceCode R"><span><span class="va">script</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"CoGFinder.praat"</span><span class="op">)</span></span>
+<span><span class="va">cog</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
+<span>  <span class="va">labbcat.url</span>,</span>
+<span>  <span class="va">matches</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">matches</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">matches</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
+<span>  <span class="va">script</span>, window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">matches</span>, <span class="va">cog</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">matches</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Text"</span>, <span class="st">"cog1"</span>, <span class="st">"cog2"</span>, <span class="st">"cog3"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">##          Text     cog1     cog2     cog3</span></span>
+<span><span class="co">## 1 experiences 6072.962 6266.089 6961.379</span></span>
+<span><span class="co">## 2       stood 4543.998 5214.732 5404.704</span></span>
+<span><span class="co">## 3      stay . 5118.318 4298.182 4407.484</span></span>
+<span><span class="co">## 4      escape 4784.069 4667.481 4478.938</span></span>
+<span><span class="co">## 5 substantial 4185.975 4278.835 4386.030</span></span>
+<span><span class="co">## 6     twisted 4424.939 4193.710 3932.203</span></span></code></pre>
 <p>The dataset now includes sufficient information to study the pronunciation of /s/ and how it relates to context and speaker:</p>
 <ul>
 <li>tokens of /s/ and /ʃ/ in various contexts, including start/end time,</li>
