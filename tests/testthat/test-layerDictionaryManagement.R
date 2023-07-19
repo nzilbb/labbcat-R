@@ -1,8 +1,10 @@
-labbcat.url <- "http://localhost:8080/labbcat/"
+labbcat.url <- Sys.getenv('TEST_ADMIN_LABBCAT_URL')
+username <- Sys.getenv('TEST_ADMIN_LABBCAT_USERNAME')
+password <- Sys.getenv('TEST_ADMIN_LABBCAT_PASSWORD')
 
 test_that("loadLexicon works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     expect_true(is.null(
         loadLexicon(labbcat.url, "lexicon.txt", "unit-test", ",", "word,definition")))
@@ -17,7 +19,7 @@ test_that("loadLexicon works", {
 
 test_that("getAnnotatorDescriptor works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## call FlatLexiconTagger.listLexicons
     FlatLexiconTagger <- getAnnotatorDescriptor(labbcat.url, "FlatLexiconTagger")
@@ -31,7 +33,7 @@ test_that("getAnnotatorDescriptor works", {
 
 test_that("annotatorExt works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## call FlatLexiconTagger.listLexicons
     lexiconListJSON <- annotatorExt(labbcat.url, "FlatLexiconTagger", "listLexicons")
@@ -42,7 +44,7 @@ test_that("annotatorExt works", {
 
 test_that("newLayer works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     unitTestLayer <- newLayer(labbcat.url, "unit-test", "Unit test layer", parent.id="word",
                               alignment = 2, annotator.id = "FlatFileDictionary",
@@ -66,7 +68,7 @@ test_that("newLayer works", {
 
 test_that("saveLayer works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## get test layer
     unitTestLayer <- getLayer(labbcat.url, "unit-test")    
@@ -92,7 +94,7 @@ test_that("saveLayer works", {
 
 test_that("addDictionaryEntry and removeDictionaryEntry works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
     
     ## ensure there's no current definition
     entries <- getDictionaryEntries(
@@ -122,7 +124,7 @@ test_that("addDictionaryEntry and removeDictionaryEntry works", {
 
 test_that("addLayerDictionaryEntry and removeLayerDictionaryEntry works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## ensure there's no current definition
     entries <- getDictionaryEntries(
@@ -154,7 +156,7 @@ test_that("addLayerDictionaryEntry and removeLayerDictionaryEntry works", {
 
 test_that("deleteLayer works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## layer is there
     expect_false(is.null(getLayer(labbcat.url, "unit-test")))
@@ -168,7 +170,7 @@ test_that("deleteLayer works", {
 
 test_that("deleteLexicon works", {    
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## delete lexicon
     expect_true(is.null(deleteLexicon(labbcat.url, "unit-test")))

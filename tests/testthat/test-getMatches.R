@@ -1,8 +1,10 @@
-labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
+labbcat.url <- Sys.getenv('TEST_READ_LABBCAT_URL')
+username <- Sys.getenv('TEST_READ_LABBCAT_USERNAME')
+password <- Sys.getenv('TEST_READ_LABBCAT_PASSWORD')
 
 test_that("getMatches works with 1x1 orthographic search using full structure", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
     
     ## create pattern
     pattern <- list(
@@ -45,7 +47,7 @@ test_that("getMatches works with 1x1 orthographic search using full structure", 
 
 test_that("getMatches works with 2x1 orthographic search using full structure", {
     skip_on_cran() # only simple searches on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -64,7 +66,7 @@ test_that("getMatches works with 2x1 orthographic search using full structure", 
 
 test_that("getMatches works with 1x1 orthographic search using simple structure", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(orthography = "knox")
@@ -78,7 +80,7 @@ test_that("getMatches works with 1x1 orthographic search using simple structure"
 
 test_that("getMatches works with 2x1 orthographic search using simple structure", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(list(orthography = "knox"), list(orthography = "church"))
@@ -92,7 +94,7 @@ test_that("getMatches works with 2x1 orthographic search using simple structure"
 
 test_that("getMatches works with 2x1 orthographic search using string", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- "knox church"
@@ -106,7 +108,7 @@ test_that("getMatches works with 2x1 orthographic search using string", {
 
 test_that("getMatches works with 2x3 non-orthographic search using full structure", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -146,7 +148,7 @@ test_that("getMatches works with 2x3 non-orthographic search using full structur
 
 test_that("getMatches works with 2x3 non-orthographic search using simple structure", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -162,7 +164,7 @@ test_that("getMatches works with 2x3 non-orthographic search using simple struct
 
 test_that("getMatches works with complex, multi-match searches", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     labbcatTimeout(120)
 
@@ -202,7 +204,7 @@ test_that("getMatches works with complex, multi-match searches", {
 
 test_that("getMatches includes segment info when segment layer searched", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -241,7 +243,7 @@ test_that("getMatches includes segment info when segment layer searched", {
 
 test_that("filter parameters of getMatches work", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## get matches
     matchesAll <- getMatches(labbcat.url, list(orthography="the"), main.participant=F)
@@ -261,7 +263,7 @@ test_that("filter parameters of getMatches work", {
 
 test_that("words.context parameter of getMatches works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -295,7 +297,7 @@ test_that("words.context parameter of getMatches works", {
 
 test_that("getMatches pagination works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## create pattern
     pattern <- list(
@@ -311,7 +313,7 @@ test_that("getMatches pagination works", {
 
 test_that("overlap.threshold parameter of getMatches works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## search for "mmm", which frequently appears in overlapping speech
     allUtterances <- getMatches(labbcat.url, list(orthography="mmm"))

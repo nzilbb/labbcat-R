@@ -1,8 +1,10 @@
-labbcat.url <- "http://localhost:8080/labbcat"
+labbcat.url <- Sys.getenv('TEST_ADMIN_LABBCAT_URL')
+username <- Sys.getenv('TEST_ADMIN_LABBCAT_USERNAME')
+password <- Sys.getenv('TEST_ADMIN_LABBCAT_PASSWORD')
 
 test_that("participant CRUD functions work", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## Create some new participant records
     old.ids <- c("test-id-1","test-id-2","test-id-3")

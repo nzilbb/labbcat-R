@@ -1,10 +1,12 @@
 # NB using a local server for these tests, as 'edit' credentials are required
-labbcat.url <- "http://localhost:8080/labbcat"
+labbcat.url <- Sys.getenv('TEST_ADMIN_LABBCAT_URL')
+username <- Sys.getenv('TEST_ADMIN_LABBCAT_USERNAME')
+password <- Sys.getenv('TEST_ADMIN_LABBCAT_PASSWORD')
 test.transcript.id <- "labbcat-R.test.txt"
 
 test_that("newTranscript works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## ensure it's not already there
     ids <- getMatchingTranscriptIds(
@@ -28,7 +30,7 @@ test_that("newTranscript works", {
 
 test_that("updateTranscript works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## ensure it's already there
     ids <- getMatchingTranscriptIds(
@@ -46,7 +48,7 @@ test_that("updateTranscript works", {
 
 test_that("deleteTranscript works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "labbcat", "labbcat"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ## ensure it's already there
     ids <- getMatchingTranscriptIds(

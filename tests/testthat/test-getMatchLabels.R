@@ -1,8 +1,10 @@
-labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
+labbcat.url <- Sys.getenv('TEST_READ_LABBCAT_URL')
+username <- Sys.getenv('TEST_READ_LABBCAT_USERNAME')
+password <- Sys.getenv('TEST_READ_LABBCAT_PASSWORD')
 
 test_that("getMatchLabels works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -24,7 +26,7 @@ test_that("getMatchLabels works", {
 
 test_that("getMatchLabels works with multiple layers", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",
@@ -53,7 +55,7 @@ test_that("getMatchLabels works with multiple layers", {
 
 test_that("getMatchLabels works with count > 1", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
     ## simulate some results
     results <- data.frame(
         MatchId=c("g_6;em_12_419;n_9243-n_9245;p_14;#=ew_0_7260;[0]=ew_0_7260",

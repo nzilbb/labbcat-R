@@ -40,3 +40,6 @@ rsconnect/
 
 # Generated manual files
 man
+
+# Environment variables file, which might have secrets in it
+.Renviron

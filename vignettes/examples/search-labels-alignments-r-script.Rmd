@@ -28,17 +28,15 @@ First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is sp
 
 ```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
-labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-```
-
-```{r credentials, eval=TRUE, echo=FALSE}
-credentialError <- labbcatCredentials(labbcat.url, "demo", "demo")
+url <- Sys.getenv('TEST_READ_LABBCAT_URL')
+credentialError <- labbcatCredentials(
+  url, Sys.getenv('TEST_READ_LABBCAT_USERNAME'), Sys.getenv('TEST_READ_LABBCAT_PASSWORD'))
 ```
 
 Now we search our LaBB-CAT corpus for force-aligned words with orthography that starts "dis" or "mis".
 
 ```{r searches, warning=FALSE}
-matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), aligned=T)
+matches <- getMatches(labbcat.url, list(orthography = "[dm]is.+"), anchor.confidence.min = 50)
 
 # show the first few matches
 head(matches)[, c("Transcript", "Target.word", "Target.word.start")]

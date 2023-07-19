@@ -30,10 +30,9 @@ Defining the location of the LaBB-CAT server, and the transcript/media files is 
 library(nzilbb.labbcat)
 dataDir <- "data"
 transcriptFiles = dir(path = dataDir, pattern = ".*\\.TextGrid$", full.names = FALSE)
-url <- "http://localhost:8080/labbcat/"
-```
-```{r credentials, echo=FALSE,results='hide',message=FALSE}
-labbcatCredentials(url, "labbcat", "labbcat")
+url <- Sys.getenv('TEST_ADMIN_LABBCAT_URL')
+credentialError <- labbcatCredentials(
+  url, Sys.getenv('TEST_ADMIN_LABBCAT_USERNAME'), Sys.getenv('TEST_ADMIN_LABBCAT_PASSWORD'))
 ```
 
 ## Cleaning up any previous setup

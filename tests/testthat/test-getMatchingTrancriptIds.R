@@ -1,8 +1,10 @@
-labbcat.url <- "https://labbcat.canterbury.ac.nz/demo"
+labbcat.url <- Sys.getenv('TEST_READ_LABBCAT_URL')
+username <- Sys.getenv('TEST_READ_LABBCAT_USERNAME')
+password <- Sys.getenv('TEST_READ_LABBCAT_PASSWORD')
 
 test_that("getMatchingTranscriptIds works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
-    if (!is.null(labbcatCredentials(labbcat.url, "demo", "demo"))) skip("Server not available")
+    if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     ids <- getMatchingTranscriptIds(labbcat.url, "/^BR.+/.test(id)")
     expect_equal(length(ids), 5)
