@@ -121,7 +121,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span></span>
 <span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="st">"data"</span></span>
 <span><span class="va">transcriptFiles</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">dataDir</span>, pattern <span class="op">=</span> <span class="st">".*\\.TextGrid$"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'TEST_ADMIN_LABBCAT_URL'</span><span class="op">)</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'TEST_ADMIN_LABBCAT_URL'</span><span class="op">)</span> <span class="co"># load details from .Renviron file</span></span>
 <span><span class="va">credentialError</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/labbcatCredentials.html">labbcatCredentials</a></span><span class="op">(</span></span>
 <span>  <span class="va">url</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'TEST_ADMIN_LABBCAT_USERNAME'</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">'TEST_ADMIN_LABBCAT_PASSWORD'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -505,10 +505,8 @@
 <span>  <span class="co"># upload the transcript/recording</span></span>
 <span>  <span class="fu"><a href="../../reference/newTranscript.html">newTranscript</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">transcript</span>, <span class="va">wav</span>, no.progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="op">}</span> <span class="co"># next trancript</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/threads?&amp;threadId=1194&amp;command=release"</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Transcripts uploaded: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcriptFiles</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">}</span> <span class="co"># next trancript</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Transcripts uploaded: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcriptFiles</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Transcripts uploaded:  1</span></span></code></pre>
 <p>At this point the manually aligned transcripts have been uploaded, and all of the forced-alignment configurations have been run.</p>
 </div>
@@ -817,7 +815,7 @@
   
 </dl></details><hr>
 <p>A comparison is set up for each of the forced-alignment configurations above, i.e each automatic word alignment is matched to a corresponding manual word alignment, and within each word, each automatic phone alignment is matched to a corresponding manual phone alignment. Once this is done, it’s possible to measure the degree to which the automatic alignments overlap with the manual ones.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compare p2fa alignments with manual ones</span></span>
 <span><span class="va">p2faComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
 <span>  <span class="va">url</span>, <span class="st">"p2faComp"</span>, </span>
@@ -834,9 +832,8 @@
 <span>    <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in p2faPhone use ARPAbet encoding</span></span>
 <span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faComp"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/threads?&amp;threadId=1222&amp;command=release"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compare MFA ARPAbet alignments with manual ones</span></span>
 <span><span class="va">mfaGAmComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
 <span>  <span class="va">url</span>, <span class="st">"mfaGAmComp"</span>, </span>
@@ -853,9 +850,8 @@
 <span>    <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in mfaGAmPhone use ARPAbet encoding</span></span>
 <span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmComp"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/threads?&amp;threadId=1223&amp;command=release"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compare MFA non-rhotic IPA alignments with manual ones</span></span>
 <span><span class="va">mfaUKEComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
 <span>  <span class="va">url</span>, <span class="st">"mfaUKEComp"</span>, </span>
@@ -872,9 +868,8 @@
 <span>    <span class="st">"subComparator=DISCToIPA"</span>,         <span class="co"># phone tokens in mfaUKEPhone use IPA encoding</span></span>
 <span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEComp"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/threads?&amp;threadId=1224&amp;command=release"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># compare MAUSBasic alignments with manual ones</span></span>
 <span><span class="va">mausComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
 <span>  <span class="va">url</span>, <span class="st">"mausComp"</span>, </span>
@@ -891,7 +886,6 @@
 <span>    <span class="st">"subComparator=DISCToDISC"</span>,        <span class="co"># phone tokens in mausPhone use DISC encoding</span></span>
 <span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausComp"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/threads?&amp;threadId=1225&amp;command=release"</span></span></code></pre>
 <pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
 </div>
 <div class="section level2">
@@ -1036,24 +1030,17 @@
     mapping. The query string should be a mapping ID returned by <i>listMappings</i>.</dd>
 </dl></details><hr>
 <p>The mean overlap rates for the forced alignment configurations can be directly compared, by extracting the mapping summaries and comparing them:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p2faPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/edit/annotator/ext/LabelMapper/summarizeMapping?segment,p2faPhone"</span></span></code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mfaGAmPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaGAmPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/edit/annotator/ext/LabelMapper/summarizeMapping?segment,mfaGAmPhone"</span></span></code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mfaUKEPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaUKEPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/edit/annotator/ext/LabelMapper/summarizeMapping?segment,mfaUKEPhone"</span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">mausPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mausPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/edit/annotator/ext/LabelMapper/summarizeMapping?segment,mausPhone"</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">p2faPhone</span>, <span class="va">mfaGAmPhone</span>, <span class="va">mfaUKEPhone</span>, <span class="va">mausPhone</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mfaGAmPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaGAmPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mfaUKEPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaUKEPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mausPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mausPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">p2faPhone</span>, <span class="va">mfaGAmPhone</span>, <span class="va">mfaUKEPhone</span>, <span class="va">mausPhone</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -1074,7 +1061,7 @@
 </tr>
 <tr class="even">
 <td align="left">mfaGAmPhone</td>
-<td align="left">0.657239987452308</td>
+<td align="left">0.657239987452307</td>
 <td align="left">182</td>
 <td align="left">188</td>
 <td align="left">186</td>
@@ -1082,7 +1069,7 @@
 </tr>
 <tr class="odd">
 <td align="left">mfaUKEPhone</td>
-<td align="left">0.62531675684027</td>
+<td align="left">0.628982581365989</td>
 <td align="left">182</td>
 <td align="left">186</td>
 <td align="left">178</td>
@@ -1099,13 +1086,11 @@
 </tbody>
 </table>
 <p>The LabelMapper module can also provide finely-grained details of the mappings - i.e. exactly which manual phones mapped to which automatic phones.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get edit paths for manual-to-P2FA comparison</span></span>
 <span><span class="va">p2faPhoneEditPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
-<span>  text <span class="op">=</span> <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"mappingToCsv"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "http://localhost:8080/labbcat/edit/annotator/ext/LabelMapper/mappingToCsv?segment,p2faPhone"</span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># show a sample of the paths to give an idea</span></span>
+<span>  text <span class="op">=</span> <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"mappingToCsv"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># show a sample of the paths to give an idea</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span></span>
 <span>  <span class="va">p2faPhoneEditPaths</span><span class="op">[</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sourceParentLabel"</span>, <span class="st">"sourceLabel"</span>, <span class="st">"sourceStart"</span>,<span class="st">"sourceEnd"</span>, </span>
@@ -1189,7 +1174,7 @@
 </table>
 <p>This allows closer analysis of the forced-alignments, beyond the overlap rate summary.</p>
 <p>For example, it allows us to identify which phones are being produced the the forced aligner which have no corresponding phone in the manual alignments; forced aligners that are using a rhotic dictionary are expected to produce many spurious /r/ segments that are not really present in the non-rhotic speech in the corpus:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># identify all edit steps where a phone is added - i.e. the source phone label is empty</span></span>
 <span><span class="va">spuriousSegments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">p2faPhoneEditPaths</span>, <span class="va">sourceLabel</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="co"># count these spurious segments grouping by their label to see which is most common</span></span>

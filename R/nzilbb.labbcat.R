@@ -195,7 +195,6 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     } # there are parameters
     url <- enc(url)
     url <- paste(labbcat.url, url, sep="")
-    print(url)
     
     ## attempt the request
     if (is.null(file.name)) {

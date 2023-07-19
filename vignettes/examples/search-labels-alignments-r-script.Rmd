@@ -28,7 +28,7 @@ First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is sp
 
 ```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, results = 'hide', warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
-labbcat.url <- Sys.getenv('TEST_READ_LABBCAT_URL')
+labbcat.url <- Sys.getenv('TEST_READ_LABBCAT_URL') # load details from .Renviron file
 credentialError <- labbcatCredentials(
   labbcat.url, Sys.getenv('TEST_READ_LABBCAT_USERNAME'), Sys.getenv('TEST_READ_LABBCAT_PASSWORD'))
 ```
