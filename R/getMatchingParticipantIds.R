@@ -40,9 +40,6 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get all participants whose IDs start with "BR"
 #' participants <- getMatchingParticipantIds(labbcat.url, "/^BR.+/.test(id)")
 #' 

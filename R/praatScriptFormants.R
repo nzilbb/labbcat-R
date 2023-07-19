@@ -35,9 +35,6 @@
 #' @seealso \link{praatScriptFastTrack}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get all tokens of the KIT vowel
 #' results <- getMatches(labbcat.url, list(segment="I"))
 #' 

@@ -16,9 +16,6 @@
 #' \code{\link{getAllUtterances}}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get all utterances of a participant
 #' allUtterances <- getAllUtterances(labbcat.url, "AP2505_Nelson")
 #' 

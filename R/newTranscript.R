@@ -17,9 +17,6 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get attributes for new transcript
 #' corpus <- getCorpusIds(labbcat.url)[1]
 #' transcript.type.layer <- getLayer(labbcat.url, "transcript_type")

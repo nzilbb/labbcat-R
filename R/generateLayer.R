@@ -12,9 +12,6 @@
 #' \code{\link{getAllUtterances}}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Generate all phonemic transcription annotations
 #' generateLayer(labbcat.url, "phonemes")
 #' }

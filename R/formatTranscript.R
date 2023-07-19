@@ -26,9 +26,6 @@
 #' @seealso \link{getSerializerDescriptors}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get the TextGrid of a recording
 #' textgrid.file <- formatTranscript(labbcat.url, "AP2505_Nelson.eaf",
 #'     c("word", "segment"), path="textgrids") 

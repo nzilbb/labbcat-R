@@ -28,9 +28,6 @@
 #' @seealso \link{getSoundFragments}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get some span-layer intervales
 #' topics <- getMatches(labbcat.url, list(topic = ".*quake.*"))
 #' 

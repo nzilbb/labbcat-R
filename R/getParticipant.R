@@ -22,9 +22,6 @@
 #'   \code{\link{deleteParticipant}}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get the gender and year of birth of AP511_MikeThorpe
 #' participant <- getParticipant(labbcat.url, "AP511_MikeThorpe",
 #'                   c("participant_gender", "participant_year_of_birth"))

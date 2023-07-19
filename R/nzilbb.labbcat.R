@@ -19,9 +19,6 @@
 #' \cite{Robert Fromont, "Toward a format-neutral annotation store", 2017}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Perform a search
 #' results <- getMatches(labbcat.url, list(segment="I"))
 #' 
@@ -198,6 +195,7 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     } # there are parameters
     url <- enc(url)
     url <- paste(labbcat.url, url, sep="")
+    print(url)
     
     ## attempt the request
     if (is.null(file.name)) {

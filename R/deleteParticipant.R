@@ -12,9 +12,6 @@
 #'   \code{\link{saveParticipant}}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Create a new participant record
 #' saveParticipant(labbcat.url, "Juan Perez")
 #' 

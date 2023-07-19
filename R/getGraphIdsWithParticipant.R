@@ -10,9 +10,6 @@
 #' @seealso \code{\link{getTranscriptIdsWithParticipant}}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## List transcripts in which UC427_ViktoriaPapp_A_ENG speaks
 #' transcripts <- getGraphIdsWithParticipant(labbcat.url, "UC427_ViktoriaPapp_A_ENG")
 #' }

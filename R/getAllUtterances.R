@@ -37,9 +37,6 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#'
 #' ## get all utterances of the given participants
 #' participant.ids <- getParticipantIds(labbcat.url)[1:3]
 #' results <- getAllUtterances(labbcat.url, participant.ids)

@@ -11,9 +11,6 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## delete a transcript from the server
 #' deleteTranscript(labbcat.url, "my-transcript.eaf")
 #' }

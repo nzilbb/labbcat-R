@@ -11,9 +11,6 @@
 #' @seealso \link{getMediaUrl}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Download the WAV file for BR2044_OllyOhlson.eaf
 #' wav <- getMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
 #' 

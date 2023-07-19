@@ -88,9 +88,6 @@
 #' @seealso \link{praatScriptPitch}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Perform a search
 #' results <- getMatches(labbcat.url, list(segment="I"))
 #' 

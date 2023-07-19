@@ -9,9 +9,6 @@
 #' @seealso \link{getDictionaries}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#'
 #' keys <- c("the", "quick", "brown", "fox")
 #' 
 #' ## get the pronunciations according to CELEX

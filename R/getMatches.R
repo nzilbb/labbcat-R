@@ -132,9 +132,6 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#'
 #' ## the word 'the' followed immediately by a word starting with an orthographic vowel
 #' theThenOrthVowel <- getMatches(labbcat.url, "the [aeiou]")
 #'

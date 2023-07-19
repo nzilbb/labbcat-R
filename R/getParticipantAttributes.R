@@ -9,9 +9,6 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get gender and age for all participants
 #' attributes <- getParticipantAttributes(labbcat.url,
 #'             getParticipantIds(labbcat.url),

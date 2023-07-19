@@ -47,9 +47,6 @@
 #' 
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get all transcripts whose names start with "BR"
 #' transcripts <- getMatchingGraphIds(labbcat.url, "/^BR.+/.test(id)")
 #' 

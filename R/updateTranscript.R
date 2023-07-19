@@ -13,9 +13,6 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## upload new verison of transcript transcript
 #' updateTranscript(labbcat.url, "my-transcript.eaf")
 #' }

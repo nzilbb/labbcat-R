@@ -22,9 +22,6 @@
 #'   \code{\link{deleteParticipant}}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Create some new participant records
 #' old.ids <- c("test-id-1","test-id-2","test-id-3")
 #' for (id in old.ids) saveParticipant(labbcat.url, id)

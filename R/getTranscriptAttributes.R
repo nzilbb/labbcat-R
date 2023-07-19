@@ -10,9 +10,6 @@
 #' 
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get language, duration, and corpus for transcripts starting with 'BR'
 #' attributes <- getTranscriptAttributes(labbcat.url,
 #'             getMatchingTranscriptIds(labbcat.url, "/'BR.+'/.test(id)"),

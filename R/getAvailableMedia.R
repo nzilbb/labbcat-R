@@ -13,9 +13,6 @@
 #' @seealso \link{getTranscriptIds}
 #' @examples 
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## List the media files available for BR2044_OllyOhlson.eaf
 #' media <- getAvailableMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
 #' }

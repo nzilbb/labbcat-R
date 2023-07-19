@@ -28,9 +28,6 @@
 #' @seealso \link{getSerializerDescriptors}
 #' @examples
 #' \dontrun{
-#' ## define the LaBB-CAT URL
-#' labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-#' 
 #' ## Get the 5 seconds starting from 10s after the beginning of a recording
 #' textgrid.file <- getFragments(labbcat.url, "AP2505_Nelson.eaf", 10.0, 15.0,
 #'     c("transcript", "phonemes"), path="samples") 
