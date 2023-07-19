@@ -1,6 +1,6 @@
 Package: nzilbb.labbcat
 Version: 1.3-0
-Date: 2023-02-24
+Date: 2023-07-19
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
                      email = "robert.fromont@canterbury.ac.nz",
