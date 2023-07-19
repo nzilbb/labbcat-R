@@ -133,9 +133,6 @@ shown when interactive().</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
-<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## get all utterances of the given participants</span></span></span>
 <span class="r-in"><span><span class="va">participant.ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="getParticipantIds.html">getParticipantIds</a></span><span class="op">(</span><span class="va">labbcat.url</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">getAllUtterances</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">participant.ids</span><span class="op">)</span></span></span>

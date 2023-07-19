@@ -126,9 +126,6 @@ path, or a list of names of files, if multiple id's were specified.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
-<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get the TextGrid of a recording</span></span></span>
 <span class="r-in"><span><span class="va">textgrid.file</span> <span class="op">&lt;-</span> <span class="fu">formatTranscript</span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"AP2505_Nelson.eaf"</span>,</span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"word"</span>, <span class="st">"segment"</span><span class="op">)</span>, path<span class="op">=</span><span class="st">"textgrids"</span><span class="op">)</span> </span></span>

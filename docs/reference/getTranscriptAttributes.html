@@ -93,9 +93,6 @@ any layer where layer$parentId == 'transcript' &amp;&amp; layer$alignment == 0, 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">## define the LaBB-CAT URL</span></span></span>
-<span class="r-in"><span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"https://labbcat.canterbury.ac.nz/demo/"</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get language, duration, and corpus for transcripts starting with 'BR'</span></span></span>
 <span class="r-in"><span><span class="va">attributes</span> <span class="op">&lt;-</span> <span class="fu">getTranscriptAttributes</span><span class="op">(</span><span class="va">labbcat.url</span>,</span></span>
 <span class="r-in"><span>            <span class="fu"><a href="getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"/'BR.+'/.test(id)"</span><span class="op">)</span>,</span></span>

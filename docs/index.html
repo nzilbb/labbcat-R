@@ -109,7 +109,7 @@
 <span>    window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p>LaBB-CAT is a web-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations.</p>
 <p>This package provides access to basic corpus structure data, pattern-based search, annotation, audio, TextGrid (and other format) extraction, and server-side acoustic measurement with Praat.</p>
-<p>Online documentation is available at <a href="https://nzilbb.github.io/labbcat-R" class="external-link uri">https://nzilbb.github.io/labbcat-R</a></p>
+<p><strong>Online documentation is available at <a href="https://nzilbb.github.io/labbcat-R" class="external-link uri">https://nzilbb.github.io/labbcat-R</a></strong></p>
 <div class="section level2">
 <h2 id="basic-usage-instructions">Basic usage instructions<a class="anchor" aria-label="anchor" href="#basic-usage-instructions"></a>
 </h2>
@@ -333,7 +333,14 @@ R -e "install.packages("pkgdown")"</code></pre>
 </h2>
 <p>Unit tests use the ‘testthat’ package, which requires a one-time installation:</p>
 <pre><code>R -e "install.packages('testthat')"</code></pre>
-<p>After ‘testthat’ is installed, you can use the following commands to run unit tests:</p>
+<p>The tests assume access to at least one LaBB-CAT server, with URL and credentials defined by environment variables, so you must create a <code>.Renviron</code> file something like:</p>
+<pre><code>TEST_READ_LABBCAT_URL=https://labbcat.canterbury.ac.nz/demo/
+TEST_READ_LABBCAT_USERNAME=demo
+TEST_READ_LABBCAT_PASSWORD=demo
+TEST_ADMIN_LABBCAT_URL=http://localhost:8080/labbcat/
+TEST_ADMIN_LABBCAT_USERNAME=labbcat
+TEST_ADMIN_LABBCAT_PASSWORD=labbcat</code></pre>
+<p>Then you can use the following commands to run unit tests:</p>
 <pre><code>R -e "devtools::test()"</code></pre>
 <p>Specific tests can be run like this:</p>
 <pre><code>R -e "devtools::test(filter='getId')"</code></pre>

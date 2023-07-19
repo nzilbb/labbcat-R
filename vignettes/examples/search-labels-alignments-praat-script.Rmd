@@ -68,9 +68,9 @@ First the *nzilbb.labbcat* package must be loaded, and the LaBB-CAT corpus is sp
 ```{r nzilbb.labbcat, eval=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 require(nzilbb.labbcat)
 labbcat.url <- "https://labbcat.canterbury.ac.nz/demo/"
-url <- Sys.getenv('TEST_READ_LABBCAT_URL')
+labbcat.url <- Sys.getenv('TEST_READ_LABBCAT_URL')
 credentialError <- labbcatCredentials(
-  url, Sys.getenv('TEST_READ_LABBCAT_USERNAME'), Sys.getenv('TEST_READ_LABBCAT_PASSWORD'))
+  labbcat.url, Sys.getenv('TEST_READ_LABBCAT_USERNAME'), Sys.getenv('TEST_READ_LABBCAT_PASSWORD'))
 ```
 
 Conduct a search for each of the contexts we're interested in; we search for the context in the syllable layer, and specify 
