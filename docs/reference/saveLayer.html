@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -74,7 +74,7 @@
 
 <dt>layer</dt>
 <dd><p>A named list object representing the layer attributes, as would be
-    returned by <a href="getLayer.html">getLayer</a> or <a href="newLayer.html">newLayer</a>, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
+returned by <a href="getLayer.html">getLayer</a> or <a href="newLayer.html">newLayer</a>, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
 <li><p><em>parentId</em> The layer's parent layer ID</p></li>
 <li><p><em>description</em> The description of the layer</p></li>
 <li><p><em>alignment</em> The layer's alignment - 0 for none, 1 for point alignment, 2
@@ -94,16 +94,18 @@
     <h2>Value</h2>
     
 
-<p>The resulting layer definition, with members:</p><ul><li><p><em>id</em> The layer's unique ID</p></li>
+<p>The resulting layer definition, with members:</p>
+<p></p>
+<ul><li><p><em>id</em> The layer's unique ID</p></li>
 <li><p><em>parentId</em> The layer's parent layer ID</p></li>
 <li><p><em>description</em> The description of the layer</p></li>
 <li><p><em>alignment</em> The layer's alignment - 0 for none, 1 for point alignment, 2
-    for interval alignment</p></li>
+        for interval alignment</p></li>
 <li><p><em>peers</em> Whether children have peers or not</p></li>
 <li><p><em>peersOverlap</em> Whether child peers can overlap or not</p></li>
 <li><p><em>parentIncludes</em> Whether the parent t-includes the child</p></li>
 <li><p><em>saturated</em> Whether children must temporally fill the entire parent
-    duration (true) or not (false)</p></li>
+        duration (true) or not (false)</p></li>
 <li><p><em>parentIncludes</em> Whether the parent t-includes the child</p></li>
 <li><p><em>type</em> The type for labels on this layer</p></li>
 <li><p><em>validLabels</em> List of valid label values for this layer</p></li>

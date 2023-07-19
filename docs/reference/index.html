@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -71,6 +71,10 @@ to a given LaBB-CAT server in future function calls.</p></td>
         <td><p>Sets the timeout for request to the LaBB-CAT server in future function calls. The
 default timeout is 10 seconds.</p></td>
       </tr><tr><td>
+          <p><code><a href="labbcatVersionInfo.html">labbcatVersionInfo()</a></code> </p>
+        </td>
+        <td><p>Gets version information of all components of LaBB-CAT.</p></td>
+      </tr><tr><td>
           <p><code><a href="getId.html">getId()</a></code> </p>
         </td>
         <td><p>Gets the store's ID.</p></td>
@@ -118,6 +122,26 @@ default timeout is 10 seconds.</p></td>
           <p><code><a href="countMatchingAnnotations.html">countMatchingAnnotations()</a></code> </p>
         </td>
         <td><p>Gets the number of annotations matching a particular pattern.</p></td>
+      </tr><tr><td>
+          <p><code><a href="expressionFromAttributeValue.html">expressionFromAttributeValue()</a></code> </p>
+        </td>
+        <td><p>Generates a query expression for matching a transcript/participant attribute, for use with
+getMatches.</p></td>
+      </tr><tr><td>
+          <p><code><a href="expressionFromAttributeValues.html">expressionFromAttributeValues()</a></code> </p>
+        </td>
+        <td><p>Generates a query expression for matching a transcript/participant attribute, for use with
+getMatches.</p></td>
+      </tr><tr><td>
+          <p><code><a href="expressionFromIds.html">expressionFromIds()</a></code> </p>
+        </td>
+        <td><p>Generates a query expression for matching transcripts or participants by ID, for use with
+getMatches.</p></td>
+      </tr><tr><td>
+          <p><code><a href="expressionFromTranscriptTypes.html">expressionFromTranscriptTypes()</a></code> </p>
+        </td>
+        <td><p>Generates a transcript query expression for matching transcripts by type, for use with
+getMatches or getMatchingTranscriptIds.</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="processing-with-praat">Processing with Praat <a href="#processing-with-praat" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Server-side processing of tokens with Praat</p>
@@ -286,6 +310,26 @@ default timeout is 10 seconds.</p></td>
           <p><code><a href="nzilbb.labbcat.html">nzilbb.labbcat</a></code> </p>
         </td>
         <td><p>Accessing Data Stored in 'LaBB-CAT' Instances</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="participant-management">Participant management <a href="#participant-management" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Functions for creating, updating, and deleting participant records</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="getParticipant.html">getParticipant()</a></code> </p>
+        </td>
+        <td><p>Gets information about a single participant.</p></td>
+      </tr><tr><td>
+          <p><code><a href="saveParticipant.html">saveParticipant()</a></code> </p>
+        </td>
+        <td><p>Saves information about a single participant.</p></td>
+      </tr><tr><td>
+          <p><code><a href="deleteParticipant.html">deleteParticipant()</a></code> </p>
+        </td>
+        <td><p>Deletes a participant record.</p></td>
+      </tr><tr><td>
+          <p><code><a href="renameParticipants.html">renameParticipants()</a></code> </p>
+        </td>
+        <td><p>Renames a list of participants.</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="layer-management">Layer management <a href="#layer-management" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions for managing annotation layers</p>

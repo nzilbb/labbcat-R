@@ -18,7 +18,7 @@ intervals, in order to extract acoustic measures."><meta property="og:image" con
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2-0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@ intervals, in order to extract acoustic measures.</p>
 <span>  <span class="va">start.offsets</span>,</span>
 <span>  <span class="va">end.offsets</span>,</span>
 <span>  <span class="va">praat.script</span>,</span>
-<span>  window.offset <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">window.offset</span>,</span>
 <span>  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,</span>
 <span>  attributes <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -109,7 +109,12 @@ this is a number of seconds to subtract from the sample start and add to the sam
 end time, before extracting that part of the audio for processing. For example, if
 the sample starts at 2.0s and ends at 3.0s, and you set the window offset to 0.5s,
 then Praat will extract a sample of audio from  1.5s to 3.5s, and do the selected
-processing on that sample.</p></dd>
+processing on that sample. The best value for this depends on what the praat.script
+is doing; if you are getting formants from  vowels, including some context ensures
+that he formants at the edges are more accurate (in LaBB-CAT's web interface, the
+default value for this 0.025), but if you're getting max pitch or COG during a
+segment, most likely you want a window.offset of 0 to ensure neighbouring segments
+doesn't influence the measurement.</p></dd>
 
 
 <dt>gender.attribute</dt>

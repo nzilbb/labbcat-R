@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">nzilbb.labbcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1-1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3-0</span>
       </span>
     </div>
 
@@ -118,39 +118,39 @@
 </ul>
 <p>Defining the location of the LaBB-CAT server, and the transcript/media files is also required:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span>
-<span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="st">"data"</span>
-<span class="va">transcriptFiles</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">dataDir</span>, pattern <span class="op">=</span> <span class="st">".*\\.TextGrid$"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/" class="external-link">nzilbb.labbcat</a></span><span class="op">)</span></span>
+<span><span class="va">dataDir</span> <span class="op">&lt;-</span> <span class="st">"data"</span></span>
+<span><span class="va">transcriptFiles</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">dir</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">dataDir</span>, pattern <span class="op">=</span> <span class="st">".*\\.TextGrid$"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="cleaning-up-any-previous-setup">Cleaning up any previous setup<a class="anchor" aria-label="anchor" href="#cleaning-up-any-previous-setup"></a>
 </h2>
 <p>This process is designed to be re-runnable, so we don’t assume that the LaBB-CAT instance is completely empty. The following code removes any previously-created configuration and data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># delete layers</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"cmuDictPhonemes"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2fa"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faPhone"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faComp"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAm"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmPhone"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmComp"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKE"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEPhone"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEComp"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"maus"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausPhone"</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausComp"</span><span class="op">)</span>
-
-<span class="co"># delete any pre-existing transcripts</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">transcriptName</span> <span class="kw">in</span> <span class="va">transcriptFiles</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># if the transcript is in LaBB-CAT...</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="../../reference/getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span><span class="op">(</span><span class="va">url</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"id = '"</span>, <span class="va">transcriptName</span>, <span class="st">"'"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># ...delete it </span>
-    <span class="fu"><a href="../../reference/deleteTranscript.html">deleteTranscript</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">transcriptName</span><span class="op">)</span>
-  <span class="op">}</span>
-<span class="op">}</span> <span class="co"># next textGrid</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># delete layers</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"cmuDictPhonemes"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2fa"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faPhone"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faComp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAm"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmPhone"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmComp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKE"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEPhone"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEComp"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"maus"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausPhone"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/deleteLayer.html">deleteLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausComp"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># delete any pre-existing transcripts</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">transcriptName</span> <span class="kw">in</span> <span class="va">transcriptFiles</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># if the transcript is in LaBB-CAT...</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="../../reference/getMatchingTranscriptIds.html">getMatchingTranscriptIds</a></span><span class="op">(</span><span class="va">url</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"id = '"</span>, <span class="va">transcriptName</span>, <span class="st">"'"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># ...delete it </span></span>
+<span>    <span class="fu"><a href="../../reference/deleteTranscript.html">deleteTranscript</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">transcriptName</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span> <span class="co"># next textGrid</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="forced-alignment">Forced alignment<a class="anchor" aria-label="anchor" href="#forced-alignment"></a>
@@ -195,18 +195,18 @@
 </dl></details><hr>
 <p>The <em>cmuDictPhonemes</em> layer is configured as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cmuDictPhonemes</span> <span class="op">=</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"cmuDictPhonemes"</span>, 
-  description <span class="op">=</span> <span class="st">"Phonemic transcriptions according to the CMU Pronouncing Dictionary"</span>,
-  alignment <span class="op">=</span> <span class="fl">0</span>, parent.id <span class="op">=</span> <span class="st">"word"</span>, 
-  annotator.id <span class="op">=</span> <span class="st">"CMUdict"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"tokenLayerId=orthography"</span>,   <span class="co"># get word tokens from orthography layer</span>
-    <span class="st">"pronunciationLayerId=cmuDictPhonemes"</span>,
-    <span class="st">"encoding=CMU"</span>,               <span class="co"># Use original ARPAbet encoding, not CELEX DISC encoding</span>
-    <span class="st">"transcriptLanguageLayerId="</span>, <span class="co"># not filtering tagging by language...</span>
-    <span class="st">"phraseLanguageLayerId="</span>,
-    sep <span class="op">=</span> <span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">cmuDictPhonemes</span> <span class="op">=</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"cmuDictPhonemes"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Phonemic transcriptions according to the CMU Pronouncing Dictionary"</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">0</span>, parent.id <span class="op">=</span> <span class="st">"word"</span>, </span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"CMUdict"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tokenLayerId=orthography"</span>,   <span class="co"># get word tokens from orthography layer</span></span>
+<span>    <span class="st">"pronunciationLayerId=cmuDictPhonemes"</span>,</span>
+<span>    <span class="st">"encoding=CMU"</span>,               <span class="co"># Use original ARPAbet encoding, not CELEX DISC encoding</span></span>
+<span>    <span class="st">"transcriptLanguageLayerId="</span>, <span class="co"># not filtering tagging by language...</span></span>
+<span>    <span class="st">"phraseLanguageLayerId="</span>,</span>
+<span>    sep <span class="op">=</span> <span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="p2fa-forced-alignment">P2FA forced alignment<a class="anchor" aria-label="anchor" href="#p2fa-forced-alignment"></a>
@@ -292,19 +292,19 @@
 </dl></details><hr>
 <p>The configuration for using the P2FA pre-trained models is:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2fa</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"p2fa"</span>, 
-  description <span class="op">=</span> <span class="st">"Word alignments from HTK using the P2FA pretrained acoustic models."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"HTK"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"orthographyLayerId=orthography"</span>,
-    <span class="st">"pronunciationLayerId=cmuDictPhonemes"</span>, <span class="co"># pronunciations come from the CMU Dict layer</span>
-    <span class="st">"useP2FA=on"</span>,                           <span class="co"># use pre-trained P2FA models</span>
-    <span class="st">"overlapThreshold=5"</span>,                   <span class="co"># ignore utterances that overlap more than 5%</span>
-    <span class="st">"wordAlignmentLayerId=p2fa"</span>,     <span class="co"># save word alignments to this layer</span>
-    <span class="st">"phoneAlignmentLayerId=p2faPhone"</span>, <span class="co"># this layer will be created by the annotator</span>
-    <span class="st">"cleanupOption=100"</span>, sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">p2fa</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"p2fa"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Word alignments from HTK using the P2FA pretrained acoustic models."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"HTK"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"orthographyLayerId=orthography"</span>,</span>
+<span>    <span class="st">"pronunciationLayerId=cmuDictPhonemes"</span>, <span class="co"># pronunciations come from the CMU Dict layer</span></span>
+<span>    <span class="st">"useP2FA=on"</span>,                           <span class="co"># use pre-trained P2FA models</span></span>
+<span>    <span class="st">"overlapThreshold=5"</span>,                   <span class="co"># ignore utterances that overlap more than 5%</span></span>
+<span>    <span class="st">"wordAlignmentLayerId=p2fa"</span>,     <span class="co"># save word alignments to this layer</span></span>
+<span>    <span class="st">"phoneAlignmentLayerId=p2faPhone"</span>, <span class="co"># this layer will be created by the annotator</span></span>
+<span>    <span class="st">"cleanupOption=100"</span>, sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -328,7 +328,7 @@
   <dt> pronunciationLayerId </dt> <dd> Input layer from which word pronunciations
     come. If you don't select this layer, you must specify a value for <tt>dictionaryName</tt>. </dd>
   <dt> multilingualIPA </dt> <dd> Set any non-empty value for this parameter to use
-    the <tt>--multilingual</tt>_ipa switch, omit the parameter otherwise</dd> 
+    the <tt>--multilingual_ipa</tt> switch, omit the parameter otherwise</dd> 
   <dt> dictionaryName </dt> <dd> If you wish to use one of the available language
     dictionaries instead of specifying a Pronunciation Layer, specify the name with
     this parameter. Available dictionaries are listed at
@@ -342,6 +342,9 @@
   </dd>
   <dt> beam </dt> <dd> This is the value for the <tt>--beam</tt> mfa parameter.</dd>  
   <dt> retryBeam </dt> <dd> This is the value for the <tt>--retry-beam</tt> mfa parameter.</dd>   
+  <dt> noSpeakerAdaptation </dt> <dd> Whether trained acoustic models are adapted for each
+    speaker before alignment or not. Set any non-empty value for this parameter to use
+    the <tt>--uses_speaker_adaptation False</tt> switch, omit the parameter otherwise</dd> 
   <dt> ignoreAlignmentStatuses </dt> <dd> Set any non-empty value of this parameter to
     overwrite manual alignments, otherwise omit this parameter.  </dd>
   <dt> wordAlignmentLayerId </dt> <dd> Output layer on which word alignments are
@@ -362,18 +365,18 @@
 <p>MFA provides a set <a href="https://mfa-models.readthedocs.io/en/latest/acoustic/English/English%20%28US%29%20ARPA%20acoustic%20model%20v2_0_0.html#English%20(US)%20ARPA%20acoustic%20model%20v2_0_0" class="external-link">pre-trained English models</a> trained on 982 hours of speech by 2484 American English speakers from the LibriSpeech corpus, (Vassil Panayotov and Guoguo Chen and Daniel Povey and Sanjeev Khudanpur (2015) “Librispeech: An ASR corpus based on public domain audio books”, 2015 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp 5206-5210, <a href="DOI:10.1109/ICASSP.2015.7178964" class="uri">DOI:10.1109/ICASSP.2015.7178964</a>) and pronunciations from an <a href="https://mfa-models.readthedocs.io/en/latest/dictionary/English/English%20%28US%29%20ARPA%20dictionary%20v2_0_0.html#English%20(US)%20ARPA%20dictionary%20v2_0_0" class="external-link">ARPAbet encoded General American English dictionary</a>.</p>
 <p>A layer is set up to use this configuration:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mfaGAm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"mfaGAm"</span>, 
-  description <span class="op">=</span> <span class="st">"Word alignments from MFA using an ARPAbet dictionary and pretrained models."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"MFA"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"orthographyLayerId=orthography"</span>,
-    <span class="st">"dictionaryName=english_us_arpa"</span>,
-    <span class="st">"modelsName=english_us_arpa"</span>,
-    <span class="st">"wordAlignmentLayerId=mfaGAm"</span>,       <span class="co"># save word alignments to this layer</span>
-    <span class="st">"phoneAlignmentLayerId=mfaGAmPhone"</span>, <span class="co"># this will be created by the annotator</span>
-    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mfaGAm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"mfaGAm"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Word alignments from MFA using an ARPAbet dictionary and pretrained models."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"MFA"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"orthographyLayerId=orthography"</span>,</span>
+<span>    <span class="st">"dictionaryName=english_us_arpa"</span>,</span>
+<span>    <span class="st">"modelsName=english_us_arpa"</span>,</span>
+<span>    <span class="st">"wordAlignmentLayerId=mfaGAm"</span>,       <span class="co"># save word alignments to this layer</span></span>
+<span>    <span class="st">"phoneAlignmentLayerId=mfaGAmPhone"</span>, <span class="co"># this will be created by the annotator</span></span>
+<span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="mfa-alignment-with-ipa-models-and-a-non-rhotic-dictionary">MFA Alignment with IPA Models and a Non-rhotic Dictionary<a class="anchor" aria-label="anchor" href="#mfa-alignment-with-ipa-models-and-a-non-rhotic-dictionary"></a>
@@ -381,19 +384,19 @@
 <p>MFA also includes <a href="https://mfa-models.readthedocs.io/en/latest/acoustic/English/English%20MFA%20acoustic%20model%20v2_0_0.html#English%20MFA%20acoustic%20model%20v2_0_0" class="external-link">IPA-encoded models trained on 3687 hours of English speech</a> of a number of varieties, and an <a href="https://mfa-models.readthedocs.io/en/latest/dictionary/English/English%20%28UK%29%20MFA%20dictionary%20v2_0_0.html#English%20(UK)%20MFA%20dictionary%20v2_0_0" class="external-link">IPA-encoded British English pronunciation dictionary</a> which may perform better for our New Zealand English data, as both varieties are non-rhotic (unlike the US English dictionary used for the <em>mfaGAm</em> layer above).</p>
 <p>This configuration uses pre-trained English models and pronunciations from an IPA encoded British English dictionary.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create layer</span>
-<span class="va">mfaUKE</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"mfaUKE"</span>, 
-  description <span class="op">=</span> <span class="st">"Word alignments from MFA using an IPA dictionary and pretrained models."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"MFA"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"orthographyLayerId=orthography"</span>,
-    <span class="st">"dictionaryName=english_uk_mfa"</span>,
-    <span class="st">"modelsName=english_mfa"</span>,
-    <span class="st">"wordAlignmentLayerId=mfaUKE"</span>,       <span class="co"># save word alignments to this layer</span>
-    <span class="st">"phoneAlignmentLayerId=mfaUKEPhone"</span>, <span class="co"># this will be created by the annotator</span>
-    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create layer</span></span>
+<span><span class="va">mfaUKE</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"mfaUKE"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Word alignments from MFA using an IPA dictionary and pretrained models."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"MFA"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"orthographyLayerId=orthography"</span>,</span>
+<span>    <span class="st">"dictionaryName=english_uk_mfa"</span>,</span>
+<span>    <span class="st">"modelsName=english_mfa"</span>,</span>
+<span>    <span class="st">"wordAlignmentLayerId=mfaUKE"</span>,       <span class="co"># save word alignments to this layer</span></span>
+<span>    <span class="st">"phoneAlignmentLayerId=mfaUKEPhone"</span>, <span class="co"># this will be created by the annotator</span></span>
+<span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -463,19 +466,19 @@
     be created (<tt>service=MAUSBasic</tt> only). </dd> </dl></details><hr>
 <p>New Zealand English is supported explicitly by MAUSBasic, so layer is set up to using the following configuration:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">maus</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"maus"</span>, 
-  description <span class="op">=</span> <span class="st">"Word alignments from MAUSBasic web service provided by the BAS Web Services."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"BAS"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"service=MAUSBasic"</span>,
-    <span class="st">"orthographyLayerId=orthography"</span>,
-    <span class="st">"forceLanguageMAUSBasic=eng-NZ"</span>,   <span class="co"># New Zealand English</span>
-    <span class="st">"phonemeEncoding=disc"</span>,            <span class="co"># use DISC for phone labels</span>
-    <span class="st">"wordAlignmentLayerId=maus"</span>,       <span class="co"># save word alignments to this layer</span>
-    <span class="st">"phoneAlignmentLayerId=mausPhone"</span>, <span class="co"># this will be created by the annotator</span>
-    sep <span class="op">=</span> <span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">maus</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"maus"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Word alignments from MAUSBasic web service provided by the BAS Web Services."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"BAS"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"service=MAUSBasic"</span>,</span>
+<span>    <span class="st">"orthographyLayerId=orthography"</span>,</span>
+<span>    <span class="st">"forceLanguageMAUSBasic=eng-NZ"</span>,   <span class="co"># New Zealand English</span></span>
+<span>    <span class="st">"phonemeEncoding=disc"</span>,            <span class="co"># use DISC for phone labels</span></span>
+<span>    <span class="st">"wordAlignmentLayerId=maus"</span>,       <span class="co"># save word alignments to this layer</span></span>
+<span>    <span class="st">"phoneAlignmentLayerId=mausPhone"</span>, <span class="co"># this will be created by the annotator</span></span>
+<span>    sep <span class="op">=</span> <span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -484,27 +487,25 @@
 <p>The speech to be force-aligned is in New Zealand English, and has been transcribed in a Praat. This corpus is (very!) small, but enough to illustrate what’s possible.</p>
 <p>TextGrid files are uploaded with their corresponsing .wav files. The TextGrids include manually aligned words and segments (phones). The phone labels use the CELEX ‘DISC’ encoding, which utilises one character per phoneme. These will be the ‘gold standard’ alignments for evaluating each forced alignment configuration.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># for each transcript</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">transcriptName</span> <span class="kw">in</span> <span class="va">transcriptFiles</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">transcript</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dataDir</span>, <span class="va">transcriptName</span><span class="op">)</span>
-  
-  <span class="co"># locate recording</span>
-  <span class="va">noExtension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">transcriptName</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">transcriptName</span><span class="op">)</span> <span class="op">-</span> <span class="fl">9</span><span class="op">)</span>
-  <span class="va">wav</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dataDir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">noExtension</span>, <span class="st">".wav"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">wav</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">wav</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dataDir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">noExtension</span>, <span class="st">".WAV"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span>
-  <span class="op">}</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">wav</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">wav</span>, <span class="st">"doesn't exist\n"</span><span class="op">)</span><span class="op">)</span>
-  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">transcript</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">transcript</span>, <span class="st">"doesn't exist\n"</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="co"># upload the transcript/recording</span>
-  <span class="fu"><a href="../../reference/newTranscript.html">newTranscript</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">transcript</span>, <span class="va">wav</span>, no.progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="op">}</span> <span class="co"># next trancript</span></code></pre></div>
-<pre><code><span class="co">## [1] "Token layer not found: null"</span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Transcripts uploaded: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcriptFiles</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Transcripts uploaded:  1</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># for each transcript</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">transcriptName</span> <span class="kw">in</span> <span class="va">transcriptFiles</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">transcript</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dataDir</span>, <span class="va">transcriptName</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># locate recording</span></span>
+<span>  <span class="va">noExtension</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="va">transcriptName</span>, <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">transcriptName</span><span class="op">)</span> <span class="op">-</span> <span class="fl">9</span><span class="op">)</span></span>
+<span>  <span class="va">wav</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dataDir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">noExtension</span>, <span class="st">".wav"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">wav</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">wav</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dataDir</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">noExtension</span>, <span class="st">".WAV"</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">wav</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">wav</span>, <span class="st">"doesn't exist\n"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.exists</a></span><span class="op">(</span><span class="va">transcript</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">transcript</span>, <span class="st">"doesn't exist\n"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># upload the transcript/recording</span></span>
+<span>  <span class="fu"><a href="../../reference/newTranscript.html">newTranscript</a></span><span class="op">(</span><span class="va">url</span>, <span class="va">transcript</span>, <span class="va">wav</span>, no.progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span> <span class="co"># next trancript</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Transcripts uploaded: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">transcriptFiles</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Transcripts uploaded:  1</span></span></code></pre>
 <p>At this point the manually aligned transcripts have been uploaded, and all of the forced-alignment configurations have been run.</p>
 </div>
 <div class="section level2">
@@ -765,11 +766,11 @@
   <dt> splitLabels </dt> <dd>
     Possible values are: <ul>
 <li>
-<q>char</q> - Use the first annotation in the scope, split its label into
+<q>char</q> - Use the most similar annotation in the scope, split its label into
         characters, and map each to labels on the target layer (e.g. DISC word
         transcriptions to phones). </li> 
       <li>
-<q>space</q> - Use the first annotation in the scope, split its label on
+<q>space</q> - Use the most similar annotation in the scope, split its label on
         spaces, and map each to labels on the target layer (e.g. ARPAbet word
         transcriptions to phones). </li>
       <li>
@@ -812,135 +813,78 @@
   
 </dl></details><hr>
 <p>A comparison is set up for each of the forced-alignment configurations above, i.e each automatic word alignment is matched to a corresponding manual word alignment, and within each word, each automatic phone alignment is matched to a corresponding manual phone alignment. Once this is done, it’s possible to measure the degree to which the automatic alignments overlap with the manual ones.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># compare p2fa alignments with manual ones</span></span>
+<span><span class="va">p2faComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"p2faComp"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Compare P2FA alignments with Manual alignments."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sourceLayerId=orthography"</span>,</span>
+<span>    <span class="st">"targetLayerId=p2fa"</span>,</span>
+<span>    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span></span>
+<span>    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span></span>
+<span>    <span class="st">"subSourceLayerId=segment"</span>,</span>
+<span>    <span class="st">"subTargetLayerId=p2faPhone"</span>, </span>
+<span>    <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in p2faPhone use ARPAbet encoding</span></span>
+<span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faComp"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># compare p2fa alignments with manual ones</span>
-<span class="va">p2faComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"p2faComp"</span>, 
-  description <span class="op">=</span> <span class="st">"Compare P2FA alignments with Manual alignments."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"sourceLayerId=orthography"</span>,
-    <span class="st">"targetLayerId=p2fa"</span>,
-    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span>
-    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span>
-    <span class="st">"subSourceLayerId=segment"</span>,
-    <span class="st">"subTargetLayerId=p2faPhone"</span>, 
-    <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in p2faPhone use ARPAbet encoding</span>
-    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"p2faComp"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: p2faPhone"</span></code></pre>
-<pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># compare MFA ARPAbet alignments with manual ones</span>
-<span class="va">mfaGAmComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"mfaGAmComp"</span>, 
-  description <span class="op">=</span> <span class="st">"Compare MFA ARPAbet pretrained-model alignments with Manual alignments."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"sourceLayerId=orthography"</span>,
-    <span class="st">"targetLayerId=mfaGAm"</span>,
-    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span>
-    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span>
-    <span class="st">"subSourceLayerId=segment"</span>,
-    <span class="st">"subTargetLayerId=mfaGAmPhone"</span>, 
-    <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in mfaGAmPhone use ARPAbet encoding</span>
-    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmComp"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaGAmPhone"</span></code></pre>
-<pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># compare MFA non-rhotic IPA alignments with manual ones</span>
-<span class="va">mfaUKEComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"mfaUKEComp"</span>, 
-  description <span class="op">=</span> <span class="st">"Compare MFA IPA pretrained-model alignments with Manual alignments."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"sourceLayerId=orthography"</span>,
-    <span class="st">"targetLayerId=mfaUKE"</span>,
-    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span>
-    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span>
-    <span class="st">"subSourceLayerId=segment"</span>,
-    <span class="st">"subTargetLayerId=mfaUKEPhone"</span>, 
-    <span class="st">"subComparator=DISCToIPA"</span>,         <span class="co"># phone tokens in mfaUKEPhone use IPA encoding</span>
-    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEComp"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mfaUKEPhone"</span></code></pre>
-<pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># compare MAUSBasic alignments with manual ones</span>
-<span class="va">mausComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span>
-  <span class="va">url</span>, <span class="st">"mausComp"</span>, 
-  description <span class="op">=</span> <span class="st">"Compare MAUS Basic New Zealand English alignments with Manual alignments."</span>,
-  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span>
-  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, 
-  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span>
-    <span class="st">"sourceLayerId=orthography"</span>,
-    <span class="st">"targetLayerId=maus"</span>,
-    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span>
-    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span>
-    <span class="st">"subSourceLayerId=segment"</span>,
-    <span class="st">"subTargetLayerId=mausPhone"</span>, 
-    <span class="st">"subComparator=DISCToDISC"</span>,        <span class="co"># phone tokens in mausPhone use DISC encoding</span>
-    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausComp"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span>
-<span class="co">## [1] "Invalid sub-mapping token layer: mausPhone"</span></code></pre>
-<pre><code><span class="co">## [1] "Layer complete."</span></code></pre>
+<code class="sourceCode R"><span><span class="co"># compare MFA ARPAbet alignments with manual ones</span></span>
+<span><span class="va">mfaGAmComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"mfaGAmComp"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Compare MFA ARPAbet pretrained-model alignments with Manual alignments."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sourceLayerId=orthography"</span>,</span>
+<span>    <span class="st">"targetLayerId=mfaGAm"</span>,</span>
+<span>    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span></span>
+<span>    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span></span>
+<span>    <span class="st">"subSourceLayerId=segment"</span>,</span>
+<span>    <span class="st">"subTargetLayerId=mfaGAmPhone"</span>, </span>
+<span>    <span class="st">"subComparator=DISCToArpabet"</span>,     <span class="co"># phone tokens in mfaGAmPhone use ARPAbet encoding</span></span>
+<span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaGAmComp"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># compare MFA non-rhotic IPA alignments with manual ones</span></span>
+<span><span class="va">mfaUKEComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"mfaUKEComp"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Compare MFA IPA pretrained-model alignments with Manual alignments."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sourceLayerId=orthography"</span>,</span>
+<span>    <span class="st">"targetLayerId=mfaUKE"</span>,</span>
+<span>    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span></span>
+<span>    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span></span>
+<span>    <span class="st">"subSourceLayerId=segment"</span>,</span>
+<span>    <span class="st">"subTargetLayerId=mfaUKEPhone"</span>, </span>
+<span>    <span class="st">"subComparator=DISCToIPA"</span>,         <span class="co"># phone tokens in mfaUKEPhone use IPA encoding</span></span>
+<span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mfaUKEComp"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># compare MAUSBasic alignments with manual ones</span></span>
+<span><span class="va">mausComp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/newLayer.html">newLayer</a></span><span class="op">(</span></span>
+<span>  <span class="va">url</span>, <span class="st">"mausComp"</span>, </span>
+<span>  description <span class="op">=</span> <span class="st">"Compare MAUS Basic New Zealand English alignments with Manual alignments."</span>,</span>
+<span>  alignment <span class="op">=</span> <span class="fl">2</span>, parent.id <span class="op">=</span> <span class="st">"turn"</span>, <span class="co"># a phrase layer</span></span>
+<span>  annotator.id <span class="op">=</span> <span class="st">"labelmapper"</span>, </span>
+<span>  annotator.task.parameters <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span></span>
+<span>    <span class="st">"sourceLayerId=orthography"</span>,</span>
+<span>    <span class="st">"targetLayerId=maus"</span>,</span>
+<span>    <span class="st">"splitLabels="</span>,                    <span class="co"># no splitting; target to source annotations map 1:1</span></span>
+<span>    <span class="st">"comparator=CharacterToCharacter"</span>, <span class="co"># word tokens use plain orthography</span></span>
+<span>    <span class="st">"subSourceLayerId=segment"</span>,</span>
+<span>    <span class="st">"subTargetLayerId=mausPhone"</span>, </span>
+<span>    <span class="st">"subComparator=DISCToDISC"</span>,        <span class="co"># phone tokens in mausPhone use DISC encoding</span></span>
+<span>    sep<span class="op">=</span><span class="st">"&amp;"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/generateLayer.html">generateLayer</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"mausComp"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Finished."</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="edit-paths-and-alignment-comparisons">Edit Paths and Alignment Comparisons<a class="anchor" aria-label="anchor" href="#edit-paths-and-alignment-comparisons"></a>
@@ -1084,17 +1028,17 @@
     mapping. The query string should be a mapping ID returned by <i>listMappings</i>.</dd>
 </dl></details><hr>
 <p>The mean overlap rates for the forced alignment configurations can be directly compared, by extracting the mapping summaries and comparing them:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p2faPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>
-  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">mfaGAmPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>
-  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaGAmPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">mfaUKEPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>
-  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaUKEPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="va">mausPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span>
-  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mausPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">p2faPhone</span>, <span class="va">mfaGAmPhone</span>, <span class="va">mfaUKEPhone</span>, <span class="va">mausPhone</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p2faPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mfaGAmPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaGAmPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mfaUKEPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mfaUKEPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">mausPhone</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"summarizeMapping"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"mausPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">p2faPhone</span>, <span class="va">mfaGAmPhone</span>, <span class="va">mfaUKEPhone</span>, <span class="va">mausPhone</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left"></th>
@@ -1115,18 +1059,18 @@
 </tr>
 <tr class="even">
 <td align="left">mfaGAmPhone</td>
-<td align="left">0.629468149271323</td>
+<td align="left">0.65663894781618</td>
 <td align="left">182</td>
-<td align="left">187</td>
-<td align="left">185</td>
+<td align="left">188</td>
+<td align="left">186</td>
 <td align="left">3</td>
 </tr>
 <tr class="odd">
 <td align="left">mfaUKEPhone</td>
-<td align="left">0.650021420932983</td>
+<td align="left">0.62531675684027</td>
 <td align="left">182</td>
-<td align="left">194</td>
-<td align="left">183</td>
+<td align="left">186</td>
+<td align="left">178</td>
 <td align="left">3</td>
 </tr>
 <tr class="even">
@@ -1140,18 +1084,18 @@
 </tbody>
 </table>
 <p>The LabelMapper module can also provide finely-grained details of the mappings - i.e. exactly which manual phones mapped to which automatic phones.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get edit paths for manual-to-P2FA comparison</span>
-<span class="va">p2faPhoneEditPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>
-  text <span class="op">=</span> <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"mappingToCsv"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co"># show a sample of the paths to give an idea</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span>
-  <span class="va">p2faPhoneEditPaths</span><span class="op">[</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sourceParentLabel"</span>, <span class="st">"sourceLabel"</span>, <span class="st">"sourceStart"</span>,<span class="st">"sourceEnd"</span>, 
-      <span class="st">"targetLabel"</span>, <span class="st">"targetStart"</span>,<span class="st">"targetEnd"</span>, <span class="st">"overlapRate"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,
-  <span class="co"># tweak some column names for display purposes</span>
-  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>,<span class="st">"sourceLabel"</span>, <span class="st">"sourceStart"</span>,<span class="st">"sourceEnd"</span>, 
-      <span class="st">"targetLabel"</span>, <span class="st">"targetStart"</span>,<span class="st">"targetEnd"</span>, <span class="st">"OvR"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># get edit paths for manual-to-P2FA comparison</span></span>
+<span><span class="va">p2faPhoneEditPaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
+<span>  text <span class="op">=</span> <span class="fu"><a href="../../reference/annotatorExt.html">annotatorExt</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"LabelMapper"</span>, <span class="st">"mappingToCsv"</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"segment"</span>,<span class="st">"p2faPhone"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># show a sample of the paths to give an idea</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span></span>
+<span>  <span class="va">p2faPhoneEditPaths</span><span class="op">[</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sourceParentLabel"</span>, <span class="st">"sourceLabel"</span>, <span class="st">"sourceStart"</span>,<span class="st">"sourceEnd"</span>, </span>
+<span>      <span class="st">"targetLabel"</span>, <span class="st">"targetStart"</span>,<span class="st">"targetEnd"</span>, <span class="st">"overlapRate"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>  <span class="co"># tweak some column names for display purposes</span></span>
+<span>  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Word"</span>,<span class="st">"sourceLabel"</span>, <span class="st">"sourceStart"</span>,<span class="st">"sourceEnd"</span>, </span>
+<span>      <span class="st">"targetLabel"</span>, <span class="st">"targetStart"</span>,<span class="st">"targetEnd"</span>, <span class="st">"OvR"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Word</th>
@@ -1228,15 +1172,15 @@
 </table>
 <p>This allows closer analysis of the forced-alignments, beyond the overlap rate summary.</p>
 <p>For example, it allows us to identify which phones are being produced the the forced aligner which have no corresponding phone in the manual alignments; forced aligners that are using a rhotic dictionary are expected to produce many spurious /r/ segments that are not really present in the non-rhotic speech in the corpus:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># identify all edit steps where a phone is added - i.e. the source phone label is empty</span>
-<span class="va">spuriousSegments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">p2faPhoneEditPaths</span>, <span class="va">sourceLabel</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span>
-<span class="co"># count these spurious segments grouping by their label to see which is most common</span>
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">spuriousSegments</span><span class="op">$</span><span class="va">targetLabel</span>, 
-            by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">spuriousSegments</span><span class="op">$</span><span class="va">targetLabel</span><span class="op">)</span>, 
-            FUN<span class="op">=</span><span class="va">length</span><span class="op">)</span>,
-  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spurious Segment"</span>, <span class="st">"Count"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># identify all edit steps where a phone is added - i.e. the source phone label is empty</span></span>
+<span><span class="va">spuriousSegments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">p2faPhoneEditPaths</span>, <span class="va">sourceLabel</span> <span class="op">==</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="co"># count these spurious segments grouping by their label to see which is most common</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">spuriousSegments</span><span class="op">$</span><span class="va">targetLabel</span>, </span>
+<span>            by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">spuriousSegments</span><span class="op">$</span><span class="va">targetLabel</span><span class="op">)</span>, </span>
+<span>            FUN<span class="op">=</span><span class="va">length</span><span class="op">)</span>,</span>
+<span>  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Spurious Segment"</span>, <span class="st">"Count"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Spurious Segment</th>

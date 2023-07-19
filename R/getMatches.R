@@ -72,7 +72,7 @@
 #'     and delimited by ' && '. If not supplied, utterances of all participants will be searched.
 #' @param transcript.expression An optional transript query expression for identifying
 #'     transcripts to search in. This should be the output of \link{expressionFromIds},
-#'     \link{expressionFromTranscriptType}, \link{expressionFromAttributeValue},
+#'     \link{expressionFromTranscriptTypes}, \link{expressionFromAttributeValue},
 #'     or \link{expressionFromAttributeValues}, or more than one concatentated together
 #'     and delimited by ' && '. If not supplied, all transcripts will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
