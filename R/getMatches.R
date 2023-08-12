@@ -14,16 +14,16 @@
 #'        represents the columns of the search matrix where each column 'immediately
 #'        follows' the previous, and the names of the inner lists are taken to be layer IDs} 
 #'  \item{A named list fully replicating the structure of the search matrix in the
-#'        LaBB-CAT browser interface, with one element called ``columns'', containing a
+#'        LaBB-CAT browser interface, with one element called "columns", containing a
 #'        named list for each column.
 #' 
-#'        Each element in the ``columns'' named list contains an element named ``layers'', whose
+#'        Each element in the "columns" named list contains an element named "layers", whose
 #'     value is a named list for patterns to match on each layer, and optionally an
-#'     element named ``adj'', whose value is a number representing the maximum distance, in
-#'     tokens, between this column and the next column - if ``adj'' is not specified, the
+#'     element named "adj", whose value is a number representing the maximum distance, in
+#'     tokens, between this column and the next column - if "adj" is not specified, the
 #'     value defaults to 1, so tokens are contiguous.
 #'
-#'         Each element in the ``layers'' named list is named after the layer it matches, and the
+#'         Each element in the "layers" named list is named after the layer it matches, and the
 #'     value is a named list with the following possible elements:
 #'         \itemize{
 #'          \item{\emph{pattern}  A regular expression to match against the label}
@@ -45,12 +45,12 @@
 #' Examples of valid pattern objects include:
 #' \preformatted{
 #' ## the word 'the' followed immediately by a word starting with an orthographic vowel
-#' pattern <- "the [aeiou]"
+#' pattern <- "the [aeiou].*"
 #' 
 #' ## a word spelt with "k" but pronounced "n" word initially
 #' pattern <- list(orthography = "k.*", phonemes = "n.*")
 #' 
-#' ## the word 'the' followed immediately by a word starting with an phonemic vowel
+#' ## the word 'the' followed immediately by a word starting with a phonemic vowel
 #' pattern <- list(
 #'     list(orthography = "the"),
 #'     list(phonemes = "[cCEFHiIPqQuUV0123456789~#\\$@].*"))
@@ -81,16 +81,16 @@
 #'     please use anchor.confidence.min=50 instead.
 #' @param matches.per.transcript Optional maximum number of matches per transcript to
 #'     return. NULL means all matches.
-#' @param words.context Number of words context to include in the `Before.Match' and
-#'     `After.Match' columns in the results.
+#' @param words.context Number of words context to include in the 'Before.Match' and
+#'     'After.Match' columns in the results.
 #' @param max.matches The maximum number of matches to return, or null to return all.
 #' @param overlap.threshold The percentage overlap with other utterances before
 #'     simultaneous speech is excluded, or null to include overlapping speech.
 #' @param anchor.confidence.min The minimum confidence for alignments, e.g.
 #' \itemize{
-#'  \item{\emph{0} -- return all alignments, regardless of confidence;}
-#'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;}
-#'  \item{\emph{100} -- return only manually-set alignments.}
+#'  \item{\emph{0} - return all alignments, regardless of confidence;}
+#'  \item{\emph{50} - return only alignments that have been at least automatically aligned;}
+#'  \item{\emph{100} - return only manually-set alignments.}
 #' }
 #' @param page.length In order to prevent timeouts when there are a large number of
 #'     matches or the network connection is slow, rather than retrieving matches in one
