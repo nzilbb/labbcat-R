@@ -13,15 +13,15 @@
 #'  \item{A list of named lists, representing a multi-column search - the outer list
 #'        represents the columns of the search matrix where each column 'immediately
 #'        follows' the previous, and the names of the inner lists are taken to be layer IDs} 
-#'  \item{A named list fully replicating the structure of the search matrix in the
-#'        LaBB-CAT browser interface, with one element called "columns", containing a
-#'        named list for each column.
+#'  \item{A named list (or for segment layers, a list of named lists) fully replicating
+#'        the structure of the search matrix in the LaBB-CAT browser interface, with one
+#'        element called "columns", containing a named list for each column.
 #' 
 #'        Each element in the "columns" named list contains an element named "layers", whose
-#'     value is a named list for patterns to match on each layer, and optionally an
-#'     element named "adj", whose value is a number representing the maximum distance, in
-#'     tokens, between this column and the next column - if "adj" is not specified, the
-#'     value defaults to 1, so tokens are contiguous.
+#'     value is a named list (or a list of named lists) for patterns to match on each
+#'     layer, and optionally an element named "adj", whose value is a number representing
+#'     the maximum distance, in tokens, between this column and the next column - if "adj"
+#'     is not specified, the value defaults to 1, so tokens are contiguous.
 #'
 #'         Each element in the "layers" named list is named after the layer it matches, and the
 #'     value is a named list with the following possible elements:
@@ -64,6 +64,20 @@
 #'     list(layers = list(
 #'            phonemes = list(not = TRUE, pattern = "[cCEFHiIPqQuUV0123456789~#\\$@].*"),
 #'            frequency = list(max = "2")))))
+#'
+#' ## words that contain the /I/ phone followed by the /l/ phone
+#' ## (multiple patterns per word currently only works for segment layers)
+#' pattern <- list(segment = list("I", "l"))
+#'
+#' ## words that contain the /I/ phone followed by the /l/ phone, targeting the /l/ segment
+#' ## (multiple patterns per word currently only works for segment layers)
+#' pattern <- list(segment = list("I", list(pattern="l", target=T)))
+#'
+#' ## words where the spelling starts with "k", but the first segment is /n/
+#' pattern <- list(
+#'   orthography = "k.*", 
+#'   segment = list(pattern = "n", anchorStart = T)
+#' 
 #' }
 #' @param participant.expression An optional participant query expression for identifying
 #'     participants to search the utterances of. This should be the output of
@@ -219,22 +233,23 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
     } # next column
 
     ## convert layer=string to layer=list(pattern=string)
-    target.layer <- "word"
     for (c in 1:length(pattern$columns)) { # for each column
         for (l in names(pattern$columns[[c]]$layers)) { # for each layer in the column
-            # if the layer value isn't a list
+            ## if the layer value isn't a list
             if (!is.list(pattern$columns[[c]]$layers[[l]])) {
-                # wrap a list(pattern=...) around it
-                pattern$columns[[c]]$layers[[l]] <- list(pattern = pattern$columns[[c]]$layers[[l]])
-            } # value isn't a list
-            # if they're searching the segment layer, assume it's the target
-            if (l == "segment" && target.layer == "word") {
-                target.layer <- "segment"
-            }
-            # ... unless there's an explicitly selected target
-            if (!is.null(pattern$columns[[c]]$layers[[l]]$target)
-                && pattern$columns[[c]]$layers[[l]]$target) {
-                target.layer <- l
+                ## wrap a list(pattern=...) around it
+                pattern$columns[[c]]$layers[[l]] <-
+                    list(pattern = pattern$columns[[c]]$layers[[l]])
+            } else if (is.null(names(pattern$columns[[c]]$layers[[l]]))) {
+                ## the layer value list is 'nameless' - i.e. multiple matches on same layer
+                for (m in 1:length(pattern$columns[[c]]$layers[[l]])) {
+                    ## if the layer match isn't a list
+                    if (!is.list(pattern$columns[[c]]$layers[[l]][[m]])) {
+                        ## wrap a list(pattern=...) around it
+                        pattern$columns[[c]]$layers[[l]][[m]] <-
+                            list(pattern = pattern$columns[[c]]$layers[[l]][[m]])
+                    }
+                } # next layer match
             }
         } # next layer
     } # next column
@@ -333,9 +348,6 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
 
     ## define the dataframe to return (which is, for now, empty)
     allMatches <- data.frame(matrix(ncol = 15, nrow = 0))
-    if (target.layer != "word") {
-        allMatches <- data.frame(matrix(ncol = 18, nrow = 0))
-    }
     if (thread$size > 0) { ## there were actually some matches
         
         ## ensure labbcat base URL has a trailing slash (for URL reconstruction)
@@ -343,7 +355,6 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
 
         ## layers - "word", and "segment" if mentioned in the pattern
         tokenLayers <- c("word")
-        if (target.layer != "word") tokenLayers <- c("word", target.layer)
         
         ## search results can be very large, and httr timeouts are short and merciless,
         ## so we break the results into chunks and retrieve them using lots of small
@@ -376,6 +387,28 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
             resp.content <- httr::content(resp, as="text", encoding="UTF-8")
             resp.json <- jsonlite::fromJSON(resp.content)
             matches <- resp.json$model$matches
+            
+            if (nrow(allMatches) == 0) { ## if it's the first row
+                ## figure out what the target layer is from the first result MatchId
+                target.layer <- "word" # default to word
+                target.layer_id = gsub(".*#=e.?_([0-9]+)_.*", "\\1", matches$MatchId[[1]])
+                if (target.layer_id == "0" || target.layer_id == "2") { ## word or orthography
+                    target.layer <- "word"
+                } else if (target.layer_id == "1") { # segment
+                    target.layer <- "segment"
+                } else { ## not an a priori known layer_id, so look it up
+                    if (!deprecatedApi) {
+                        layer <- getLayer(labbcat.url, target.layer_id)
+                        if (!is.null(layer)) {
+                            target.layer = layer$id
+                        }
+                    } 
+                }
+                if (target.layer != "word") {
+                    allMatches <- data.frame(matrix(ncol = 18, nrow = 0))
+                    tokenLayers <- c("word", target.layer)
+                }
+            }
             
             ## decrement the number of rows left to get
             matchesLeft <- matchesLeft - nrow(matches)

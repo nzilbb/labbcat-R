@@ -1,3 +1,28 @@
+# nzilbb.labbcat 1.3-1
+
+Minimum LaBB-CAT version *20230818.1400*
+
+## Enhancements
+
+- *getMatches* supports matching within-word segment context by allowing more than one pattern on segment layers, and anchoring segments to word boundaries.
+
+```
+## Examples of within-word segment context:
+
+## words that contain the /I/ phone followed by the /l/ phone
+## (multiple patterns per word currently only works for segment layers)
+pattern <- list(segment = list("I", "l"))
+
+## words that contain the /I/ phone followed by the /l/ phone, targeting the /l/ segment
+## (multiple patterns per word currently only works for segment layers)
+pattern <- list(segment = list("I", list(pattern="l", target=T)))
+
+## words where the spelling starts with "k", but the first segment is /n/
+pattern <- list(
+  orthography = "k.*", 
+  segment = list(pattern = "n", anchorStart = T)
+```
+
 # nzilbb.labbcat 1.3-0
 
 Minimum LaBB-CAT version *20230224.1731*
