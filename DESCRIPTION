@@ -20,6 +20,7 @@ License: GPL (>= 3)
 Copyright: New Zealand Institute of Language, Brain and Behaviour,
  University of Canterbury
 URL: https://nzilbb.github.io/labbcat-R/, https://labbcat.canterbury.ac.nz
+BugReports: https://github.com/nzilbb/labbcat-R/issues
 RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 2.1.0)
