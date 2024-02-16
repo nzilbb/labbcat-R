@@ -114,6 +114,8 @@
 #'     shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
 #' \itemize{
+#'  \item{\emph{Title} The title of the LaBB-CAT instance}
+#'  \item{\emph{Version} The current version of the LaBB-CAT instance}
 #'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
 #'  \item{\emph{MatchId} A unique ID for the matching target token}
 #'  \item{\emph{Transcript} Name of the transcript in which the match was found}
