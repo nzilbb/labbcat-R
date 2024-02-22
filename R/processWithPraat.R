@@ -209,6 +209,8 @@ processWithPraat <- function(labbcat.url, match.ids, start.offsets, end.offsets,
 
     ## tidily remove the downloaded file
     file.remove(download.file)
+    ## and release the server resources
+    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
     
     return(results)
 
