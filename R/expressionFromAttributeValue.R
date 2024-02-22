@@ -1,11 +1,11 @@
-#' Generates a query expression for matching a transcript/participant attribute, for use with
-#' \link{getMatches}.
+#' Generates a query expression for matching a single-value transcript/participant
+#' attribute, for use with \link{getMatches}.
 #'
 #' This function generates a query expression fragment which can be passed as
 #' the transcript.expression or participant.expression parameter of \link{getMatches}, (or
 #' the expression parameter of \link{getMatchingTranscriptIds} or
 #' \link{getMatchingParticipantIds}) using a list of possible values for a given
-#' transcript attribute. 
+#' attribute. 
 #'
 #' The attribute defined by transcript.attribute is expected to have exactly one value. If
 #' it may have multiple values, use \link{expressionFromAttributeValues} instead.
