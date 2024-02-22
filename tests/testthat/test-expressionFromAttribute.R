@@ -39,9 +39,23 @@ test_that("expressionFromAttributeValues works with a single value", {
         expressionFromAttributeValues("participant_languages", "en"),
         "labels('participant_languages').includes('en')")
 })
-test_that("expressionFromAttributeValues works works with quotes", {
+test_that("expressionFromAttributeValues works with quotes", {
     expect_equal(
         expressionFromAttributeValues(
             "participant's nicknames", c("O'Mally","Dwayne \"The Rock\" Johnson")),
         "['O\\'Mally','Dwayne \"The Rock\" Johnson'].includesAny(labels('participant\\'s nicknames'))")
+})
+test_that("expressionFromAttributeValuesCount works", {
+    expect_equal(
+        expressionFromAttributeValuesCount(
+            "participant_languages", count = 1),
+        "labels('participant_languages').length == 1")
+    expect_equal(
+        expressionFromAttributeValuesCount(
+            "participant_languages", ">=", 2),
+        "labels('participant_languages').length >= 2")
+    expect_equal(
+        expressionFromAttributeValuesCount(
+            "participant's nicknames", "<", 1),
+        "labels('participant\\'s nicknames').length < 1")
 })
