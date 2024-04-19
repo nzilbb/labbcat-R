@@ -11,6 +11,8 @@
 #' }
 #' 
 #' @seealso \link{getTranscriptIds}
+#' @seealso \link{saveMedia}
+#' @seealso \link{deleteMedia}
 #' @examples 
 #' \dontrun{
 #' ## List the media files available for BR2044_OllyOhlson.eaf

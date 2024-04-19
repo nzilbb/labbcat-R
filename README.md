@@ -300,11 +300,17 @@ attributes <- getParticipantAttributes(labbcat.url,
 
 ## Prerequesites
 
+Developer tools:
+
+```
+R -e "install.packages('devtools')"
+```
+
 For building the documentation with pkgdown:
 
 ```
 apt install pandoc
-R -e "install.packages("pkgdown")"
+R -e "install.packages('pkgdown')"
 ```
 
 ## Building the package and documentation

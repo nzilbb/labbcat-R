@@ -23,6 +23,11 @@ pattern <- list(
   segment = list(pattern = "n", anchorStart = T)
 ```
 
+## New functions:
+
+- *saveMedia* - saves the given media for the given transcript.
+- *deleteMedia* - deletes media or episode document files.
+
 # nzilbb.labbcat 1.3-0
 
 Minimum LaBB-CAT version *20230224.1731*
