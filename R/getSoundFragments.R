@@ -2,21 +2,21 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param ids The transcript ID (transcript name) of the sound recording, or
-#'     a vector of transcript IDs. 
+#'   a vector of transcript IDs. 
 #' @param start.offsets The start time in seconds, or a vector of start times.
 #' @param end.offsets The end time in seconds, or a vector of end times.
 #' @param sample.rate Optional sample rate in Hz - if a positive
-#'     integer, then the result is a mono file with the given sample rate.
+#'   integer, then the result is a mono file with the given sample rate.
 #' @param path Optional path to directory where the files should be saved.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
-#'     shown when interactive().
+#'   shown when interactive().
 #' @return The name of the file, which is saved in the current
-#'     directory, or a list of names of files, if multiple
-#'     id's/start's/end's were specified 
+#'   directory, or a list of names of files, if multiple
+#'   id's/start's/end's were specified 
 #'
-#' If a list of files is returned, they are in the order that they
-#'     were returned by the server, which *should* be the order that
-#'     they were specified in the id/start/end lists.
+#'   If a list of files is returned, they are in the order that they
+#'   were returned by the server, which *should* be the order that
+#'   they were specified in the id/start/end lists.
 #' 
 #' @examples
 #' \dontrun{

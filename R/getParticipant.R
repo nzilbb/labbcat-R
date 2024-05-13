@@ -8,11 +8,11 @@
 #' @param layer.ids A vector of layer IDs corresponding to participant attributes,
 #'   eg. c('participant_gender', 'participant_year_of_birth')
 #' @return A named list of representing the participant and its attributes, with members:
-#'  - *id* The participant's unique internal database ID
-#'  - *label* The ID (name) of the participant
-#'  - *annotations* A named list of participant attributes
-#'    e.g. the label of the participant's 'gender' attribute would be:
-#'    participant$annotations$participant_gender$label
+#'   - *id* The participant's unique internal database ID
+#'   - *label* The ID (name) of the participant
+#'   - *annotations* A named list of participant attributes
+#'     e.g. the label of the participant's 'gender' attribute would be:
+#'     participant$annotations$participant_gender$label
 #' 
 #' @seealso 
 #'   \code{\link{getParticipantAttributes}}

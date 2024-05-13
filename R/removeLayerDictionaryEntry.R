@@ -9,7 +9,7 @@
 #' @param layer.id The ID of the layer with a dictionary configured to manage it.
 #' @param key The key (word) in the dictionary to remove an entry from.
 #' @param entry The value (definition) for the given key, or NULL to remove all entries
-#'     for the given key.
+#'   for the given key.
 #' @return NULL if the entry was added, or a list of error messages if not.
 #' 
 #' @seealso

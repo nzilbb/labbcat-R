@@ -3,9 +3,9 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param transcript.ids A vector of transcript IDs
 #' @param layer.ids A vector of layer IDs corresponding to transcript attributes. In
-#'     general, these are layers whose ID is prefixed 'transcript_', however formally it's
-#'     any layer where layer$parentId == 'transcript' && layer$alignment == 0, which includes
-#'     'corpus' as well as transcript attribute layers.
+#'   general, these are layers whose ID is prefixed 'transcript_', however formally it's
+#'   any layer where layer$parentId == 'transcript' && layer$alignment == 0, which includes
+#'   'corpus' as well as transcript attribute layers.
 #' @return A data frame of attribute value labels.
 #' 
 #' @examples

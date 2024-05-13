@@ -8,40 +8,40 @@
 #' @param get.maximum Extract the maximum pitch for the sample.
 #' @param time.step Step setting for praat command
 #' @param pitch.floor Minimum pitch (Hz) for all speakers, or for female speakers,
-#'     if pitch.floor.male is also specified.
+#'   if pitch.floor.male is also specified.
 #' @param max.number.of.candidates Maximum number of candidates setting for praat command
 #' @param very.accurate Accuracy setting for praat command
 #' @param silence.threshold Silence threshold setting for praat command
 #' @param voicing.threshold Voicing threshold (Hz) for all speakers, or for female speakers,
-#'     if voicing.threshold.male is also specified.
+#'   if voicing.threshold.male is also specified.
 #' @param octave.cost Octave cost setting for praat command
 #' @param octave.jump.cost Octave jump cost setting for praat command
 #' @param voiced.unvoiced.cost Voiced/unvoiced cost setting for praat command
 #' @param pitch.ceiling Maximum pitch (Hz) for all speakers, or for female speakers,
-#'     if pitch.floor.male is also specified.
+#'   if pitch.floor.male is also specified.
 #' @param pitch.floor.male Minimum pitch (Hz) for male speakers.
 #' @param voicing.threshold.male Voicing threshold (Hz) for male speakers.
 #' @param pitch.ceiling.male Maximum pitch (Hz) for male speakers.
 #' @param gender.attribute Name of the LaBB-CAT participant attribute that contains the
-#'     participant's gender - normally this is "participant_gender".
+#'   participant's gender - normally this is "participant_gender".
 #' @param value.for.male The value that the gender.attribute has when the participant is male.
 #' @param sample.points A vector of numbers (0 <= sample.points <= 1) specifying multiple
-#'     points at which to take the measurement.  The default is NULL, meaning no
-#'     individual measurements will be taken (only the aggregate values identified by
-#'     get.mean, get.minimum, and get.maximum).  A single point at 0.5 means one
-#'     measurement will be taken halfway through the target interval.  If, for example, 
-#'     you wanted eleven measurements evenly spaced throughout the interval, you would
-#'     specify sample.points as being 
-#'     c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).  
+#'   points at which to take the measurement.  The default is NULL, meaning no
+#'   individual measurements will be taken (only the aggregate values identified by
+#'   get.mean, get.minimum, and get.maximum).  A single point at 0.5 means one
+#'   measurement will be taken halfway through the target interval.  If, for example, 
+#'   you wanted eleven measurements evenly spaced throughout the interval, you would
+#'   specify sample.points as being 
+#'   c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).  
 #' @param interpolation If sample.points are specified, this is the interpolation to use
-#'     when getting individual values. Possible values are 'nearest' or 'linear'.
+#'   when getting individual values. Possible values are 'nearest' or 'linear'.
 #' @param skip.errors Sometimes, for some segments, Praat fails to create a Pitch
-#'     object. If skip.errors = TRUE, analysis those segments will be skipped, and corresponding
-#'     pitch values will be returned as "--undefined--". If skip.errors = FALSE, the error
-#'     message from Praat will be returned in the Error field, but no pitch measures will
-#'     be returned for any segments in the same recording.
+#'   object. If skip.errors = TRUE, analysis those segments will be skipped, and corresponding
+#'   pitch values will be returned as "--undefined--". If skip.errors = FALSE, the error
+#'   message from Praat will be returned in the Error field, but no pitch measures will
+#'   be returned for any segments in the same recording.
 #' @return A script fragment which can be passed as the praat.script parameter of
-#'     \link{processWithPraat} 
+#'   \link{processWithPraat} 
 #' 
 #' @seealso \link{processWithPraat}
 #' @seealso \link{praatScriptFormants}

@@ -9,21 +9,21 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id The transcript ID (transcript name) of the sound recording, or
-#'     a vector of transcript IDs. 
+#'   a vector of transcript IDs. 
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
 #' @param layer.ids A vector of layer IDs.
 #' @param mime.type Optional content-type - "text/praat-textgrid" is the default, but your
-#'     LaBB-CAT installation may support other formats, which can be discovered using
-#'     \link{getSerializerDescriptors}.
+#'   LaBB-CAT installation may support other formats, which can be discovered using
+#'   \link{getSerializerDescriptors}.
 #' @param path Optional path to directory where the files should be saved.
 #' @return The name of the file, which is saved in the current
-#'     directory, or a list of names of files, if multiple
-#'     id's/start's/end's were specified 
+#'   directory, or a list of names of files, if multiple
+#'   id's/start's/end's were specified 
 #'
-#' If a list of files is returned, they are in the order that they
-#'     were returned by the server, which *should* be the order that
-#'     they were specified in the id/start/end lists.
+#'   If a list of files is returned, they are in the order that they
+#'   were returned by the server, which *should* be the order that
+#'   they were specified in the id/start/end lists.
 #' 
 #' @seealso \link{getSerializerDescriptors}
 #' @examples

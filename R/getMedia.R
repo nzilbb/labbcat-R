@@ -6,7 +6,7 @@
 #' @param mime.type The MIME type of the media, e.g. "audio/wav" or "application/f0".
 #' @param path Optional path to directory where the file should be saved.
 #' @return The name of the file, which is saved in the current directory, or the given
-#'         path if specified
+#'   path if specified
 #' @seealso \link{getTranscriptIds}
 #' @seealso \link{getMediaUrl}
 #' @examples 

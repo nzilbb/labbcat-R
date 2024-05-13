@@ -5,11 +5,11 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,
-#'     of a results set. 
+#'   of a results set. 
 #' @param layer.id The ID of the layer to generate.
 #' @param collection.name An optional name for the collection, e.g. the participant ID.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
-#'     shown when interactive().
+#'   shown when interactive().
 #' @return The final status of the layer generation task.
 #' 
 #' @seealso

@@ -3,8 +3,8 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param participant.ids A vector of participant IDs
 #' @param layer.ids A vector of layer IDs corresponding to participant attributes. In
-#'     general, these are layers whose ID is prefixed 'participant_', however formally it's
-#'     any layer where layer$parentId == 'participant' && layer$alignment == 0.
+#'   general, these are layers whose ID is prefixed 'participant_', however formally it's
+#'   any layer where layer$parentId == 'participant' && layer$alignment == 0.
 #' @return A data frame of attribute value labels.
 #' 
 #' @examples

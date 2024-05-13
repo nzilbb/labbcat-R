@@ -13,9 +13,9 @@
 #' @param id The participant ID - either the unique internal database ID, or their name.
 #' @param label The new ID (name) for the participant
 #' @param attributes A named list of participant attribute values - the names are the
-#'     participant attribute layer IDs, and the values are the corresponding new attribute
-#'     values. The pass phrase for participant access can also be set by specifying a "_password"
-#'     attribute.
+#'   participant attribute layer IDs, and the values are the corresponding new attribute
+#'   values. The pass phrase for participant access can also be set by specifying a "_password"
+#'   attribute.
 #' @return TRUE if the participant's record was updated, FALSE if there were no changes detected.
 #' 
 #' @seealso \code{\link{getParticipant}}

@@ -7,11 +7,11 @@
 #'
 #' This can be:
 #' * A string, representing a search of the orthography layer - spaces are
-#'    taken to be word boundaries
+#'   taken to be word boundaries
 #' * A single named list, representing a one-column search - names are taken to be layer IDs
 #' * A list of named lists, representing a multi-column search - the outer list
-#'    represents the columns of the search matrix where each column 'immediately
-#'    follows' the previous, and the names of the inner lists are taken to be layer IDs
+#'   represents the columns of the search matrix where each column 'immediately
+#'   follows' the previous, and the names of the inner lists are taken to be layer IDs
 #' * A named list (or for segment layers, a list of named lists) fully replicating
 #'   the structure of the search matrix in the LaBB-CAT browser interface, with one
 #'   element called "columns", containing a named list for each column.  
@@ -75,60 +75,60 @@
 #' 
 #' ```
 #' @param participant.expression An optional participant query expression for identifying
-#'     participants to search the utterances of. This should be the output of
-#'     \link{expressionFromIds}, \link{expressionFromAttributeValue},
-#'     or \link{expressionFromAttributeValues}, or more than one concatentated together
-#'     and delimited by ' && '. If not supplied, utterances of all participants will be searched.
+#'   participants to search the utterances of. This should be the output of
+#'   \link{expressionFromIds}, \link{expressionFromAttributeValue},
+#'   or \link{expressionFromAttributeValues}, or more than one concatentated together
+#'   and delimited by ' && '. If not supplied, utterances of all participants will be searched.
 #' @param transcript.expression An optional transript query expression for identifying
-#'     transcripts to search in. This should be the output of \link{expressionFromIds},
-#'     \link{expressionFromTranscriptTypes}, \link{expressionFromAttributeValue},
-#'     or \link{expressionFromAttributeValues}, or more than one concatentated together
-#'     and delimited by ' && '. If not supplied, all transcripts will be searched.
+#'   transcripts to search in. This should be the output of \link{expressionFromIds},
+#'   \link{expressionFromTranscriptTypes}, \link{expressionFromAttributeValue},
+#'   or \link{expressionFromAttributeValues}, or more than one concatentated together
+#'   and delimited by ' && '. If not supplied, all transcripts will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
-#'     search all utterances.
+#'   search all utterances.
 #' @param aligned This parameter is deprecated and will be removed in future versions;
-#'     please use `anchor.confidence.min = 50` instead.
+#'   please use `anchor.confidence.min = 50` instead.
 #' @param matches.per.transcript Optional maximum number of matches per transcript to
-#'     return. NULL means all matches.
+#'   return. NULL means all matches.
 #' @param words.context Number of words context to include in the 'Before.Match' and
-#'     'After.Match' columns in the results.
+#'   'After.Match' columns in the results.
 #' @param max.matches The maximum number of matches to return, or null to return all.
 #' @param overlap.threshold The percentage overlap with other utterances before
-#'     simultaneous speech is excluded, or null to include overlapping speech.
+#'   simultaneous speech is excluded, or null to include overlapping speech.
 #' @param anchor.confidence.min The minimum confidence for alignments, e.g.
-#'  - *0* - return all alignments, regardless of confidence;
-#'  - *50* - return only alignments that have been at least automatically aligned;
-#'  - *100* - return only manually-set alignments.
+#'   - *0* - return all alignments, regardless of confidence;
+#'   - *50* - return only alignments that have been at least automatically aligned;
+#'   - *100* - return only manually-set alignments.
 #' @param page.length In order to prevent timeouts when there are a large number of
-#'     matches or the network connection is slow, rather than retrieving matches in one
-#'     big request, they are retrieved using many smaller requests. This parameter
-#'     controls the number of results retrieved per request.
+#'   matches or the network connection is slow, rather than retrieving matches in one
+#'   big request, they are retrieved using many smaller requests. This parameter
+#'   controls the number of results retrieved per request.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
-#'     shown when interactive().
+#'   shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
-#'  - *Title* The title of the LaBB-CAT instance
-#'  - *Version* The current version of the LaBB-CAT instance
-#'  - *SearchName* A name based on the pattern -- the same for all rows
-#'  - *MatchId* A unique ID for the matching target token
-#'  - *Transcript* Name of the transcript in which the match was found
-#'  - *Participant* Name of the speaker
-#'  - *Corpus* The corpus of the transcript
-#'  - *Line* The start offset of the utterance/line
-#'  - *LineEnd* The end offset of the utterance/line
-#'  - *Before.Match* Transcript text immediately before the match
-#'  - *Text* Transcript text of the match
-#'  - *After.Match* Transcript text immediately after the match
-#'  - *Number* Row number
-#'  - *URL* URL of the first matching word token
-#'  - *Target.word* Text of the target word token
-#'  - *Target.word.start* Start offset of the target word token
-#'  - *Target.word.end* End offset of the target word token
-#'  - *Target.segment* Label of the target segment (only present if the segment
-#'     layer is included in the pattern)
-#'  - *Target.segment.start* Start offset of the target segment (only present if the
-#'     segment layer is included in the pattern)
-#'  - *Target.segment.end* End offset of the target segment (only present if the
-#'     segment layer is included in the pattern)
+#'   - *Title* The title of the LaBB-CAT instance
+#'   - *Version* The current version of the LaBB-CAT instance
+#'   - *SearchName* A name based on the pattern -- the same for all rows
+#'   - *MatchId* A unique ID for the matching target token
+#'   - *Transcript* Name of the transcript in which the match was found
+#'   - *Participant* Name of the speaker
+#'   - *Corpus* The corpus of the transcript
+#'   - *Line* The start offset of the utterance/line
+#'   - *LineEnd* The end offset of the utterance/line
+#'   - *Before.Match* Transcript text immediately before the match
+#'   - *Text* Transcript text of the match
+#'   - *After.Match* Transcript text immediately after the match
+#'   - *Number* Row number
+#'   - *URL* URL of the first matching word token
+#'   - *Target.word* Text of the target word token
+#'   - *Target.word.start* Start offset of the target word token
+#'   - *Target.word.end* End offset of the target word token
+#'   - *Target.segment* Label of the target segment (only present if the segment
+#'      layer is included in the pattern)
+#'   - *Target.segment.start* Start offset of the target segment (only present if the
+#'      segment layer is included in the pattern)
+#'   - *Target.segment.end* End offset of the target segment (only present if the
+#'      segment layer is included in the pattern)
 #' 
 #' @seealso \code{\link{getFragments}}
 #' @seealso \code{\link{getSoundFragments}}

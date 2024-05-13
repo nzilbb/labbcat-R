@@ -3,25 +3,25 @@
 #' This function gets whole transcripts from 'LaBB-CAT', 
 #' converted to a given format (by default, Praat TextGrid).
 #'
-#' \emph{NB} Although many formats will generate exactly one file for each interval
-#'      (e.g. mime.type=text/praat-textgrid), this is not guaranted; some formats generate
-#'      a single file or a fixed collection of files regardless of how many IDs there are.
+#' **NB** Although many formats will generate exactly one file for each interval
+#' (e.g. mime.type=text/praat-textgrid), this is not guaranted; some formats generate
+#' a single file or a fixed collection of files regardless of how many IDs there are.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id The transcript ID (transcript name) of the sound recording, or
-#'     a vector of transcript IDs. If the same ID appears more than one, the formatted
-#'     file is downloaded only once.
+#'   a vector of transcript IDs. If the same ID appears more than one, the formatted
+#'   file is downloaded only once.
 #' @param layer.ids A vector of layer IDs.
 #' @param mime.type Optional content-type - "text/praat-textgrid" is the default, but your
-#'     LaBB-CAT installation may support other formats, which can be discovered using
-#'     \link{getSerializerDescriptors}.
+#'   LaBB-CAT installation may support other formats, which can be discovered using
+#'   \link{getSerializerDescriptors}.
 #' @param path Optional path to directory where the files should be saved.
 #' @return The name of the file, which is saved in the current directory, or the given
 #' path, or a list of names of files, if multiple id's were specified. 
 #'
 #' If a list of files is returned, they are in the order that they
-#'     were returned by the server, which *should* be the order that
-#'     they were specified in the id list.
+#' were returned by the server, which *should* be the order that
+#' they were specified in the id list.
 #' 
 #' @seealso \link{getSerializerDescriptors}
 #' @examples

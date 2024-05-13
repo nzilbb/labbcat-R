@@ -32,9 +32,9 @@
 #' @param username The LaBB-CAT username, if it is password-protected
 #' @param password The LaBB-CAT password, if it is password-protected
 #' @return NULL if the username/password are correct, and a string describing the problem
-#'     if a problem occurred, e.g. "Credentials rejected" if the username/password are
-#'     incorrect, or a string starting "Version mismatch" if the server's version of
-#'     LaBB-CAT is lower than the minimum required.
+#'   if a problem occurred, e.g. "Credentials rejected" if the username/password are
+#'   incorrect, or a string starting "Version mismatch" if the server's version of
+#'   LaBB-CAT is lower than the minimum required.
 #' @examples
 #' \dontrun{
 #' ## load the LaBB-CAT URL from .Renviron

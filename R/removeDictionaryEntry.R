@@ -9,7 +9,7 @@
 #' @param dictionary.id The ID of the dictionary, as returned by getDictionaries
 #' @param key The key (word) in the dictionary to remove an entry for.
 #' @param entry The value (definition) for the given key, or NULL to remove all entries
-#'     for the key.
+#'   for the key.
 #' @return NULL if the entry was removed, or a list of error messages if not.
 #' 
 #' @seealso \link{getDictionaries}

@@ -5,12 +5,12 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param participant.ids A list of participant IDs to identify the utterances of.
 #' @param transcript.types An optional list of transcript types to limit the results
-#'     to. If null, all transcript types will be searched. 
+#'   to. If null, all transcript types will be searched. 
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
-#'     search all utterances.
+#'   search all utterances.
 #' @param max.matches The maximum number of matches to return, or null to return all.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
-#'     shown when interactive().
+#'   shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
 #'  - *SearchName* A name based on the pattern -- the same for all rows
 #'  - *Number* Row number

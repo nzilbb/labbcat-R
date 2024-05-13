@@ -7,8 +7,8 @@
 #' @param id A transcript ID (i.e. transcript name)
 #' @param layer.id A layer ID
 #' @param max.ordinal The maximum ordinal for the counted annotations. e.g. a max.ordinal
-#' of 1 will ensure that only the first annotation for each parent is returned. If
-#' max.ordinal is null, then all annotations are counted, regardless of their ordinal.
+#'   of 1 will ensure that only the first annotation for each parent is returned. If
+#'   max.ordinal is null, then all annotations are counted, regardless of their ordinal.
 #' @return The number of annotations on that layer
 #' 
 #' @seealso

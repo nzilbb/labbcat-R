@@ -6,34 +6,34 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param layer A named list object representing the layer attributes, as would be
-#'     returned by \link{getLayer} or \link{newLayer}, with members:
-#'      - *id* The layer's unique ID
-#'      - *parentId* The layer's parent layer ID
-#'      - *description* The description of the layer
-#'      - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2
-#'         for interval alignment
-#'      - *peers* Whether children have peers or not
-#'      - *peersOverlap* Whether child peers can overlap or not
-#'      - *parentIncludes* Whether the parent t-includes the child
-#'      - *saturated* Whether children must temporally fill the entire parent
-#'         duration (true) or not (false)
-#'      - *parentIncludes* Whether the parent t-includes the child
-#'      - *type* The type for labels on this layer
-#'      - *validLabels* List of valid label values for this layer
+#'   returned by \link{getLayer} or \link{newLayer}, with members:
+#'   - *id* The layer's unique ID
+#'   - *parentId* The layer's parent layer ID
+#'   - *description* The description of the layer
+#'   - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2
+#'      for interval alignment
+#'   - *peers* Whether children have peers or not
+#'   - *peersOverlap* Whether child peers can overlap or not
+#'   - *parentIncludes* Whether the parent t-includes the child
+#'   - *saturated* Whether children must temporally fill the entire parent
+#'      duration (true) or not (false)
+#'   - *parentIncludes* Whether the parent t-includes the child
+#'   - *type* The type for labels on this layer
+#'   - *validLabels* List of valid label values for this layer
 #' @return The resulting layer definition, with members:
-#'      - *id* The layer's unique ID
-#'      - *parentId* The layer's parent layer ID
-#'      - *description* The description of the layer
-#'      - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2
-#'         for interval alignment
-#'      - *peers* Whether children have peers or not
-#'      - *peersOverlap* Whether child peers can overlap or not
-#'      - *parentIncludes* Whether the parent t-includes the child
-#'      - *saturated* Whether children must temporally fill the entire parent
-#'         duration (true) or not (false)
-#'      - *parentIncludes* Whether the parent t-includes the child
-#'      - *type* The type for labels on this layer
-#'      - *validLabels* List of valid label values for this layer
+#'   - *id* The layer's unique ID
+#'   - *parentId* The layer's parent layer ID
+#'   - *description* The description of the layer
+#'   - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2
+#'      for interval alignment
+#'   - *peers* Whether children have peers or not
+#'   - *peersOverlap* Whether child peers can overlap or not
+#'   - *parentIncludes* Whether the parent t-includes the child
+#'   - *saturated* Whether children must temporally fill the entire parent
+#'      duration (true) or not (false)
+#'   - *parentIncludes* Whether the parent t-includes the child
+#'   - *type* The type for labels on this layer
+#'   - *validLabels* List of valid label values for this layer
 #' 
 #' @seealso
 #' \code{\link{newLayer}}

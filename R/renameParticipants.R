@@ -8,7 +8,7 @@
 #' @param new.ids A vector of new participant IDs, each element corresponding to an ID in
 #'   current.ids. 
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
-#'     shown when interactive().
+#'   shown when interactive().
 #' @return A vector of results, each element corresponding to an ID in current.ids. If the
 #'   ID was successfully changed, the corresponding element is TRUE. If the ID could not
 #'   be changed (e.g. because there is already an existing participant using the new ID),

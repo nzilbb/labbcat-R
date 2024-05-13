@@ -5,17 +5,17 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param transcript.id The transcript ID (transcript name) of the sound recording, or
-#'     a vector of transcript IDs. 
+#'   a vector of transcript IDs. 
 #' @param participant.id The participant ID of the annotations, or a vector of participant IDs.  
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
 #' @param layer.ids A vector of layer IDs.
 #' @param sep The separator to use when concatenating labels when multiple annotations are
-#'     in the given interval.
+#'   in the given interval.
 #' @param partial.containment Whether to include annotations that are only partially
-#'     contained in the given interval.
+#'   contained in the given interval.
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
-#'     shown when interactive().
+#'   shown when interactive().
 #' @return A data frame with three columns for each layer in layer.ids:
 #'  - The annotation labels concatenated together
 #'  - The start time of the first annotation

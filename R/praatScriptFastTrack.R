@@ -10,50 +10,50 @@
 #' information, see \url{https://github.com/santiagobarreda/FastTrack}
 #'
 #' @param formants A vector of integers specifying which formants to extract, e.g c(1,2)
-#'     for the first and second formant.
+#'   for the first and second formant.
 #' @param sample.points A vector of numbers (0 <= sample.points <= 1) specifying multiple
-#'     points at which to take the measurement.  The default is a single point at 0.5 -
-#'     this means one measurement will be taken halfway through the target interval.  If,
-#'     for example, you wanted eleven measurements evenly spaced throughout the interval,
-#'     you would specify sample.points as being
-#'     c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).
+#'   points at which to take the measurement.  The default is a single point at 0.5 -
+#'   this means one measurement will be taken halfway through the target interval.  If,
+#'   for example, you wanted eleven measurements evenly spaced throughout the interval,
+#'   you would specify sample.points as being
+#'   c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).
 #' @param lowest.analysis.frequency Lowest analysis frequency (Hz) by default.
 #' @param lowest.analysis.frequency.male Lowest analysis frequency (Hz) for male
-#'     speakers, or NULL to use the same value as lowest.analysis.frequency.
+#'   speakers, or NULL to use the same value as lowest.analysis.frequency.
 #' @param highest.analysis.frequency Highest analysis frequency (Hz) by default.
 #' @param highest.analysis.frequency.male Highest analysis frequency (Hz) for male
-#'     speakers, or NULL to use the same value as highest.analysis.frequency.
+#'   speakers, or NULL to use the same value as highest.analysis.frequency.
 #' @param gender.attribute Name of the LaBB-CAT participant attribute that contains the
-#'     participant's gender - normally this is "participant_gender".
+#'   participant's gender - normally this is "participant_gender".
 #' @param value.for.male The value that the gender.attribute has when the participant is male.
 #' @param time.step Time step in seconds.
 #' @param tracking.method tracking_method parameter for trackAutoselectProcedure; "burg"
-#'     or "robust". 
+#'   or "robust". 
 #' @param number.of.formants Number of formants to track - 3 or 4. 
 #' @param maximum.f1.frequency Specifying a non-NULL value enables the F1 frequency
-#'     heuristic: Median F1 frequency should not be higher than this value.
+#'   heuristic: Median F1 frequency should not be higher than this value.
 #' @param maximum.f1.bandwidth Specifying a non-NULL value (e.g. 500)
-#'     enables the F1 bandwidth heuristic: Median F1 bandwidth should not be higher than
-#'     this value. 
+#'   enables the F1 bandwidth heuristic: Median F1 bandwidth should not be higher than
+#'   this value. 
 #' @param maximum.f2.bandwidth Specifying a non-NULL value (e.g. 600)
-#'     enables the F2 bandwidth heuristic: Median F2 bandwidth should not be higher than
-#'     this value. 
+#'   enables the F2 bandwidth heuristic: Median F2 bandwidth should not be higher than
+#'   this value. 
 #' @param maximum.f3.bandwidth Specifying a non-NULL value (e.g. 900)
-#'     enables the F3 bandwidth heuristic: Median F3 bandwidth should not be higher than
-#'     this value. 
+#'   enables the F3 bandwidth heuristic: Median F3 bandwidth should not be higher than
+#'   this value. 
 #' @param minimum.f4.frequency Specifying a non-NULL value enables the F4 frequency
-#'     heuristic: Median F4 frequency should not be lower than this value.
+#'   heuristic: Median F4 frequency should not be lower than this value.
 #' @param enable.rhotic.heuristic Whether to enable the rhotic heuristic: If F3 < 2000 Hz,
-#'     F1 and F2 should be at least 500 Hz apart.
+#'   F1 and F2 should be at least 500 Hz apart.
 #' @param enable.f3.f4.proximity.heuristic Whether to enable the F3/F4 proximity
-#'     heuristic: If (F4 - F3) < 500 Hz, F1 and F2 should be at least 1500 Hz apart.
+#'   heuristic: If (F4 - F3) < 500 Hz, F1 and F2 should be at least 1500 Hz apart.
 #' @param number.of.steps Number of analyses between low and high analysis limits. More
-#'     analysis steps may improve results, but will increase analysis time (50 percent more steps
-#'     = around 50 percent longer to analyze).
+#'   analysis steps may improve results, but will increase analysis time (50 percent more steps
+#'   = around 50 percent longer to analyze).
 #' @param number.of.coefficients Number of coefficients for formant prediction. More
-#'     coefficients allow for more sudden, and 'wiggly' formant motion.
+#'   coefficients allow for more sudden, and 'wiggly' formant motion.
 #' @return A script fragment which can be passed as the praat.script parameter of
-#'     \link{processWithPraat} 
+#'   \link{processWithPraat} 
 #' 
 #' @seealso \link{processWithPraat}
 #' @seealso \link{praatScriptCentreOfGravity}

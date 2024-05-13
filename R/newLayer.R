@@ -11,31 +11,31 @@
 #' @param layer.id The ID of the layer to create, which must be unique to the LaBB-CAT instance.
 #' @param description A description of the annotations the layer will contain.
 #' @param type The type of data the labels will represent. Valid values are "string",
-#'     "number", "ipa" (for phoneme representations), or "boolean" (labels "0" or "1").
+#'   "number", "ipa" (for phoneme representations), or "boolean" (labels "0" or "1").
 #' @param alignment How annotations on the layer will relate to time alignment; valid
-#'     values are 0 (no alignment; annototations are just tags on the parent annotation),
-#'     1 (instants; annotations mark a single point in time), or 2 (intervals; annotations
-#'     have a start and end time).
+#'   values are 0 (no alignment; annototations are just tags on the parent annotation),
+#'   1 (instants; annotations mark a single point in time), or 2 (intervals; annotations
+#'   have a start and end time).
 #' @param category The project/category the layer belongs to.
 #' @param parent.id The parent layer; valid values are "word" (for word layers), "segment"
-#'     (for segment layers) "turn" (for phrase layers), or "transcript" (for span layers).
+#'   (for segment layers) "turn" (for phrase layers), or "transcript" (for span layers).
 #' @param annotator.id The ID of the layer manager that automatically fills in
-#'     annotations on the layer, if any
+#'   annotations on the layer, if any
 #' @param annotator.task.parameters The configuration the layer manager should use when
-#'     filling the layer with annotations. This is a string whose format is specific to
-#'     each layer manager.
+#'   filling the layer with annotations. This is a string whose format is specific to
+#'   each layer manager.
 #' @return The resulting layer definition, with members:
-#'  - *id* The layer's unique ID
-#'  - *parentId* The layer's parent layer ID
-#'  - *description* The description of the layer
-#'  - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment
-#'  - *peers* Whether children have peers or not
-#'  - *peersOverlap* Whether child peers can overlap or not
-#'  - *parentIncludes* Whether the parent t-includes the child
-#'  - *saturated* Whether children must temporally fill the entire parent duration (true) or not (false)
-#'  - *parentIncludes* Whether the parent t-includes the child
-#'  - *type* The type for labels on this layer
-#'  - *validLabels* List of valid label values for this layer
+#'   - *id* The layer's unique ID
+#'   - *parentId* The layer's parent layer ID
+#'   - *description* The description of the layer
+#'   - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment
+#'   - *peers* Whether children have peers or not
+#'   - *peersOverlap* Whether child peers can overlap or not
+#'   - *parentIncludes* Whether the parent t-includes the child
+#'   - *saturated* Whether children must temporally fill the entire parent duration (true) or not (false)
+#'   - *parentIncludes* Whether the parent t-includes the child
+#'   - *type* The type for labels on this layer
+#'   - *validLabels* List of valid label values for this layer
 #' 
 #' @seealso
 #' \code{\link{generateLayer}}

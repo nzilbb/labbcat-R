@@ -6,9 +6,9 @@
 #' @param id A transcript ID (i.e. transcript name)
 #' @param anchor.id A vector of anchor IDs (or a string representing one anchor ID)
 #' @param page.length In order to prevent timeouts when there are a large number of
-#'     matches or the network connection is slow, rather than retrieving anchors in one
-#'     big request, they are retrieved using many smaller requests. This parameter
-#'     controls the number of anchors retrieved per request.
+#'   matches or the network connection is slow, rather than retrieving anchors in one
+#'   big request, they are retrieved using many smaller requests. This parameter
+#'   controls the number of anchors retrieved per request.
 #' @return  A named list of anchors, with members:
 #'  - *id* The annotation's unique ID,
 #'  - *offset* The offset from the beginning (in seconds if it's a

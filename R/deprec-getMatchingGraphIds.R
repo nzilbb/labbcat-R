@@ -13,26 +13,24 @@
 #' The expression language is currently not well defined, but is based on JavaScript
 #' syntax.
 #' 
-#' \itemize{
-#'  \item{The \emph{labels} function can be used to represent a list of all the annotation
-#'        labels on a given layer. For example, each transcript can have multiple
-#'        participants, so the participant labels (names) are represented by:
-#'        \emph{labels('participant')}}
-#'  \item{Use the \emph{includes} function on a list to test whether the list contains a
-#'        given element. e.g. to match transcripts that include the participant 'Joe' use:
-#'        \emph{labels('participant').includes('Joe')}}
-#'  \item{Use the \emph{first} function to identify the first (or the only) annotation on
-#'        a given layer. e.g. the annotation representing the transcript's corpus is:
-#'        \emph{first('corpus')}}
-#'  \item{Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
-#'        e.g. the name of the transcript's corpus is:
-#'        \emph{first('corpus').label}}
-#'  \item{Regular expressions can be matched by using expressions like
-#'        '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:
-#'        \emph{/^BR.+/.test(id)}
-#'        or to test if the transcript's corpus includes a B use:
-#'        \emph{/.*B.*/.test(first('corpus').label)}}
-#' }
+#' - The *labels* function can be used to represent a list of all the annotation
+#'   labels on a given layer. For example, each transcript can have multiple
+#'   participants, so the participant labels (names) are represented by:
+#'   labels('participant')`
+#' - Use the *includes* function on a list to test whether the list contains a
+#'   given element. e.g. to match transcripts that include the participant 'Joe' use:
+#'   `labels('participant').includes('Joe')`
+#' - Use the *first* function to identify the first (or the only) annotation on
+#'   a given layer. e.g. the annotation representing the transcript's corpus is:
+#'   `first('corpus')`
+#' - Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
+#'   e.g. the name of the transcript's corpus is:
+#'   `first('corpus').label`
+#' - Regular expressions can be matched by using expressions like
+#'   '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:
+#'   `/^BR.+/.test(id)`
+#'   or to test if the transcript's corpus includes a B use:
+#'   `/.*B.*/.test(first('corpus').label)`
 #' 
 #' Expressions such as those in the examples can be used.
 #' 

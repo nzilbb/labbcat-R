@@ -7,26 +7,26 @@
 #' uses the FastTrack Praat plugin for formant analysis.
 #'
 #' @param formants A vector of integers specifying which formants to extract, e.g c(1,2)
-#'     for the first and second formant.
+#'   for the first and second formant.
 #' @param sample.points A vector of numbers (0 <= sample.points <= 1) specifying multiple
-#'     points at which to take the measurement.  The default is a single point at 0.5 -
-#'     this means one measurement will be taken halfway through the target interval.  If,
-#'     for example, you wanted eleven measurements evenly spaced throughout the interval,
-#'     you would specify sample.points as being
-#'     c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).  
+#'   points at which to take the measurement.  The default is a single point at 0.5 -
+#'   this means one measurement will be taken halfway through the target interval.  If,
+#'   for example, you wanted eleven measurements evenly spaced throughout the interval,
+#'   you would specify sample.points as being
+#'   c(0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0).  
 #' @param time.step Time step in seconds, or 0.0 for 'auto'.
 #' @param max.number.formants Maximum number of formants.
 #' @param max.formant Maximum formant value (Hz) for all speakers, or for female speakers,
-#'     if max.formant.male is also specified.
+#'   if max.formant.male is also specified.
 #' @param max.formant.male Maximum formant value (Hz) for male speakers, or NULL to use
-#'     the same value as max.formant.
+#'   the same value as max.formant.
 #' @param gender.attribute Name of the LaBB-CAT participant attribute that contains the
-#'     participant's gender - normally this is "participant_gender".
+#'   participant's gender - normally this is "participant_gender".
 #' @param value.for.male The value that the gender.attribute has when the participant is male.
 #' @param window.length Window length in seconds.
 #' @param preemphasis.from Pre-emphasis from (Hz)
 #' @return A script fragment which can be passed as the praat.script parameter of
-#'     \link{processWithPraat} 
+#'   \link{processWithPraat} 
 #' 
 #' @seealso \link{processWithPraat}
 #' @seealso \link{praatScriptCentreOfGravity}
