@@ -9,26 +9,24 @@
 #' The expression language is currently not well defined, but is based on JavaScript
 #' syntax.
 #' 
-#' \itemize{
-#'  \item{The \emph{labels} function can be used to represent a list of all the annotation
+#'  - The *labels* function can be used to represent a list of all the annotation
 #'        labels on a given layer. For example, each participant can have multiple
 #'        corpora, so the corpus labels (names) are represented by:  
-#'        \emph{labels('corpus')}}
-#'  \item{Use the \emph{includes} function on a list to test whether the list contains a
+#'        `labels('corpus')`
+#'  - Use the *includes* function on a list to test whether the list contains a
 #'        given element. e.g. to match participants that include the corpus 'QB' use:  
-#'        \emph{labels('corpus').includes('QB')}}
-#'  \item{Use the \emph{first} function to identify the first (or the only) annotation on
+#'        `labels('corpus').includes('QB')`
+#'  - Use the *first* function to identify the first (or the only) annotation on
 #'        a given layer. e.g. the annotation representing the participant's gender is:  
-#'        \emph{first('participant_gender')}}
-#'  \item{Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
+#'        `first('participant_gender')`
+#'  - Single annotations have various attributes, including 'id', 'label', 'ordinal', etc.
 #'        e.g. the label of the participant's gender is:  
-#'        \emph{first('participant_gender').label}}
-#'  \item{Regular expressions can be matched by using expressions like
+#'        `first('participant_gender').label`
+#'  - Regular expressions can be matched by using expressions like
 #'        '/regex/.test(str)', e.g. to test if the ID starts with 'BR' use:  
-#'        \emph{/^BR.+/.test(id)}  
+#'        `/^BR.+/.test(id)`  
 #'        or to test if the participant's gender includes 'binary' use:  
-#'        \emph{/.*binary.*/.test(first('participant_gender').label)}}
-#' }
+#'        `/.*binary.*/.test(first('participant_gender').label)`
 #' 
 #' Expressions such as those in the examples can be used.
 #' 

@@ -10,13 +10,11 @@
 #'     big request, they are retrieved using many smaller requests. This parameter
 #'     controls the number of anchors retrieved per request.
 #' @return  A named list of anchors, with members:
-#' \itemize{
-#'  \item{\emph{id} The annotation's unique ID},
-#'  \item{\emph{offset} The offset from the beginning (in seconds if it's a
-#'  transcript of a recording, or in characters if it's a text document)}
-#'  \item{\emph{confidence} A rating from 0-100 of the confidence of the offset,
-#'   e.g. 10: default value, 50: force-aligned, 100: manually aligned}
-#' }
+#'  - *id* The annotation's unique ID,
+#'  - *offset* The offset from the beginning (in seconds if it's a
+#'  transcript of a recording, or in characters if it's a text document)
+#'  - *confidence* A rating from 0-100 of the confidence of the offset,
+#'   e.g. 10: default value, 50: force-aligned, 100: manually aligned
 #' 
 #' @seealso \link{getAnnotations}
 #' @examples 

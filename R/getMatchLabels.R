@@ -5,11 +5,9 @@
 #'     of a results set. 
 #' @param layer.ids A vector of layer IDs.
 #' @param target.offset The distance from the original target of the match, e.g.
-#' \itemize{
-#'  \item{\emph{0} -- find annotations of the match target itself},
-#'  \item{\emph{1} -- find annotations of the token immediately \emph{after} match target}
-#'  \item{\emph{-1} -- find annotations of the token immediately \emph{before} match target}
-#' }
+#'  - *0* -- find annotations of the match target itself
+#'  - *1* -- find annotations of the token immediately *after* match target
+#'  - *-1* -- find annotations of the token immediately *before* match target
 #' @param annotations.per.layer The number of annotations on the given layer to
 #'     retrieve. In most cases, there's only one annotation available. However, tokens
 #'     may, for example, be annotated with `all possible phonemic transcriptions', in which

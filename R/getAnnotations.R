@@ -11,17 +11,15 @@
 #' @param page.length The maximum number of annotations to return, or null to return all
 #' @param page.number The zero-based page number to return, or null to return the first page
 #' @return A named list of annotations, with members:
-#' \itemize{
-#'  \item{\emph{id} The annotation's unique ID}
-#'  \item{\emph{layerId} The name of the layer it comes from}
-#'  \item{\emph{label} The value of the annotation}
-#'  \item{\emph{startId} The ID of the start anchor},
-#'  \item{\emph{endId} The ID of the end anchor},
-#'  \item{\emph{parentId} The ID of the parent annotation},
-#'  \item{\emph{ordinal} The ordinal of the annotation among its peers},
-#'  \item{\emph{confidence} A rating from 0-100 of the confidence of the label
-#'  e.g. 10: default value, 50: automatically generated, 100: manually annotated}
-#' }
+#'  - *id* The annotation's unique ID
+#'  - *layerId* The name of the layer it comes from
+#'  - *label* The value of the annotation
+#'  - *startId* The ID of the start anchor,
+#'  - *endId* The ID of the end anchor,
+#'  - *parentId* The ID of the parent annotation,
+#'  - *ordinal* The ordinal of the annotation among its peers,
+#'  - *confidence* A rating from 0-100 of the confidence of the label
+#'  e.g. 10: default value, 50: automatically generated, 100: manually annotated
 #' 
 #' @seealso 
 #'   \code{\link{getTranscriptIds}}

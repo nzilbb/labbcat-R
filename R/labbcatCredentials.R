@@ -19,9 +19,11 @@
 #' perhaps the URL too) in your \file{.Renviron} file (in your home directory, or the
 #' porject directory), like this:
 #'
-#' \preformatted{LABBCAT_URL=https://labbcat.canterbury.ac.nz/demo/
+#' ```
+#' LABBCAT_URL=https://labbcat.canterbury.ac.nz/demo/
 #' LABBCAT_USERNAME=demo
-#' LABBCAT_PASSWORD=demo}
+#' LABBCAT_PASSWORD=demo
+#' ```
 #'
 #' And then call Sys.getenv to retrieve the
 #' username/password, as illustrated in the example.

@@ -17,12 +17,9 @@
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
 #'     shown when interactive().
 #' @return A data frame with three columns for each layer in layer.ids:
-#'
-#' \itemize{
-#'  \item{The annotation labels concatenated together}
-#'  \item{The start time of the first annotation}
-#'  \item{The end time of the last annotation}
-#' }
+#'  - The annotation labels concatenated together
+#'  - The start time of the first annotation
+#'  - The end time of the last annotation
 #' 
 #' @seealso \link{getFragments}
 #' @seealso \link{getSoundFragments}

@@ -8,32 +8,30 @@
 #' @param labbcat.url URL to the LaBB-CAT instance.
 #' @param annotator.id ID of the annotator module.
 #' @return The annotator info:
-#' \itemize{
-#'  \item{\emph{annotatorId} The annotators's unique ID}
-#'  \item{\emph{version} The currently install version of the annotator.}
-#'  \item{\emph{info} HTML-encoded description of the function of the annotator.}
-#'  \item{\emph{infoText} A plain text version of $info (converted automatically).}
-#'  \item{\emph{hasConfigWebapp} Determines whether the annotator includes a web-app for
-#'     installation or general configuration.}
-#'  \item{\emph{configParameterInfo} An HTML-encoded definition of the installation config
+#'  - *annotatorId* The annotators's unique ID
+#'  - *version* The currently install version of the annotator.
+#'  - *info* HTML-encoded description of the function of the annotator.
+#'  - *infoText* A plain text version of $info (converted automatically).
+#'  - *hasConfigWebapp* Determines whether the annotator includes a web-app for
+#'     installation or general configuration.
+#'  - *configParameterInfo* An HTML-encoded definition of the installation config
 #'     parameters, including a list of all parameters, and the encoding of the parameter
-#'     string.}
-#'  \item{\emph{configParameterInfoText} A plain text version of $configParameterInfo
-#'     (converted automatically).} 
-#'  \item{\emph{hasTaskWebapp} Determines whether the annotator includes a web-app for
-#'     task parameter configuration.}
-#'  \item{\emph{taskParameterInfo} An HTML-encoded definition of the task parameters,
-#'     including a list of all parameters, and the encoding of the parameter string.}
-#'  \item{\emph{taskParameterInfoText} A plain text version of $taskParameterInfo
-#'     (converted automatically).} 
-#'  \item{\emph{hasExtWebapp} Determines whether the annotator includes an extras web-app
+#'     string.
+#'  - *configParameterInfoText* A plain text version of $configParameterInfo
+#'     (converted automatically).
+#'  - *hasTaskWebapp* Determines whether the annotator includes a web-app for
+#'     task parameter configuration.
+#'  - *taskParameterInfo} An HTML-encoded definition of the task parameters,
+#'     including a list of all parameters, and the encoding of the parameter string.*
+#'  - *taskParameterInfoText* A plain text version of $taskParameterInfo
+#'     (converted automatically). 
+#'  - *hasExtWebapp* Determines whether the annotator includes an extras web-app
 #'     which implements functionality for providing extra data or extending functionality
-#'     in an annotator-specific way.}
-#'  \item{\emph{extApiInfo} An HTML-encoded document containing information about what
-#'     endpoints are published by the ext web-app.}
-#'  \item{\emph{extApiInfoText} A plain text version of $extApiInfo
-#'     (converted automatically).} 
-#' }
+#'     in an annotator-specific way.
+#'  - *extApiInfo* An HTML-encoded document containing information about what
+#'     endpoints are published by the ext web-app.
+#'  - *extApiInfoText* A plain text version of $extApiInfo
+#'     (converted automatically).
 #' 
 #' @seealso \code{\link{annotatorExt}}
 #' \code{\link{newLayer}}

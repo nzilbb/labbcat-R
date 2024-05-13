@@ -12,26 +12,24 @@
 #' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
 #'     shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
-#' \itemize{
-#'  \item{\emph{SearchName} A name based on the pattern -- the same for all rows}
-#'  \item{\emph{Number} Row number}
-#'  \item{\emph{Transcript} Name of the transcript in which the match was found}
-#'  \item{\emph{Line} The start offset of the utterance/line}
-#'  \item{\emph{LineEnd} The end offset of the utterance/line}
-#'  \item{\emph{MatchId} A unique ID for the matching target token}
-#'  \item{\emph{Before.Match} Transcript text immediately before the match}
-#'  \item{\emph{Text} Transcript text of the match}
-#'  \item{\emph{Before.Match} Transcript text immediately after the match}
-#'  \item{\emph{Target.word} Text of the target word token}
-#'  \item{\emph{Target.word.start} Start offset of the target word token}
-#'  \item{\emph{Target.word.end} End offset of the target word token}
-#'  \item{\emph{Target.segment} Label of the target segment (only present if the segment
-#'     layer is included in the pattern)}
-#'  \item{\emph{Target.segment.start} Start offset of the target segment (only present if the
-#'     segment layer is included in the pattern)}
-#'  \item{\emph{Target.segment.end} End offset of the target segment (only present if the
-#'     segment layer is included in the pattern)}
-#' }
+#'  - *SearchName* A name based on the pattern -- the same for all rows
+#'  - *Number* Row number
+#'  - *Transcript* Name of the transcript in which the match was found
+#'  - *Line* The start offset of the utterance/line
+#'  - *LineEnd* The end offset of the utterance/line
+#'  - *MatchId* A unique ID for the matching target token
+#'  - *Before.Match* Transcript text immediately before the match
+#'  - *Text* Transcript text of the match
+#'  - *Before.Match* Transcript text immediately after the match
+#'  - *Target.word* Text of the target word token
+#'  - *Target.word.start* Start offset of the target word token
+#'  - *Target.word.end* End offset of the target word token
+#'  - *Target.segment* Label of the target segment (only present if the segment
+#'     layer is included in the pattern)
+#'  - *Target.segment.start* Start offset of the target segment (only present if the
+#'     segment layer is included in the pattern)
+#'  - *Target.segment.end* End offset of the target segment (only present if the
+#'     segment layer is included in the pattern)
 #' 
 #' @seealso \code{\link{getParticipantIds}}
 #' 

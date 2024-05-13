@@ -28,30 +28,28 @@
 #' print 'myOutputVariable' 'newline$'
 #' 
 #' Variables that can be assumed to be already set in the context of the script are:
-#' \itemize{
-#'  \item{\emph{windowOffset}
-#'    -- the value used for the Window Offset; how much context to include.} 
-#'  \item{\emph{windowAbsoluteStart}
-#'    -- the start time of the window extracted relative to the start of the original audio file.} 
-#'  \item{\emph{windowAbsoluteEnd}
-#'    -- the end time of the window extracted relative to the start of the original audio file.} 
-#'  \item{\emph{windowDuration}
-#'    -- the duration of the window extracted (including window offset).}
-#'  \item{\emph{targetAbsoluteStart}
-#'    -- the start time of the target interval relative to the start of the original audio file.} 
-#'  \item{\emph{targetAbsoluteEnd}
-#'    -- the end time of the target interval relative to the start of the original audio file.} 
-#'  \item{\emph{targetStart}
-#'    -- the start time of the target interval relative to the start of the window extracted.} 
-#'  \item{\emph{targetEnd}
-#'    -- the end time of the target interval relative to the start of the window extracted.}
-#'  \item{\emph{targetDuration}
-#'    -- the duration of the target interval.}
-#'  \item{\emph{sampleNumber}
-#'    -- the number of the sample within the set of samples being processed.} 
-#'  \item{\emph{sampleName$}
-#'    -- the name of the extracted/selected Sound object.}
-#' }
+#'  - *windowOffset*
+#'    -- the value used for the Window Offset; how much context to include.
+#'  - *windowAbsoluteStart*
+#'    -- the start time of the window extracted relative to the start of the original audio file.
+#'  - *windowAbsoluteEnd*
+#'    -- the end time of the window extracted relative to the start of the original audio file.
+#'  - *windowDuration*
+#'    -- the duration of the window extracted (including window offset).
+#'  - *targetAbsoluteStart*
+#'    -- the start time of the target interval relative to the start of the original audio file.
+#'  - *targetAbsoluteEnd*
+#'    -- the end time of the target interval relative to the start of the original audio file.
+#'  - *targetStart*
+#'    -- the start time of the target interval relative to the start of the window extracted.
+#'  - *targetEnd*
+#'    -- the end time of the target interval relative to the start of the window extracted.
+#'  - *targetDuration*
+#'    -- the duration of the target interval.
+#'  - *sampleNumber*
+#'    -- the number of the sample within the set of samples being processed.
+#'  - *sampleName$*
+#'    -- the name of the extracted/selected Sound object.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,

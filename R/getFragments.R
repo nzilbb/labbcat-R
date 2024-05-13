@@ -3,7 +3,7 @@
 #' This function gets fragments of transcripts from 'LaBB-CAT', 
 #' converted to a given format (by default, Praat TextGrid).
 #'
-#' \emph{NB} Although many formats will generate exactly one file for each interval
+#' **NB** Although many formats will generate exactly one file for each interval
 #'      (e.g. mime.type=text/praat-textgrid), this is not guaranted; some formats generate
 #'      a single file or a fixed collection of files regardless of how many fragments there are.
 #'

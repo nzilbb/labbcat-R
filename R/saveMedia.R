@@ -10,12 +10,10 @@
 #' @param media The path to the media to upload.
 #' @param track.suffix The track suffix for the media, if any.
 #' @return A named list describing the attributes of the uploaded media:
-#' \itemize{
-#'  \item{\emph{trackSuffix} The track suffix of the media}
-#'  \item{\emph{mimeType} The MIME type of the file}
-#'  \item{\emph{url} URL to the content of the file}
-#'  \item{\emph{name} Name of the file in LaBB-CAT}
-#' }
+#'  - *trackSuffix* The track suffix of the media
+#'  - *mimeType* The MIME type of the file
+#'  - *url* URL to the content of the file
+#'  - *name* Name of the file in LaBB-CAT
 #' @seealso \link{getAvailableMedia}
 #' @seealso \link{deleteMedia}
 #' 

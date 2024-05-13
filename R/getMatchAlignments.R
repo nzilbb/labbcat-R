@@ -14,22 +14,18 @@
 #'     of a results set. 
 #' @param layer.ids A vector of layer IDs.
 #' @param target.offset The distance from the original target of the match, e.g.
-#' \itemize{
-#'  \item{\emph{0} -- find annotations of the match target itself},
-#'  \item{\emph{1} -- find annotations of the token immediately \emph{after} match target}
-#'  \item{\emph{-1} -- find annotations of the token immediately \emph{before} match target}
-#' }
+#'  - *0* -- find annotations of the match target itself
+#'  - *1* -- find annotations of the token immediately *after* match target
+#'  - *-1* -- find annotations of the token immediately *before* match target
 #' @param annotations.per.layer The number of annotations on the given layer to
 #'     retrieve. In most cases, there's only one annotation available. However, tokens
 #'     may, for example, be annotated with `all possible phonemic transcriptions', in which
 #'     case using a value of greater than 1 for this parameter provides other phonemic
 #'     transcriptions, for tokens that have more than one.
 #' @param anchor.confidence.min The minimum confidence for alignments, e.g.
-#' \itemize{
-#'  \item{\emph{0} -- return all alignments, regardless of confidence;}
-#'  \item{\emph{50} -- return only alignments that have been at least automatically aligned;}
-#'  \item{\emph{100} -- return only manually-set alignments.}
-#' }
+#'  - *0* -- return all alignments, regardless of confidence;
+#'  - *50* -- return only alignments that have been at least automatically aligned;
+#'  - *100* -- return only manually-set alignments.
 #' @param include.match.ids Whether or not the data frame returned includes the original
 #'     MatchId column or not.
 #' @param page.length In order to prevent timeouts when there are a large number of

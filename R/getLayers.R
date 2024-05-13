@@ -2,19 +2,17 @@
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @return A list of layer definitions, with members:
-#' \itemize{
-#'  \item{\emph{id} The layer's unique ID}
-#'  \item{\emph{parentId} The layer's parent layer ID}
-#'  \item{\emph{description} The description of the layer}
-#'  \item{\emph{alignment} The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment}
-#'  \item{\emph{peers} Whether children have peers or not}
-#'  \item{\emph{peersOverlap} Whether child peers can overlap or not}
-#'  \item{\emph{parentIncludes} Whether the parent t-includes the child}
-#'  \item{\emph{saturated} Whether children must temporally fill the entire parent duration (true) or not (false)}
-#'  \item{\emph{parentIncludes} Whether the parent t-includes the child}
-#'  \item{\emph{type} The type for labels on this layer}
-#'  \item{\emph{validLabels} List of valid label values for this layer}
-#' }
+#'  - *id* The layer's unique ID
+#'  - *parentId* The layer's parent layer ID
+#'  - *description* The description of the layer
+#'  - *alignment* The layer's alignment - 0 for none, 1 for point alignment, 2 for interval alignment
+#'  - *peers* Whether children have peers or not
+#'  - *peersOverlap* Whether child peers can overlap or not
+#'  - *parentIncludes* Whether the parent t-includes the child
+#'  - *saturated* Whether children must temporally fill the entire parent duration (true) or not (false)
+#'  - *parentIncludes* Whether the parent t-includes the child
+#'  - *type* The type for labels on this layer
+#'  - *validLabels* List of valid label values for this layer
 #' 
 #' @seealso \code{\link{getLayerIds}}
 #' @examples
