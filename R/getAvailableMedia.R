@@ -3,14 +3,15 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)
 #' @return A named list of media files available for the given transcript, with members:
-#'  - *trackSuffix* The track suffix of the media
-#'  - *mimeType* The MIME type of the file
-#'  - *url* URL to the content of the file
-#'  - *name* Name of the file
+#'   - *trackSuffix* The track suffix of the media
+#'   - *mimeType* The MIME type of the file
+#'   - *url* URL to the content of the file
+#'   - *name* Name of the file
 #' 
-#' @seealso \link{getTranscriptIds}
-#' @seealso \link{saveMedia}
-#' @seealso \link{deleteMedia}
+#' @seealso
+#'   - [getTranscriptIds]
+#'   - [saveMedia]
+#'   - [deleteMedia]
 #' @examples 
 #' \dontrun{
 #' ## List the media files available for BR2044_OllyOhlson.eaf

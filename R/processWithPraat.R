@@ -8,8 +8,8 @@
 #'
 #' There are functions to allow the generation of a number of pre-defined praat scripts
 #' for common tasks such as formant, pitch, intensity, and centre of gravity -- see
-#' \link{praatScriptFormants}, \link{praatScriptCentreOfGravity}, \link{praatScriptIntensity}
-#' and \link{praatScriptPitch}.
+#' [praatScriptFormants], [praatScriptCentreOfGravity], [praatScriptIntensity]
+#' and [praatScriptPitch].
 #'
 #' You can provide your own script, either by building a string with your code, or loading
 #' one from a file.
@@ -80,10 +80,7 @@
 #'   shown when interactive().
 #' @return A data frame of acoustic measures, one row for each matchId.
 #' 
-#' @seealso \link{praatScriptFormants}
-#' @seealso \link{praatScriptCentreOfGravity}
-#' @seealso \link{praatScriptIntensity}
-#' @seealso \link{praatScriptPitch}
+#' @family Praat-related functions
 #' @examples
 #' \dontrun{
 #' ## Perform a search

@@ -15,7 +15,7 @@
 #' @param layer.ids A vector of layer IDs.
 #' @param mime.type Optional content-type - "text/praat-textgrid" is the default, but your
 #'   LaBB-CAT installation may support other formats, which can be discovered using
-#'   \link{getSerializerDescriptors}.
+#'   [getSerializerDescriptors].
 #' @param path Optional path to directory where the files should be saved.
 #' @return The name of the file, which is saved in the current
 #'   directory, or a list of names of files, if multiple
@@ -25,7 +25,7 @@
 #'   were returned by the server, which *should* be the order that
 #'   they were specified in the id/start/end lists.
 #' 
-#' @seealso \link{getSerializerDescriptors}
+#' @seealso [getSerializerDescriptors]
 #' @examples
 #' \dontrun{
 #' ## Get the 5 seconds starting from 10s after the beginning of a recording

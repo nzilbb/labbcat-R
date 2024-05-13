@@ -1,9 +1,9 @@
-#' Generates a script for extracting formants, for use with \link{processWithPraat}
+#' Generates a script for extracting formants, for use with [processWithPraat]
 #'
 #' This function generates a Praat script fragment which can be passed as the praat.script
-#' parameter of \link{processWithPraat}, in order to extract selected formants.
+#' parameter of [processWithPraat], in order to extract selected formants.
 #'
-#' The \link{praatScriptFastTrack} function provides an alternative to this function which
+#' The [praatScriptFastTrack] function provides an alternative to this function which
 #' uses the FastTrack Praat plugin for formant analysis.
 #'
 #' @param formants A vector of integers specifying which formants to extract, e.g c(1,2)
@@ -26,13 +26,9 @@
 #' @param window.length Window length in seconds.
 #' @param preemphasis.from Pre-emphasis from (Hz)
 #' @return A script fragment which can be passed as the praat.script parameter of
-#'   \link{processWithPraat} 
+#'   [processWithPraat] 
 #' 
-#' @seealso \link{processWithPraat}
-#' @seealso \link{praatScriptCentreOfGravity}
-#' @seealso \link{praatScriptIntensity}
-#' @seealso \link{praatScriptPitch}
-#' @seealso \link{praatScriptFastTrack}
+#' @family Praat-related functions
 #' @examples
 #' \dontrun{
 #' ## Get all tokens of the KIT vowel

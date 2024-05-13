@@ -12,8 +12,7 @@
 #'   shown when interactive().
 #' @return The final status of the layer generation task.
 #' 
-#' @seealso
-#' \code{\link{getAllUtterances}}
+#' @seealso [getAllUtterances]
 #' @examples
 #' \dontrun{
 #' ## Get all utterances of a participant

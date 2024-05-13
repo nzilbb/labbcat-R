@@ -8,8 +8,8 @@
 #'   shown when interactive().
 #' @return The final status of the layer generation task.
 #' 
-#' @seealso
-#' \code{\link{getAllUtterances}}
+#' @family Annotation layer functions
+#' @seealso [getAllUtterances]
 #' @examples
 #' \dontrun{
 #' ## Generate all phonemic transcription annotations

@@ -5,6 +5,7 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @return A list of layer IDs
 #' 
+#' @family Annotation layer functions
 #' @examples
 #' \dontrun{
 #' ## Get names of all layers

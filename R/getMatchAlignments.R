@@ -37,8 +37,8 @@
 #' @return A data frame with label, start time, and end time, for each layer.
 #' 
 #' @seealso
-#' \code{\link{getMatches}}
-#' \code{\link{getMatchLabels}}
+#'   - [getMatches]
+#'   - [getMatchLabels]
 #' @examples
 #' \dontrun{
 #' ## Perform a search

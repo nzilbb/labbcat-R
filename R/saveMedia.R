@@ -14,8 +14,9 @@
 #'  - *mimeType* The MIME type of the file
 #'  - *url* URL to the content of the file
 #'  - *name* Name of the file in LaBB-CAT
-#' @seealso \link{getAvailableMedia}
-#' @seealso \link{deleteMedia}
+#' @seealso
+#'   - [getAvailableMedia]
+#'   - [deleteMedia]
 #' 
 #' @examples
 #' \dontrun{

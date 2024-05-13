@@ -24,8 +24,8 @@
 #' @return A data frame of labels.
 #' 
 #' @seealso
-#' \code{\link{getMatches}}
-#' \code{\link{getMatchAlignments}}
+#'   - [getMatches]
+#'   - [getMatchAlignments]
 #' @examples
 #' \dontrun{
 #' ## Perform a search

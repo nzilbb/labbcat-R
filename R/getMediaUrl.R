@@ -5,8 +5,9 @@
 #' @param track.suffix The track suffix of the media.
 #' @param mime.type The MIME type of the media, e.g. "audio/wav" or "application/f0".
 #' @return A URL to the given media for the given transcript.
-#' @seealso \link{getTranscriptIds}
-#' @seealso \link{getMedia}
+#' @seealso
+#'   - [getTranscriptIds]
+#'   - [getMedia]
 #' @examples 
 #' \dontrun{
 #' ## Get URL for the WAV file for BR2044_OllyOhlson.eaf

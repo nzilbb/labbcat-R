@@ -7,8 +7,9 @@
 #' @param path Optional path to directory where the file should be saved.
 #' @return The name of the file, which is saved in the current directory, or the given
 #'   path if specified
-#' @seealso \link{getTranscriptIds}
-#' @seealso \link{getMediaUrl}
+#' @seealso
+#'   - [getTranscriptIds]
+#'   - [getMediaUrl]
 #' @examples 
 #' \dontrun{
 #' ## Download the WAV file for BR2044_OllyOhlson.eaf

@@ -6,7 +6,7 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param layer A named list object representing the layer attributes, as would be
-#'   returned by \link{getLayer} or \link{newLayer}, with members:
+#'   returned by [getLayer] or [newLayer], with members:
 #'   - *id* The layer's unique ID
 #'   - *parentId* The layer's parent layer ID
 #'   - *description* The description of the layer
@@ -35,10 +35,7 @@
 #'   - *type* The type for labels on this layer
 #'   - *validLabels* List of valid label values for this layer
 #' 
-#' @seealso
-#' \code{\link{newLayer}}
-#' \code{\link{getLayer}}
-#' \code{\link{deleteLayer}}
+#' @family Annotation layer functions
 #' @examples
 #' \dontrun{
 #' ## Get the pronunciation layer definition

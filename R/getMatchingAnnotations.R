@@ -23,8 +23,7 @@
 #' @param page.number The zero-based page number to return, or null to return the first page
 #' @return A list of annotations.
 #' 
-#' @seealso
-#' \code{\link{countMatchingAnnotations}}
+#' @seealso [countMatchingAnnotations]
 #' @examples 
 #' \dontrun{
 #' ## get all topic annotations whose label includes the word 'quake'

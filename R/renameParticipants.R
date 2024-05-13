@@ -15,11 +15,11 @@
 #'   then the corresponding element is FALSE.
 #' 
 #' @seealso 
-#'   \code{\link{getParticipantIds}}
-#'   \code{\link{getMatchingParticipantIds}}
-#'   \code{\link{getParticipant}}
-#'   \code{\link{saveParticipant}}
-#'   \code{\link{deleteParticipant}}
+#'   - [getParticipantIds]
+#'   - [getMatchingParticipantIds]
+#'   - [getParticipant]
+#'   - [saveParticipant]
+#'   - [deleteParticipant]
 #' @examples 
 #' \dontrun{
 #' ## Create some new participant records

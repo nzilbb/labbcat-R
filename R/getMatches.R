@@ -76,13 +76,13 @@
 #' ```
 #' @param participant.expression An optional participant query expression for identifying
 #'   participants to search the utterances of. This should be the output of
-#'   \link{expressionFromIds}, \link{expressionFromAttributeValue},
-#'   or \link{expressionFromAttributeValues}, or more than one concatentated together
+#'   [expressionFromIds], [expressionFromAttributeValue],
+#'   or [expressionFromAttributeValues], or more than one concatentated together
 #'   and delimited by ' && '. If not supplied, utterances of all participants will be searched.
 #' @param transcript.expression An optional transript query expression for identifying
-#'   transcripts to search in. This should be the output of \link{expressionFromIds},
-#'   \link{expressionFromTranscriptTypes}, \link{expressionFromAttributeValue},
-#'   or \link{expressionFromAttributeValues}, or more than one concatentated together
+#'   transcripts to search in. This should be the output of [expressionFromIds],
+#'   [expressionFromTranscriptTypes], [expressionFromAttributeValue],
+#'   or [expressionFromAttributeValues], or more than one concatentated together
 #'   and delimited by ' && '. If not supplied, all transcripts will be searched.
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'   search all utterances.
@@ -130,12 +130,13 @@
 #'   - *Target.segment.end* End offset of the target segment (only present if the
 #'      segment layer is included in the pattern)
 #' 
-#' @seealso \code{\link{getFragments}}
-#' @seealso \code{\link{getSoundFragments}}
-#' @seealso \code{\link{getMatchLabels}}
-#' @seealso \code{\link{getMatchAlignments}}
-#' @seealso \code{\link{processWithPraat}}
-#' @seealso \code{\link{getParticipantIds}}
+#' @seealso
+#'   - [getFragments]
+#'   - [getSoundFragments]
+#'   - [getMatchLabels]
+#'   - [getMatchAlignments]
+#'   - [processWithPraat]
+#'   - [getParticipantIds]
 #' 
 #' @examples 
 #' \dontrun{

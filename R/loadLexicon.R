@@ -31,9 +31,7 @@
 #'   shown when interactive().
 #' @return An error message, or NULL if the upload was successful.
 #' @keywords lexicon
-#' @seealso
-#' \code{\link{getDictionaries}}
-#' \code{\link{deleteLexicon}}
+#' @family dictionary functions
 #' @examples
 #' \dontrun{
 #' ## Upload the CMU Pronouncing Dictionary 

@@ -6,7 +6,7 @@
 #' @param keys A list of keys (words) identifying entries to look up
 #' @return A data frame with the keys and their dictionary entries, if any.
 #' 
-#' @seealso \link{getDictionaries}
+#' @family dictionary functions
 #' @examples 
 #' \dontrun{
 #' keys <- c("the", "quick", "brown", "fox")

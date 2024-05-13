@@ -14,7 +14,7 @@
 #'  - *type* The type for labels on this layer
 #'  - *validLabels* List of valid label values for this layer
 #' 
-#' @seealso \code{\link{getLayerIds}}
+#' @family Annotation layer functions
 #' @examples
 #' \dontrun{
 #' ## Get definitions of all layers

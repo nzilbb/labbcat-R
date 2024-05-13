@@ -12,8 +12,7 @@
 #'   for the given key.
 #' @return NULL if the entry was added, or a list of error messages if not.
 #' 
-#' @seealso
-#' \code{\link{generateLayer}}
+#' @family dictionary functions
 #' @examples
 #' \dontrun{
 #' ## Remove a pronunciation for "robert" from the phonemes layer dictionary

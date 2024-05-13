@@ -18,10 +18,11 @@
 #' transcript.expression parameter of \link{getMatches} or the expression parameter
 #' of \link{getMatchingTranscriptIds}
 #' 
-#' @seealso \link{expressionFromAttributeValues}
-#' @seealso \link{expressionFromTranscriptTypes}
-#' @seealso \link{expressionFromIds}
-#' @seealso \link{getMatches}
+#' @seealso
+#'   - [expressionFromAttributeValues]
+#'   - [expressionFromTranscriptTypes]
+#'   - [expressionFromIds]
+#'   - [getMatches]
 #' @examples
 #' \dontrun{
 #' ## Perform a search

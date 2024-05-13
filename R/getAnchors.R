@@ -16,7 +16,7 @@
 #'  - *confidence* A rating from 0-100 of the confidence of the offset,
 #'   e.g. 10: default value, 50: force-aligned, 100: manually aligned
 #' 
-#' @seealso \link{getAnnotations}
+#' @seealso [getAnnotations]
 #' @examples 
 #' \dontrun{
 #' ## Get the first 20 orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf

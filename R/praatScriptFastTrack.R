@@ -1,7 +1,7 @@
-#' Generates a script for extracting formants using FastTrack, for use with \link{processWithPraat}
+#' Generates a script for extracting formants using FastTrack, for use with [processWithPraat]
 #'
 #' This function generates a Praat script fragment which can be passed as the praat.script
-#' parameter of \link{processWithPraat}, in order to extract selected formants using the
+#' parameter of [processWithPraat], in order to extract selected formants using the
 #' FastTrack Praat plugin.
 #'
 #' The FastTrack Praat plugin, developed by Santiago Barreda, automatically runs multiple
@@ -53,13 +53,9 @@
 #' @param number.of.coefficients Number of coefficients for formant prediction. More
 #'   coefficients allow for more sudden, and 'wiggly' formant motion.
 #' @return A script fragment which can be passed as the praat.script parameter of
-#'   \link{processWithPraat} 
+#'   [processWithPraat] 
 #' 
-#' @seealso \link{processWithPraat}
-#' @seealso \link{praatScriptCentreOfGravity}
-#' @seealso \link{praatScriptIntensity}
-#' @seealso \link{praatScriptPitch}
-#' @seealso \link{praatScriptFormants}
+#' @family Praat-related functions
 #' @examples
 #' \dontrun{
 #' ## Get all tokens of the KIT vowel

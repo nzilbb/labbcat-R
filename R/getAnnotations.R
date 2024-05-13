@@ -22,10 +22,10 @@
 #'  e.g. 10: default value, 50: automatically generated, 100: manually annotated
 #' 
 #' @seealso 
-#'   \code{\link{getTranscriptIds}}
-#'   \code{\link{getTranscriptIdsInCorpus}}
-#'   \code{\link{getTranscriptIdsWithParticipant}}
-#'   \code{\link{countAnnotations}}
+#'   - [getTranscriptIds]
+#'   - [getTranscriptIdsInCorpus]
+#'   - [getTranscriptIdsWithParticipant]
+#'   - [countAnnotations]
 #' @examples 
 #' \dontrun{
 #' ## Get all the orthography tokens in UC427_ViktoriaPapp_A_ENG.eaf

@@ -3,7 +3,7 @@
 #' This function creates a new annotation layer. The layer may be configured with a layer
 #' manager ID and task parameters, for automatic annotation. If so, this function will
 #' create the layer and the automation task, but automatic annotation will not be run by
-#' this function. To generate the automatic annotations, use \link{generateLayer}.
+#' this function. To generate the automatic annotations, use [generateLayer].
 #'
 #' You must have administration privileges in LaBB-CAT in order to be able to use this function.
 #'
@@ -37,10 +37,7 @@
 #'   - *type* The type for labels on this layer
 #'   - *validLabels* List of valid label values for this layer
 #' 
-#' @seealso
-#' \code{\link{generateLayer}}
-#' \code{\link{saveLayer}}
-#' \code{\link{deleteLayer}}
+#' @family Annotation layer functions
 #' @examples
 #' \dontrun{
 #' ## Upload the CMU Pronouncing Dictionary 

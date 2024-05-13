@@ -1,10 +1,10 @@
 #' Generates a query expression for matching a transcript/participant attribute, for use with
-#' \link{getMatches}
+#' [getMatches]
 #'
 #' This function generates a query expression fragment which can be passed as
-#' the transcript.expression or participant.expression parameter of \link{getMatches}, (or
-#' the expression parameter of \link{getMatchingTranscriptIds} or
-#' \link{getMatchingParticipantIds}) matching by the number of values for a given
+#' the transcript.expression or participant.expression parameter of [getMatches], (or
+#' the expression parameter of [getMatchingTranscriptIds] or
+#' [getMatchingParticipantIds]) matching by the number of values for a given
 #' attribute. 
 #'
 #' The attribute defined by transcript.attribute is expected to have possibly more than
@@ -16,13 +16,13 @@
 #' "<", "<=", "==", "!=", ">=", ">". 
 #' @param count The number to compare the count of values to.
 #' @return A transcript query expression which can be passed as the
-#' transcript.expression parameter of \link{getMatches} or the expression parameter
-#' of \link{getMatchingTranscriptIds}
+#' transcript.expression parameter of [getMatches] or the expression parameter
+#' of [getMatchingTranscriptIds]
 #' 
-#' @seealso \link{expressionFromAttributeValues}
-#' @seealso \link{expressionFromTranscriptTypes}
-#' @seealso \link{expressionFromIds}
-#' @seealso \link{getMatches}
+#' @seealso [expressionFromAttributeValues]
+#' @seealso [expressionFromTranscriptTypes]
+#' @seealso [expressionFromIds]
+#' @seealso [getMatches]
 #' @examples
 #' \dontrun{
 #' ## Search only transcripts including multilingual participants

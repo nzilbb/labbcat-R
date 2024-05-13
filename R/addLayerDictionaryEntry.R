@@ -11,8 +11,7 @@
 #' @param entry The value (definition) for the given key.
 #' @return NULL if the entry was added, or a list of error messages if not.
 #' 
-#' @seealso
-#' \code{\link{generateLayer}}
+#' @family dictionary functions
 #' @examples
 #' \dontrun{
 #' ## Add a pronunciation for the word "robert" to the phonemes layer dictionary

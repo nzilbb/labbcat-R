@@ -12,9 +12,9 @@
 #' @return The number of annotations on that layer
 #' 
 #' @seealso
-#' \code{\link{getTranscriptIds}}
-#' \code{\link{getTranscriptIdsInCorpus}}
-#' \code{\link{getTranscriptIdsWithParticipant}}
+#' - [getTranscriptIds]
+#' - [getTranscriptIdsInCorpus]
+#' - [getTranscriptIdsWithParticipant]
 #' @examples 
 #' \dontrun{
 #' ## Count the number of words in UC427_ViktoriaPapp_A_ENG.eaf

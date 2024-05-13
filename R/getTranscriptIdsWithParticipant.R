@@ -7,7 +7,7 @@
 #' @param id A participant ID
 #' @return A list of transcript IDs
 #' 
-#' @seealso \code{\link{getParticipantIds}}
+#' @seealso [getParticipantIds]
 #' @examples 
 #' \dontrun{
 #' ## List transcripts in which UC427_ViktoriaPapp_A_ENG speaks

@@ -18,8 +18,9 @@
 #'   attribute.
 #' @return TRUE if the participant's record was updated, FALSE if there were no changes detected.
 #' 
-#' @seealso \code{\link{getParticipant}}
-#' @seealso \code{\link{deleteParticipant}}
+#' @seealso
+#'   - [getParticipant]
+#'   - [deleteParticipant]
 #' @examples 
 #' \dontrun{
 #' ## Create a new participant record

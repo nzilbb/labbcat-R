@@ -21,8 +21,8 @@
 #'     (converted automatically).
 #'  - *hasTaskWebapp* Determines whether the annotator includes a web-app for
 #'     task parameter configuration.
-#'  - *taskParameterInfo} An HTML-encoded definition of the task parameters,
-#'     including a list of all parameters, and the encoding of the parameter string.*
+#'  - *taskParameterInfo* An HTML-encoded definition of the task parameters,
+#'     including a list of all parameters, and the encoding of the parameter string.
 #'  - *taskParameterInfoText* A plain text version of $taskParameterInfo
 #'     (converted automatically). 
 #'  - *hasExtWebapp* Determines whether the annotator includes an extras web-app
@@ -33,8 +33,9 @@
 #'  - *extApiInfoText* A plain text version of $extApiInfo
 #'     (converted automatically).
 #' 
-#' @seealso \code{\link{annotatorExt}}
-#' \code{\link{newLayer}}
+#' @seealso
+#'  - [annotatorExt]
+#'  - [newLayer]
 #' @examples
 #' \dontrun{
 #' ## Get information about the BAS Annotator

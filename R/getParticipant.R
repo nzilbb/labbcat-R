@@ -15,9 +15,9 @@
 #'     participant$annotations$participant_gender$label
 #' 
 #' @seealso 
-#'   \code{\link{getParticipantAttributes}}
-#'   \code{\link{saveParticipant}}
-#'   \code{\link{deleteParticipant}}
+#'   - [getParticipantAttributes]
+#'   - [saveParticipant]
+#'   - [deleteParticipant]
 #' @examples 
 #' \dontrun{
 #' ## Get the gender and year of birth of AP511_MikeThorpe

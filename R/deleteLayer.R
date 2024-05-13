@@ -9,9 +9,7 @@
 #' @param layer.id The ID of the layer to delete.
 #' @return NULL, or an error message if deletion failed.
 #' 
-#' @seealso
-#' \code{\link{newLayer}}
-#' \code{\link{saveLayer}}
+#' @family Annotation layer functions
 #' @examples
 #' \dontrun{
 #' ## Delete the phonemes layer

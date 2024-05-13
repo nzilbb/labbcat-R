@@ -1,27 +1,27 @@
 #' Generates a query expression for matching a multi-value transcript/participant
-#' attribute, for use with \link{getMatches}
+#' attribute, for use with [getMatches]
 #'
 #' This function generates a query expression fragment which can be passed as
-#' the transcript.expression or participant.expression parameter of \link{getMatches}, (or
-#' the expression parameter of \link{getMatchingTranscriptIds} or
-#' \link{getMatchingParticipantIds}) using a list of possible values for a given
+#' the transcript.expression or participant.expression parameter of [getMatches], (or
+#' the expression parameter of [getMatchingTranscriptIds] or
+#' [getMatchingParticipantIds]) using a list of possible values for a given
 #' transcript attribute. 
 #'
 #' The attribute defined by transcript.attribute is expected to have possibly more than
-#' one value. If it can have only one value, use \link{expressionFromAttributeValue} instead.
+#' one value. If it can have only one value, use [expressionFromAttributeValue] instead.
 #'
 #' @param transcript.attribute The transcript attribute to filter by. 
 #' @param values A list of possible values for transcript.attribute. 
 #' @param not Whether to match the given IDs (FALSE), or everything *except* the
 #' given IDs.
 #' @return A transcript query expression which can be passed as the
-#' transcript.expression parameter of \link{getMatches} or the expression parameter
-#' of \link{getMatchingTranscriptIds}
+#' transcript.expression parameter of [getMatches] or the expression parameter
+#' of [getMatchingTranscriptIds]
 #' 
-#' @seealso \link{expressionFromAttributeValue}
-#' @seealso \link{expressionFromTranscriptTypes}
-#' @seealso \link{expressionFromIds}
-#' @seealso \link{getMatches}
+#' @seealso [expressionFromAttributeValue]
+#' @seealso [expressionFromTranscriptTypes]
+#' @seealso [expressionFromIds]
+#' @seealso [getMatches]
 #' @examples
 #' \dontrun{
 #' ## Perform a search

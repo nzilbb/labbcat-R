@@ -21,8 +21,9 @@
 #'  - The start time of the first annotation
 #'  - The end time of the last annotation
 #' 
-#' @seealso \link{getFragments}
-#' @seealso \link{getSoundFragments}
+#' @seealso
+#'   - [getFragments]
+#'   - [getSoundFragments]
 #' @examples
 #' \dontrun{
 #' ## Get some span-layer intervales

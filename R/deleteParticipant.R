@@ -8,8 +8,8 @@
 #' @return TRUE if the participant's record was delete, FALSE otherwise.
 #' 
 #' @seealso 
-#'   \code{\link{getParticipant}}
-#'   \code{\link{saveParticipant}}
+#'   - [getParticipant]
+#'   - [saveParticipant]
 #' @examples 
 #' \dontrun{
 #' ## Create a new participant record

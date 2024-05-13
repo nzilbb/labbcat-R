@@ -9,8 +9,9 @@
 #' @param id The ID transcript whose media will be deleted.
 #' @param file.name The media file name, e.g. media.file$name
 #'
-#' @seealso \link{getAvailableMedia}
-#' @seealso \link{saveMedia}
+#' @seealso
+#' - [getAvailableMedia]
+#' - [saveMedia]
 #' 
 #' @examples
 #' \dontrun{

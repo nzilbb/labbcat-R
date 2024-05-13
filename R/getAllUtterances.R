@@ -31,7 +31,7 @@
 #'  - *Target.segment.end* End offset of the target segment (only present if the
 #'     segment layer is included in the pattern)
 #' 
-#' @seealso \code{\link{getParticipantIds}}
+#' @seealso [getParticipantIds]
 #' 
 #' @examples 
 #' \dontrun{

@@ -11,8 +11,7 @@
 #' @param entry The value (definition) for the given key.
 #' @return NULL if the entry was added, or a list of error messages if not.
 #' 
-#' @seealso \link{getDictionaries}
-#' @seealso \link{getDictionaryEntries}
+#' @family dictionary functions
 #' @examples
 #' \dontrun{
 #' ## Add the word "robert" to the CELEX wordform pronunciation dictionary

@@ -12,8 +12,7 @@
 #'   for the key.
 #' @return NULL if the entry was removed, or a list of error messages if not.
 #' 
-#' @seealso \link{getDictionaries}
-#' @seealso \link{getDictionaryEntries}
+#' @family dictionary functions
 #' @examples
 #' \dontrun{
 #' ## Remove a pronuciation of the word "robert" from the CELEX wordform pronunciation dictionary

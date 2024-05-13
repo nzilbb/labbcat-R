@@ -1,7 +1,7 @@
-#' Generates a script for extracting maximum intensity, for use with \link{processWithPraat}
+#' Generates a script for extracting maximum intensity, for use with [processWithPraat]
 #'
 #' This function generates a Praat script fragment which can be passed as the praat.script
-#' parameter of \link{processWithPraat}, in order to extract maximum intensity value.
+#' parameter of [processWithPraat], in order to extract maximum intensity value.
 #'
 #' @param minimum.pitch Minimum pitch (Hz).
 #' @param time.step Time step in seconds, or 0.0 for 'auto'.
@@ -24,13 +24,9 @@
 #'   message from Praat will be returned in the Error field, but no pitch measures will
 #'   be returned for any segments in the same recording.
 #' @return A script fragment which can be passed as the praat.script parameter of
-#'   \link{processWithPraat} 
+#'   [processWithPraat] 
 #' 
-#' @seealso \link{processWithPraat}
-#' @seealso \link{praatScriptFormants}
-#' @seealso \link{praatScriptCentreOfGravity}
-#' @seealso \link{praatScriptPitch}
-#' @seealso \link{praatScriptFastTrack}
+#' @family Praat-related functions
 #' @examples
 #' \dontrun{
 #' ## Perform a search

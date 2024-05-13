@@ -19,8 +19,7 @@
 #' 
 #' @return The number of annotations that match the expression.
 #' 
-#' @seealso
-#' \code{\link{getMatchingAnnotations}}
+#' @seealso [getMatchingAnnotations]
 #' @examples 
 #' \dontrun{
 #' ## count the number of topic tags that include the word 'quake'

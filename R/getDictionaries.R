@@ -4,7 +4,7 @@
 #' @return A named list of layer manager IDs, each of which containing a list of
 #' dictionaries that the layer manager makes available.
 #' 
-#' @seealso \link{getDictionaryEntries}
+#' @family dictionary functions
 #' @examples 
 #' \dontrun{
 #' ## List the dictionaries available
