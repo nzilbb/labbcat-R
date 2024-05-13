@@ -48,6 +48,8 @@ reference:
   - getAvailableMedia
   - getMediaUrl
   - getMedia
+  - saveMedia
+  - deleteMedia
   - countAnnotations
   - getAnchors
   - getAnnotations
