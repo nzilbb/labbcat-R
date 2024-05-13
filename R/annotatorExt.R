@@ -1,4 +1,4 @@
-#' Retrieve annotator's "ext" resource.
+#' Retrieve annotator's "ext" resource
 #' 
 #' Retrieve a given resource from an annotator's "ext" web app. Annotators are modules
 #' that perform different annotation tasks, and can optionally implement functionality for

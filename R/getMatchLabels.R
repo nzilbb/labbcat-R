@@ -1,4 +1,4 @@
-#' Gets labels of annotations on a given layer, identified by given match IDs.
+#' Gets labels of annotations on a given layer, identified by given match IDs
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,

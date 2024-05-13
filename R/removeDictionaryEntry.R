@@ -1,4 +1,4 @@
-#' Removes an entry from a dictionary.
+#' Removes an entry from a dictionary
 #'
 #' This function removes an existing entry from the given dictionary.
 #'

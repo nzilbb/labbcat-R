@@ -1,4 +1,4 @@
-#' Gets the value of the given system attribute.
+#' Gets the value of the given system attribute
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param attribute Name of the attribute.

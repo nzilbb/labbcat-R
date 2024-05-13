@@ -1,4 +1,4 @@
-#' Renames a list of participants.
+#' Renames a list of participants
 #'
 #' This function changes the IDs of a given set of participants, where possible.
 #' 

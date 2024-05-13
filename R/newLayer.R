@@ -1,4 +1,4 @@
-#' Creates a new layer.
+#' Creates a new layer
 #'
 #' This function creates a new annotation layer. The layer may be configured with a layer
 #' manager ID and task parameters, for automatic annotation. If so, this function will

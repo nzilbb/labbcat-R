@@ -1,4 +1,4 @@
-#' Gets a list of IDs of transcripts that include the given participant.
+#' Gets a list of IDs of transcripts that include the given participant
 #'
 #' Returns a list of IDs of transcripts (i.e. transcript names) that include
 #' the given participant.

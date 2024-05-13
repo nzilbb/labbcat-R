@@ -1,5 +1,5 @@
 #' Generates a transcript query expression for matching transcripts by type, for use with
-#' \link{getMatches} or \link{getMatchingTranscriptIds}.
+#' \link{getMatches} or \link{getMatchingTranscriptIds}
 #'
 #' This function generates a transcript query expression fragment which can be passed as
 #' the transcript.expression parameter of \link{getMatches}, (or the expression parameter

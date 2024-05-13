@@ -1,4 +1,4 @@
-#' Gets transcript(s) in a given format.
+#' Gets transcript(s) in a given format
 #' 
 #' This function gets whole transcripts from 'LaBB-CAT', 
 #' converted to a given format (by default, Praat TextGrid).

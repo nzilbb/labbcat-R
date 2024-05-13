@@ -1,4 +1,4 @@
-#' Generates a layer.
+#' Generates a layer
 #'
 #' Generates annotations on a given layer for all transcripts in the corpus.
 #'

@@ -1,4 +1,4 @@
-#' Adds an entry to a dictionary.
+#' Adds an entry to a dictionary
 #'
 #' This function creates adds a new entry to the given dictionary.
 #'

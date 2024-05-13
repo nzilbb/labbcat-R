@@ -1,4 +1,4 @@
-#' Gets a list of participant IDs.
+#' Gets a list of participant IDs
 #'
 #' Returns a list of participant IDs.
 #' @param labbcat.url URL to the LaBB-CAT instance

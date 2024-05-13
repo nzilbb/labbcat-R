@@ -1,4 +1,4 @@
-#' Get all utterances of participants.
+#' Get all utterances of participants
 #'
 #' Identifies all utterances of a given set of participants.
 #'

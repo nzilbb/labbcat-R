@@ -1,4 +1,4 @@
-#' Gets temporal alignments of matches on a given layer.
+#' Gets temporal alignments of matches on a given layer
 #' 
 #' Gets labels and start/end offsets of annotations on a given layer, identified by given
 #' match IDs.

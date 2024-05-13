@@ -1,4 +1,4 @@
-#' List the dictionaries available.
+#' List the dictionaries available
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @return A named list of layer manager IDs, each of which containing a list of

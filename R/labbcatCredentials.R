@@ -1,4 +1,4 @@
-#' Sets the username and password for a given LaBB-CAT server.
+#' Sets the username and password for a given LaBB-CAT server
 #' 
 #' Sets the username and password that the package should use for connecting
 #' to a given LaBB-CAT server in future function calls.

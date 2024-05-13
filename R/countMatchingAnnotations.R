@@ -1,4 +1,4 @@
-#' Gets the number of annotations matching a particular pattern.
+#' Gets the number of annotations matching a particular pattern
 #'
 #' Returns the number of annotations in the corpus that match the given expression.
 #' 

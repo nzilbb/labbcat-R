@@ -1,4 +1,4 @@
-#' Removes an entry from a layer dictionary.
+#' Removes an entry from a layer dictionary
 #'
 #' This function removes an existing entry from the dictionary that manages a given layer,
 #' and updates all affected tokens in the corpus. Words can have multiple entries.

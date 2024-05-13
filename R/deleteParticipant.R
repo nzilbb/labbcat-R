@@ -1,4 +1,4 @@
-#' Deletes a participant record.
+#' Deletes a participant record
 #'
 #' This function deletes the identified participant from the corpus, but only if they do
 #' not appear in any transcripts.

@@ -1,4 +1,4 @@
-#' Search for tokens.
+#' Search for tokens
 #'
 #' Searches through transcripts for tokens matching the given pattern.
 #'

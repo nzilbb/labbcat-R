@@ -1,4 +1,4 @@
-#' Gets the given anchors in the given transcript.
+#' Gets the given anchors in the given transcript
 #'
 #' Lists the given anchors in the given transcript.
 #' 

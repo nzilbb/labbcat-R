@@ -1,4 +1,4 @@
-#' List the predefined media tracks available for transcripts.
+#' List the predefined media tracks available for transcripts
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @return A list of media track definitions.

@@ -1,4 +1,4 @@
-#' Generates a layer for a given set of utterances.
+#' Generates a layer for a given set of utterances
 #'
 #' Generates annotations on a given layer for a given set of utterances, e.g. force-align
 #' selected utterances of a participant.

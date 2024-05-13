@@ -1,4 +1,4 @@
-#' Lists the descriptors of all registered serializers.
+#' Lists the descriptors of all registered serializers
 #' 
 #' Returns a list of serializers, which are modules that export annotation structures as
 #' a specific file format, e.g. Praat TextGrid, plain text, etc., so the

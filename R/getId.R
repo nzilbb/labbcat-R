@@ -1,4 +1,4 @@
-#' Gets the store's ID.
+#' Gets the store's ID
 #' 
 #' The store's ID - i.e. the ID of the 'LaBB-CAT' instance.
 #'

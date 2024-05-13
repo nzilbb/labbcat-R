@@ -1,4 +1,4 @@
-#' Upload a new transcript.
+#' Upload a new transcript
 #'
 #' This function adds a transcript and optionally a media file to the corpus.
 #'

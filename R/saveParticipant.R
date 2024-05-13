@@ -1,4 +1,4 @@
-#' Saves information about a single participant.
+#' Saves information about a single participant
 #'
 #' This function allows the participant attributes and the ID of a given participant to be
 #' updated.

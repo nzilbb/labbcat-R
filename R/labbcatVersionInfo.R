@@ -1,4 +1,4 @@
-#' Gets version information of all components of LaBB-CAT.
+#' Gets version information of all components of LaBB-CAT
 #' 
 #' Version information includes versions of all components and modules installed on the
 #' LaBB-CAT server, including format converters and annotator modules.

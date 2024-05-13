@@ -1,4 +1,4 @@
-#' List the media available for the given transcript.
+#' List the media available for the given transcript
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id A transcript ID (i.e. transcript name)

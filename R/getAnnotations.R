@@ -1,4 +1,4 @@
-#' Gets the annotations on the given layer of the given transcript.
+#' Gets the annotations on the given layer of the given transcript
 #'
 #' Returns the annotations on the given layer of the given transcript.
 #' 

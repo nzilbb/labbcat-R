@@ -1,4 +1,4 @@
-#' Gets participant attribute values for given participant IDs.
+#' Gets participant attribute values for given participant IDs
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param participant.ids A vector of participant IDs

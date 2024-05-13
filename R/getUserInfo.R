@@ -1,4 +1,4 @@
-#' Gets information about the current user.
+#' Gets information about the current user
 #' 
 #' Returns information about the current user, including the roles or groups they are in.
 #' 

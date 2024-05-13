@@ -1,4 +1,4 @@
-#' Gets a list of layer definitions.
+#' Gets a list of layer definitions
 #' 
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @return A list of layer definitions, with members:

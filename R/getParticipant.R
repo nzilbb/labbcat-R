@@ -1,4 +1,4 @@
-#' Gets information about a single participant.
+#' Gets information about a single participant
 #'
 #' Returns a nested named list with the participant information, including the given
 #' participant attributes.

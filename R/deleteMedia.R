@@ -1,4 +1,4 @@
-#' Delete a transcript's media file.
+#' Delete a transcript's media file
 #'
 #' This function deletes the given media file associated with the given transcript.
 #'

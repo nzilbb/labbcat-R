@@ -1,4 +1,4 @@
-#' Uploads the given media for the given transcript.
+#' Uploads the given media for the given transcript
 #'
 #' This function upload a media file to LaBB-CAT, associating it with a given transcript.
 #'

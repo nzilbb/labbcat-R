@@ -1,4 +1,4 @@
-#' Update an existing transcript.
+#' Update an existing transcript
 #'
 #' This function uploads a new version of an existing transcript.
 #'

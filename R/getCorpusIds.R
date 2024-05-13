@@ -1,4 +1,4 @@
-#' Gets a list of corpus IDs.
+#' Gets a list of corpus IDs
 #' 
 #' Returns a list of corpora in the given 'LaBB-CAT' instance.
 #' 

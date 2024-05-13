@@ -1,5 +1,5 @@
 #' Sets the timeout for request to the LaBB-CAT server in future function calls. The
-#' default timeout is 10 seconds.
+#' default timeout is 10 seconds
 #'
 #' @param seconds The number of seconds before requests return with a timeout error.
 #' @return The request timeout in seconds

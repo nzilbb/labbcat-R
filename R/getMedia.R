@@ -1,4 +1,4 @@
-#' Downloads a given media track for a given transcript.
+#' Downloads a given media track for a given transcript
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance.
 #' @param id A transcript ID (i.e. transcript name).

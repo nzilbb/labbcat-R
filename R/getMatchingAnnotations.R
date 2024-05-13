@@ -1,4 +1,4 @@
-#' Gets a list of annotations that match a particular pattern.
+#' Gets a list of annotations that match a particular pattern
 #'
 #' Returns the annotations in the corpus that match the given expression.
 #'

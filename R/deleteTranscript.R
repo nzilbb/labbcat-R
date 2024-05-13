@@ -1,4 +1,4 @@
-#' Delete a transcript from the corpus.
+#' Delete a transcript from the corpus
 #'
 #' This function deletes the given transcript, and all associated files.
 #'

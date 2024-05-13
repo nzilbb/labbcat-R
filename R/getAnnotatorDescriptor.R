@@ -1,4 +1,4 @@
-#' Gets annotator information.
+#' Gets annotator information
 #' 
 #' Retrieve information about an annotator. Annotators are modules that perform different
 #' annotation tasks. This function provides information about a given annotator, for

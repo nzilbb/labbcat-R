@@ -1,4 +1,4 @@
-#' Gets a list of transcript in a corpus.
+#' Gets a list of transcript in a corpus
 #'
 #' Returns a list of transcript IDs in the given corpus.
 #'

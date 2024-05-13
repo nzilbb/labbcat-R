@@ -1,4 +1,4 @@
-#' Gets transcript attribute values for given transcript IDs.
+#' Gets transcript attribute values for given transcript IDs
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param transcript.ids A vector of transcript IDs

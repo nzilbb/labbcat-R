@@ -1,4 +1,4 @@
-#' Lookup entries in a dictionary.
+#' Lookup entries in a dictionary
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param manager.id The layer manager ID of the dictionary, as returned by getDictionaries

@@ -1,4 +1,4 @@
-#' Upload a flat lexicon file for lexical tagging.
+#' Upload a flat lexicon file for lexical tagging
 #' 
 #' By default LaBB-CAT includes a layer manager called the Flat Lexicon Tagger, which can
 #' be configured to annotate words with data from a dictionary loaded from a plain text

@@ -1,4 +1,4 @@
-#' Lists the descriptors of all registered deserializers.
+#' Lists the descriptors of all registered deserializers
 #' 
 #' Returns a list of deserializers, which are modules that import transcriptions and
 #' annotation structures from a specific file format, e.g. Praat TextGrid, plain text, etc.

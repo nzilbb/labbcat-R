@@ -1,4 +1,4 @@
-#' Gets a layer definition.
+#' Gets a layer definition
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id ID of the layer to get the definition for

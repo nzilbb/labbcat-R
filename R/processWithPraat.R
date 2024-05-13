@@ -1,4 +1,4 @@
-#' Process a set of intervals with Praat.
+#' Process a set of intervals with Praat
 #'
 #' This function instructs the LaBB-CAT server to invoke Praat for a set of sound
 #' intervals, in order to extract acoustic measures.

@@ -1,5 +1,5 @@
 #' Generates a query expression for matching a transcript/participant attribute, for use with
-#' \link{getMatches}.
+#' \link{getMatches}
 #'
 #' This function generates a query expression fragment which can be passed as
 #' the transcript.expression or participant.expression parameter of \link{getMatches}, (or

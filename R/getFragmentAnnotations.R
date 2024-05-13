@@ -1,4 +1,4 @@
-#' Gets annotations in fragments.
+#' Gets annotations in fragments
 #' 
 #' This function gets annotations between given start/end times on given layers. If more
 #' than one annotation matches, labels are concatentated together.

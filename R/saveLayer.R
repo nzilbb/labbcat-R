@@ -1,4 +1,4 @@
-#' Saves the details of an existing layer.
+#' Saves the details of an existing layer
 #'
 #' This function saves the definition of an existing annotation layer. 
 #'

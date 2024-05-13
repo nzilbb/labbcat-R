@@ -1,4 +1,4 @@
-#' Gets a list of transcript IDs.
+#' Gets a list of transcript IDs
 #'
 #' Returns a list of transcript IDs (i.e. transcript names).
 #'

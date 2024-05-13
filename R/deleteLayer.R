@@ -1,4 +1,4 @@
-#' Deletes an existing layer.
+#' Deletes an existing layer
 #'
 #' This function deletes an existing annotation layer, including all annotation data
 #' associated with it.

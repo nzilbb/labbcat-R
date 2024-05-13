@@ -1,4 +1,4 @@
-#' Generates a script for extracting pitch, for use with \link{processWithPraat}.
+#' Generates a script for extracting pitch, for use with \link{processWithPraat}
 #'
 #' This function generates a Praat script fragment which can be passed as the praat.script
 #' parameter of \link{processWithPraat}, in order to extract pitch information.

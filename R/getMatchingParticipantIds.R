@@ -1,4 +1,4 @@
-#' Gets a list of IDs of participants that match a particular pattern.
+#' Gets a list of IDs of participants that match a particular pattern
 #'
 #' Gets a list of IDs of participants that match a particular pattern.
 #'

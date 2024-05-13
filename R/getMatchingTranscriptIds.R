@@ -1,4 +1,4 @@
-#' Gets a list of IDs of transcripts that match a particular pattern.
+#' Gets a list of IDs of transcripts that match a particular pattern
 #'
 #' Gets a list of IDs of transcripts (i.e. transcript names) that match a
 #' particular pattern.

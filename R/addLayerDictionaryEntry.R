@@ -1,4 +1,4 @@
-#' Adds an entry to a layer dictionary.
+#' Adds an entry to a layer dictionary
 #'
 #' This function adds a new entry to the dictionary that manages a given layer,
 #' and updates all affected tokens in the corpus. Words can have multiple entries.
