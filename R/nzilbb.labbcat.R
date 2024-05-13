@@ -39,7 +39,10 @@ NULL
 
 ### Internal functions:
 
-## prompt for password in RStudio, falling back to terminal if we're not in RStudio
+#' prompt for password in RStudio, falling back to terminal if we're not in RStudio
+#' @param prompt Prompt to display to user
+#' @return The usre's response
+#' @noRd
 get.hidden.input <- function(prompt) {
     return(tryCatch({
         ## try using the RStudio API for hidden input
@@ -50,14 +53,22 @@ get.hidden.input <- function(prompt) {
     }))
 }
 
-## encode a parameter value for inclusion in the URL
+#' Encode a parameter value for inclusion in the URL
+#' @param value Value to encode.
+#' @return URL-encoded value.
+#' @noRd
 enc <- function(value) {
     return(
         stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(
           URLencode(value),"\\+","%2B"),":","%3A"),"\\[","%5B"),"\\]","%5D"),"#","%23"),"&&","%26%26"))
 }
 
-## build a store call URL 
+#' build a store call URL 
+#' @param labbcat.url URL to LaBB-CAT
+#' @param call Graph store API enpoint
+#' @param parameters Request parameters
+#' @return URL
+#' @noRd
 buildUrl <- function(labbcat.url, call, parameters = NULL) {
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
     url <- paste("store?call=", call, sep="")
@@ -71,7 +82,12 @@ buildUrl <- function(labbcat.url, call, parameters = NULL) {
     return(url)
 }
 
-## make an HTTP GET request to the store URL, asking for credentials if required
+#' make an HTTP GET request to the store URL, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT
+#' @param call Graph store API enpoint
+#' @param parameters Request parameters
+#' @return response to request
+#' @noRd
 store.get <- function(labbcat.url, call, parameters = NULL) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
@@ -123,7 +139,12 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
         return(resp)
     }
 }
-## make an HTTP GET request to the thread URL, asking for credentials if required
+#' make an HTTP GET request to the thread URL, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT
+#' @param threadId Server-side task ID
+#' @param parameters Request parameters
+#' @return task model returned by request
+#' @noRd
 thread.get <- function(labbcat.url, threadId) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
@@ -176,7 +197,14 @@ thread.get <- function(labbcat.url, threadId) {
         }
     }
 }
-## make an HTTP GET request, asking for credentials if required
+#' make an HTTP GET request, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT.
+#' @param path Endpoint path.
+#' @param parameters Request parameters.
+#' @param content.type Content (MIME) for encoding of response.
+#' @param file.name Name of file to save response to, or NULL to not save to a fil.
+#' @return Response object.
+#' @noRd
 http.get <- function(labbcat.url, path, parameters = NULL, content.type = "application/json", file.name = NULL) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
@@ -243,7 +271,13 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     }
 }
 
-## make an HTTP POST request, asking for credentials if required
+#' make an HTTP POST request, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT.
+#' @param path Endpoint path.
+#' @param parameters Request parameters.
+#' @param file.name Name of file to save response to, or NULL to not save to a fil.
+#' @return Response object.
+#' @noRd
 http.post <- function(labbcat.url, path, parameters, file.name=NULL) {
     
     ## ensure labbcat base URL has a trailing slash
@@ -298,7 +332,13 @@ http.post <- function(labbcat.url, path, parameters, file.name=NULL) {
     }
 }
 
-## make an HTTP POST request, asking for credentials if required
+#' make an HTTP POST request, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT.
+#' @param path Endpoint path.
+#' @param parameters Request parameters.
+#' @param file.name Name of file to save response to, or NULL to not save to a fil.
+#' @return Response object.
+#' @noRd
 http.post.multipart <- function(labbcat.url, path, parameters, file.name=NULL) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
@@ -353,7 +393,10 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name=NULL) {
     }
 }
 
-## Convert HTML to plain text for display purposes
+#' Convert HTML to plain text for display purposes
+#' @param html HTML content to convert.
+#' @return Content with HTML tags stripped out.
+#' @noRd
 html.to.text <- function(html) {
     ## remove DOCTYPE declaration
     text <- stringr::str_replace(html, "<!DOCTYPE html>", "")
