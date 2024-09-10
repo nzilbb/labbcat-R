@@ -465,7 +465,7 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
             "MatchId","URL","Before.Match","Text","After.Match","Number",
             "Target.word","Target.word.start","Target.word.end")
     }
-    if (target.layer != "word") {
+    if (thread$size > 0 && target.layer != "word") {
         frameNames <- c(frameNames,
                         c(paste("Target.",target.layer,sep=""),
                           paste("Target.",target.layer,".start",sep=""),
