@@ -17,7 +17,7 @@
 #' If you must use labbcatCredentials, avoid including the actual username and password in
 #' your script. The recommended approach is to store the username and password (and
 #' perhaps the URL too) in your \file{.Renviron} file (in your home directory, or the
-#' porject directory), like this:
+#' project directory), like this:
 #'
 #' ```
 #' LABBCAT_URL=https://labbcat.canterbury.ac.nz/demo/
