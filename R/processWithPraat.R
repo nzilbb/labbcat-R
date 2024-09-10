@@ -66,7 +66,7 @@
 #'   then Praat will extract a sample of audio from  1.5s to 3.5s, and do the selected
 #'   processing on that sample. The best value for this depends on what the praat.script
 #'   is doing; if you are getting formants from  vowels, including some context ensures
-#'   that he formants at the edges are more accurate (in LaBB-CAT's web interface, the
+#'   that the formants at the edges are more accurate (in LaBB-CAT's web interface, the
 #'   default value for this 0.025), but if you're getting max pitch or COG during a
 #'   segment, most likely you want a window.offset of 0 to ensure neighbouring segments
 #'   doesn't influence the measurement. 
