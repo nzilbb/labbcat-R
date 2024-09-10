@@ -418,3 +418,25 @@ html.to.text <- function(html) {
     text <- stringr::str_replace_all(text, pattern, "")
     return(text)
 }
+
+#' Determing file name of an HTTP response from the content-disposition header
+#' @param content.disposition Value of the the content-disposition response header
+#' @return The suggested file name of the download, or NULL if it could not be determined
+#' @noRd
+fileNameFromContentDisposition <- function(content.disposition) {
+    if (!is.null(content.disposition) && content.disposition != "") {
+        ## header is something like:
+        ## attachment; filename=orthography_(a).csv; filename*="orthography%E2%89%88_%28%C3%A1%29.csv"
+        content.disposition.filename <- strsplit(content.disposition, "filename\\*?=")
+        if (length(content.disposition.filename[[1]]) > 1) {
+            ## strip everythin after ; so we don't get the "; filename* part
+            content.disposition.filename <- strsplit(content.disposition.filename[[1]][2], ";")
+            filename <- content.disposition.filename[[1]][1]
+            ## strip quotes around name if any
+            filename = sub('"(.*)"', "\\1", filename)
+            print(paste(" fileNameFromContentDisposition", filename))
+            return(filename)
+        } ## filename=...
+    } ## there is a header value
+    return(NULL)
+}

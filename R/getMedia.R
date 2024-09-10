@@ -60,12 +60,12 @@ getMedia <- function(labbcat.url, id, track.suffix = "", mime.type = "audio/wav"
             file.remove(file.name)
             file.name <<- NULL
         } else {
-            content.disposition <- as.character(httr::headers(resp)["content-disposition"])
-            content.disposition.parts <- strsplit(content.disposition, "=")
-            if (length(content.disposition.parts[[1]]) > 1
-                && file.name != content.disposition.parts[[1]][2]) {
+            content.disposition.filename <- fileNameFromContentDisposition(
+                as.character(httr::headers(resp)["content-disposition"]))
+            if (!is.null(content.disposition.filename)
+                && file.name != content.disposition.filename) {
                 ## file name is specified, so use it
-                final.file.name <- paste(dir, content.disposition.parts[[1]][2], sep="")
+                final.file.name <- paste(dir, content.disposition.filename, sep="")
                 if (final.file.name != file.name) {
                     file.rename(file.name, final.file.name)
                     file.name <- final.file.name
