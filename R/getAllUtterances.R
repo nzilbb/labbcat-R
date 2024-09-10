@@ -117,7 +117,7 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
     resp <- http.get(labbcat.url,
                      endpoint,
                      list(threadId=threadId, todo="csv", csvFieldDelimiter=",",
-                          csv_option=csv_option, csv_layer_option=c(),
+                          csv_option=csv_option, csv_layer=c(),
                           pageLength=max.matches),
                      content.type="text/csv",
                      file.name = download.file)
