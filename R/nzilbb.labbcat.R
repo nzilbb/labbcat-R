@@ -434,7 +434,6 @@ fileNameFromContentDisposition <- function(content.disposition) {
             filename <- content.disposition.filename[[1]][1]
             ## strip quotes around name if any
             filename = sub('"(.*)"', "\\1", filename)
-            print(paste(" fileNameFromContentDisposition", filename))
             return(filename)
         } ## filename=...
     } ## there is a header value
