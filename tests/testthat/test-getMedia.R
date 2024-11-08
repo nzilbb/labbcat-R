@@ -7,8 +7,8 @@ test_that("getMediaUrl works", {
     if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     expect_equal(
-        getMediaUrl(labbcat.url, "BR2044_OllyOhlson.eaf", "_face", "video/mp4"),
-        "https://labbcat.canterbury.ac.nz/demo/files/QB/BR2044_OllyOhlson/mp4/BR2044_OllyOhlson_face.mp4")
+        getMediaUrl(labbcat.url, "BR2044_OllyOhlson-b.eaf", "", "video/mp4"),
+        "https://labbcat.canterbury.ac.nz/demo/files/QB/BR2044_OllyOhlson/mp4/BR2044_OllyOhlson-b.mp4")
 })
 
 test_that("getMedia works", {

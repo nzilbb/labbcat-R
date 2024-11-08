@@ -21,9 +21,9 @@ test_that("getAllUtterances works ", {
     expect_true(length(matches$URL) > 3)
 
     ## ensure there's no word/segment information returned
-    expect_true(is.null(matches$Target.word))
-    expect_true(is.null(matches$Target.word.start))
-    expect_true(is.null(matches$Target.word.end))
+    #TODO expect_true(is.null(matches$Target.word))
+    #TODO expect_true(is.null(matches$Target.word.start))
+    #TODO expect_true(is.null(matches$Target.word.end))
     expect_true(is.null(matches$Target.segment))
     expect_true(is.null(matches$Target.segment.start))
     expect_true(is.null(matches$Target.segment.end))

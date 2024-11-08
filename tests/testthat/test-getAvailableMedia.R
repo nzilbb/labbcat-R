@@ -6,19 +6,18 @@ test_that("getAvailableMedia works", {
     skip_on_cran() # don't run tests that depend on external resource on CRAN
     if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
-    media <- getAvailableMedia(labbcat.url, "BR2044_OllyOhlson.eaf")
-    expect_equal(length(media$name), 9)
-    expect_equal(length(media$mimeType), 9)
-    expect_equal(length(media$url), 9)
-    expect_equal(length(media$trackSuffix), 9)
+    media <- getAvailableMedia(labbcat.url, "BR2044_OllyOhlson-b.eaf")
+    expect_equal(length(media$name), 5)
+    expect_equal(length(media$mimeType), 5)
+    expect_equal(length(media$url), 5)
+    expect_equal(length(media$trackSuffix), 5)
 
-    expect_true("BR2044_OllyOhlson.mp4" %in% media$name)
-    expect_true("BR2044_OllyOhlson_face.mp4" %in% media$name)
-    expect_true("BR2044_OllyOhlson.wav" %in% media$name)
+    expect_true("BR2044_OllyOhlson-b.mp4" %in% media$name)
+    expect_true("BR2044_OllyOhlson-b.wav" %in% media$name)
     
     expect_true("video" %in% media$type)
     expect_true("mp4" %in% media$extension)
     expect_true("video/mp4" %in% media$mimeType)
-    expect_true("BR2044_OllyOhlson" %in% media$nameWithoutSuffix)
-    expect_true("_face" %in% media$trackSuffix)
+    expect_true("BR2044_OllyOhlson-b" %in% media$nameWithoutSuffix)
+    expect_true("" %in% media$trackSuffix)
 })
