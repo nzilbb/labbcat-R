@@ -8,7 +8,7 @@
 #'   of a results set. 
 #' @param layer.id The ID of the layer to generate.
 #' @param collection.name An optional name for the collection, e.g. the participant ID.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return The final status of the layer generation task.
 #' 

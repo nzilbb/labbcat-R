@@ -27,7 +27,7 @@
 #'   e.g. '#'.
 #' @param skip.first.line Whether to ignore the first line of the file (because it
 #'   contains field names). 
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return An error message, or NULL if the upload was successful.
 #' @keywords lexicon

@@ -1,4 +1,4 @@
-#' Gets annotations in fragments
+#' Gets annotations in fragments.
 #' 
 #' This function gets annotations between given start/end times on given layers. If more
 #' than one annotation matches, labels are concatentated together.
@@ -14,7 +14,7 @@
 #'   in the given interval.
 #' @param partial.containment Whether to include annotations that are only partially
 #'   contained in the given interval.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return A data frame with three columns for each layer in layer.ids:
 #'  - The annotation labels concatenated together

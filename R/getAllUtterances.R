@@ -9,7 +9,7 @@
 #' @param main.participant TRUE to search only main-participant utterances, FALSE to
 #'   search all utterances.
 #' @param max.matches The maximum number of matches to return, or null to return all.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
 #'  - *SearchName* A name based on the pattern -- the same for all rows

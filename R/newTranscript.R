@@ -11,7 +11,7 @@
 #' @param transcript.type The transcript type.
 #' @param corpus The corpus to add the transcript to.
 #' @param episode The transcript's episode.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return The ID of the new transcript in the corpus
 #' 

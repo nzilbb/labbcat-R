@@ -76,7 +76,7 @@
 #'   gender of the speaker is, including the "participant_gender" attribute will make a
 #'   variable called participant_gender$ available to the praat script, whose value will
 #'   be the gender of the speaker for that segment.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return A data frame of acoustic measures, one row for each matchId.
 #' 

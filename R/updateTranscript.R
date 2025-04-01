@@ -7,7 +7,7 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param transcript.path The path to the transcript to upload.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return The ID of the updated transcript in the corpus
 #' 

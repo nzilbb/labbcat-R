@@ -7,7 +7,7 @@
 #'   the corpus.
 #' @param new.ids A vector of new participant IDs, each element corresponding to an ID in
 #'   current.ids. 
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return A vector of results, each element corresponding to an ID in current.ids. If the
 #'   ID was successfully changed, the corresponding element is TRUE. If the ID could not

@@ -103,7 +103,7 @@
 #'   matches or the network connection is slow, rather than retrieving matches in one
 #'   big request, they are retrieved using many smaller requests. This parameter
 #'   controls the number of results retrieved per request.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return A data frame identifying matches, containing the following columns:
 #'   - *Title* The title of the LaBB-CAT instance

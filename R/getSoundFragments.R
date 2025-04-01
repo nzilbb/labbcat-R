@@ -8,7 +8,7 @@
 #' @param sample.rate Optional sample rate in Hz - if a positive
 #'   integer, then the result is a mono file with the given sample rate.
 #' @param path Optional path to directory where the files should be saved.
-#' @param no.progress TRUE to supress visual progress bar. Otherwise, progress bar will be
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return The name of the file, which is saved in the current
 #'   directory, or a list of names of files, if multiple
