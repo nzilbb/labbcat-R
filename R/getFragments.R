@@ -4,7 +4,7 @@
 #' converted to a given format (by default, Praat TextGrid).
 #'
 #' **NB** Although many formats will generate exactly one file for each interval
-#'      (e.g. mime.type=text/praat-textgrid), this is not guaranted; some formats generate
+#'      (e.g. mime.type=text/praat-textgrid), this is not guaranteed; some formats generate
 #'      a single file or a fixed collection of files regardless of how many fragments there are.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
@@ -123,12 +123,7 @@ getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "te
                 file.remove(file.name)
             } else { ## a single file returned
                 ## move it to the dir
-                if (stringr::str_length(dir) > 0) { ## directory is specified
-                    file.names <- paste(dir, .Platform$file.sep, file.name, sep="")
-                    file.rename(file.name, file.names)
-                } else {
-                    file.names = file.name
-                }
+                file.names = file.name
             }
         }
     }, error = function(e) {
