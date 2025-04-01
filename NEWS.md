@@ -27,6 +27,7 @@ pattern <- list(
 
 - *saveMedia* - saves the given media for the given transcript.
 - *deleteMedia* - deletes media or episode document files.
+- *getMatchingAnnotationData* and *getFragmentAnnotationData* - saves binary annotation files.
 
 # nzilbb.labbcat 1.3-0
 
