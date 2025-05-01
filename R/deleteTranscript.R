@@ -19,7 +19,7 @@
 deleteTranscript <- function(labbcat.url, id) {
     
     ## delete transcript
-    resp <- http.post(labbcat.url, "edit/store/deleteTranscript", list(id=id))
+    resp <- http.post(labbcat.url, "api/edit/store/deleteTranscript", list(id=id))
     
     ## check response
     if (is.null(resp)) return()

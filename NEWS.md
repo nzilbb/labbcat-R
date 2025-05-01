@@ -1,6 +1,15 @@
 # nzilbb.labbcat 1.3-1
 
-Minimum LaBB-CAT version *20230818.1400*
+Minimum LaBB-CAT version *20250430.1502*
+
+## New functions:
+
+New, more flexible upload API functions, which allow fienly-grained control of how
+transcript files are processed by LaBB-CAT:
+
+- *transcriptUpload* - start upload process by sending files to the server.
+- *transcriptUploadParameters* - complete the upload process by setting upload parameters.
+- *transcriptUploadDelete* - abandon a previously started upload process.
 
 ## Enhancements
 
