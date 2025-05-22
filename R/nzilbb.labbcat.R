@@ -288,11 +288,13 @@ http.post <- function(labbcat.url, path, parameters, file.name=NULL) {
     ## attempt the request
     if (is.null(file.name)) {
         resp <- httr::POST(url,
+                           ## httr::verbose(),
                            httr::add_headers("User-Agent" = .user.agent),
                            httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                            body = parameters, encode = "form")
     } else {
         resp <- httr::POST(url,
+                           ## httr::verbose(),
                            httr::write_disk(file.name, overwrite=TRUE),
                            httr::add_headers("User-Agent" = .user.agent),
                            httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
@@ -332,6 +334,120 @@ http.post <- function(labbcat.url, path, parameters, file.name=NULL) {
     }
 }
 
+#' make an HTTP PUT request, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT.
+#' @param path Endpoint path.
+#' @param parameters Request parameters.
+#' @param file.name Name of file to save response to, or NULL to not save to a fil.
+#' @return Response object.
+#' @noRd
+http.put <- function(labbcat.url, path, parameters, file.name=NULL) {
+    
+    ## ensure labbcat base URL has a trailing slash
+    if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
+
+    ## build request URL
+    url <- paste(labbcat.url, path, sep="")
+    ## print(url)
+    ## attempt the request
+    if (is.null(file.name)) {
+        resp <- httr::PUT(url,
+                          ## httr::verbose(),
+                          httr::add_headers("User-Agent" = .user.agent),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
+                          body = parameters, encode = "form")
+    } else {
+        resp <- httr::PUT(url,
+                          httr::write_disk(file.name, overwrite=TRUE),
+                          httr::add_headers("User-Agent" = .user.agent),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
+                          body = parameters, encode = "form")
+    }
+    ## check we don't need credentials
+    if (httr::status_code(resp) == 401 && interactive()) {
+        ## ask for username and password
+        instance.name <- httr::headers(resp)['www-authenticate']
+        if (!is.null(instance.name)) {
+            ## something like 'Basic realm="Demo LaBB-CAT"'
+            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
+            instance.name <- stringr::str_replace(instance.name, "\"$", "")
+        } else {
+            instance.name <- "LaBB-CAT"
+        }
+
+        ## loop trying until success, or they cancel out
+        repeat {
+            error <- labbcatCredentials(
+                labbcat.url,
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
+        } ## next try
+        
+        ## and try again
+        return(http.put(labbcat.url, path, parameters, file.name))
+    } else {
+        return(resp)
+    }
+}
+
+#' make an HTTP DELETE request, asking for credentials if required
+#' @param labbcat.url URL to LaBB-CAT.
+#' @param path Endpoint path.
+#' @param parameters Request parameters.
+#' @param file.name Name of file to save response to, or NULL to not save to a fil.
+#' @return Response object.
+#' @noRd
+http.delete <- function(labbcat.url, path) {
+    
+    ## ensure labbcat base URL has a trailing slash
+    if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
+
+    ## build request URL
+    url <- paste(labbcat.url, path, sep="")
+    resp <- httr::DELETE(url,
+                         httr::add_headers("User-Agent" = .user.agent),
+                         httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
+    ## check we don't need credentials
+    if (httr::status_code(resp) == 401 && interactive()) {
+        ## ask for username and password
+        instance.name <- httr::headers(resp)['www-authenticate']
+        if (!is.null(instance.name)) {
+            ## something like 'Basic realm="Demo LaBB-CAT"'
+            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
+            instance.name <- stringr::str_replace(instance.name, "\"$", "")
+        } else {
+            instance.name <- "LaBB-CAT"
+        }
+
+        ## loop trying until success, or they cancel out
+        repeat {
+            error <- labbcatCredentials(
+                labbcat.url,
+                get.hidden.input(paste(instance.name, "Username:", "")),
+                get.hidden.input(paste(instance.name, "Password:", "")))
+            ## NULL means everything OK
+            if (is.null(error)) break
+            ## "Version mismatch" means success, but wrong LaBB-CAT version
+            if (grepl("version", error, ignore.case=T)) {
+                print(error)
+                return(NULL)
+            }
+        } ## next try
+        
+        ## and try again
+        return(http.delete(labbcat.url, path, parameters, file.name))
+    } else {
+        return(resp)
+    }
+}
+
 #' make an HTTP POST request, asking for credentials if required
 #' @param labbcat.url URL to LaBB-CAT.
 #' @param path Endpoint path.
@@ -345,10 +461,12 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name=NULL) {
 
     ## build request URL
     url <- paste(labbcat.url, path, sep="")
+    ## print(url)
     
     ## attempt the request
     if (is.null(file.name)) {
         resp <- httr::POST(url,
+                           ## httr::verbose(),
                            httr::add_headers("User-Agent" = .user.agent),
                            httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                            body = parameters, encode = "multipart")
@@ -359,6 +477,7 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name=NULL) {
                            httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)),
                            body = parameters, encode = "multipart")
     }
+    ## print(paste("response ", resp))
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
