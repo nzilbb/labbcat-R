@@ -11,6 +11,7 @@
 #' this package.
 #' 
 #' @docType package
+#' @aliases nzilbb.labbcat-package
 #' @keywords package
 #' @name nzilbb.labbcat
 #' @author \packageAuthor{nzilbb.labbcat}
