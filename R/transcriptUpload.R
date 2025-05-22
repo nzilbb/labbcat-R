@@ -3,6 +3,9 @@
 #' Uploading files is the first stage in adding or modifying a transcript to LaBB-CAT.
 #' The second stage is transcriptUploadParameters()
 #'
+#' *NB* Using transcriptUpload and transcriptUploadParameters is an alternative to using
+#' newTranscript or updateTranscript.
+#'
 #' For this function to work, the credentials used to connect to the server must have at
 #' least 'edit' access.
 #'

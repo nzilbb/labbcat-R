@@ -2,6 +2,9 @@
 #'
 #' This function adds a transcript and optionally a media file to the corpus.
 #'
+#' *NB* This method of uploading is an alternative to using transcriptUpload and
+#' transcriptUploadParameters.
+#'
 #' For this function to work, the credentials used to connect to the server must have at
 #' least 'edit' access.
 #'

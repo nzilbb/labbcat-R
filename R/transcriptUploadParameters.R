@@ -4,6 +4,9 @@
 #' which specifies values for the parameters required to save the uploaded transcript to
 #' LaBB-CAT's database.
 #'
+#' *NB* Using transcriptUpload and transcriptUploadParameters is an alternative to using
+#' newTranscript or updateTranscript.
+#'
 #' If the response includes more parameters, then this method should be called again
 #' to supply their values.
 #'
