@@ -4,7 +4,10 @@ Minimum LaBB-CAT version *20250430.1502*
 
 ## New functions:
 
-New, more flexible upload API functions, which allow fienly-grained control of how
+- *saveMedia* - saves the given media for the given transcript.
+- *deleteMedia* - deletes media or episode document files.
+
+New, more flexible upload API functions, which allow finely-grained control of how
 transcript files are processed by LaBB-CAT:
 
 - *transcriptUpload* - start upload process by sending files to the server.
@@ -38,13 +41,6 @@ pattern <- list(
   orthography = "k.*", 
   segment = list(pattern = "n", anchorStart = T)
 ```
-
-## New functions:
-
-- *saveMedia* - saves the given media for the given transcript.
-- *deleteMedia* - deletes media or episode document files.
-- *getMatchingAnnotationData* and *getFragmentAnnotationData* - saves binary annotation files.
-
 # nzilbb.labbcat 1.3-0
 
 Minimum LaBB-CAT version *20230224.1731*
