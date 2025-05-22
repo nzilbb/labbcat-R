@@ -9,7 +9,6 @@
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param transcript.id The transcript ID (transcript name) of the sound recording, or
 #'   a vector of transcript IDs. 
-#' @param participant.id The participant ID of the annotations, or a vector of participant IDs.  
 #' @param start The start time in seconds, or a vector of start times.
 #' @param end The end time in seconds, or a vector of end times.
 #' @param layer.id The ID of the MIME-typed layer.

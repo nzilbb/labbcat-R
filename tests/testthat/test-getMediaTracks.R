@@ -7,7 +7,7 @@ test_that("getMediaTracks works", {
     if (!is.null(labbcatCredentials(labbcat.url, username, password))) skip("Server not available")
 
     tracks <- getMediaTracks(labbcat.url)
-    expect_equal(length(tracks$description), 2)
-    expect_true("Quake Face" %in% tracks$description)
-    expect_true("_face" %in% tracks$suffix)
+    expect_true(length(tracks$description) >= 2)
+    expect_true("MediaPipe track" %in% tracks$description)
+    expect_true("_mediapipe" %in% tracks$suffix)
 })

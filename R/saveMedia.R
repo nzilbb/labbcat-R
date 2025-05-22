@@ -25,7 +25,7 @@
 #' saveMedia(
 #'     labbcat.url, "my-transcript.eaf", "my-transcript/audio/room-mic.wav", "-room")
 #' }
-#' @keywords media, upload
+#' @keywords media upload
 #' 
 saveMedia <- function(labbcat.url, id, media, track.suffix=NULL) {
   

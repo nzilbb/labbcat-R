@@ -11,9 +11,9 @@
 #'   match by either id or layer.id.
 #'   The expression language is currently not well defined, but is based on JavaScript
 #'   syntax. e.g.
-#'   - id == 'e_144_17346'
-#'   - ['e_144_17346', 'e_144_17347', 'e_144_17348'].includes(id)
-#'   - layer.id == 'mediapipe' && graph.id == 'AdaAicheson-01.trs'
+#'   - `id == 'e_144_17346'`
+#'   - `['e_144_17346', 'e_144_17347', 'e_144_17348'].includes(id)`
+#'   - `layer.id == 'mediapipe' && graph.id == 'AdaAicheson-01.trs'`
 #' @param path Optional path to directory where the files should be saved.
 #' @return The names of the files.
 #' 

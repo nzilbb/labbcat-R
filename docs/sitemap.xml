@@ -1,261 +1,97 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/articles/examples/forced-alignment-comparison.html</loc>
-  </url>
-  <url>
-    <loc>/articles/examples/search-labels-alignments-praat-script.html</loc>
-  </url>
-  <url>
-    <loc>/articles/examples/search-labels-alignments-r-script.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/footer.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/addDictionaryEntry.html</loc>
-  </url>
-  <url>
-    <loc>/reference/addLayerDictionaryEntry.html</loc>
-  </url>
-  <url>
-    <loc>/reference/annotatorExt.html</loc>
-  </url>
-  <url>
-    <loc>/reference/countAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/countMatchingAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/deleteLayer.html</loc>
-  </url>
-  <url>
-    <loc>/reference/deleteLexicon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/deleteParticipant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/deleteTranscript.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expressionFromAttributeValue.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expressionFromAttributeValues.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expressionFromIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expressionFromTranscriptTypes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/formatTranscript.html</loc>
-  </url>
-  <url>
-    <loc>/reference/generateLayer.html</loc>
-  </url>
-  <url>
-    <loc>/reference/generateLayerUtterances.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getAllUtterances.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getAnchors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getAnnotatorDescriptor.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getAvailableMedia.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getCorpusIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getDeserializerDescriptors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getDictionaries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getDictionaryEntries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getFragmentAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getFragments.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getGraphIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getGraphIdsInCorpus.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getGraphIdsWithParticipant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getId.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getLayer.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getLayerIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getLayers.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatchAlignments.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatchLabels.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatches.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatchingAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatchingGraphIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatchingParticipantIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMatchingTranscriptIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMedia.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMediaTracks.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMediaUrl.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getParticipant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getParticipantAttributes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getParticipantIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getSerializerDescriptors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getSoundFragments.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getSystemAttribute.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTranscriptAttributes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTranscriptIds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTranscriptIdsInCorpus.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTranscriptIdsWithParticipant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getUserInfo.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/labbcatCredentials.html</loc>
-  </url>
-  <url>
-    <loc>/reference/labbcatTimeout.html</loc>
-  </url>
-  <url>
-    <loc>/reference/labbcatVersionInfo.html</loc>
-  </url>
-  <url>
-    <loc>/reference/loadLexicon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/newLayer.html</loc>
-  </url>
-  <url>
-    <loc>/reference/newTranscript.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nzilbb.labbcat.html</loc>
-  </url>
-  <url>
-    <loc>/reference/praatScriptCentreOfGravity.html</loc>
-  </url>
-  <url>
-    <loc>/reference/praatScriptFastTrack.html</loc>
-  </url>
-  <url>
-    <loc>/reference/praatScriptFormants.html</loc>
-  </url>
-  <url>
-    <loc>/reference/praatScriptIntensity.html</loc>
-  </url>
-  <url>
-    <loc>/reference/praatScriptPitch.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processWithPraat.html</loc>
-  </url>
-  <url>
-    <loc>/reference/removeDictionaryEntry.html</loc>
-  </url>
-  <url>
-    <loc>/reference/removeLayerDictionaryEntry.html</loc>
-  </url>
-  <url>
-    <loc>/reference/renameParticipants.html</loc>
-  </url>
-  <url>
-    <loc>/reference/saveLayer.html</loc>
-  </url>
-  <url>
-    <loc>/reference/saveParticipant.html</loc>
-  </url>
-  <url>
-    <loc>/reference/updateFragment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/updateTranscript.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://nzilbb.github.io/labbcat-R/404.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/LICENSE-text.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/articles/examples/forced-alignment-comparison.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/articles/examples/search-labels-alignments-praat-script.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/articles/examples/search-labels-alignments-r-script.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/articles/index.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/authors.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/footer.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/index.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/news/index.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/addDictionaryEntry.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/addLayerDictionaryEntry.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/annotatorExt.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/countAnnotations.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/countMatchingAnnotations.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/deleteLayer.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/deleteLexicon.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/deleteMedia.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/deleteParticipant.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/deleteTranscript.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromAttributeValue.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromAttributeValues.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromAttributeValuesCount.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromTranscriptTypes.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/formatTranscript.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/generateLayer.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/generateLayerUtterances.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getAllUtterances.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getAnchors.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getAnnotations.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getAnnotatorDescriptor.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getAvailableMedia.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getCorpusIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getDeserializerDescriptors.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getDictionaries.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getDictionaryEntries.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getFragmentAnnotationData.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getFragmentAnnotations.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getFragments.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getGraphIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getGraphIdsInCorpus.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getGraphIdsWithParticipant.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getId.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getLayer.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getLayerIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getLayers.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchAlignments.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchLabels.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatches.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchingAnnotationData.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchingAnnotations.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchingGraphIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchingParticipantIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMatchingTranscriptIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMedia.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMediaTracks.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getMediaUrl.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getParticipant.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getParticipantAttributes.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getParticipantIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getSerializerDescriptors.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getSoundFragments.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getSystemAttribute.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getTranscriptAttributes.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getTranscriptIds.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getTranscriptIdsInCorpus.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getTranscriptIdsWithParticipant.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/getUserInfo.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/index.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/labbcatCredentials.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/labbcatTimeout.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/labbcatVersionInfo.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/loadLexicon.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/newLayer.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/newTranscript.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/nzilbb.labbcat.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/praatScriptCentreOfGravity.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/praatScriptFastTrack.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/praatScriptFormants.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/praatScriptIntensity.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/praatScriptPitch.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/processWithPraat.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/removeDictionaryEntry.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/removeLayerDictionaryEntry.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/renameParticipants.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/saveLayer.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/saveMedia.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/saveParticipant.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/transcriptUpload.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/transcriptUploadDelete.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/transcriptUploadParameters.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/updateFragment.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/updateTranscript.html</loc></url>
 </urlset>
+

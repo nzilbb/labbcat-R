@@ -12,7 +12,7 @@
 #' 
 #' @docType package
 #' @aliases nzilbb.labbcat-package
-#' @keywords package
+#' @keywords internal
 #' @name nzilbb.labbcat
 #' @author \packageAuthor{nzilbb.labbcat}
 #' @references
@@ -30,12 +30,12 @@
 #' wav.files <- getSoundFragments(labbcat.url, results$Transcript, results$Line, results$LineEnd)
 #' }
 #' 
-NULL
+"_PACKAGE"
 
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:
-.min.labbcat.version <- "20230224.1731"
+.min.labbcat.version <- "20250430.1502"
 .user.agent <- paste("labbcat-R", packageVersion("nzilbb.labbcat"), sep="/")
 
 ### Internal functions:
@@ -443,7 +443,7 @@ http.delete <- function(labbcat.url, path) {
         } ## next try
         
         ## and try again
-        return(http.delete(labbcat.url, path, parameters, file.name))
+        return(http.delete(labbcat.url, path))
     } else {
         return(resp)
     }

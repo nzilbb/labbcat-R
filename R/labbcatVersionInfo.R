@@ -15,7 +15,7 @@
 #' \dontrun{
 #' ## Get ID of LaBB-CAT instance
 #' versionInfo <- labbcatVersionInfo("https://labbcat.canterbury.ac.nz/demo/")
-#' print(paste("LaBB-CAT version", versionInfo$System$`LaBB-CAT`, " Full version info:"))
+#' print(paste("LaBB-CAT version", versionInfo$System$'LaBB-CAT', " Full version info:"))
 #' print(t(as.data.frame(versionInfo)))
 #' }
 #'

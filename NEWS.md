@@ -1,4 +1,4 @@
-# nzilbb.labbcat 1.3-1
+# nzilbb.labbcat 1.4-0
 
 Minimum LaBB-CAT version *20250430.1502*
 
@@ -41,6 +41,7 @@ pattern <- list(
   orthography = "k.*", 
   segment = list(pattern = "n", anchorStart = T)
 ```
+
 # nzilbb.labbcat 1.3-0
 
 Minimum LaBB-CAT version *20230224.1731*

@@ -11,14 +11,13 @@
 #'   match by either id or layer.id.
 #'   The expression language is currently not well defined, but is based on JavaScript
 #'   syntax. e.g.
-#'   - id == 'ew_0_456'
-#'   - ['ew_2_456', 'ew_2_789', 'ew_2_101112'].includes(id)
-#'   - layerId == 'orthography' && !/th[aeiou].+/.test(label)
-#'   - graph.id == 'AdaAicheson-01.trs' && layer.id == 'orthography' &&
-#'     start.offset &gt; 10.5
-#'   - layer.id == 'utterance' && all('word').includes('ew_0_456')
-#'   - layerId = 'utterance' && labels('orthography').includes('foo')
-#'   - layerId = 'utterance' && labels('participant').includes('Ada')
+#'   - `id == 'ew_0_456'`
+#'   - `layerId == 'orthography' && !/th[aeiou].+/.test(label)`
+#'   - `graph.id == 'AdaAicheson-01.trs' && layer.id == 'orthography' &&
+#'     start.offset &gt; 10.5`
+#'   - `layer.id == 'utterance' && all('word').includes('ew_0_456')`
+#'   - `layerId = 'utterance' && labels('orthography').includes('foo')`
+#'   - `layerId = 'utterance' && labels('participant').includes('Ada')`
 #' @param page.length The maximum number of IDs to return, or null to return all
 #' @param page.number The zero-based page number to return, or null to return the first page
 #' @return A list of annotations.

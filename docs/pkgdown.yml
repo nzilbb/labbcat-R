@@ -1,9 +1,11 @@
-pandoc: '2.5'
-pkgdown: 2.0.7
+pandoc: 2.9.2.1
+pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
-  forced-alignment-comparison: examples/forced-alignment-comparison.html
-  search-labels-alignments-praat-script: examples/search-labels-alignments-praat-script.html
-  search-labels-alignments-r-script: examples/search-labels-alignments-r-script.html
-last_built: 2023-07-19T23:17Z
-
+  examples/forced-alignment-comparison: examples/forced-alignment-comparison.html
+  examples/search-labels-alignments-praat-script: examples/search-labels-alignments-praat-script.html
+  examples/search-labels-alignments-r-script: examples/search-labels-alignments-r-script.html
+last_built: 2025-05-22T20:20Z
+urls:
+  reference: https://nzilbb.github.io/labbcat-R/reference
+  article: https://nzilbb.github.io/labbcat-R/articles

@@ -3,12 +3,15 @@ home:
   description: R package provides for querying and extracting data from LaBB-CAT
 
 template:
+  bootstrap: 5
   opengraph:
     twitter:
       creator: "@labbcat"
       card: summary
   path: "/home/robert/nzilbb/labbcat-R/docs"
-  
+
+url: "https://nzilbb.github.io/labbcat-R/"
+
 authors:
   Robert Fromont:
     href: https://www.canterbury.ac.nz/nzilbb/
@@ -33,6 +36,11 @@ reference:
   - getMatchingAnnotations
   - countMatchingAnnotations
   - starts_with("expression")
+- title: "Extracting non-textual annotation data"
+  desc: "Accessing images and other files corresponding to annotations on layers with a MIME type"
+- contents:
+  - getFragmentAnnotationData
+  - getMatchingAnnotationData
 - title: "Processing with Praat"
   desc: "Server-side processing of tokens with Praat"
 - contents: 
@@ -60,6 +68,9 @@ reference:
 - contents: 
   - newTranscript
   - updateTranscript
+  - transcriptUpload
+  - transcriptUploadParameters
+  - transcriptUploadDelete
   - updateFragment
   - deleteTranscript
 - title: "Generating annotations"
