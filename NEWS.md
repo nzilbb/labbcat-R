@@ -11,6 +11,13 @@ transcript files are processed by LaBB-CAT:
 - *transcriptUploadParameters* - complete the upload process by setting upload parameters.
 - *transcriptUploadDelete* - abandon a previously started upload process.
 
+In some annotation layers, the annotations have not only a textual label, but also binary
+data associated with it; e.g. an image or a data file. In these cases, the 'type' of the
+layer is a MIME type, e.g. 'image/png'. The following functions provide access to that data:
+
+- *getMatchingAnnotationData* - Gets binary data for annotations that match a particular pattern.
+- *getFragmentAnnotationData* - Gets binary annotation data in fragments.
+
 ## Enhancements
 
 - *getMatches* supports matching within-word segment context by allowing more than one pattern on segment layers, and anchoring segments to word boundaries.
