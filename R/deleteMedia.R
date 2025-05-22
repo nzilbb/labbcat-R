@@ -23,7 +23,7 @@
 deleteMedia <- function(labbcat.url, id, file.name) {
     
     ## delete transcript
-    resp <- http.post(labbcat.url, "edit/store/deleteMedia", list(id=id, fileName=file.name))
+    resp <- http.post(labbcat.url, "api/edit/store/deleteMedia", list(id=id, fileName=file.name))
     
     ## check response
     if (is.null(resp)) return()
