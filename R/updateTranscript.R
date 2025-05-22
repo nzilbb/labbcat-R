@@ -10,7 +10,11 @@
 #' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return The ID of the updated transcript in the corpus
-#' 
+#' @seealso
+#' - [transcriptUpload]
+#' - [transcriptUploadParameters]
+#' - [transcriptUploadDelete]
+#' - [newTranscript]
 #' @examples
 #' \dontrun{
 #' ## upload new verison of transcript transcript

@@ -15,6 +15,11 @@
 #'   shown when interactive().
 #' @return The ID of the new transcript in the corpus
 #' 
+#' @seealso
+#' - [transcriptUpload]
+#' - [transcriptUploadParameters]
+#' - [transcriptUploadDelete]
+#' - [updateTranscript]
 #' @examples
 #' \dontrun{
 #' ## Get attributes for new transcript

@@ -7,7 +7,7 @@
 #' @param powers A vector of numbers specifying which powers to query for to extract, e.g.
 #'   c(1.0,2.0). 
 #' @param spectrum.fast Whether to use the 'fast' option when creating the spectrum object
-#'   to query .
+#'   to query.
 #' @return A script fragment which can be passed as the praat.script parameter of
 #'   [processWithPraat] 
 #' 

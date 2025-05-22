@@ -69,13 +69,13 @@
 #'   that the formants at the edges are more accurate (in LaBB-CAT's web interface, the
 #'   default value for this 0.025), but if you're getting max pitch or COG during a
 #'   segment, most likely you want a window.offset of 0 to ensure neighbouring segments
-#'   doesn't influence the measurement. 
+#'   don't influence the measurement. 
 #' @param gender.attribute Which participant attribute represents the participant's gender.
 #' @param attributes Vector of participant attributes to make available to the script. For
 #'   example, if you want to use different acoustic parameters depending on what the
 #'   gender of the speaker is, including the "participant_gender" attribute will make a
 #'   variable called participant_gender$ available to the praat script, whose value will
-#'   be the gender of the speaker for that segment.
+#'   be the gender of the speaker of that segment.
 #' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @return A data frame of acoustic measures, one row for each matchId.

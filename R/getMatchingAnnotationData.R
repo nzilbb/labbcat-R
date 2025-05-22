@@ -1,4 +1,4 @@
-#' Gets binary data for annotations that match a particular pattern
+#' Gets binary data for annotations that match a particular pattern.
 #' 
 #' In some annotation layers, the annotations have not only a textual label, but also
 #' binary data associated with it; e.g. an image or a data file. In these cases, the 'type'

@@ -194,7 +194,7 @@ praatScriptFastTrack <- function(formants = c(1,2), sample.points = c(0.5), lowe
     } ## next sample point
     script <- paste(script, "\nendif\n", sep="")
     
-    ## To ensure LaBB-cAT can interpret correctly the number of outputs,
+    ## To ensure LaBB-CAT can interpret correctly the number of outputs,
     ## only include one set of print statements:
     for (point in sample.points) {
         varname = paste("time_", stringr::str_replace(point, "\\.","_"), sep="")
