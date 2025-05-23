@@ -559,3 +559,23 @@ fileNameFromContentDisposition <- function(content.disposition) {
     } ## there is a header value
     return(NULL)
 }
+
+#' Determine the labbcat.url value, inferring if necessary from the given dataframe.
+#' @param labbcat.url The explicitly-provided URL, which will be returned if not NULL.
+#' @param data The data to infer the URL from, if labbcat.url is NULL.
+#' @return The labbcat URL, or NULL if it could not be determined.
+#' @noRd
+determineLabbcatUrl <- function(labbcat.url, data) {
+    if (is.null(labbcat.url)) {
+        labbcat.url <- attr(data, "labbcat.url")
+        if (is.null(labbcat.url) && nrow(data) > 0) { # no attribute for the URL
+            firstDataUrl <- data$URL[1]
+            urlPattern <- "^(http.*/)(transcript\\?.*)$"# \1 is labbcat.url, \2 is the rest
+            if (grepl(urlPattern, firstDataUrl)) {
+                ## infer it from the first data$URL
+                labbcat.url <- gsub(urlPattern, "\\1", firstDataUrl)
+            }            
+        }
+    }
+    return (labbcat.url)
+}
