@@ -1,3 +1,30 @@
+# nzilbb.labbcat 1.5-0
+
+## New functions:
+
+Functions have been added to facilitate tidyverse-style piping expressions to build up a
+dataframe of search results with annotations, acoustic measurements, etc.
+
+The following functions add columns to a dataframe of results returned by `getMatches`:
+
+- *appendLabels* - pipeable version of `getMatchLabels`
+- *appendOffsets* - pipeable version of `getMatchAnnotations`
+- *appendFromPraat* - pipeable version of `processWithPraat`
+
+The idea is you can chain together data extraction functions like:
+
+```
+matches <- getMatches(url, "(dis|mis).*") |>
+  appendLabels(c("phonemes", "morphology", "participant_gender")) |> # layers/meta-data
+  appendLabels("orthography", target.offset = -1) |> # previous word
+  appendOffsets("segment", annotations.per.layer = 3) |> # first three phone alignments
+  appendFromPraat( # F1/F2 of the vowel (the second segment):
+    segment.2.start, segment.2.end,
+    window.offset = 0.025,
+    praat.script = praatScriptFormants(formants = c(1,2)))
+
+```
+
 # nzilbb.labbcat 1.4-0
 
 Minimum LaBB-CAT version *20250430.1502*
