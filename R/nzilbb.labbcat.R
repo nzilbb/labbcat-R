@@ -83,6 +83,34 @@ buildUrl <- function(labbcat.url, call, parameters = NULL) {
     return(url)
 }
 
+#' infer auth method from http response
+#' @param response Response to a request that requires authentication/authorization.
+#' @return A named list with two elements, `auth.method` and `title`, the title of the
+#' instance (or "LaBB-CAT" if the title is unavailable)
+#' @noRd
+infer.auth <- function(response) {    
+    www.authenticate <- httr::headers(response)['www-authenticate']
+    auth.method <- "Basic"
+    if (!is.null(www.authenticate) && www.authenticate != "NULL") {
+        ## something like 'Basic realm="Demo LaBB-CAT"'
+        title <- stringr::str_replace(www.authenticate, "^Basic realm=\"", "")
+        title <- stringr::str_replace(title, "\"$", "")
+    } else { ## no www-authenticate header
+        ## presumably Form auth is enabled, in which case the body is the HTML form
+        auth.method <- "Form"
+        ## get the title
+        html <- httr::content(response, encoding="UTF-8")
+        titleNode <- xml2::xml_find_first(html, "/body/h2")
+        if (is.na(titleNode)) titleNode <- xml2::xml_find_first(html, "/body/h1")
+        if (!is.na(titleNode)) {
+            title <- xml2::xml_text(titleNode)
+        } else {
+            title <- "LaBB-CAT"
+        }
+    }
+    return(list(auth.method=auth.method, title=title))
+}
+
 #' make an HTTP GET request to the store URL, asking for credentials if required
 #' @param labbcat.url URL to LaBB-CAT
 #' @param call Graph store API enpoint
@@ -105,26 +133,20 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     
     ## attempt the request
     resp <- httr::GET(url,
+                      ## httr::verbose(),
                       httr::add_headers("User-Agent" = .user.agent),
                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
     ## check we don't need credentials
-    if (httr::status_code(resp) == 401 && interactive()) {
+    if (httr::status_code(resp) == 401 && interactive()) {        
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version
@@ -160,21 +182,14 @@ thread.get <- function(labbcat.url, threadId) {
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version
@@ -241,21 +256,14 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version
@@ -304,21 +312,14 @@ http.post <- function(labbcat.url, path, parameters, file.name=NULL) {
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version
@@ -367,21 +368,14 @@ http.put <- function(labbcat.url, path, parameters, file.name=NULL) {
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version
@@ -418,21 +412,14 @@ http.delete <- function(labbcat.url, path) {
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version
@@ -482,21 +469,14 @@ http.post.multipart <- function(labbcat.url, path, parameters, file.name=NULL) {
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
-        instance.name <- httr::headers(resp)['www-authenticate']
-        if (!is.null(instance.name)) {
-            ## something like 'Basic realm="Demo LaBB-CAT"'
-            instance.name <- stringr::str_replace(instance.name, "^Basic realm=\"", "")
-            instance.name <- stringr::str_replace(instance.name, "\"$", "")
-        } else {
-            instance.name <- "LaBB-CAT"
-        }
-
+        auth <- infer.auth(resp)
         ## loop trying until success, or they cancel out
         repeat {
             error <- labbcatCredentials(
                 labbcat.url,
-                get.hidden.input(paste(instance.name, "Username:", "")),
-                get.hidden.input(paste(instance.name, "Password:", "")))
+                get.hidden.input(paste(auth$title, "Username:", "")),
+                get.hidden.input(paste(auth$title, "Password:", "")),
+                auth$auth.method)
             ## NULL means everything OK
             if (is.null(error)) break
             ## "Version mismatch" means success, but wrong LaBB-CAT version

@@ -28,9 +28,11 @@
 #' And then call Sys.getenv to retrieve the
 #' username/password, as illustrated in the example.
 #'
-#' @param labbcat.url URL to the LaBB-CAT instance
-#' @param username The LaBB-CAT username, if it is password-protected
-#' @param password The LaBB-CAT password, if it is password-protected
+#' @param labbcat.url URL to the LaBB-CAT instance.
+#' @param username The LaBB-CAT username, if it is password-protected.
+#' @param password The LaBB-CAT password, if it is password-protected.
+#' @param auth.method The HTTP authentication method to use (e.g. "Basic" or "Form",
+#' or NULL to detect automatically.
 #' @return NULL if the username/password are correct, and a string describing the problem
 #'   if a problem occurred, e.g. "Credentials rejected" if the username/password are
 #'   incorrect, or a string starting "Version mismatch" if the server's version of
@@ -47,43 +49,96 @@
 #'
 #' @keywords connect username password timeout
 #' 
-labbcatCredentials <- function(labbcat.url, username, password) {
+labbcatCredentials <- function(labbcat.url, username, password, auth.method=NULL) {
     ## ensure labbcat base URL has a trailing slash
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
-    
+
     version.check.url <- paste(labbcat.url, "store?call=", sep="")
-    authorization <- httr::authenticate(username, password)
-    tryCatch(expr={
+    
+    if (is.null(auth.method)) { # no auth method given, so make a request to find out
         resp <- httr::GET(version.check.url,
-                          authorization,
-                          httr::add_headers("User-Agent" = .user.agent),
-                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
-        
-        if (httr::status_code(resp) != 200) { # 200 = OK
-            if (httr::status_code(resp) == 401) {
-                return("Credentials rejected")
-            } else {
-                return(httr::http_status(resp)$message)
+                          httr::add_headers("User-Agent" = .user.agent))
+        if (httr::status_code(resp) != 401) { # no auth necessary
+            ## check the LaBB-CAT version
+            resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+            resp.json <- jsonlite::fromJSON(resp.content)
+            version <- resp.json$model$version
+            if (is.null(version) || version < .min.labbcat.version) {
+                return(paste(
+                    "Version mismatch: ", labbcat.url, "is version", version,
+                    "but the minimum version is", .min.labbcat.version))
             }
-        } ## not 200 OK
-        
-        ## do a second request
-        ## - this seems to be required for credentials to 'take' in non-interactive mode
-        resp <- httr::GET(version.check.url,
-                          authorization,
-                          httr::add_headers("User-Agent" = .user.agent),
-                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
-        
-        ## check the LaBB-CAT version
-        resp.content <- httr::content(resp, as="text", encoding="UTF-8")
-        resp.json <- jsonlite::fromJSON(resp.content)
-        version <- resp.json$model$version
-        if (is.null(version) || version < .min.labbcat.version) {
-            return(paste("Version mismatch: ", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
-        }
-        return(NULL)
-    },
-    error=function(e){
-        return(e$message)
-    })
+            return(NULL)
+        } # no auth necessary
+        auth.method <- infer.auth(resp)$auth.method
+    }
+    
+    if (auth.method == "Form") {
+        tryCatch(expr={
+            resp <- httr::POST(paste(labbcat.url, "j_security_check", sep=""),
+                               ## httr::verbose(),
+                               httr::add_headers("User-Agent" = .user.agent),
+                               body = list(j_username=username, j_password=password),
+                               encode = "form")
+            if (httr::status_code(resp) != 200 # 200 = OK
+                && httr::status_code(resp) != 303) { # 303 = See other (redirect)
+                if (httr::status_code(resp) == 401) {
+                    return("Credentials rejected")
+                } else {
+                    return(httr::http_status(resp)$message)
+                }
+            } ## not 200 OK
+            
+            ## do a second request to get the version
+            resp <- httr::GET(version.check.url,
+                              httr::add_headers("User-Agent" = .user.agent),
+                              httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+            
+            ## check the LaBB-CAT version
+            resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+            resp.json <- jsonlite::fromJSON(resp.content)
+            version <- resp.json$model$version
+            if (is.null(version) || version < .min.labbcat.version) {
+                return(paste("Version mismatch: ", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
+            }
+            return(NULL)
+        },
+        error=function(e){
+            return(e$message)
+        })
+    } else { # default auth method is Basic
+        authorization <- httr::authenticate(username, password)
+        tryCatch(expr={
+            resp <- httr::GET(version.check.url,
+                              authorization,
+                              httr::add_headers("User-Agent" = .user.agent),
+                              httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+            
+            if (httr::status_code(resp) != 200) { # 200 = OK
+                if (httr::status_code(resp) == 401) {
+                    return("Credentials rejected")
+                } else {
+                    return(httr::http_status(resp)$message)
+                }
+            } ## not 200 OK
+            
+            ## do a second request to get the version
+            resp <- httr::GET(version.check.url,
+                              authorization,
+                              httr::add_headers("User-Agent" = .user.agent),
+                              httr::timeout(getOption("nzilbb.labbcat.timeout", default=10)))
+            
+            ## check the LaBB-CAT version
+            resp.content <- httr::content(resp, as="text", encoding="UTF-8")
+            resp.json <- jsonlite::fromJSON(resp.content)
+            version <- resp.json$model$version
+            if (is.null(version) || version < .min.labbcat.version) {
+                return(paste("Version mismatch: ", labbcat.url, "is version", version, "but the minimum version is", .min.labbcat.version))
+            }
+            return(NULL)
+        },
+        error=function(e){
+            return(e$message)
+        })
+    } # Basic auth
 }

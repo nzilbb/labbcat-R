@@ -25,6 +25,12 @@ matches <- getMatches(url, "(dis|mis).*") |>
 
 ```
 
+## Enhancements
+
+- *labbcatCredentials* and all other functions now support the alternative 'Form' HTTP
+   authorization that may be configured on the server, in addition to the usual 'Basic' 
+   authorization.
+
 # nzilbb.labbcat 1.4-0
 
 Minimum LaBB-CAT version *20250430.1502*
