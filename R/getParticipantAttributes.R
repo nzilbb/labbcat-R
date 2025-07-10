@@ -25,7 +25,8 @@ getParticipantAttributes <- function(labbcat.url, participant.ids, layer.ids) {
         ## getLayer prints an error if the layerId isn't valid
         if (is.null(layer)) return()
         ## check it's an attribute
-        if (layer$parentId != 'participant' || layer$alignment != 0) {
+        if (layerId != "participant"
+            && layer$parentId != 'participant' || layer$alignment != 0) {
             print(paste("ERROR:", layerId, ' is not a participant attribute'))
             return()
         }
@@ -43,9 +44,16 @@ getParticipantAttributes <- function(labbcat.url, participant.ids, layer.ids) {
     parameters <- list(
         type="participant", "content-type"="text/csv", csvFieldDelimiter=",",
         layers=layer.ids,
-        participantIds=participant.ids)
-    resp <- http.post(labbcat.url, "participantsExport", parameters, download.file)
-    
+        ids=participant.ids)
+    resp <- http.post(labbcat.url, "api/participant/attributes", parameters, download.file)
+    if (httr::status_code(resp) == 404) { # server version prior to 20250710.1246
+        parameters <- list( # use deprecated URL
+            type="participant", "content-type"="text/csv", csvFieldDelimiter=",",
+            layers=layer.ids,
+            participantIds=participant.ids)
+        resp <- http.post(labbcat.url, "participantsExport", parameters, download.file)
+    }
+        
     ## check the reponse
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
