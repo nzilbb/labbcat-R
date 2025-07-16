@@ -32,7 +32,10 @@ generateLayerUtterances <- function(labbcat.url, match.ids, layer.id, collection
         collection_name=collection.name,
         todo="generate-now",
         utterances=paste(match.ids,collapse="\n"))
-    resp <- http.post(labbcat.url, "generateLayerUtterances", parameters)
+    resp <- http.post(labbcat.url, "edit/generateLayerUtterances", parameters)
+    if (httr::status_code(resp) != 404) { # fall back to old endpoint
+        resp <- http.post(labbcat.url, "generateLayerUtterances", parameters)
+    }
     
     ## check the response
     if (is.null(resp)) return()
