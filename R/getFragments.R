@@ -17,6 +17,8 @@
 #'   LaBB-CAT installation may support other formats, which can be discovered using
 #'   [getSerializerDescriptors].
 #' @param path Optional path to directory where the files should be saved.
+#' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
+#'   shown when interactive().
 #' @return The name of the file, which is saved in the current
 #'   directory, or a list of names of files, if multiple
 #'   id's/start's/end's were specified 
@@ -46,7 +48,7 @@
 #' }
 #' @keywords sample fragment TextGrid
 #' 
-getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "text/praat-textgrid", path="") {
+getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "text/praat-textgrid", path="", no.progress=FALSE) {
 
     dir = path
     if (length(id) > 1) { ## multiple fragments
@@ -72,63 +74,55 @@ getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "te
         }
     }
     
-    ## create list of repeated parameters
-    layerParameters <- list()
-    mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layer.ids)
-    idParameters <- list()
-    mapply(function(l) { idParameters <<- c(idParameters, list(id=l)) }, id)
-    startParameters <- list()
-    mapply(function(l) { startParameters <<- c(startParameters, list(start=l)) }, start)
-    endParameters <- list()
-    mapply(function(l) { endParameters <<- c(endParameters, list(end=l)) }, end)
+    pb <- NULL
+    if (interactive() && !no.progress && length(id) > 1) {
+        pb <- txtProgressBar(min = 0, max = length(id), style = 3)        
+    }
 
-    parameters <- list(mimeType=mime.type)
-    ## add list parameters
-    parameters <- c(parameters, layerParameters)
-    parameters <- c(parameters, idParameters)
-    parameters <- c(parameters, startParameters)
-    parameters <- c(parameters, endParameters)
-    file.name <- paste(dir, "fragments.zip", sep="")
-
+    ## loop through each tuple, getting fragments individually
+    ## (we could actually pass the lot to LaBB-CAT in one go and get a ZIP file back
+    ##  but then we can't be sure the results contain a row for every fragment specified
+    ##  and we can't display a progress bar)
     file.names = c()
-    tryCatch({
-        resp <- http.post(labbcat.url, "api/serialize/fragment", parameters, file.name)
-        if (httr::status_code(resp) != 200) { # 200 = OK
-            print(paste("ERROR: ", httr::http_status(resp)$message))
-            if (httr::status_code(resp) != 404) { # 404 means the audio wasn't on the server
-                ## some other error occurred so print what we got from the server
-                print(readLines(file.name))
-            }
-            file.remove(file.name)
-            file.name <<- NULL
-        } else {
-            content.disposition.filename <- fileNameFromContentDisposition(
-                as.character(httr::headers(resp)["content-disposition"]))
-            if (!is.null(content.disposition.filename)
-                && file.name != content.disposition.filename) {
-                ## file name is specified, so use it
-                final.file.name <- paste(dir, content.disposition.filename, sep="")
-                file.rename(file.name, final.file.name)
-                file.name <- final.file.name
-            }
-
-            if (endsWith(file.name, ".zip")) {
-                ## list the files
-                file.names <- paste(dir, unzip(file.name, list=T)$Name, sep="")
-                
-                ## unzip result
-                unzip(file.name, exdir=dir)
-                
-                ## remove zip file
+    r <- 1
+    names(layer.ids) <- rep_len("layerId", length(layer.ids))
+    base.params <- c(list(mimeType=mime.type), layer.ids)
+    
+    for (graph.id in id) {
+        parameters <- c(base.params, id=graph.id, start=start[r], end=end[r])
+        
+        file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", start[r], "-", end[r], ".TextGrid", sep="")
+        tryCatch({
+            resp <- http.post(labbcat.url, "api/serialize/fragments", parameters, file.name)
+            if (httr::status_code(resp) != 200) { # 200 = OK
+                print(paste("ERROR: ", httr::http_status(resp)$message))
+                if (httr::status_code(resp) != 404) { # 404 means the audio wasn't on the server
+                    ## some other error occurred so print what we got from the server
+                    print(readLines(file.name))
+                }
                 file.remove(file.name)
-            } else { ## a single file returned
-                ## move it to the dir
-                file.names = file.name
+                file.name <<- NULL
+            } else {
+                content.disposition.filename <- fileNameFromContentDisposition(
+                    as.character(httr::headers(resp)["content-disposition"]))
+                if (!is.null(content.disposition.filename)
+                    && file.name != content.disposition.filename) {
+                    ## file name is specified, so use it
+                    final.file.name <- paste(dir, content.disposition.filename, sep="")
+                    file.rename(file.name, final.file.name)
+                    file.name <- final.file.name
+                }
             }
-        }
-    }, error = function(e) {
-        print(paste("ERROR:", e))
-        file.name <<- NULL
-    })
-    return(file.names)   
+        }, error = function(e) {
+            print(paste("ERROR:", e))
+            file.name <<- NULL
+        })
+        file.names <- append(file.names, file.name)
+        
+        if (!is.null(pb)) setTxtProgressBar(pb, r)
+        r <- r+1
+    } ## next row
+    
+    if (!is.null(pb)) close(pb)
+    return(file.names)
 }
