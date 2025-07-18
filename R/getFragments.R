@@ -92,7 +92,7 @@ getFragments <- function(labbcat.url, id, start, end, layer.ids, mime.type = "te
 
     file.names = c()
     tryCatch({
-        resp <- http.post(labbcat.url, "api/serialize/fragment", parameters, file.name)
+        resp <- http.post(labbcat.url, "api/serialize/fragments", parameters, file.name)
         if (httr::status_code(resp) != 200) { # 200 = OK
             print(paste("ERROR: ", httr::http_status(resp)$message))
             if (httr::status_code(resp) != 404) { # 404 means the audio wasn't on the server
