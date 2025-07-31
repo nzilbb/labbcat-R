@@ -113,10 +113,9 @@ head(matches)[, c(
 For all the tokens, we also want the word's phonemic transcription, and the speaker's gender and age:
 
 ```{r demographics}
-participant.demographics <- getMatchLabels(
-  labbcat.url, matches$MatchId, c("phonemes", "participant_gender", "participant_age_category"))
+matches <- matches |> appendLabels(
+  c("phonemes", "participant_gender", "participant_age_category"))
 
-matches <- cbind(matches, participant.demographics)
 head(matches)[, c(
   "Text", "phonemes", "participant_age_category", "participant_gender")]
 ```
@@ -124,9 +123,8 @@ head(matches)[, c(
 We also want start/end times and phonemic transcription labels for the syllable of the /s/ or /ʃ/ token:
 
 ```{r syllables}
-syllable <- getMatchAlignments(labbcat.url, matches$MatchId, c("syllables"))
+matches <- matches |> appendOffsets("syllables")
 
-matches <- cbind(matches, syllable)
 head(matches)[, c(
   "Text", "Target.segment", "syllables", "syllables.start", "syllables.end")]
 ```
@@ -134,9 +132,8 @@ head(matches)[, c(
 And the start/end times for the segment that *follows* the token:
 
 ```{r following-segment}
-following.segment <- getMatchAlignments(labbcat.url, matches$MatchId, c("segment"), target.offset = 1)
+matches <- matches |> appendOffsets("segment", target.offset = 1)
 
-matches <- cbind(matches, following.segment)
 head(matches)[, c(
   "Token.plus.1.segment", "Token.plus.1.segment.start", "Token.plus.1.segment.end")]
 ```
@@ -150,12 +147,9 @@ the token.
 
 ```{r cog-from-praat}
 script <- readLines("CoGFinder.praat")
-cog <- processWithPraat(
-  labbcat.url,
-  matches$MatchId, matches$Target.segment.start, matches$Target.segment.end,
-  script, window.offset=0.5)
+matches <- matches |> appendFromPraat(
+  Target.segment.start, Target.segment.end, script, window.offset=0.5)
 
-matches <- cbind(matches, cog)
 head(matches)[, c("Text", "cog1", "cog2", "cog3")]
 ```
 
