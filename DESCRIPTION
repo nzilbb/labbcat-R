@@ -6,7 +6,7 @@ Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
                      email = "robert.fromont@canterbury.ac.nz",
                      comment = c(ORCID = "0000-0001-5271-5487")))
-Imports: jsonlite, httr, stringr, utils, rstudioapi
+Imports: jsonlite, httr, stringr, utils, rstudioapi, xml2
 Description: 'LaBB-CAT' is a web-based language corpus management
  system developed by the New Zealand Institute of Language, Brain
  and Behaviour (NZILBB) - see <https://labbcat.canterbury.ac.nz>.
