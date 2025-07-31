@@ -28,7 +28,9 @@ reference:
 - contents:
   - getMatches
   - getMatchLabels
+  - appendLabels
   - getMatchAlignments
+  - appendOffsets
   - getSoundFragments
   - getFragments
   - getFragmentAnnotations
@@ -45,6 +47,7 @@ reference:
   desc: "Server-side processing of tokens with Praat"
 - contents: 
   - processWithPraat
+  - appendFromPraat
   - starts_with("praat")
 - title: "Transcript information"
   desc: "Identifying transcript IDs, annotations, media, and meta data"
