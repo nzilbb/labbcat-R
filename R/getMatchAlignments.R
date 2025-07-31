@@ -117,7 +117,7 @@ getMatchAlignments <- function(labbcat.url, match.ids, layer.ids, target.offset=
                     labbcat.url, "api/results", parameters, download.file)
                 
                 ## free the upload thread so it's not using server resources
-                http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+                thread.release(labbcat.url, threadId)
             } else { ## endpoint not found
                 deprecatedApi <- T ## fall through to next block
             }

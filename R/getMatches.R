@@ -472,9 +472,11 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
                           paste("Target.",target.layer,".end",sep="")))
     }
     names(allMatches) = frameNames
+    ## ensure pipe-friendly functions like appendLabels don't have to infer URL every time
+    attr(allMatches, "labbcat.url") <- labbcat.url
     
     ## free the search thread so it's not using server resources
-    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+    thread.release(labbcat.url, threadId)
 
     return(allMatches)
 }

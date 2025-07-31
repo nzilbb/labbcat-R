@@ -110,14 +110,16 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
     # and saves memory on the server)
     download.file <- paste(thread$threadName, ".csv", sep="");
     # columns:
-    csv_option <- c("collection_name", "result_number", "transcript_name", "speaker_name", 
-                    "line_time", "line_end_time", "match", "result_text", "word_url")
+    csv_option <- c(
+        "collection_name", "data_version", "result_number",
+        "transcript_name", # for deprecated endpoint only
+        "speaker_name", "line_time", "line_end_time", "match", "result_text", "word_url")
     endpoint <- "api/results"
     if (deprecatedApi) endpoint <- "resultsStream" # server version prior to 20230511.1949
     resp <- http.get(labbcat.url,
                      endpoint,
                      list(threadId=threadId, todo="csv", csvFieldDelimiter=",",
-                          csv_option=csv_option, csv_layer=c(),
+                          csv_option=csv_option, csv_layer=c("transcript"),
                           pageLength=max.matches),
                      content.type="text/csv",
                      file.name = download.file)
@@ -129,7 +131,7 @@ getAllUtterances <- function(labbcat.url, participant.ids, transcript.types=NULL
     }
     
     ## free the search thread so it's not using server resources
-    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+    thread.release(labbcat.url, threadId)
 
     ## load the returned entries
     results <- read.csv(download.file, header=T, blank.lines.skip=F)

@@ -81,7 +81,7 @@ generateLayerUtterances <- function(labbcat.url, match.ids, layer.id, collection
     }
 
     ## free the thread so it's not using server resources
-    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+    thread.release(labbcat.url, threadId)
 
     if (!is.null(pb)) { ## if there was a progress bar, 
         close(pb)

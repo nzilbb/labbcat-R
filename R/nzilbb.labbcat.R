@@ -165,7 +165,6 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
 #' make an HTTP GET request to the thread URL, asking for credentials if required
 #' @param labbcat.url URL to LaBB-CAT
 #' @param threadId Server-side task ID
-#' @param parameters Request parameters
 #' @return task model returned by request
 #' @noRd
 thread.get <- function(labbcat.url, threadId) {
@@ -173,12 +172,25 @@ thread.get <- function(labbcat.url, threadId) {
     if (!grepl("/$", labbcat.url)) labbcat.url <- paste(labbcat.url, "/", sep="")
 
     ## build request URL
-    url <- paste(labbcat.url, "thread?threadId=", threadId, sep="")
+    url <- paste0(labbcat.url, "api/task/", threadId)
     
     ## attempt the request
     resp <- httr::GET(url,
                       httr::add_headers("User-Agent" = .user.agent),
                       httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
+    if (httr::status_code(resp) == 404) {
+        ## was the thread not found? or is it an old version of LaBB-CAT?
+        probe <- httr::GET(paste0(labbcat.url, "api/task/"),
+                          httr::add_headers("User-Agent" = .user.agent),
+                          httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
+        if (httr::status_code(probe) == 404) { # endpoint not there, fall back to old endpoint
+            print(url)
+            url <- paste(labbcat.url, "thread?threadId=", threadId, sep="")
+            resp <- httr::GET(url,
+                              httr::add_headers("User-Agent" = .user.agent),
+                              httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
+        } ## api/task endpoint doesn't exist
+    } ## not found - might be that the thread's gone, or it's an old version of LaBB-CAT
     ## check we don't need credentials
     if (httr::status_code(resp) == 401 && interactive()) {
         ## ask for username and password
@@ -211,6 +223,16 @@ thread.get <- function(labbcat.url, threadId) {
             for (error in resp.json$errors) print(error)
             return(resp.json$model)
         }
+    }
+}
+#' releases the given thread, freeing up searver resources that are no longer required
+#' @param labbcat.url URL to LaBB-CAT
+#' @param threadId Server-side task ID
+#' @noRd
+thread.release <- function(labbcat.url, threadId) {
+    release <- http.delete(labbcat.url, paste0("api/task/", threadId))
+    if (httr::status_code(release) == 404) { # server version prior to 20250731.1535
+        http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
     }
 }
 #' make an HTTP GET request, asking for credentials if required

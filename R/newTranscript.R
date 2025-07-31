@@ -99,7 +99,7 @@ newTranscript <- function(labbcat.url, transcript, media=NULL,
     }
     
     ## free the upload thread so it's not using server resources
-    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+    thread.release(labbcat.url, threadId)
     
     return(transcript.id)
 }

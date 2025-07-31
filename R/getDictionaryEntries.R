@@ -21,11 +21,14 @@ getDictionaryEntries <- function(labbcat.url, manager.id, dictionary.id, keys) {
     ## save keys to a CSV file
     upload.file = "keys.csv"
     download.file = "entries.csv"
-    write.table(keys, upload.file, sep=",", row.names=FALSE, col.names=FALSE)
+    write.table(keys, upload.file, sep=",", row.names=FALSE, col.names=TRUE)
 
     ## make request
     parameters <- list(managerId=manager.id, dictionaryId=dictionary.id, uploadfile=httr::upload_file(upload.file))    
-    resp <- http.post.multipart(labbcat.url, "dictionary", parameters, download.file)
+    resp <- http.post.multipart(labbcat.url, "api/dictionary", parameters, download.file)
+    if (httr::status_code(resp) == 404) { # endpoint not there, fall back to old endpoint
+        resp <- http.post.multipart(labbcat.url, "dictionary", parameters, download.file)
+    }
 
     ## tidily remove upload file
     file.remove(upload.file)
@@ -39,18 +42,19 @@ getDictionaryEntries <- function(labbcat.url, manager.id, dictionary.id, keys) {
         return()
     }
 
-    ## ensure we use the correct number of columns
-    ncol <- max(count.fields(download.file, sep=",", quote="\""))
-    
     ## load the returned entries
-    entries <- read.csv(
-        download.file, header=F, col.names = paste0("V", seq_len(ncol)), blank.lines.skip=F)
+    ## the file has a header row, but the number of headers might not match all rows
+    ## so first we load with the headers as if they're rows
+    entries <- read.csv(download.file, header=F, blank.lines.skip=F, row.names=NULL)
+    ## then we strip off the first row
+    entries <- entries[-1, ]
 
     ## rename the columns so that the one containing the keys is called "key"
-    colnames(entries) <- c("key", head(colnames(entries), length(colnames(entries)) - 1))
-
+    numValueColumns <- ncol(entries) - 1
+    if (numValueColumns < 1) numValueColumns <- 1
+    colnames(entries) <- c("key", paste0("V", seq_len(numValueColumns)))
+    
     ## tidily remove the downloaded file
     file.remove(download.file)
-    
     return(entries)
 }

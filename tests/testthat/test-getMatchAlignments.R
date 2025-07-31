@@ -40,8 +40,8 @@ test_that("getMatchAlignments works with multiple layers", {
     
     ## get label/start/end
     labels <- getMatchAlignments(labbcat.url, results$MatchId, layers)
-    ## num layers * 3 fields (label/start/end)
-    expect_equal(length(labels), length(layers) * 3)
+    ## 3 fields for aligned topic (label/start/end) only 1 for unaligned phonemes layer
+    expect_equal(length(labels), 3+1)
 
     expect_equal(length(labels$topic), 3)
     expect_equal(length(labels$topic.start), 3)
@@ -52,8 +52,9 @@ test_that("getMatchAlignments works with multiple layers", {
     expect_equal(topic[[3]], "{aftermath of the earthquakes}")
 
     expect_equal(length(labels$phonemes), 3)
-    expect_equal(length(labels$phonemes.start), 3)
-    expect_equal(length(labels$phonemes.end), 3)
+    # non-aligned layers don't return offsets
+    expect_true(is.null(labels$phonemes.start))
+    expect_true(is.null(labels$phonemes.end))
     phonemes <- as.vector(labels$phonemes)
     expect_equal(phonemes[[1]], "kr2sJ3J")
     expect_equal(phonemes[[2]], "kr2sJ3J")
@@ -70,26 +71,26 @@ test_that("getMatchAlignments works with count > 1", {
                   "g_6;em_12_429;n_9263-n_9265;p_14;#=ew_0_7261;[0]=ew_0_7261",
                   "g_6;em_12_440;n_9285-n_9287;p_14;#=ew_0_7280;[0]=ew_0_7280"))
 
-    ## get label/start/end
+    ## get label/start/end - for aligned layer
     labels <- getMatchAlignments(
-        labbcat.url, results$MatchId, "phonemes", annotations.per.layer=2)
+        labbcat.url, results$MatchId, "syllables", annotations.per.layer=2)
     ## 2 annotations per layer * 3 fields (label/start/end)
     expect_equal(length(labels), 6)
 
-    expect_equal(length(labels$phonemes.1), 3)
-    expect_equal(length(labels$phonemes.1.start), 3)
-    expect_equal(length(labels$phonemes.1.end), 3)
-    phonemes <- as.vector(labels$phonemes.1)
-    expect_equal(phonemes[[1]], "kr2sJ3J")
-    expect_equal(phonemes[[2]], "wQz")
-    expect_equal(phonemes[[3]], "DEm")
+    expect_equal(length(labels$syllables.1), 3)
+    expect_equal(length(labels$syllables.1.start), 3)
+    expect_equal(length(labels$syllables.1.end), 3)
+    syllables <- as.vector(labels$syllables.1)
+    expect_equal(syllables[[1]], "kr'2s")
+    expect_equal(syllables[[2]], "'wQz")
+    expect_equal(syllables[[3]], "'DEm")
 
-    expect_equal(length(labels$phonemes.2), 3)
-    expect_equal(length(labels$phonemes.2.start), 3)
-    expect_equal(length(labels$phonemes.2.end), 3)
-    phonemes <- as.vector(labels$phonemes.2)
-    expect_true(is.na(phonemes[[1]]))
-    expect_equal(phonemes[[2]], "wz")
-    expect_equal(phonemes[[3]], "D@m")
+    expect_equal(length(labels$syllables.2), 3)
+    expect_equal(length(labels$syllables.2.start), 3)
+    expect_equal(length(labels$syllables.2.end), 3)
+    syllables <- as.vector(labels$syllables.2)
+    expect_equal(syllables[[1]], "J\"3J")
+    expect_true(is.na(syllables[[2]])) # monosyllabic
+    expect_true(is.na(syllables[[3]])) # monosyllabic
 
 })
