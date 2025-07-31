@@ -3,7 +3,7 @@
 #' Appends labels and start/end offsets of annotations on a given layer, to a given
 #' dataframe of matches returned from [getMatches] or [getAllUtterances].
 #'
-#' This is a version of [getMatchAnnotations] that can have a dataframe of matches piped into
+#' This is a version of [getMatchAlignments] that can have a dataframe of matches piped into
 #' it, and returns the dataframe with columns appended.
 #' 
 #' You can specify a threshold for confidence in the alignment, which is a value from 0
