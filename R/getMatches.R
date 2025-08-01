@@ -411,17 +411,22 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
                 matches <- head(matches, page.length + matchesLeft)
             }
 
-            matches <- cbind(resp.json$model$name, matches)
+            SearchName <- resp.json$model$name
+            matches <- cbind(SearchName, matches)
+            ## rename BeforeMatch and AfterMatch
+            names(matches)[names(matches) == "BeforeMatch"] ="Before.Match"
+            names(matches)[names(matches) == "AfterMatch"] ="After.Match"
             ## extract number from MatchId
-            matches <- cbind(
-                matches, as.numeric(stringr::str_match(matches$MatchId, "prefix=0*([0-9]+)-")[,2]))
+            Number <- as.numeric(
+                stringr::str_match(matches$MatchId, "prefix=0*([0-9]+)-")[,2])
+            matches <- cbind(matches, Number)
             if (deprecatedApi) {
                 ## reconstruct url
-                matches <- cbind(
-                    matches, paste(
-                                 labbcat.url, "transcript?transcript=",
-                                 matches$Transcript, "#",
-                                 stringr::str_match(matches$MatchId, "\\[0\\]=([^;]*)(;.*|$)")[,2], sep=""))
+                URL <- paste0(
+                    labbcat.url, "transcript?transcript=",
+                    matches$Transcript, "#",
+                    stringr::str_match(matches$MatchId, "\\[0\\]=([^;]*)(;.*|$)")[,2])
+                matches <- cbind(matches, URL)
             }
             ## Ensure previous default anchor.confidence.min behaviour still works
             ## i.e. if they don't specify a value, then only autmatically aligned offsets
@@ -435,7 +440,8 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
             tokens <- getMatchAlignments(
                 labbcat.url, matches$MatchId, tokenLayers,
                 anchor.confidence.min=anchor.confidence.min, no.progress=T)
-            matches <- cbind(matches, tokens)
+            names(tokens) <- paste0("Target.", names(tokens))
+            matches <- cbind(matches, tokens)            
 
             ## add this chunk to the collection
             allMatches <- rbind(allMatches, matches)
@@ -454,24 +460,6 @@ getMatches <- function(labbcat.url, pattern, participant.expression=NULL, transc
         }
     } ## there are matches
 
-    if (deprecatedApi) {
-        frameNames <- c(
-            "SearchName","MatchId","Transcript","Participant","Corpus","Line","LineEnd",
-            "Before.Match","Text","After.Match","Number","URL",
-            "Target.word","Target.word.start","Target.word.end")
-    } else {
-        frameNames <- c(
-            "SearchName","Transcript","Participant","Corpus","Line","LineEnd",
-            "MatchId","URL","Before.Match","Text","After.Match","Number",
-            "Target.word","Target.word.start","Target.word.end")
-    }
-    if (thread$size > 0 && target.layer != "word") {
-        frameNames <- c(frameNames,
-                        c(paste("Target.",target.layer,sep=""),
-                          paste("Target.",target.layer,".start",sep=""),
-                          paste("Target.",target.layer,".end",sep="")))
-    }
-    names(allMatches) = frameNames
     ## ensure pipe-friendly functions like appendLabels don't have to infer URL every time
     attr(allMatches, "labbcat.url") <- labbcat.url
     
