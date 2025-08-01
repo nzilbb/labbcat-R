@@ -10,6 +10,7 @@ The following functions add columns to a dataframe of results returned by `getMa
 - *appendLabels* - pipeable version of `getMatchLabels`
 - *appendOffsets* - pipeable version of `getMatchAnnotations`
 - *appendFromPraat* - pipeable version of `processWithPraat`
+- *fragmentLabels* - pipeable version of `getFragmentAnnotations`
 
 The idea is you can chain together data extraction functions like:
 
@@ -23,6 +24,25 @@ matches <- getMatches(url, "(dis|mis).*") |>
     window.offset = 0.025,
     praat.script = praatScriptFormants(formants = c(1,2)))
 
+```
+
+The following functions produce data/media files defined by fragment start/end times,
+and do not add columns to the given dataframe, but rather return a list of file names:
+
+- *fragmentTranscripts* - pipeable version of `getFragments`
+- *fragmentAudio* - pipeable version of `getSoundFragments`
+- *fragmentData* - pipeable version of `getFragmentAnnotationData`
+
+For example:
+
+```
+vivid.tokens <- getMatches(labbcat.url, "vivid")
+vivid.textgrids <- vivid.tokens |> fragmentTranscripts(c("word", "segment"))
+vivid.wavs <- vivid.tokens |> fragmentAudio()
+vivid.faces <- vivid.tokens |> 
+    fragmentData( ## png images of faces detected by mediapipe during the word
+        "mediapipe", path = "png",
+        start.column=Target.word.start, end.column=Target.word.end)
 ```
 
 ## Enhancements

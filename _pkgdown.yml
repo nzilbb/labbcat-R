@@ -31,17 +31,27 @@ reference:
   - appendLabels
   - getMatchAlignments
   - appendOffsets
-  - getSoundFragments
-  - getFragments
   - getFragmentAnnotations
+  - fragmentLabels
   - getAllUtterances
   - getMatchingAnnotations
   - countMatchingAnnotations
   - starts_with("expression")
+- title: "Extracting audio/annotation files"
+  desc: "Extracting data files including audio samples, Praat TextGrids, etc."
+  - getFragments
+  - fragmentTranscripts
+  - formatTranscript
+  - getSoundFragments
+  - fragmentAudio
+  - getMediaUrl
+  - getMedia
+- contents:
 - title: "Extracting non-textual annotation data"
   desc: "Accessing images and other files corresponding to annotations on layers with a MIME type"
 - contents:
   - getFragmentAnnotationData
+  - fragmentData
   - getMatchingAnnotationData
 - title: "Processing with Praat"
   desc: "Server-side processing of tokens with Praat"
