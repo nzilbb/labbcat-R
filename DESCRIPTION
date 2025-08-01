@@ -1,7 +1,7 @@
 Package: nzilbb.labbcat
 Encoding: UTF-8
 Version: 1.5-0
-Date: 2025-05-22
+Date: 2025-08-01
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
                      email = "robert.fromont@canterbury.ac.nz",

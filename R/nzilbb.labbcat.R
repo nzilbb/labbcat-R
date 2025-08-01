@@ -31,6 +31,8 @@
 #' 
 "_PACKAGE"
 
+globalVariables(c("Line","LineEnd"))
+
 ### Internal variables:
 
 ## minimum version of LaBB-CAT required:

@@ -1,6 +1,9 @@
 echo delete editor backup files...
 find . -name "*~" -exec rm \{\} \;
 
+echo running tests...
+R -e "devtools::test()"
+
 echo remove older versions
 rm nzilbb.labbcat_*.tar.gz
 

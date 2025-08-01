@@ -39,6 +39,7 @@ reference:
   - starts_with("expression")
 - title: "Extracting audio/annotation files"
   desc: "Extracting data files including audio samples, Praat TextGrids, etc."
+- contents:
   - getFragments
   - fragmentTranscripts
   - formatTranscript
@@ -46,7 +47,6 @@ reference:
   - fragmentAudio
   - getMediaUrl
   - getMedia
-- contents:
 - title: "Extracting non-textual annotation data"
   desc: "Accessing images and other files corresponding to annotations on layers with a MIME type"
 - contents:

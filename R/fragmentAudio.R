@@ -1,6 +1,6 @@
 #' Gets sound fragments from 'LaBB-CAT'.
 #'
-#' This is a version of [getSoundFragment] that can have a
+#' This is a version of [getSoundFragments] that can have a
 #' dataframe of matches piped into it.
 #'
 #' It gets fragments of audio from LaBB-CAT, as wav files.
