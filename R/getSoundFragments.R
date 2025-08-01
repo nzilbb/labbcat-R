@@ -1,4 +1,4 @@
-#' Gets sound fragments from 'LaBB-CAT'
+#' Gets sound fragments from 'LaBB-CAT'.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param ids The transcript ID (transcript name) of the sound recording, or

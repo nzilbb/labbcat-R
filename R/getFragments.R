@@ -1,11 +1,11 @@
-#' Gets transcript fragments in a given format
+#' Gets transcript fragments in a given format.
 #' 
-#' This function gets fragments of transcripts from 'LaBB-CAT', 
-#' converted to a given format (by default, Praat TextGrid).
+#' This function gets fragments of transcripts from LaBB-CAT, 
+#' converted to a given file format (by default, Praat TextGrid).
 #'
 #' **NB** Although many formats will generate exactly one file for each interval
-#'      (e.g. mime.type=text/praat-textgrid), this is not guaranteed; some formats generate
-#'      a single file or a fixed collection of files regardless of how many fragments there are.
+#'   (e.g. mime.type=text/praat-textgrid), this is not guaranteed; some formats generate
+#'   a single file or a fixed collection of files regardless of how many fragments there are.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param id The transcript ID (transcript name) of the sound recording, or
