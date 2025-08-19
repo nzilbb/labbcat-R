@@ -185,7 +185,6 @@ thread.get <- function(labbcat.url, threadId) {
                           httr::add_headers("User-Agent" = .user.agent),
                           httr::timeout(getOption("nzilbb.labbcat.timeout", default=180)))
         if (httr::status_code(probe) == 404) { # endpoint not there, fall back to old endpoint
-            print(url)
             url <- paste(labbcat.url, "thread?threadId=", threadId, sep="")
             resp <- httr::GET(url,
                               httr::add_headers("User-Agent" = .user.agent),
