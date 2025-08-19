@@ -31,7 +31,7 @@
 
     <a class="navbar-brand me-2" href="index.html">nzilbb.labbcat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,8 +44,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/examples/forced-alignment-comparison.html">Forced Alignment Comparison</a></li>
-    <li><a class="dropdown-item" href="articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
+<li><a class="dropdown-item" href="articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
     <li><a class="dropdown-item" href="articles/examples/search-labels-alignments-r-script.html">Search, Annotation, and R Script Example</a></li>
   </ul>
 </li>
@@ -55,6 +54,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/nzilbb/labbcat-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -67,21 +67,19 @@
 <img src="logo.png" class="logo" alt=""><h1 id="nzilbblabbcat-package-for-r-">nzilbb.labbcat package for R <a class="anchor" aria-label="anchor" href="#nzilbblabbcat-package-for-r-"></a>
 </h1>
 </div>
-<p><a href="https://zenodo.org/badge/latestdoi/175465781" class="external-link"><img src="https://zenodo.org/badge/175465781.svg" alt="DOI"></a></p>
+<p><a href="https://zenodo.org/badge/latestdoi/175465781" class="external-link"><img src="https://zenodo.org/badge/175465781.svg" alt="DOI"></a> <a href="https://CRAN.R-project.org/package=nzilbb.labbcat" class="external-link"><img src="https://www.r-pkg.org/badges/version/nzilbb.labbcat" alt="CRAN status"></a></p>
 <p>This R package provides functionality for querying and extracting data from <a href="https://labbcat.canterbury.ac.nz/" class="external-link">LaBB-CAT</a> servers, directly from R.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nzilbb.github.io/labbcat-R/">nzilbb.labbcat</a></span><span class="op">)</span></span>
 <span><span class="va">labbcat.url</span> <span class="op">&lt;-</span> <span class="st">"http://localhost:8080/labbcat/"</span></span>
 <span></span>
 <span><span class="co"># search for tokens of the KIT vowel</span></span>
-<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># extract F1, 2, and 3 from the mid-point of each vowel</span></span>
-<span><span class="va">f123</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/processWithPraat.html">processWithPraat</a></span><span class="op">(</span></span>
-<span>    <span class="va">labbcat.url</span>,</span>
-<span>    <span class="va">m</span><span class="op">$</span><span class="va">MatchId</span>, </span>
-<span>    <span class="va">m</span><span class="op">$</span><span class="va">Target.segment.start</span>, </span>
-<span>    <span class="va">m</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment<span class="op">=</span><span class="st">"I"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># get morphology of the word, and the participant's gender</span></span>
+<span>  <span class="fu"><a href="reference/appendLabels.html">appendLabels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"morphology"</span>, <span class="st">"participant_gender"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># extract F1, 2, and 3 from the mid-point of each vowel</span></span>
+<span>  <span class="fu"><a href="reference/appendFromPraat.html">appendFromPraat</a></span><span class="op">(</span></span>
+<span>    <span class="va">Target.segment.start</span>, <span class="va">Target.segment.end</span>,</span>
 <span>    <span class="fu"><a href="reference/praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>    window.offset<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p>LaBB-CAT is a web-based linguistic annotation store that stores audio or video recordings, text transcripts, and other annotations.</p>
@@ -226,7 +224,7 @@
 <p>The data frame that’s returned contains columns that can be used as parameters for other functions:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get all instances of the KIT vowel</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment <span class="op">=</span> <span class="st">"I"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>segment <span class="op">=</span> <span class="st">"I"</span><span class="op">)</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># get phonemic transcription for the whole word</span></span>
 <span><span class="va">phonemes</span>  <span class="op">&lt;-</span> <span class="fu"><a href="reference/getMatchLabels.html">getMatchLabels</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="st">"phonemes"</span><span class="op">)</span></span>
@@ -330,6 +328,8 @@ TEST_ADMIN_LABBCAT_PASSWORD=labbcat</code></pre>
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=nzilbb.labbcat" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/nzilbb/labbcat-R/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/nzilbb/labbcat-R/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 

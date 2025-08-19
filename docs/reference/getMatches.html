@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">nzilbb.labbcat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,13 +18,13 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/examples/forced-alignment-comparison.html">Forced Alignment Comparison</a></li>
-    <li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
     <li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-r-script.html">Search, Annotation, and R Script Example</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/nzilbb/labbcat-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -33,7 +33,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Search for tokens</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/nzilbb/labbcat-R/blob/HEAD/R/getMatches.R" class="external-link"><code>R/getMatches.R</code></a></small>
       <div class="d-none name"><code>getMatches.Rd</code></div>
     </div>
 
@@ -99,40 +99,40 @@ annotation on this layer)</p></li>
 results will contain one row for each match on the target layer</p></li>
 </ul></li>
 </ul><p>Examples of valid pattern objects include:</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">## the word 'the' followed immediately by a word starting with an orthographic vowel</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>pattern &lt;-<span class="st"> "the [aeiou].*"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="co">## a word spelt with "k" but pronounced "n" word initially</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>pattern &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">orthography =</span> <span class="st">"k.*"</span>, <span class="dt">phonemes =</span> <span class="st">"n.*"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="co">## the word 'the' followed immediately by a word starting with a phonemic vowel</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>pattern &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>    <span class="kw">list</span>(<span class="dt">orthography =</span> <span class="st">"the"</span>),</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>    <span class="kw">list</span>(<span class="dt">phonemes =</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#</span><span class="ch">\\</span><span class="st">$@].*"</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true"></a><span class="co">## the word 'the' followed immediately or with one intervening word by</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true"></a><span class="co">## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true"></a>pattern &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">columns =</span> <span class="kw">list</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true"></a>    <span class="kw">list</span>(<span class="dt">layers =</span> <span class="kw">list</span>(</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true"></a>           <span class="dt">orthography =</span> <span class="kw">list</span>(<span class="dt">pattern =</span> <span class="st">"the"</span>)),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true"></a>         <span class="dt">adj =</span> <span class="dv">2</span>),</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true"></a>    <span class="kw">list</span>(<span class="dt">layers =</span> <span class="kw">list</span>(</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true"></a>           <span class="dt">phonemes =</span> <span class="kw">list</span>(<span class="dt">not =</span> <span class="ot">TRUE</span>, <span class="dt">pattern =</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#</span><span class="ch">\\</span><span class="st">$@].*"</span>),</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true"></a>           <span class="dt">frequency =</span> <span class="kw">list</span>(<span class="dt">max =</span> <span class="st">"2"</span>)))))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true"></a><span class="co">## words that contain the /I/ phone followed by the /l/ phone</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true"></a><span class="co">## (multiple patterns per word currently only works for segment layers)</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true"></a>pattern &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">segment =</span> <span class="kw">list</span>(<span class="st">"I"</span>, <span class="st">"l"</span>))</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true"></a><span class="co">## words that contain the /I/ phone followed by the /l/ phone, targeting the /l/ segment</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true"></a><span class="co">## (multiple patterns per word currently only works for segment layers)</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true"></a>pattern &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">segment =</span> <span class="kw">list</span>(<span class="st">"I"</span>, <span class="kw">list</span>(<span class="dt">pattern=</span><span class="st">"l"</span>, <span class="dt">target=</span>T)))</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true"></a><span class="co">## words where the spelling starts with "k", but the first segment is /n/</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true"></a>pattern &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true"></a>  <span class="dt">orthography =</span> <span class="st">"k.*"</span>,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true"></a>  <span class="dt">segment =</span> <span class="kw">list</span>(<span class="dt">pattern =</span> <span class="st">"n"</span>, <span class="dt">anchorStart =</span> T)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true"></a></span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="do">## the word 'the' followed immediately by a word starting with an orthographic vowel</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="st">"the [aeiou].*"</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">## a word spelt with "k" but pronounced "n" word initially</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">orthography =</span> <span class="st">"k.*"</span>, <span class="at">phonemes =</span> <span class="st">"n.*"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">## the word 'the' followed immediately by a word starting with a phonemic vowel</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">orthography =</span> <span class="st">"the"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">phonemes =</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#</span><span class="sc">\\</span><span class="st">$@].*"</span>))</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">## the word 'the' followed immediately or with one intervening word by</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">## a hapax legomenon (word with a frequency of 1) that doesn't start with a vowel</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">columns =</span> <span class="fu">list</span>(</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">layers =</span> <span class="fu">list</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>           <span class="at">orthography =</span> <span class="fu">list</span>(<span class="at">pattern =</span> <span class="st">"the"</span>)),</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>         <span class="at">adj =</span> <span class="dv">2</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">layers =</span> <span class="fu">list</span>(</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>           <span class="at">phonemes =</span> <span class="fu">list</span>(<span class="at">not =</span> <span class="cn">TRUE</span>, <span class="at">pattern =</span> <span class="st">"[cCEFHiIPqQuUV0123456789~#</span><span class="sc">\\</span><span class="st">$@].*"</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>           <span class="at">frequency =</span> <span class="fu">list</span>(<span class="at">max =</span> <span class="st">"2"</span>)))))</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="do">## words that contain the /I/ phone followed by the /l/ phone</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="do">## (multiple patterns per word currently only works for segment layers)</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">segment =</span> <span class="fu">list</span>(<span class="st">"I"</span>, <span class="st">"l"</span>))</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="do">## words that contain the /I/ phone followed by the /l/ phone, targeting the /l/ segment</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="do">## (multiple patterns per word currently only works for segment layers)</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">segment =</span> <span class="fu">list</span>(<span class="st">"I"</span>, <span class="fu">list</span>(<span class="at">pattern=</span><span class="st">"l"</span>, <span class="at">target=</span>T)))</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="do">## words where the spelling starts with "k", but the first segment is /n/</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>  <span class="at">orthography =</span> <span class="st">"k.*"</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="at">segment =</span> <span class="fu">list</span>(<span class="at">pattern =</span> <span class="st">"n"</span>, <span class="at">anchorStart =</span> T)</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a></span></code></pre><p></p></div></dd>
 
 
 <dt id="arg-participant-expression">participant.expression<a class="anchor" aria-label="anchor" href="#arg-participant-expression"></a></dt>

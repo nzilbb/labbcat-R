@@ -23,7 +23,6 @@ matches <- getMatches(url, "(dis|mis).*") |>
     segment.2.start, segment.2.end,
     window.offset = 0.025,
     praat.script = praatScriptFormants(formants = c(1,2)))
-
 ```
 
 The following functions produce data/media files defined by fragment start/end times,
