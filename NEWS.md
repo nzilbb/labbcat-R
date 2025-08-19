@@ -1,5 +1,7 @@
 # nzilbb.labbcat 1.5-0
 
+Minimum LaBB-CAT version *20250430.1502* (preferred: *20250819.1454*)
+
 ## New functions:
 
 Functions have been added to facilitate tidyverse-style piping expressions to build up a
