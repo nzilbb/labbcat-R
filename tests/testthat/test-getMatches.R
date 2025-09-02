@@ -215,7 +215,8 @@ test_that("getMatches includes segment info when segment layer searched", {
     ## get matches
     matches <- getMatches(
         labbcat.url, pattern,
-        participant.expression=expressionFromIds("UC427_ViktoriaPapp_A_ENG"))
+        participant.expression=expressionFromIds(
+            c("UC427_ViktoriaPapp_A_ENG","ID with & in it")))
     
     ## check dataframe columns
     expect_true(length(matches$MatchId) >= 140)

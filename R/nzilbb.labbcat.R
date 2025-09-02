@@ -60,9 +60,14 @@ get.hidden.input <- function(prompt) {
 #' @return URL-encoded value.
 #' @noRd
 enc <- function(value) {
-    return(
-        stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(
-          URLencode(value),"\\+","%2B"),":","%3A"),"\\[","%5B"),"\\]","%5D"),"#","%23"),"&&","%26%26"))
+    if (is.character(value)) {
+        return(
+            stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(stringr::str_replace_all(
+                URLencode(value),
+                "\\+","%2B"),":","%3A"),"\\[","%5B"),"\\]","%5D"),"#","%23"),"&","%26"))
+    } else {
+        return(value)
+    }
 }
 
 #' build a store call URL 
@@ -126,10 +131,10 @@ store.get <- function(labbcat.url, call, parameters = NULL) {
     url <- paste("api/store/", call, "?", sep="")
     if (!is.null(parameters)) {
         mapply(function(name, value) {
-            url <<- paste(url, "&", name, "=", value, sep="")
+            url <<- paste(url, "&", enc(name), "=", enc(value), sep="")
         }, names(parameters), parameters)
     } # there are parameters
-    url <- enc(url)
+    #url <- enc(url)
     url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
@@ -254,12 +259,13 @@ http.get <- function(labbcat.url, path, parameters = NULL, content.type = "appli
         for (name in names(parameters)) {
             for (parameter in parameters[name]) {
                 for (value in parameter) {
-                    url <- paste(url, "&", name, "=", value, sep="")
+                    # TODO URLEncode value - e.g. transcript IDs with &
+                    url <- paste(url, "&", enc(name), "=", enc(value), sep="")
                 } # next value
             } # next elements
         } # next parameter
     } # there are parameters
-    url <- enc(url)
+    #url <- enc(url)
     url <- paste(labbcat.url, url, sep="")
     
     ## attempt the request
