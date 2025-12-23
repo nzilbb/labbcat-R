@@ -1,6 +1,8 @@
 # nzilbb.labbcat package for R <img src="logo.png" align="right" />
 
 [![DOI](https://zenodo.org/badge/175465781.svg)](https://zenodo.org/badge/latestdoi/175465781)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/nzilbb.labbcat)](https://CRAN.R-project.org/package=nzilbb.labbcat)
 
 This R package provides functionality for querying and extracting data
 from [LaBB-CAT](https://labbcat.canterbury.ac.nz/) servers, directly from R.
@@ -10,14 +12,12 @@ library(nzilbb.labbcat)
 labbcat.url <- "http://localhost:8080/labbcat/"
 
 # search for tokens of the KIT vowel
-m <- getMatches(labbcat.url, list(segment="I"))
-
-# extract F1, 2, and 3 from the mid-point of each vowel
-f123 <- processWithPraat(
-    labbcat.url,
-    m$MatchId, 
-    m$Target.segment.start, 
-    m$Target.segment.end,
+m <- getMatches(labbcat.url, list(segment="I")) |>
+  # get morphology of the word, and the participant's gender
+  appendLabels(c("morphology", "participant_gender")) |>
+  # extract F1, 2, and 3 from the mid-point of each vowel
+  appendFromPraat(
+    Target.segment.start, Target.segment.end,
     praatScriptFormants(c(1,2,3)), 
     window.offset=0.5)
 ```
@@ -210,7 +210,7 @@ functions:
 
 ``` R
 # get all instances of the KIT vowel
-results <- getMatches(labbcat.url, list(segment = "I"))
+results <- getMatches(labbcat.url, list(segment = "I")) 
 
 # get phonemic transcription for the whole word
 phonemes  <- getMatchLabels(labbcat.url, results$MatchId, "phonemes")

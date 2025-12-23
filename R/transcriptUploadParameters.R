@@ -91,7 +91,7 @@ transcriptUploadParameters <- function(labbcat.url, id, parameters, no.progress=
     }
     
     ## free the upload thread so it's not using server resources
-    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+    thread.release(labbcat.url, threadId)
     
     return(transcript.id)
 }

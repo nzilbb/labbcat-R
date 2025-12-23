@@ -45,11 +45,7 @@ head(matches)[, c("Transcript", "Target.word", "Target.word.start")]
 In order to be able to analyse the /s/ segments, we need it's start and end time, so we can extract a matching sound sample. We identify the first three *segment* annotations of each token, the last of which will be the /s/ segment we're interested in.
 
 ```{r segments}
-segments <- getMatchAlignments(
-  labbcat.url, matches$MatchId, c("segment"), annotations.per.layer=3)
-
-# combine the segment data with the matches
-matches <- cbind(matches, segments)
+matches <- matches |> appendOffsets("segment", annotations.per.layer=3)
 
 # show the first few alignments
 head(matches)[, c(
@@ -59,11 +55,8 @@ head(matches)[, c(
 We want to check whether the acoustic properties of /s/ vary depending on whether it's in a morphological prefix or not, so we need the morphological parses of each word token. We also extract some demographic information about the speakers.
 
 ```{r morphology-and-demographics}
-morphology.demographics <- getMatchLabels(
-  labbcat.url, matches$MatchId, c("morphology", "participant_age_category", "participant_gender"))
-
-# combine the annotation data with the matches
-matches <- cbind(matches, morphology.demographics)
+matches <- matches |> appendLabels(
+  c("morphology", "participant_age_category", "participant_gender"))
 
 # show the first few annotations
 head(matches)[, c(

@@ -49,9 +49,9 @@ getFragmentAnnotations <- function(labbcat.url, transcript.id, participant.id, s
     containment <- "entire"
     if (partial.containment) containment <- "partial"
     parameters <- list(
-        transcript="0",
-        participant="1",
-        starttime="2", endtime="3",
+        transcriptColumn="0",
+        participantColumn="1",
+        startTimeColumn="2", endTimeColumn="3",
         containment=containment,
         labelDelimiter=sep,
         csvFieldDelimiter=",",
@@ -60,7 +60,20 @@ getFragmentAnnotations <- function(labbcat.url, transcript.id, participant.id, s
     layerParameters <- list()
     mapply(function(l) { layerParameters <<- c(layerParameters, list(layerId=l)) }, layer.ids)
     parameters <- c(parameters, layerParameters)
-    resp <- http.post.multipart(labbcat.url, "extractIntervals", parameters)
+    resp <- http.post.multipart(labbcat.url, "/api/annotation/intervals", parameters)
+    if (httr::status_code(resp) == 404) { # server version prior to 20250731.1535
+        parameters <- list(
+            transcript="0",
+            participant="1",
+            starttime="2", endtime="3",
+            containment=containment,
+            labelDelimiter=sep,
+            csvFieldDelimiter=",",
+            copyColumns="false",
+            csv=httr::upload_file(upload.file))
+        parameters <- c(parameters, layerParameters)
+        resp <- http.post.multipart(labbcat.url, "extractIntervals", parameters)
+    }
 
     ## tidily remove the uploaded file
     file.remove(upload.file)
@@ -77,7 +90,6 @@ getFragmentAnnotations <- function(labbcat.url, transcript.id, participant.id, s
 
     ## we get a task ID back
     threadId <- resp.json$model$threadId
-
     pb <- NULL
     if (interactive() && !no.progress) {
         pb <- txtProgressBar(min = 0, max = 100, style = 3)        
@@ -119,7 +131,7 @@ getFragmentAnnotations <- function(labbcat.url, transcript.id, participant.id, s
 
     ## tidy up
     file.remove(download.file)
-    http.get(labbcat.url, "threads", list(threadId=threadId, command="release"))
+    thread.release(labbcat.url, threadId)
     
     return(results)
 }

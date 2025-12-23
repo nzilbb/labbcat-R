@@ -99,7 +99,7 @@ test_that("addDictionaryEntry and removeDictionaryEntry works", {
     ## ensure there's no current definition
     entries <- getDictionaryEntries(
         labbcat.url, "FlatFileDictionary", "unit-test:word->definition", c("DictionaryEntry"))
-    expect_true(is.null(entries$V1[[1]]))
+    expect_equal(entries$V1[1], "")
 
     ## add a word to the layer dictionary
     expect_null(addDictionaryEntry(
@@ -118,7 +118,7 @@ test_that("addDictionaryEntry and removeDictionaryEntry works", {
     ## now there's no definition again
     entries <- getDictionaryEntries(
         labbcat.url, "FlatFileDictionary", "unit-test:word->definition", c("DictionaryEntry"))
-    expect_true(is.null(entries$V1))
+    expect_equal(entries$V1[1], "")
 })
 
 
@@ -129,7 +129,7 @@ test_that("addLayerDictionaryEntry and removeLayerDictionaryEntry works", {
     ## ensure there's no current definition
     entries <- getDictionaryEntries(
         labbcat.url, "FlatFileDictionary", "unit-test:word->definition", c("LayerDictionaryEntry"))
-    expect_true(is.null(entries$V1[[1]]))
+    expect_equal(entries$V1[1], "")
 
     ## ensure the layer is configured
     unitTestLayer <- getLayer(labbcat.url, "unit-test")
@@ -150,7 +150,7 @@ test_that("addLayerDictionaryEntry and removeLayerDictionaryEntry works", {
     ## now there's no definition again
     entries <- getDictionaryEntries(
         labbcat.url, "FlatFileDictionary", "unit-test:word->definition", c("LayerDictionaryEntry"))
-    expect_true(is.null(entries$V1))
+    expect_equal(entries$V1[1], "")
 
 })
 

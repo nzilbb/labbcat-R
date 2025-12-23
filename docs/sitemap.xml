@@ -12,6 +12,9 @@
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/addDictionaryEntry.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/addLayerDictionaryEntry.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/annotatorExt.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/appendFromPraat.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/appendLabels.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/appendOffsets.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/countAnnotations.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/countMatchingAnnotations.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/deleteLayer.html</loc></url>
@@ -25,6 +28,10 @@
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromIds.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/expressionFromTranscriptTypes.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/formatTranscript.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/fragmentAudio.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/fragmentData.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/fragmentLabels.html</loc></url>
+<url><loc>https://nzilbb.github.io/labbcat-R/reference/fragmentTranscripts.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/generateLayer.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/generateLayerUtterances.html</loc></url>
 <url><loc>https://nzilbb.github.io/labbcat-R/reference/getAllUtterances.html</loc></url>

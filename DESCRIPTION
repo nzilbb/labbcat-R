@@ -1,12 +1,12 @@
 Package: nzilbb.labbcat
 Encoding: UTF-8
-Version: 1.4-0
-Date: 2025-05-22
+Version: 1.5-0
+Date: 2025-08-19
 Title: Accessing Data Stored in 'LaBB-CAT' Instances
 Authors@R: c(person("Robert", "Fromont", role = c("aut", "cre"),
                      email = "robert.fromont@canterbury.ac.nz",
                      comment = c(ORCID = "0000-0001-5271-5487")))
-Imports: jsonlite, httr, stringr, utils, rstudioapi
+Imports: jsonlite, httr, stringr, utils, rstudioapi, xml2
 Description: 'LaBB-CAT' is a web-based language corpus management
  system developed by the New Zealand Institute of Language, Brain
  and Behaviour (NZILBB) - see <https://labbcat.canterbury.ac.nz>.

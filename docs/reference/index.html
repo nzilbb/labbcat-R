@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">nzilbb.labbcat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,13 +18,13 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/examples/forced-alignment-comparison.html">Forced Alignment Comparison</a></li>
-    <li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
     <li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-r-script.html">Search, Annotation, and R Script Example</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/nzilbb/labbcat-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -101,25 +101,31 @@
         <dd>Gets labels of annotations on a given layer, identified by given match IDs</dd>
       </dl><dl><dt>
 
+          <code><a href="appendLabels.html">appendLabels()</a></code>
+
+        </dt>
+        <dd>Appends labels of annotations on given layers to a dataframe of matches.</dd>
+      </dl><dl><dt>
+
           <code><a href="getMatchAlignments.html">getMatchAlignments()</a></code>
 
         </dt>
         <dd>Gets temporal alignments of matches on a given layer</dd>
       </dl><dl><dt>
 
-          <code><a href="getSoundFragments.html">getSoundFragments()</a></code>
+          <code><a href="appendOffsets.html">appendOffsets()</a></code>
 
         </dt>
-        <dd>Gets sound fragments from 'LaBB-CAT'</dd>
-      </dl><dl><dt>
-
-          <code><a href="getFragments.html">getFragments()</a></code>
-
-        </dt>
-        <dd>Gets transcript fragments in a given format</dd>
+        <dd>Appends temporal alignments on given layers to a dataframe of matches.</dd>
       </dl><dl><dt>
 
           <code><a href="getFragmentAnnotations.html">getFragmentAnnotations()</a></code>
+
+        </dt>
+        <dd>Gets annotations in fragments.</dd>
+      </dl><dl><dt>
+
+          <code><a href="fragmentLabels.html">fragmentLabels()</a></code>
 
         </dt>
         <dd>Gets annotations in fragments.</dd>
@@ -172,6 +178,59 @@
         </dt>
         <dd>Generates a transcript query expression for matching transcripts by type, for use with getMatches or getMatchingTranscriptIds</dd>
       </dl></div><div class="section level2">
+      <h2 id="extracting-audio-annotation-files">Extracting audio/annotation files<a class="anchor" aria-label="anchor" href="#extracting-audio-annotation-files"></a></h2>
+
+      <div class="section-desc"><p>Extracting data files including audio samples, Praat TextGrids, etc.</p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="getFragments.html">getFragments()</a></code>
+
+        </dt>
+        <dd>Gets transcript fragments in a given format.</dd>
+      </dl><dl><dt>
+
+          <code><a href="fragmentTranscripts.html">fragmentTranscripts()</a></code>
+
+        </dt>
+        <dd>Gets transcript fragments in a given format.</dd>
+      </dl><dl><dt>
+
+          <code><a href="formatTranscript.html">formatTranscript()</a></code>
+
+        </dt>
+        <dd>Gets transcript(s) in a given format</dd>
+      </dl><dl><dt>
+
+          <code><a href="getSoundFragments.html">getSoundFragments()</a></code>
+
+        </dt>
+        <dd>Gets sound fragments from 'LaBB-CAT'.</dd>
+      </dl><dl><dt>
+
+          <code><a href="fragmentAudio.html">fragmentAudio()</a></code>
+
+        </dt>
+        <dd>Gets sound fragments from 'LaBB-CAT'.</dd>
+      </dl><dl><dt>
+
+          <code><a href="getMediaUrl.html">getMediaUrl()</a></code>
+
+        </dt>
+        <dd>Gets the URL of the given media track for a given transcript</dd>
+      </dl><dl><dt>
+
+          <code><a href="getMedia.html">getMedia()</a></code>
+
+        </dt>
+        <dd>Downloads a given media track for a given transcript</dd>
+      </dl></div><div class="section level2">
       <h2 id="extracting-non-textual-annotation-data">Extracting non-textual annotation data<a class="anchor" aria-label="anchor" href="#extracting-non-textual-annotation-data"></a></h2>
 
       <div class="section-desc"><p>Accessing images and other files corresponding to annotations on layers with a MIME type</p></div>
@@ -185,6 +244,12 @@
       <dl><dt>
 
           <code><a href="getFragmentAnnotationData.html">getFragmentAnnotationData()</a></code>
+
+        </dt>
+        <dd>Gets binary annotation data in fragments.</dd>
+      </dl><dl><dt>
+
+          <code><a href="fragmentData.html">fragmentData()</a></code>
 
         </dt>
         <dd>Gets binary annotation data in fragments.</dd>
@@ -211,6 +276,12 @@
 
         </dt>
         <dd>Process a set of intervals with Praat</dd>
+      </dl><dl><dt>
+
+          <code><a href="appendFromPraat.html">appendFromPraat()</a></code>
+
+        </dt>
+        <dd>Appends measurements from Praat to a dataframe of matches.</dd>
       </dl><dl><dt>
 
           <code><a href="praatScriptCentreOfGravity.html">praatScriptCentreOfGravity()</a></code>

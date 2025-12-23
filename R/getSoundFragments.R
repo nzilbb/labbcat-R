@@ -1,4 +1,4 @@
-#' Gets sound fragments from 'LaBB-CAT'
+#' Gets sound fragments from 'LaBB-CAT'.
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param ids The transcript ID (transcript name) of the sound recording, or
@@ -81,7 +81,7 @@ getSoundFragments <- function(labbcat.url, ids, start.offsets, end.offsets, samp
         file.name <- paste(dir, stringr::str_replace(graph.id, "\\.[^.]+$",""), "__", start.offsets[r], "-", end.offsets[r], ".wav", sep="")
 
         tryCatch({
-            resp <- http.post(labbcat.url, "soundfragment", parameters, file.name)
+            resp <- http.post(labbcat.url, "api/media/fragments", parameters, file.name)
             if (httr::status_code(resp) != 200) { # 200 = OK
                 print(paste("ERROR: ", httr::http_status(resp)$message))
                 if (httr::status_code(resp) != 404) { # 404 means the audio wasn't on the server

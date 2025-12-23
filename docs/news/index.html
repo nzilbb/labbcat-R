@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">nzilbb.labbcat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,13 +18,13 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/examples/forced-alignment-comparison.html">Forced Alignment Comparison</a></li>
-    <li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-praat-script.html">Search, Annotation, and Praat Script Example</a></li>
     <li><a class="dropdown-item" href="../articles/examples/search-labels-alignments-r-script.html">Search, Annotation, and R Script Example</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/nzilbb/labbcat-R/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -33,11 +33,63 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-
+      <small>Source: <a href="https://github.com/nzilbb/labbcat-R/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.4-0" id="nzilbblabbcat-14-0">nzilbb.labbcat 1.4-0<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-14-0"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.5-0" id="nzilbblabbcat-15-0">nzilbb.labbcat 1.5-0<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-15-0"></a></h2>
+<div class="section level3">
+<h3 id="new-functions-1-5-0">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-5-0"></a></h3>
+<p>Functions have been added to facilitate tidyverse-style piping expressions to build up a dataframe of search results with annotations, acoustic measurements, etc.</p>
+<p>The following functions add columns to a dataframe of results returned by <code>getMatches</code>:</p>
+<ul><li>
+<em>appendLabels</em> - pipeable version of <code>getMatchLabels</code>
+</li>
+<li>
+<em>appendOffsets</em> - pipeable version of <code>getMatchAnnotations</code>
+</li>
+<li>
+<em>appendFromPraat</em> - pipeable version of <code>processWithPraat</code>
+</li>
+<li>
+<em>fragmentLabels</em> - pipeable version of <code>getFragmentAnnotations</code>
+</li>
+</ul><p>The idea is you can chain together data extraction functions like:</p>
+<pre><code><span><span class="va">matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">url</span>, <span class="st">"(dis|mis).*"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/appendLabels.html">appendLabels</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"phonemes"</span>, <span class="st">"morphology"</span>, <span class="st">"participant_gender"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># layers/meta-data</span></span>
+<span>  <span class="fu"><a href="../reference/appendLabels.html">appendLabels</a></span><span class="op">(</span><span class="st">"orthography"</span>, target.offset <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># previous word</span></span>
+<span>  <span class="fu"><a href="../reference/appendOffsets.html">appendOffsets</a></span><span class="op">(</span><span class="st">"segment"</span>, annotations.per.layer <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># first three phone alignments</span></span>
+<span>  <span class="fu"><a href="../reference/appendFromPraat.html">appendFromPraat</a></span><span class="op">(</span> <span class="co"># F1/F2 of the vowel (the second segment):</span></span>
+<span>    <span class="va">segment.2.start</span>, <span class="va">segment.2.end</span>,</span>
+<span>    window.offset <span class="op">=</span> <span class="fl">0.025</span>,</span>
+<span>    praat.script <span class="op">=</span> <span class="fu"><a href="../reference/praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span>formants <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<p>The following functions produce data/media files defined by fragment start/end times, and do not add columns to the given dataframe, but rather return a list of file names:</p>
+<ul><li>
+<em>fragmentTranscripts</em> - pipeable version of <code>getFragments</code>
+</li>
+<li>
+<em>fragmentAudio</em> - pipeable version of <code>getSoundFragments</code>
+</li>
+<li>
+<em>fragmentData</em> - pipeable version of <code>getFragmentAnnotationData</code>
+</li>
+</ul><p>For example:</p>
+<pre><code><span><span class="va">vivid.tokens</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getMatches.html">getMatches</a></span><span class="op">(</span><span class="va">labbcat.url</span>, <span class="st">"vivid"</span><span class="op">)</span></span>
+<span><span class="va">vivid.textgrids</span> <span class="op">&lt;-</span> <span class="va">vivid.tokens</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/fragmentTranscripts.html">fragmentTranscripts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"word"</span>, <span class="st">"segment"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">vivid.wavs</span> <span class="op">&lt;-</span> <span class="va">vivid.tokens</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/fragmentAudio.html">fragmentAudio</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">vivid.faces</span> <span class="op">&lt;-</span> <span class="va">vivid.tokens</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="../reference/fragmentData.html">fragmentData</a></span><span class="op">(</span> <span class="co">## png images of faces detected by mediapipe during the word</span></span>
+<span>        <span class="st">"mediapipe"</span>, path <span class="op">=</span> <span class="st">"png"</span>,</span>
+<span>        start.column<span class="op">=</span><span class="va">Target.word.start</span>, end.column<span class="op">=</span><span class="va">Target.word.end</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="enhancements-1-5-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-5-0"></a></h3>
+<ul><li>
+<em>labbcatCredentials</em> and all other functions now support the alternative ‘Form’ HTTP authorization that may be configured on the server, in addition to the usual ‘Basic’ authorization.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4-0" id="nzilbblabbcat-14-0">nzilbb.labbcat 1.4-0<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-14-0"></a></h2><p class="text-muted">CRAN release: 2025-05-22</p>
 <p>Minimum LaBB-CAT version <em>20250430.1502</em></p>
 <div class="section level3">
 <h3 id="new-functions-1-4-0">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-4-0"></a></h3>
@@ -61,7 +113,8 @@
 <div class="section level3">
 <h3 id="enhancements-1-4-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-4-0"></a></h3>
 <ul><li>
-<em>getMatches</em> supports matching within-word segment context by allowing more than one pattern on segment layers, and anchoring segments to word boundaries.</li></ul><pre><code>## Examples of within-word segment context:
+<em>getMatches</em> supports matching within-word segment context by allowing more than one pattern on segment layers, and anchoring segments to word boundaries.</li>
+</ul><pre><code>## Examples of within-word segment context:
 
 ## words that contain the /I/ phone followed by the /l/ phone
 ## (multiple patterns per word currently only works for segment layers)
@@ -95,7 +148,8 @@ pattern &lt;- list(
 <h3 id="new-functions-1-3-0">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-3-0"></a></h3>
 <ul><li>
 <em>labbcatVersionInfo</em> - gets version information of all components of LaBB-CAT</li>
-<li>Helper functions for formulating the new <em>participant.expression</em> and <em>transcript.expression</em> parameters of <em>getMatches</em>:<ul><li>
+<li>Helper functions for formulating the new <em>participant.expression</em> and <em>transcript.expression</em> parameters of <em>getMatches</em>:
+<ul><li>
 <em>expressionFromIds</em> : expression based on a list of IDs</li>
 <li>
 <em>expressionFromAttributeValue</em> : expression based on a list of possible attribute values</li>
@@ -104,7 +158,8 @@ pattern &lt;- list(
 <li>
 <em>expressionFromTranscriptTypes</em> : expression based on a list of possible transcript types</li>
 </ul></li>
-<li>Manage participant records<ul><li>
+<li>Manage participant records
+<ul><li>
 <em>getParticipant</em> : Gets ID and participant attribute values for a single participant.</li>
 <li>
 <em>saveParticipant</em> : Saves participant data (supports creating and renaming participants).</li>
@@ -151,14 +206,16 @@ pattern &lt;- list(
 <div class="section level3">
 <h3 id="enhancements-1-1-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-1-1"></a></h3>
 <ul><li>
-<em>praatScriptPitch</em> and <em>praatScriptIntensity</em> have additional parameters<ul><li>
+<em>praatScriptPitch</em> and <em>praatScriptIntensity</em> have additional parameters
+<ul><li>
 <em>sample.points</em> - <code>Get value at time</code> for points spread through the duration of the sample</li>
 <li>
 <em>interpolation</em> - interpolation to use for <code>Get value at time</code>
 </li>
 <li>
 <em>skip.errors</em> - how to handle errors when Praat can’t create objects</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1-0" id="nzilbblabbcat-11-0">nzilbb.labbcat 1.1-0<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-11-0"></a></h2><p class="text-muted">CRAN release: 2022-04-12</p>
@@ -175,19 +232,22 @@ pattern &lt;- list(
 <em>getAnnotatorDescriptor</em> : Get information about an annotator.</li>
 <li>
 <em>annotatorExt</em> : Retrieve an annotator extension resource.</li>
-<li>Manage annotation layers<ul><li>
+<li>Manage annotation layers
+<ul><li>
 <em>newLayer</em> : Add a new annotation layer.</li>
 <li>
 <em>saveLayer</em> : Save a new definition for an existing annotation layer.</li>
 <li>
 <em>deleteLayer</em> : Delete an existing annotation layer.</li>
 </ul></li>
-<li>Manage Flat Lexicon Tagger lexicons<ul><li>
+<li>Manage Flat Lexicon Tagger lexicons
+<ul><li>
 <em>uploadLexicon</em> : Upload a lexicon file for the Flat Lexicon Tagger.</li>
 <li>
 <em>deleteLexicon</em> : Delete a previously uploaded lexicon from the Flat Lexicon Tagger.</li>
 </ul></li>
-<li>Manage dictionary entries<ul><li><em>addLayerDictionaryEntry</em></li>
+<li>Manage dictionary entries
+<ul><li><em>addLayerDictionaryEntry</em></li>
 <li><em>removeLayerDictionaryEntry</em></li>
 <li><em>addDictionaryEntry</em></li>
 <li><em>removeDictionaryEntry</em></li>
@@ -200,7 +260,8 @@ pattern &lt;- list(
 <div class="section level3">
 <h3 id="enhancements-1-0-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-1"></a></h3>
 <ul><li>All function parameters are now named with dot.case instead of camelCase, for internal and external consistency.</li>
-<li>Re-instate <em>no.progress</em> parameter for<ul><li><em>getAllUtterances</em></li>
+<li>Re-instate <em>no.progress</em> parameter for
+<ul><li><em>getAllUtterances</em></li>
 <li><em>getMatchAlignments</em></li>
 <li><em>getMatchLabels</em></li>
 <li><em>getSoundFragments</em></li>
@@ -208,14 +269,17 @@ pattern &lt;- list(
 <li><em>updateTranscript</em></li>
 <li><em>processWithPraat</em></li>
 </ul></li>
-<li>Break some requests into chunks to avoid timeouts for very large result sets:<ul><li><em>getMatches</em></li>
+<li>Break some requests into chunks to avoid timeouts for very large result sets:
+<ul><li><em>getMatches</em></li>
 <li><em>getMatchLabels</em></li>
 <li><em>getMatchAlignments</em></li>
 </ul></li>
-<li>Introduce <em>include.match.ids</em> parameter for manual matching of prior results if required for<ul><li><em>getMatchLabels</em></li>
+<li>Introduce <em>include.match.ids</em> parameter for manual matching of prior results if required for
+<ul><li><em>getMatchLabels</em></li>
 <li><em>getMatchAlignments</em></li>
 </ul></li>
-<li>Introduce <em>page.length</em> parameter for tuning request sizes on some functions for<ul><li><em>getAnchors</em></li>
+<li>Introduce <em>page.length</em> parameter for tuning request sizes on some functions for
+<ul><li><em>getAnchors</em></li>
 <li><em>getAnnotations</em></li>
 <li><em>getMatchingTranscriptIds</em></li>
 <li><em>getMatches</em></li>
@@ -229,7 +293,8 @@ pattern &lt;- list(
 <div class="section level3">
 <h3 id="new-functions-1-0-1">New functions:<a class="anchor" aria-label="anchor" href="#new-functions-1-0-1"></a></h3>
 <ul><li>
-<em>getMatchingParticipantIds</em>: Gets a list of IDs of participants that match a particular pattern.</li></ul></div>
+<em>getMatchingParticipantIds</em>: Gets a list of IDs of participants that match a particular pattern.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.7-1" id="nzilbblabbcat-07-1">nzilbb.labbcat 0.7-1<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-07-1"></a></h2><p class="text-muted">CRAN release: 2021-05-27</p>
@@ -288,9 +353,11 @@ pattern &lt;- list(
 </ul></div>
 <div class="section level3">
 <h3 id="enhancements-0-5-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-5-1"></a></h3>
-<ul><li>getAnnotationLabels now supports<ul><li>retrieval of multiple layers</li>
+<ul><li>getAnnotationLabels now supports
+<ul><li>retrieval of multiple layers</li>
 <li>labels for next/previous token</li>
-</ul></li></ul></div>
+</ul></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.4-1" id="nzilbblabbcat-04-1">nzilbb.labbcat 0.4-1<a class="anchor" aria-label="anchor" href="#nzilbblabbcat-04-1"></a></h2><p class="text-muted">CRAN release: 2020-01-09</p>
@@ -315,7 +382,8 @@ pattern &lt;- list(
 <div class="section level3">
 <h3 id="enhancements-0-3-1">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-3-1"></a></h3>
 <ul><li>
-<em>path</em> parameter for the <em>getSoundFragments</em> function</li></ul></div>
+<em>path</em> parameter for the <em>getSoundFragments</em> function</li>
+</ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

@@ -14,7 +14,10 @@
 #' @keywords dictionary
 #' 
 getDictionaries <- function(labbcat.url) {
-    resp <- http.get(labbcat.url, "dictionaries")
+    resp <- http.get(labbcat.url, "api/dictionaries")
+    if (httr::status_code(resp) == 404) { # endpoint not there, fall back to old endpoint
+        resp <- http.get(labbcat.url, "dictionaries")
+    }
     if (is.null(resp)) return()
     resp.content <- httr::content(resp, as="text", encoding="UTF-8")
     if (httr::status_code(resp) != 200) { # 200 = OK
