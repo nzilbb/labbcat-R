@@ -1,3 +1,7 @@
+# nzilbb.labbcat 1.5-1
+
+Ensure that URL parameters containing ampersands are appropriately encoded.
+
 # nzilbb.labbcat 1.5-0
 
 Minimum LaBB-CAT version *20250430.1502* (preferred: *20250819.1454*)
