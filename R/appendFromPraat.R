@@ -78,6 +78,10 @@
 #'   gender of the speaker is, including the "participant_gender" attribute will make a
 #'   variable called participant_gender$ available to the praat script, whose value will
 #'   be the gender of the speaker of that segment.
+#' @param page.length In order to prevent timeouts when there are a large number of
+#'   matches or the network connection is slow, rather than retrieving matches in one
+#'   big request, they are retrieved using many smaller requests. This parameter
+#'   controls the number of results retrieved per request.
 #' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
 #' @param labbcat.url URL to the LaBB-CAT instance (instead of inferring it from `matches`).
@@ -123,7 +127,7 @@
 appendFromPraat <- function(matches, start.column, end.column,
                             praat.script, window.offset,
                             gender.attribute="participant_gender", attributes=NULL,
-                            no.progress=FALSE,
+                            page.length=1000, no.progress=FALSE,
                             labbcat.url=NULL, column.prefix=NULL) {
     labbcat.url <- determineLabbcatUrl(labbcat.url, matches)
     if (is.null(labbcat.url)) {
@@ -133,7 +137,10 @@ appendFromPraat <- function(matches, start.column, end.column,
         labbcat.url, matches$MatchId,
         matches[[deparse(substitute(start.column))]],
         matches[[deparse(substitute(end.column))]],
-        praat.script, window.offset, gender.attribute, attributes, no.progress)
+        praat.script, window.offset,
+        gender.attribute=gender.attribute,
+        attributes=attributes,
+        page.length=page.length, no.progress=no.progress)
     if (!is.null(column.prefix)) {
         names(newColumns) = paste0(column.prefix, names(newColumns))
     }

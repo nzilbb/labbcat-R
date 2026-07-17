@@ -1,3 +1,9 @@
+# nzilbb.labbcat 1.6-0
+
+- Introduce *page.length* parameter for tuning request sizes for
+  + *processWithPraat*
+  + *appendFromPraat*
+
 # nzilbb.labbcat 1.5-1
 
 Ensure that URL parameters containing ampersands are appropriately encoded.
