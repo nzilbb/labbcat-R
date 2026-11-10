@@ -53,7 +53,8 @@
 #'
 #' @param labbcat.url URL to the LaBB-CAT instance
 #' @param match.ids A vector of annotation IDs, e.g. the MatchId column, or the URL column,
-#'   of a results set. 
+#'   of a results set. Alternatively, if participant.ids is specified, match.ids is
+#'   aseumed to be a vector of transcript IDs.
 #' @param start.offsets The start time in seconds, or a vector of start times.
 #' @param end.offsets The end time in seconds, or a vector of end times.
 #' @param praat.script Script to run on each match. This may be a single string or a
@@ -82,6 +83,8 @@
 #'   controls the number of results retrieved per request.
 #' @param no.progress TRUE to suppress visual progress bar. Otherwise, progress bar will be
 #'   shown when interactive().
+#' @param participant.ids A vector of participant IDs parallel to match.ids, start.offsets
+#'   and end.offsets. If specified, match.ids is assumed to be a list of transcript IDs.
 #' @return A data frame of acoustic measures, one row for each matchId.
 #' 
 #' @family Praat-related functions
@@ -113,20 +116,36 @@
 #'        labbcat.url,
 #'        results$MatchId, results$Target.segment.start, result$Target.segment.end,
 #'        readLines("acousticMeasurements.praat"))
+#' 
+#' ## specify transcript IDs and participant IDs, instad of MatchIds
+#' results <- read.csv("results.csv", header=T)
+#' formants <- processWithPraat(
+#'        labbcat.url,
+#'        match.ids=results$Transcript,
+#'        participant.ids=results$Participant,
+#'        start.offsets=results$Target.segment.start,
+#'        end.offsets=results$Target.segment.end,
+#'        praatScriptFormants())
 #' }
 #' @keywords praat
 #' 
 processWithPraat <- function(labbcat.url, match.ids, start.offsets, end.offsets,
                              praat.script, window.offset,
                              gender.attribute="participant_gender", attributes=NULL,
-                             page.length=1000, no.progress=FALSE) {
+                             page.length=1000, no.progress=FALSE,
+                             participant.ids=NULL) {
 
     ## make the script a single string
     praat.script <- paste(praat.script, collapse="\n")
 
-    ## split match.ids into transcript ID and participant ID
-    transcriptIds <- stringr::str_replace(match.ids, ".*(g_[0-9]+);.*","\\1")
-    participantIds <- stringr::str_replace(match.ids, ".*(p_[0-9]+);.*","\\1")
+    if (is.null(participant.ids)) { # match.ids...
+        ## split match.ids into transcript ID and participant ID
+        transcriptIds <- stringr::str_replace(match.ids, ".*(g_[0-9]+);.*","\\1")
+        participantIds <- stringr::str_replace(match.ids, ".*(p_[0-9]+);.*","\\1")
+    } else { # transcript IDs and participant IDS
+        transcriptIds <- match.ids
+        participantIds <- participant.ids
+    }
 
     ## create a data frame for all columns
     targets <- data.frame(transcriptIds, participantIds, start.offsets, end.offsets)
