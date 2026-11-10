@@ -9,7 +9,7 @@ intervals, in order to extract acoustic measures."><meta property="og:image" con
 
     <a class="navbar-brand me-2" href="../index.html">nzilbb.labbcat</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5-1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,9 @@ intervals, in order to extract acoustic measures.</p>
 <span>  <span class="va">window.offset</span>,</span>
 <span>  gender.attribute <span class="op">=</span> <span class="st">"participant_gender"</span>,</span>
 <span>  attributes <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  page.length <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  no.progress <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  participant.ids <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -69,7 +71,8 @@ intervals, in order to extract acoustic measures.</p>
 
 <dt id="arg-match-ids">match.ids<a class="anchor" aria-label="anchor" href="#arg-match-ids"></a></dt>
 <dd><p>A vector of annotation IDs, e.g. the MatchId column, or the URL column,
-of a results set.</p></dd>
+of a results set. Alternatively, if participant.ids is specified, match.ids is
+aseumed to be a vector of transcript IDs.</p></dd>
 
 
 <dt id="arg-start-offsets">start.offsets<a class="anchor" aria-label="anchor" href="#arg-start-offsets"></a></dt>
@@ -112,9 +115,21 @@ variable called participant_gender$ available to the praat script, whose value w
 be the gender of the speaker of that segment.</p></dd>
 
 
+<dt id="arg-page-length">page.length<a class="anchor" aria-label="anchor" href="#arg-page-length"></a></dt>
+<dd><p>In order to prevent timeouts when there are a large number of
+matches or the network connection is slow, rather than retrieving matches in one
+big request, they are retrieved using many smaller requests. This parameter
+controls the number of results retrieved per request.</p></dd>
+
+
 <dt id="arg-no-progress">no.progress<a class="anchor" aria-label="anchor" href="#arg-no-progress"></a></dt>
 <dd><p>TRUE to suppress visual progress bar. Otherwise, progress bar will be
 shown when interactive().</p></dd>
+
+
+<dt id="arg-participant-ids">participant.ids<a class="anchor" aria-label="anchor" href="#arg-participant-ids"></a></dt>
+<dd><p>A vector of participant IDs parallel to match.ids, start.offsets
+and end.offsets. If specified, match.ids is assumed to be a list of transcript IDs.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -204,6 +219,16 @@ form:</p>
 <span class="r-in"><span>       <span class="va">labbcat.url</span>,</span></span>
 <span class="r-in"><span>       <span class="va">results</span><span class="op">$</span><span class="va">MatchId</span>, <span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>, <span class="va">result</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
 <span class="r-in"><span>       <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"acousticMeasurements.praat"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## specify transcript IDs and participant IDs, instad of MatchIds</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"results.csv"</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">formants</span> <span class="op">&lt;-</span> <span class="fu">processWithPraat</span><span class="op">(</span></span></span>
+<span class="r-in"><span>       <span class="va">labbcat.url</span>,</span></span>
+<span class="r-in"><span>       match.ids<span class="op">=</span><span class="va">results</span><span class="op">$</span><span class="va">Transcript</span>,</span></span>
+<span class="r-in"><span>       participant.ids<span class="op">=</span><span class="va">results</span><span class="op">$</span><span class="va">Participant</span>,</span></span>
+<span class="r-in"><span>       start.offsets<span class="op">=</span><span class="va">results</span><span class="op">$</span><span class="va">Target.segment.start</span>,</span></span>
+<span class="r-in"><span>       end.offsets<span class="op">=</span><span class="va">results</span><span class="op">$</span><span class="va">Target.segment.end</span>,</span></span>
+<span class="r-in"><span>       <span class="fu"><a href="praatScriptFormants.html">praatScriptFormants</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

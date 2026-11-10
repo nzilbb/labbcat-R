@@ -22,8 +22,8 @@ keywords:
   - LaBB-CAT
   - corpus linguistics
 license: AGPL-3.0-or-later
-version: 1.5-1
+version: 1.6-0
 identifiers:
   - type: doi
     value: 10.5281/zenodo.19359314
-date-released: '2026-03-31'
+date-released: '2026-11-10'
